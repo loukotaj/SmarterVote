@@ -6,28 +6,21 @@ from typing import Any, Dict, Literal
 
 import httpx
 
-from shared.forecast_summary import build_chamber_context, get_chamber_forecast_system_prompt, summarize_chamber
+from shared.forecast_summary import (
+    build_chamber_context,
+    get_chamber_forecast_system_prompt,
+    is_chamber_control_race,
+    summarize_chamber,
+)
 
 Chamber = Literal["house", "senate", "governors"]
 
 REQUIRED_ANALYSIS_KEYS = ["narrative", "bottom_line", "why_party_favored", "opposing_party_path", "key_uncertainty"]
 
 
-def _office_matches(race: dict[str, Any], chamber: Chamber) -> bool:
-    office = str(race.get("office") or "").lower()
-    if chamber == "senate":
-        return "senate" in office
-    if chamber == "governors":
-        return "governor" in office or "gubernatorial" in office
-    return "house" in office or "representative" in office
-
-
 def races_for_chamber(summaries: list[dict[str, Any]], chamber: Chamber) -> list[dict[str, Any]]:
-    return [
-        race
-        for race in summaries
-        if _office_matches(race, chamber) and not (chamber == "governors" and race.get("id") == "in-governor-2026")
-    ]
+    """Races the narrative should describe — the same set `summarize_chamber` counts."""
+    return [race for race in summaries if is_chamber_control_race(race, chamber)]
 
 
 def _strip_markdown_code_fence(content: str) -> str:

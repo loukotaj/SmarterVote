@@ -343,4 +343,87 @@ describe("forecast utilities", () => {
       ).toEqual(["b"]);
     });
   });
+
+  describe("chamber classification generality", () => {
+    // `office` is free text written by the research model, so the classifier
+    // must not depend on one federal spelling — anchoring on a spelling used to
+    // drop "US Senate" and bare "Senate" races off the forecast page entirely.
+    it.each([
+      "U.S. Senate",
+      "US Senate",
+      "United States Senate",
+      "Senate",
+      "Senator",
+    ])("classifies %s as the federal Senate", (office) => {
+      expect(officeGroup({ ...baseRace, id: "x-senate-2026", office })).toBe(
+        "senate",
+      );
+    });
+
+    it.each(["U.S. House", "US House of Representatives", "Congress"])(
+      "classifies %s as the federal House",
+      (office) => {
+        expect(officeGroup({ ...baseRace, id: "x-house-2026", office })).toBe(
+          "house",
+        );
+      },
+    );
+
+    it.each([
+      "Georgia State Senate District 5",
+      "State Senator",
+      "State House of Representatives",
+      "Virginia House of Delegates",
+      "State Assembly",
+      "General Assembly",
+    ])("does not classify %s into any federal chamber", (office) => {
+      expect(
+        officeGroup({ ...baseRace, id: "x-state-2026", office }),
+      ).toBeNull();
+    });
+
+    // Not Indiana-specific: the rule is "this state's governor is not up this
+    // cycle", derived from GOVERNOR_HOLDOVERS.
+    it.each(["Indiana", "Kentucky", "Louisiana", "Virginia"])(
+      "excludes the %s governor race from governor control math",
+      (state) => {
+        const race = {
+          ...baseRace,
+          id: "xx-governor-2026",
+          office: "Governor",
+          state,
+        } as RaceSummary;
+        expect(isRaceInForecastTab(race, "governors")).toBe(false);
+      },
+    );
+
+    it("still counts a governor race in a state that is on the ballot", () => {
+      const race = {
+        ...baseRace,
+        id: "ga-governor-2026",
+        office: "Governor",
+        state: "Georgia",
+      } as RaceSummary;
+      expect(isRaceInForecastTab(race, "governors")).toBe(true);
+    });
+
+    it("resolves the holdover state from the race id when state is absent", () => {
+      const race = {
+        ...baseRace,
+        id: "in-governor-2026",
+        office: "Governor",
+      } as RaceSummary;
+      expect(isRaceInForecastTab(race, "governors")).toBe(false);
+    });
+
+    it("does not extend the governor holdover exclusion to other chambers", () => {
+      const race = {
+        ...baseRace,
+        id: "in-house-01-2026",
+        office: "U.S. House",
+        state: "Indiana",
+      } as RaceSummary;
+      expect(isRaceInForecastTab(race, "house")).toBe(true);
+    });
+  });
 });

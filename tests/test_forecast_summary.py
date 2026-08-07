@@ -1,4 +1,13 @@
-from shared.forecast_summary import build_chamber_forecasts
+import pytest
+
+from shared.forecast_summary import (
+    ABBR_TO_STATE,
+    GOVERNOR_HOLDOVERS,
+    SENATE_HOLDOVERS,
+    build_chamber_forecasts,
+    is_chamber_control_race,
+    office_group,
+)
 from shared.race_catalog import build_race_summary_fields
 
 
@@ -299,3 +308,125 @@ def test_governor_context_exposes_tie_and_distinguishes_projection_from_control_
     assert "Projected Seats: 24 Democratic, 26 Republican" in context
     assert "Probability of a 25-25 tie: 18.7%" in context
     assert "may differ" in context
+
+
+# ---------------------------------------------------------------------------
+# office_group / is_chamber_control_race
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "office",
+    ["U.S. Senate", "US Senate", "United States Senate", "Senate", "Senator"],
+)
+def test_office_group_accepts_every_spelling_of_the_federal_senate(office):
+    """`office` is model-written free text; no single spelling may be required."""
+    assert office_group({"office": office}) == "senate"
+
+
+@pytest.mark.parametrize(
+    "office",
+    [
+        "Georgia State Senate District 5",
+        "State Senator",
+        "State House of Representatives",
+        "Virginia House of Delegates",
+        "State Assembly",
+        "General Assembly",
+    ],
+)
+def test_office_group_rejects_state_legislative_offices(office):
+    assert office_group({"office": office}) is None
+
+
+@pytest.mark.parametrize("office", ["U.S. House", "US House of Representatives", "Congress"])
+def test_office_group_accepts_every_spelling_of_the_federal_house(office):
+    assert office_group({"office": office}) == "house"
+
+
+def test_governor_race_in_a_holdover_state_is_excluded_from_control_math():
+    """Not Indiana-specific: any state whose governor is not up this cycle."""
+    for state in ("Indiana", "Kentucky", "Louisiana", "Virginia"):
+        race = {"id": "xx-governor-2026", "office": "Governor", "state": state}
+        assert is_chamber_control_race(race, "governors") is False
+
+
+def test_governor_race_in_a_contested_state_is_counted():
+    race = {"id": "ga-governor-2026", "office": "Governor", "state": "Georgia"}
+    assert is_chamber_control_race(race, "governors") is True
+
+
+def test_holdover_exclusion_resolves_state_from_the_race_id():
+    """Summaries without an explicit `state` still resolve via the ID prefix."""
+    assert is_chamber_control_race({"id": "in-governor-2026", "office": "Governor"}, "governors") is False
+
+
+def test_holdover_exclusion_does_not_apply_to_other_chambers():
+    """Indiana holds no 2026 governor race but does hold House races."""
+    race = {"id": "in-house-01-2026", "office": "U.S. House", "state": "Indiana"}
+    assert is_chamber_control_race(race, "house") is True
+
+
+def test_abbr_to_state_covers_all_fifty_states():
+    """A missing abbreviation makes `race_state` return None for a whole state,
+    silently dropping it from holdover/active-state math. Indiana was missing."""
+    expected = {
+        "al",
+        "ak",
+        "az",
+        "ar",
+        "ca",
+        "co",
+        "ct",
+        "de",
+        "fl",
+        "ga",
+        "hi",
+        "id",
+        "il",
+        "in",
+        "ia",
+        "ks",
+        "ky",
+        "la",
+        "me",
+        "md",
+        "ma",
+        "mi",
+        "mn",
+        "ms",
+        "mo",
+        "mt",
+        "ne",
+        "nv",
+        "nh",
+        "nj",
+        "nm",
+        "ny",
+        "nc",
+        "nd",
+        "oh",
+        "ok",
+        "or",
+        "pa",
+        "ri",
+        "sc",
+        "sd",
+        "tn",
+        "tx",
+        "ut",
+        "vt",
+        "va",
+        "wa",
+        "wv",
+        "wi",
+        "wy",
+    }
+    assert set(ABBR_TO_STATE) == expected
+
+
+def test_every_holdover_state_name_is_a_real_state():
+    """Holdover tables are keyed by full state name; a typo silently drops seats."""
+    valid = set(ABBR_TO_STATE.values())
+    assert set(SENATE_HOLDOVERS) <= valid
+    assert set(GOVERNOR_HOLDOVERS) <= valid

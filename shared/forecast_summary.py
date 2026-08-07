@@ -108,6 +108,7 @@ ABBR_TO_STATE = {
     "ia": "Iowa",
     "id": "Idaho",
     "il": "Illinois",
+    "in": "Indiana",
     "ks": "Kansas",
     "ky": "Kentucky",
     "la": "Louisiana",
@@ -155,13 +156,33 @@ def normalize_party(party: Any) -> Party:
     return "Other"
 
 
+# `office` is free text written by the research model, so the same chamber shows
+# up as "U.S. Senate", "US Senate", "United States Senate", or bare "Senate".
+# Match on the chamber word and rule out state legislatures separately, rather
+# than requiring one exact federal spelling — anchoring on a spelling silently
+# drops whole races from the chamber math.
+STATE_LEGISLATIVE_OFFICE_MARKERS = (
+    "state senate",
+    "state senator",
+    "state house",
+    "state representative",
+    "state assembly",
+    "state legislature",
+    "state legislative",
+    "general assembly",
+    "house of delegates",
+)
+
+
 def office_group(race: Dict[str, Any]) -> Chamber | None:
     office = str(race.get("office") or "").lower()
-    if "senate" in office:
+    if any(marker in office for marker in STATE_LEGISLATIVE_OFFICE_MARKERS):
+        return None
+    if "senate" in office or "senator" in office:
         return "senate"
     if "governor" in office or "gubernatorial" in office:
         return "governors"
-    if "house" in office or "representative" in office:
+    if "house" in office or "representative" in office or "congress" in office:
         return "house"
     return None
 
@@ -172,6 +193,22 @@ def race_state(race: Dict[str, Any]) -> str | None:
         return str(state)
     race_id = str(race.get("id") or race.get("race_id") or "")
     return ABBR_TO_STATE.get(race_id.split("-")[0].lower())
+
+
+def is_chamber_control_race(race: Dict[str, Any], chamber: Chamber) -> bool:
+    """Whether ``race`` should be counted toward ``chamber``'s seat math.
+
+    A governor race in a `GOVERNOR_HOLDOVERS` state is not on this cycle's
+    ballot — that state's seat is already counted from the holdover table, so
+    counting the race as well double-counts the state. Deriving the exclusion
+    from the holdover table keeps it correct when the table is rolled forward to
+    the next cycle; naming individual race IDs does not.
+    """
+    if office_group(race) != chamber:
+        return False
+    if chamber == "governors" and race_state(race) in GOVERNOR_HOLDOVERS:
+        return False
+    return True
 
 
 def fallback_party_for_race(race: Dict[str, Any]) -> Party:
@@ -236,11 +273,7 @@ def _race_party_probabilities(forecast: Dict[str, Any]) -> Dict[Party, float]:
 
 
 def _chamber_races(summaries: Iterable[Dict[str, Any]], chamber: Chamber) -> list[Dict[str, Any]]:
-    return [
-        race
-        for race in summaries
-        if office_group(race) == chamber and not (chamber == "governors" and race.get("id") == "in-governor-2026")
-    ]
+    return [race for race in summaries if is_chamber_control_race(race, chamber)]
 
 
 def _projected_control(projected: Dict[Party, int], chamber: Chamber) -> Party:

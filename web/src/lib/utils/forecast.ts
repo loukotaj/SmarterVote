@@ -142,15 +142,36 @@ export const INCUMBENT_FALLBACKS: Record<
   house: {},
 };
 
+// `office` is free text written by the research model, so the same chamber shows
+// up as "U.S. Senate", "US Senate", "United States Senate", or bare "Senate".
+// Match on the chamber word and rule out state legislatures separately, rather
+// than requiring one exact federal spelling — anchoring on a spelling silently
+// drops whole races from the forecast page. Mirrors `office_group` in
+// `shared/forecast_summary.py`.
+const STATE_LEGISLATIVE_OFFICE_MARKERS = [
+  "state senate",
+  "state senator",
+  "state house",
+  "state representative",
+  "state assembly",
+  "state legislature",
+  "state legislative",
+  "general assembly",
+  "house of delegates",
+];
+
 export function officeGroup(race: RaceSummary): ForecastTab | null {
   const office = (race.office || "").toLowerCase();
-  if (office.includes("state senate") || office.includes("state senator"))
+  if (STATE_LEGISLATIVE_OFFICE_MARKERS.some((m) => office.includes(m)))
     return null;
-  if (office.includes("united states senate") || office.includes("u.s. senate"))
-    return "senate";
+  if (office.includes("senate") || office.includes("senator")) return "senate";
   if (office.includes("governor") || office.includes("gubernatorial"))
     return "governors";
-  if (office.includes("house") || office.includes("representative"))
+  if (
+    office.includes("house") ||
+    office.includes("representative") ||
+    office.includes("congress")
+  )
     return "house";
   return null;
 }
@@ -231,8 +252,17 @@ function currentBaselineFor(tab: ForecastTab): Record<string, number> {
   return { ...HOUSE_CURRENT_BASELINE };
 }
 
+/**
+ * A governor race in a holdover state is not on this cycle's ballot — that
+ * state's seat is already counted from GOVERNOR_HOLDOVERS, so counting the race
+ * too would double-count the state. Deriving this from the holdover table keeps
+ * it correct when the table rolls forward to the next cycle; naming individual
+ * race IDs does not. Mirrors `is_chamber_control_race` in
+ * `shared/forecast_summary.py`.
+ */
 export function isValidGovernorControlRace(race: RaceSummary): boolean {
-  return race.id !== "in-governor-2026";
+  const state = getRaceState(race);
+  return !state || !(state in GOVERNOR_HOLDOVERS);
 }
 
 export function isForecastTab(

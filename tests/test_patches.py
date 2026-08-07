@@ -12,7 +12,6 @@ from pipeline_client.agent.patches import (
     _apply_issue_patch,
     _apply_meta_patch,
     _apply_refine_patch,
-    _deduplicate_donors,
     _summarize_existing_stances,
 )
 
@@ -300,41 +299,3 @@ def test_apply_finance_patch_ignores_falsy_string_fields():
 
     assert race_json["candidates"][0]["donor_summary"] == "existing"
     assert "voting_summary" not in race_json["candidates"][0]
-
-
-# ---------------------------------------------------------------------------
-# _deduplicate_donors
-# ---------------------------------------------------------------------------
-
-
-def test_deduplicate_donors_keeps_highest_amount_for_duplicate_names():
-    donors = [
-        {"name": "Acme Corp", "amount": 1000},
-        {"name": "acme corp", "amount": 5000},
-        {"name": "Other Donor", "amount": 200},
-    ]
-
-    result = _deduplicate_donors(donors)
-
-    by_name = {d["name"]: d["amount"] for d in result}
-    assert len(result) == 2
-    assert 5000 in by_name.values()
-    assert 200 in by_name.values()
-
-
-def test_deduplicate_donors_skips_entries_without_name():
-    donors = [{"name": "", "amount": 100}, {"amount": 50}, {"name": "Real Donor", "amount": 10}]
-
-    result = _deduplicate_donors(donors)
-
-    assert len(result) == 1
-    assert result[0]["name"] == "Real Donor"
-
-
-def test_deduplicate_donors_treats_missing_amount_as_zero():
-    donors = [{"name": "Donor A"}, {"name": "donor a", "amount": 10}]
-
-    result = _deduplicate_donors(donors)
-
-    assert len(result) == 1
-    assert result[0]["amount"] == 10

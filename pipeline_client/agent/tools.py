@@ -750,7 +750,7 @@ CLEAR_EDUCATION_TOOL: Dict = {
     },
 }
 
-BIO_TOOLS: List[Dict] = [
+BACKGROUND_TOOLS: List[Dict] = [
     ADD_CAREER_ENTRY_TOOL,
     REMOVE_CAREER_ENTRY_TOOL,
     UPDATE_CAREER_ENTRY_TOOL,
@@ -760,7 +760,6 @@ BIO_TOOLS: List[Dict] = [
     CLEAR_CAREER_TOOL,
     CLEAR_EDUCATION_TOOL,
 ]
-BACKGROUND_TOOLS = BIO_TOOLS  # backward-compat alias
 
 # ---------------------------------------------------------------------------
 # Issue stance tool
