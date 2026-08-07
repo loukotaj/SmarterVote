@@ -1,3 +1,4 @@
+from shared import repair_planner
 from shared.models import CanonicalIssue
 from shared.repair_planner import build_repair_plan, summarize_repair_plans
 
@@ -159,3 +160,53 @@ def test_issue_research_still_guarantees_a_validation_tail():
     assert "issues" in plan["recommended_steps"]
     all_steps = {step for group in plan["repair_groups"] for step in group["enabled_steps"]}
     assert {"review", "iteration"} <= all_steps
+
+
+# ---------------------------------------------------------------------------
+# The issue-research tail is spelled out in more than one place
+# ---------------------------------------------------------------------------
+
+
+def test_issue_research_steps_are_all_real_pipeline_steps():
+    """A typo here does not raise — the step simply never gets planned."""
+    from shared.pipeline_config import PIPELINE_STEP_IDS
+
+    assert repair_planner._ISSUE_RESEARCH_CANDIDATE_STEPS <= PIPELINE_STEP_IDS
+    assert repair_planner._ISSUE_RESEARCH_FINALIZATION_STEPS <= PIPELINE_STEP_IDS
+
+
+def test_safety_steps_are_exactly_the_two_halves():
+    """Guards the split itself: a step added to neither half would vanish from
+    the safety set while still looking accounted for."""
+    assert repair_planner._ISSUE_RESEARCH_SAFETY_STEPS == (
+        repair_planner._ISSUE_RESEARCH_CANDIDATE_STEPS | repair_planner._ISSUE_RESEARCH_FINALIZATION_STEPS
+    )
+    assert not (repair_planner._ISSUE_RESEARCH_CANDIDATE_STEPS & repair_planner._ISSUE_RESEARCH_FINALIZATION_STEPS)
+
+
+def test_issue_research_never_plans_without_its_validation_tail():
+    """Raw issue stances are unvalidated until review and iteration run, which is
+    why the planner folds the tail into any plan that researches issues. If
+    review or iteration ever left the finalization half, the planner would start
+    producing exactly the issues-only run the pipeline forbids."""
+    assert {"review", "iteration"} <= repair_planner._ISSUE_RESEARCH_FINALIZATION_STEPS
+    assert "issues" in repair_planner._ISSUE_RESEARCH_CANDIDATE_STEPS
+
+
+def test_triage_queues_the_same_combined_run_the_planner_plans():
+    """`scripts/triage_race_issues.py` queues COMBINED_STEPS; the planner builds
+    its own set. They are the same combined run described in CLAUDE.md, written
+    down twice, and a race repaired by one route should not get a different set
+    of steps than the other."""
+    from scripts.triage_race_issues import COMBINED_STEPS
+
+    assert set(COMBINED_STEPS) == repair_planner._ISSUE_RESEARCH_SAFETY_STEPS
+
+
+def test_the_combined_run_deliberately_omits_roster_and_asset_work():
+    """discovery settles the roster and images fetches headshots; neither is
+    issue research, and discovery in particular has to have run *before* this
+    work rather than alongside it."""
+    from shared.pipeline_config import PIPELINE_STEP_IDS
+
+    assert PIPELINE_STEP_IDS - repair_planner._ISSUE_RESEARCH_SAFETY_STEPS == {"discovery", "images"}
