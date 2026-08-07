@@ -72,16 +72,70 @@ def test_governor_holdovers_match_python(ts_source):
     assert ts_table == {state: [party] for state, party in GOVERNOR_HOLDOVERS.items()}
 
 
+def _ts_abbr_to_state() -> dict[str, str]:
+    body = _table_body(FORECAST_TS.read_text(encoding="utf-8"), "ABBR_TO_STATE")
+    return dict(re.findall(r'(\w+)\s*:\s*"([^"]+)"', body))
+
+
+def _all_state_tables() -> dict[str, dict[str, str]]:
+    """The four independently-maintained abbreviation-to-name tables.
+
+    `smartervote_mcp` deliberately imports nothing from `shared` — it is a
+    standalone client that talks to the races-api over HTTP and ships its own
+    requirements — so its copy cannot simply import the shared one. The same
+    goes for the TypeScript bundle. Keeping four copies is the accepted cost;
+    letting them disagree is not, which is what this checks.
+    """
+    from pipeline_client.agent.ballotpedia import _STATE_NAMES
+    from smartervote_mcp.server import _US_STATES
+
+    return {
+        "shared.forecast_summary.ABBR_TO_STATE": {k.lower(): v for k, v in ABBR_TO_STATE.items()},
+        "ballotpedia._STATE_NAMES": {k.lower(): v for k, v in _STATE_NAMES.items()},
+        "smartervote_mcp.server._US_STATES": {k.lower(): v for k, v in _US_STATES.items()},
+        "web/.../forecast.ts ABBR_TO_STATE": {k.lower(): v for k, v in _ts_abbr_to_state().items()},
+    }
+
+
 def test_state_abbreviation_tables_match():
     """`race_state` resolves a race's state from the ID prefix on both sides.
 
     A state missing from either table drops that state out of the holdover and
-    active-state math for whichever side is missing it.
+    active-state math for whichever side is missing it — Indiana was missing
+    from the Python copy, so every Indiana race without an explicit `state`
+    field resolved to None.
     """
-    body = _table_body(FORECAST_TS.read_text(encoding="utf-8"), "ABBR_TO_STATE")
-    ts_table = dict(re.findall(r'(\w+)\s*:\s*"([^"]+)"', body))
+    ts_table = _ts_abbr_to_state()
     assert len(ts_table) == 50, f"TypeScript ABBR_TO_STATE has {len(ts_table)} states"
     assert ts_table == ABBR_TO_STATE
+
+
+def test_no_state_table_disagrees_with_another_about_a_name():
+    """A differing spelling is worse than a missing entry: the lookup succeeds
+    and returns a name that will not match the other side's."""
+    tables = _all_state_tables()
+    for abbr in set().union(*(set(table) for table in tables.values())):
+        names = {name: owner for owner, table in tables.items() for key, name in table.items() if key == abbr}
+        assert len(names) == 1, f"{abbr!r} is spelled differently across tables: {names}"
+
+
+def test_every_state_table_covers_all_fifty_states():
+    fifty = set(ABBR_TO_STATE)
+    for owner, table in _all_state_tables().items():
+        missing = fifty - set(table)
+        assert not missing, f"{owner} is missing {sorted(missing)}"
+
+
+def test_only_the_lookup_tables_carry_dc():
+    """DC has no voting Senate or House seat, so it must never reach chamber
+    control math — but it does have Ballotpedia pages and races in the catalog.
+    The split is deliberate; this pins which side each table is on so a
+    well-meaning "add the missing state" does not quietly add a 51st seat."""
+    tables = _all_state_tables()
+    assert "dc" in tables["ballotpedia._STATE_NAMES"]
+    assert "dc" in tables["smartervote_mcp.server._US_STATES"]
+    assert "dc" not in tables["shared.forecast_summary.ABBR_TO_STATE"]
+    assert "dc" not in tables["web/.../forecast.ts ABBR_TO_STATE"]
 
 
 def test_incumbent_fallbacks_match_python():
