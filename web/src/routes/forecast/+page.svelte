@@ -88,6 +88,15 @@
       return counts;
     }, {});
 
+  // "other" sits off the Safe D - Safe R axis, so it only earns a tile when a
+  // race actually holds that rating. Without it the tiles silently fail to
+  // total the number of forecast races; with it always present, every ordinary
+  // page carries a permanent zero.
+  $: ratingBreakdownOrder =
+    (aggregate.ratingCounts.other ?? 0) > 0
+      ? [...FORECAST_RATING_ORDER, "other" as const]
+      : FORECAST_RATING_ORDER;
+
   // The cycle these races belong to, for headings and holdover copy.
   $: cycleYear = electionCycleYear(races);
 
@@ -270,7 +279,7 @@
     </section>
 
     <ForecastRatingsBreakdown
-      ratingOrder={FORECAST_RATING_ORDER}
+      ratingOrder={ratingBreakdownOrder}
       ratingCounts={aggregate.ratingCounts}
     />
 

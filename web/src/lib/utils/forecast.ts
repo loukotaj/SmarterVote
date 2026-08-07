@@ -351,6 +351,21 @@ export function electionCycleYear(races: RaceSummary[]): string | null {
   return best;
 }
 
+/**
+ * Position of a rating on the Safe D → Safe R axis, with anything off that axis
+ * sorted last.
+ *
+ * FORECAST_RATING_ORDER deliberately omits "other" — the rating a race gets when
+ * the forecast cannot place it on the two-party spectrum, which in practice
+ * means an independent is in contention. `indexOf` returns -1 for it, so sorting
+ * by rating used to lift exactly those races above Safe D and open the list with
+ * them.
+ */
+export function ratingSortIndex(rating: ForecastRating): number {
+  const index = FORECAST_RATING_ORDER.indexOf(rating);
+  return index === -1 ? FORECAST_RATING_ORDER.length : index;
+}
+
 export function isForecastTab(
   value: string | null | undefined,
 ): value is ForecastTab {
@@ -791,9 +806,9 @@ export function sortForecastRaces(
       return stateA.localeCompare(stateB);
     }
     if (sortBy === "rating") {
-      const indexA = FORECAST_RATING_ORDER.indexOf(a.forecast.rating);
-      const indexB = FORECAST_RATING_ORDER.indexOf(b.forecast.rating);
-      return indexA - indexB;
+      return (
+        ratingSortIndex(a.forecast.rating) - ratingSortIndex(b.forecast.rating)
+      );
     }
     if (sortBy === "probability") {
       const probA = a.forecast.win_probability ?? 0;

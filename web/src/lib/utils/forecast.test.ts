@@ -1,12 +1,14 @@
 import { describe, expect, it } from "vitest";
-import type { RaceSummary } from "$lib/types";
+import type { ForecastRating, RaceSummary } from "$lib/types";
 import {
   aggregateForecasts,
   filterForecastRaces,
   getControlRelevanceScore,
   getMostLikelySeatOutcome,
   isRaceInForecastTab,
+  FORECAST_RATING_ORDER,
   electionCycleYear,
+  ratingSortIndex,
   officeGroup,
   fallbackPartyForRace,
   parseForecastTab,
@@ -582,6 +584,60 @@ describe("forecast utilities", () => {
         { ...baseRace, id: "me-governor-2026" },
       ] as RaceSummary[];
       expect(electionCycleYear(races)).toBe("2028");
+    });
+  });
+
+  describe("rating sort order", () => {
+    const rated = (id: string, rating: ForecastRating) =>
+      ({
+        ...baseRace,
+        id,
+        office: "U.S. Senate",
+        forecast: {
+          predicted_winner_party: "Other",
+          party_probabilities: {},
+          rating,
+          confidence: "low",
+          rationale: "",
+          based_on_poll_count: 0,
+          generated_at: "2026-06-20T00:00:00Z",
+          model: "m",
+          source_urls: [],
+          key_reasons: [],
+          market_signals: [],
+        },
+      }) as ForecastRace;
+
+    it("sorts an off-axis rating last, not ahead of Safe D", () => {
+      // "other" is the rating a race gets when the forecast cannot place it on
+      // the two-party spectrum — in practice, an independent in contention.
+      // FORECAST_RATING_ORDER omits it, so indexOf returned -1 and those races
+      // opened the list ahead of Safe D.
+      const sorted = sortForecastRaces(
+        [rated("a", "other"), rated("b", "safe_d"), rated("c", "tossup")],
+        "rating",
+      ).map((race) => race.id);
+      expect(sorted).toEqual(["b", "c", "a"]);
+    });
+
+    it("gives every on-axis rating its documented position", () => {
+      FORECAST_RATING_ORDER.forEach((rating, index) => {
+        expect(ratingSortIndex(rating)).toBe(index);
+      });
+    });
+
+    it("ranks an unrecognised rating past the end of the axis", () => {
+      expect(ratingSortIndex("other")).toBe(FORECAST_RATING_ORDER.length);
+    });
+
+    it("still orders the full axis Safe D through Safe R", () => {
+      const shuffled = [...FORECAST_RATING_ORDER]
+        .reverse()
+        .map((rating, i) => rated(`r${i}`, rating));
+      const sorted = sortForecastRaces(shuffled, "rating").map(
+        (race) => race.forecast.rating,
+      );
+      expect(sorted).toEqual(FORECAST_RATING_ORDER);
     });
   });
 });
