@@ -1,5 +1,6 @@
 import type { ForecastRating, RaceSummary } from "$lib/types";
 import {
+  electionCycleYear,
   formatRating,
   getRaceState,
   isRaceInForecastTab,
@@ -250,6 +251,10 @@ export function buildStateMapData(
 ): StateMapData {
   const colors: Record<string, string> = {};
   const tooltips: Record<string, StateTooltip> = {};
+  const cycleYear = electionCycleYear(races);
+  const noElection = cycleYear
+    ? `No election in ${cycleYear}`
+    : "No election this cycle";
 
   const activeRaces = races.filter((r) => isRaceInForecastTab(r, activeTab));
   const activeStates = new Set(
@@ -265,7 +270,7 @@ export function buildStateMapData(
           : "var(--color-holdover-r)";
       tooltips[state] = {
         title: state,
-        subtitle: "No election in 2026",
+        subtitle: noElection,
         badge: `${party === "Democratic" ? "Democratic" : "Republican"} Holdover`,
         badgeClass:
           party === "Democratic"
@@ -353,7 +358,7 @@ export function buildStateMapData(
         );
         tooltips[state] = {
           title: state,
-          subtitle: "No election in 2026",
+          subtitle: noElection,
           badge: `${holdoverSeats.length} Holdover Seat${
             holdoverSeats.length > 1 ? "s" : ""
           }`,

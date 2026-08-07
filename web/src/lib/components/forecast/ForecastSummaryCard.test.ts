@@ -20,6 +20,7 @@ describe("ForecastSummaryCard", () => {
       threshold: 218,
       narrative: "A competitive cycle for the House.",
       updatedAt: "2026-06-01T00:00:00Z",
+      cycleYear: "2026",
     });
 
     // Left column (ForecastSummaryStats)

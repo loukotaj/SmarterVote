@@ -17,6 +17,7 @@
   import type { ChamberForecasts, RaceSummary } from "$lib/types";
   import {
     aggregateForecasts,
+    electionCycleYear,
     getMostLikelySeatOutcome,
     getRaceState,
     groupSeatDistribution,
@@ -86,6 +87,9 @@
       if (state) counts[state] = (counts[state] ?? 0) + 1;
       return counts;
     }, {});
+
+  // The cycle these races belong to, for headings and holdover copy.
+  $: cycleYear = electionCycleYear(races);
 
   // Dynamic colors and tooltips for the map
   $: stateMapData = buildStateMapData(races, activeTab);
@@ -217,6 +221,7 @@
       {mostLikelyOutcome}
       tossupCount={chamberSummary?.tossup_count ?? 0}
       competitiveRaceCount={chamberSummary?.competitive_race_count ?? 0}
+      {cycleYear}
       {outcomeProbabilities}
       {projectedSeats}
       {totalSeats}
@@ -283,7 +288,11 @@
 
     <ForecastMissingRaces races={filteredMissingRaces} {activeTab} />
 
-    <ForecastHoldovers {activeTab} holdovers={aggregate.holdovers} />
+    <ForecastHoldovers
+      {activeTab}
+      holdovers={aggregate.holdovers}
+      {cycleYear}
+    />
   {/if}
 </div>
 

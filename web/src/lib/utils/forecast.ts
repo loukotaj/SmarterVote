@@ -314,6 +314,43 @@ export function fallbackPartyForRace(
   return null;
 }
 
+const RACE_ID_YEAR = /-(\d{4})$/;
+
+/**
+ * The election year these races belong to, or null if none of them say.
+ *
+ * Read from each race id's `-YYYY` suffix, falling back to the year of
+ * `election_date`, and returned as the most common value so one malformed id
+ * cannot swing a whole page. Mirrors `election_cycle_year` in
+ * `shared/forecast_summary.py`.
+ *
+ * The forecast page used to write "2026" into its headings, its holdover
+ * explanation and its map tooltips. Those are user-facing sentences that go
+ * quietly wrong the moment the site covers another cycle — nothing errors, the
+ * page just states the wrong year.
+ */
+export function electionCycleYear(races: RaceSummary[]): string | null {
+  const counts = new Map<string, number>();
+  for (const race of races) {
+    const fromId = RACE_ID_YEAR.exec(race.id || "");
+    let year = fromId ? fromId[1] : null;
+    if (!year && typeof race.election_date === "string") {
+      const candidate = race.election_date.slice(0, 4);
+      if (/^\d{4}$/.test(candidate)) year = candidate;
+    }
+    if (year) counts.set(year, (counts.get(year) ?? 0) + 1);
+  }
+  let best: string | null = null;
+  let bestCount = 0;
+  for (const [year, count] of counts) {
+    if (count > bestCount) {
+      best = year;
+      bestCount = count;
+    }
+  }
+  return best;
+}
+
 export function isForecastTab(
   value: string | null | undefined,
 ): value is ForecastTab {

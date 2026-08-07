@@ -6,6 +6,7 @@ import {
   getControlRelevanceScore,
   getMostLikelySeatOutcome,
   isRaceInForecastTab,
+  electionCycleYear,
   officeGroup,
   fallbackPartyForRace,
   parseForecastTab,
@@ -534,6 +535,53 @@ describe("forecast utilities", () => {
       const aggregate = aggregateForecasts(races, "house");
       expect(aggregate.missingForecasts).toHaveLength(1);
       expect(aggregate.projected.Democratic).toBe(1);
+    });
+  });
+
+  describe("electionCycleYear", () => {
+    // Mirrors `election_cycle_year` in shared/forecast_summary.py. The page used
+    // to hardcode "2026" into its headings, holdover copy and map tooltips —
+    // user-facing sentences that go quietly wrong once the site covers another
+    // cycle, with nothing to error on.
+    it("reads the cycle off the race ids", () => {
+      const races = [
+        { ...baseRace, id: "ga-senate-2026" },
+        { ...baseRace, id: "az-house-07-2026" },
+        { ...baseRace, id: "me-governor-2026" },
+      ] as RaceSummary[];
+      expect(electionCycleYear(races)).toBe("2026");
+    });
+
+    it("falls back to election_date when an id carries no year", () => {
+      const races = [
+        { ...baseRace, id: "no-year-slug", election_date: "2028-11-07" },
+      ] as RaceSummary[];
+      expect(electionCycleYear(races)).toBe("2028");
+    });
+
+    it("is not swung by a single malformed id", () => {
+      const races = [
+        { ...baseRace, id: "ga-senate-2026" },
+        { ...baseRace, id: "az-senate-2026" },
+        { ...baseRace, id: "stray-2018" },
+      ] as RaceSummary[];
+      expect(electionCycleYear(races)).toBe("2026");
+    });
+
+    it("returns null when nothing carries a year", () => {
+      const races = [
+        { ...baseRace, id: "mystery", election_date: "" },
+      ] as RaceSummary[];
+      expect(electionCycleYear(races)).toBeNull();
+    });
+
+    it("agrees with the Python implementation on a mixed cycle", () => {
+      const races = [
+        { ...baseRace, id: "ga-senate-2028" },
+        { ...baseRace, id: "az-house-07-2028" },
+        { ...baseRace, id: "me-governor-2026" },
+      ] as RaceSummary[];
+      expect(electionCycleYear(races)).toBe("2028");
     });
   });
 });
