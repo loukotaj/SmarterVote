@@ -40,6 +40,7 @@ from __future__ import annotations
 
 import re
 import sys
+import types
 import typing
 from dataclasses import dataclass, field
 from enum import Enum
@@ -372,9 +373,19 @@ def _quoted_string_literals(tokens: List[str]) -> set:
 
 
 def _unwrap_optional(annotation: Any) -> tuple:
-    """Return (inner_type, is_optional) for an annotation, unwrapping Optional[X]."""
+    """Return (inner_type, is_optional) for an annotation, unwrapping Optional[X].
+
+    Both spellings of a union have to be handled. `Optional[str]` and
+    `Union[str, None]` carry `typing.Union` as their origin, but PEP 604's
+    `str | None` carries `types.UnionType`, and matching only the former makes
+    this report a field as required when it is optional — plus a type mismatch
+    on the same field, because the annotation is never unwrapped to its inner
+    type. Every model checked today spells it `Optional[X]`, so the blind spot
+    costs nothing right now and would surface as a spray of false failures the
+    first time someone modernised one of them.
+    """
     origin = get_origin(annotation)
-    if origin is Union:
+    if origin is Union or origin is types.UnionType:
         args = get_args(annotation)
         non_none = [a for a in args if a is not type(None)]  # noqa: E721
         is_optional = type(None) in args
