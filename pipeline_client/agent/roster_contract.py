@@ -89,6 +89,16 @@ SOURCE_CLASS_ALIASES: Dict[str, str] = {
 #: never told exists.
 CONTEST_STAGES: FrozenSet[str] = frozenset(stage.value for stage in ContestStage)
 
+#: Ordered forms of the contract sets, for JSON-schema ``enum`` lists.
+#:
+#: A tool schema is a promise to the model about what it may send. Offering a
+#: value the handler rejects costs a whole iteration: the model picks it because
+#: the schema said it could, the call fails, and it has to guess what to try
+#: instead. ``other`` is the trap — it reads like a reasonable choice for an
+#: unclassifiable source, and it is the one class that can never carry roster
+#: evidence. Schemas take the qualifying set, not every class.
+QUALIFYING_SOURCE_CLASS_VALUES: list[str] = sorted(QUALIFYING_SOURCE_CLASSES)
+
 
 # ---------------------------------------------------------------------------
 # Evidence tiers
@@ -138,6 +148,11 @@ MEMBERSHIP_TIERS: tuple[EvidenceTier, ...] = (
         rejection_reason="tier 3 requires a search-result snippet from a qualifying source",
     ),
 )
+
+#: Every ``retrieval_status`` the tiers recognize, in tier order, for schema
+#: ``enum`` lists. Taken from the tiers themselves so a new provenance value
+#: cannot be graded by the contract while remaining unofferable to the model.
+RETRIEVAL_STATUS_VALUES: list[str] = list(dict.fromkeys(tier.retrieval_status for tier in MEMBERSHIP_TIERS))
 
 #: Tiers that prove a roster listing is *complete*. A snippet cannot: partial
 #: text from a list page is indistinguishable from a truncated one.

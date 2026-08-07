@@ -24,7 +24,13 @@ from pipeline_client.agent.roster_contract import (
     lacks_tier3_corroboration,
     tier_rejection_reason,
 )
-from pipeline_client.agent.tools import CONTEST_STAGE_VALUES
+from pipeline_client.agent.tools import (
+    ADD_CANDIDATE_TOOL,
+    CONTEST_STAGE_VALUES,
+    FINALIZE_ROSTER_TOOL,
+    REMOVE_CANDIDATE_TOOL,
+    SET_CANDIDATE_ROSTER_SOURCES_TOOL,
+)
 from shared.models import ContestStage
 
 
@@ -221,3 +227,51 @@ def test_every_contest_stage_reaches_validator_schema_and_prompt():
     assert CONTEST_STAGE_VALUES == canonical, "tool schema must offer the stages in enum order"
     assert "|".join(canonical) in DISCOVERY_USER
     assert "@@CONTEST_STAGES@@" not in DISCOVERY_USER, "stage token was never substituted"
+
+
+# ---------------------------------------------------------------------------
+# Tool schemas must promise only what the handler accepts
+# ---------------------------------------------------------------------------
+
+
+def _schema_enums(node, field):
+    """Every `enum` list declared for `field` anywhere inside a tool schema."""
+    found = []
+    if isinstance(node, dict):
+        for key, value in node.items():
+            if key == field and isinstance(value, dict) and "enum" in value:
+                found.append(tuple(value["enum"]))
+            found.extend(_schema_enums(value, field))
+    elif isinstance(node, list):
+        for item in node:
+            found.extend(_schema_enums(item, field))
+    return found
+
+
+ROSTER_SOURCE_TOOLS = [ADD_CANDIDATE_TOOL, REMOVE_CANDIDATE_TOOL, SET_CANDIDATE_ROSTER_SOURCES_TOOL]
+
+
+@pytest.mark.parametrize("tool", ROSTER_SOURCE_TOOLS, ids=lambda t: t["function"]["name"])
+def test_source_type_schema_offers_only_classes_that_can_qualify(tool):
+    """`other` used to be offered by add_candidate and set_candidate_roster_sources.
+
+    It is the one class that can never carry roster evidence — the rendered
+    contract says so outright — and `_roster_source_rejection_reason` refuses it.
+    Offering it costs an iteration: the model picks the value the schema told it
+    was legal, the call fails, and it has to guess what to send instead. This is
+    the same prompt-promises-what-the-tool-rejects bug this module exists to stop.
+    """
+    for enum_values in _schema_enums(tool, "type"):
+        assert set(enum_values) == QUALIFYING_SOURCE_CLASSES
+        assert "other" not in enum_values
+
+
+@pytest.mark.parametrize(
+    "tool",
+    ROSTER_SOURCE_TOOLS + [FINALIZE_ROSTER_TOOL],
+    ids=lambda t: t["function"]["name"],
+)
+def test_retrieval_status_schema_matches_the_graded_values(tool):
+    graded = {tier.retrieval_status for tier in MEMBERSHIP_TIERS}
+    for enum_values in _schema_enums(tool, "retrieval_status"):
+        assert set(enum_values) == graded

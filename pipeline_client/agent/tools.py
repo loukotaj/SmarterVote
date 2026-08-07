@@ -8,6 +8,8 @@ from typing import Dict, List
 
 from shared.models import ContestStage
 
+from .roster_contract import QUALIFYING_SOURCE_CLASS_VALUES, RETRIEVAL_STATUS_VALUES
+
 #: Stage values offered to the model. Derived from the canonical enum so the
 #: schema cannot advertise a stage the tool rejects, or omit one it accepts —
 #: a stage the model is never shown is a stage it can never produce.
@@ -161,7 +163,7 @@ ADD_CANDIDATE_TOOL: Dict = {
                             "url": {"type": "string"},
                             "type": {
                                 "type": "string",
-                                "enum": ["official", "ballotpedia", "fec", "news", "campaign", "other"],
+                                "enum": QUALIFYING_SOURCE_CLASS_VALUES,
                             },
                             "title": {"type": "string"},
                             "evidence": {"type": "string", "description": "Short note explaining what the source confirms."},
@@ -183,7 +185,7 @@ ADD_CANDIDATE_TOOL: Dict = {
                                 "type": "integer",
                                 "description": "1 = fetched official/FEC, 2 = fetched other, 3 = snippet.",
                             },
-                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                            "retrieval_status": {"type": "string", "enum": RETRIEVAL_STATUS_VALUES},
                         },
                         "required": ["url", "title"],
                     },
@@ -233,7 +235,7 @@ REMOVE_CANDIDATE_TOOL: Dict = {
                         "type": "object",
                         "properties": {
                             "url": {"type": "string"},
-                            "type": {"type": "string", "enum": ["official", "ballotpedia", "fec", "news", "campaign"]},
+                            "type": {"type": "string", "enum": QUALIFYING_SOURCE_CLASS_VALUES},
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
                             "evidence_text": {"type": "string", "description": "Alias for evidence."},
@@ -251,7 +253,7 @@ REMOVE_CANDIDATE_TOOL: Dict = {
                                 "type": "integer",
                                 "description": "1 = fetched official/FEC, 2 = fetched other, 3 = snippet.",
                             },
-                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                            "retrieval_status": {"type": "string", "enum": RETRIEVAL_STATUS_VALUES},
                         },
                     },
                 },
@@ -294,7 +296,7 @@ SET_CANDIDATE_ROSTER_SOURCES_TOOL: Dict = {
                             "url": {"type": "string"},
                             "type": {
                                 "type": "string",
-                                "enum": ["official", "ballotpedia", "fec", "news", "campaign", "other"],
+                                "enum": QUALIFYING_SOURCE_CLASS_VALUES,
                             },
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
@@ -313,7 +315,7 @@ SET_CANDIDATE_ROSTER_SOURCES_TOOL: Dict = {
                                 "type": "integer",
                                 "description": "1 = fetched official/FEC, 2 = fetched other, 3 = snippet.",
                             },
-                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                            "retrieval_status": {"type": "string", "enum": RETRIEVAL_STATUS_VALUES},
                         },
                     },
                 },
@@ -398,7 +400,7 @@ FINALIZE_ROSTER_TOOL: Dict = {
                                             "type": "integer",
                                             "description": "1 = fetched official/FEC, 2 = fetched other, 3 = snippet.",
                                         },
-                                        "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                                        "retrieval_status": {"type": "string", "enum": RETRIEVAL_STATUS_VALUES},
                                     },
                                     "required": ["url", "title"],
                                 },
@@ -441,7 +443,7 @@ FINALIZE_ROSTER_TOOL: Dict = {
                                 "type": "integer",
                                 "description": "1 = fetched official/FEC, 2 = fetched other, 3 = snippet.",
                             },
-                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                            "retrieval_status": {"type": "string", "enum": RETRIEVAL_STATUS_VALUES},
                         },
                         "required": ["url", "title", "evidence"],
                     },
