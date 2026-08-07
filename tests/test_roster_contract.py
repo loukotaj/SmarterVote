@@ -10,12 +10,13 @@ here that fails means that class of bug is back.
 import pytest
 
 from pipeline_client.agent import handlers
-from pipeline_client.agent.prompts import ROSTER_SYNC_USER, cycle_kwargs
+from pipeline_client.agent.prompts import DISCOVERY_USER, ROSTER_SYNC_USER, cycle_kwargs
 from pipeline_client.agent.roster import ROSTER_CAP
 from pipeline_client.agent.roster_contract import (
     AUTHORITATIVE_SOURCE_CLASSES,
     COMPLETENESS_SOURCE_CLASSES,
     COMPLETENESS_TIERS,
+    CONTEST_STAGES,
     MEMBERSHIP_TIERS,
     QUALIFYING_SOURCE_CLASSES,
     ROSTER_LISTING_SOURCE_CLASSES,
@@ -23,6 +24,8 @@ from pipeline_client.agent.roster_contract import (
     lacks_tier3_corroboration,
     tier_rejection_reason,
 )
+from pipeline_client.agent.tools import CONTEST_STAGE_VALUES
+from shared.models import ContestStage
 
 
 def test_prompt_carries_no_unsubstituted_slots():
@@ -194,3 +197,27 @@ def test_adjudicator_withdrawal_question_covers_the_same_grounds():
     question = _CLAIM_QUESTIONS[Claim.WITHDRAWAL].casefold()
     for keyword in ("withdraw", "disqualified", "primary", "former officeholder"):
         assert keyword in question, f"withdrawal question omits {keyword!r}"
+
+
+# ---------------------------------------------------------------------------
+# Contest stages
+# ---------------------------------------------------------------------------
+
+
+def test_every_contest_stage_reaches_validator_schema_and_prompt():
+    """A stage the model is never shown is a stage it can never emit.
+
+    The stage list is consumed in four places: the ContestStage enum, the
+    handler's validator (CONTEST_STAGES), the tool schema the model is given
+    (CONTEST_STAGE_VALUES) and the JSON shape spelled out in DISCOVERY_USER.
+    They were four hand-written copies. Adding a stage for a state whose rules
+    need one — a Louisiana-style all-party primary, say — had to land in all
+    four, and missing the schema or the prompt fails silently: the tool accepts
+    a value the model is never told exists.
+    """
+    canonical = [stage.value for stage in ContestStage]
+
+    assert CONTEST_STAGES == frozenset(canonical)
+    assert CONTEST_STAGE_VALUES == canonical, "tool schema must offer the stages in enum order"
+    assert "|".join(canonical) in DISCOVERY_USER
+    assert "@@CONTEST_STAGES@@" not in DISCOVERY_USER, "stage token was never substituted"

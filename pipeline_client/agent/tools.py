@@ -6,6 +6,13 @@ orchestration logic.  Import the individual constants or the aggregate lists.
 
 from typing import Dict, List
 
+from shared.models import ContestStage
+
+#: Stage values offered to the model. Derived from the canonical enum so the
+#: schema cannot advertise a stage the tool rejects, or omit one it accepts —
+#: a stage the model is never shown is a stage it can never produce.
+CONTEST_STAGE_VALUES: List[str] = [stage.value for stage in ContestStage]
+
 # ---------------------------------------------------------------------------
 # Web search / page fetch
 # ---------------------------------------------------------------------------
@@ -327,19 +334,7 @@ SET_RACE_IDENTITY_TOOL: Dict = {
                 "office": {"type": "string"},
                 "state": {"type": "string"},
                 "district": {"type": "string"},
-                "contest_stage": {
-                    "type": "string",
-                    "enum": [
-                        "pre_primary",
-                        "post_primary_general",
-                        "runoff",
-                        "top_two",
-                        "top_four_rcv",
-                        "uncontested",
-                        "special",
-                        "unknown",
-                    ],
-                },
+                "contest_stage": {"type": "string", "enum": CONTEST_STAGE_VALUES},
                 "election_date": {"type": "string"},
                 "primary_status": {"type": "string"},
                 "official_roster_source_url": {"type": "string"},

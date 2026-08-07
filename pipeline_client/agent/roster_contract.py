@@ -27,6 +27,8 @@ from dataclasses import dataclass
 from typing import Any, Dict, FrozenSet, Iterable
 from urllib.parse import urlparse
 
+from shared.models import ContestStage
+
 from .roster import ROSTER_CAP
 
 # ---------------------------------------------------------------------------
@@ -80,18 +82,12 @@ SOURCE_CLASS_ALIASES: Dict[str, str] = {
 }
 
 #: Election-stage values ``set_race_identity`` and ``update_race_field`` accept.
-CONTEST_STAGES: FrozenSet[str] = frozenset(
-    {
-        "pre_primary",
-        "post_primary_general",
-        "runoff",
-        "top_two",
-        "top_four_rcv",
-        "uncontested",
-        "special",
-        "unknown",
-    }
-)
+#: Derived from the canonical enum rather than restated: a stage added for a
+#: state whose rules need one (say a Louisiana-style all-party primary) must
+#: reach the validator, the tool schema and the prompt together, or the model is
+#: offered a stage the tool rejects — or worse, the tool accepts one the model is
+#: never told exists.
+CONTEST_STAGES: FrozenSet[str] = frozenset(stage.value for stage in ContestStage)
 
 
 # ---------------------------------------------------------------------------

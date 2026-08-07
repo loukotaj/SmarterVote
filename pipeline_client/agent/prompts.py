@@ -11,7 +11,7 @@ Optionally followed by OpenRouter-backed multi-model **review**.
 import re
 from datetime import date, datetime, timezone
 
-from shared.models import CanonicalIssue
+from shared.models import CanonicalIssue, ContestStage
 
 from .roster_contract import render_completeness_rules, render_membership_rules, render_removal_rules, render_roster_cap_rules
 
@@ -207,7 +207,7 @@ Return JSON:
   "state": "<US state name for map highlighting, e.g. \"Missouri\"; use null for national or multi-state races>",
   "district": "<district identifier if applicable, e.g. \"1st Congressional District\", \"District 5\"; null otherwise>",
   "election_date": "<YYYY-MM-DD or best estimate>",
-  "contest_stage": "pre_primary|post_primary_general|runoff|top_two|top_four_rcv|uncontested|special|unknown",
+  "contest_stage": "@@CONTEST_STAGES@@",
   "description": "<3-4 sentence nonpartisan overview of the race>",
   "candidates": [
     {{
@@ -262,7 +262,7 @@ Return JSON:
       "office": "<locked office>",
       "state": "<locked state or null>",
       "district": "<locked district or null>",
-      "contest_stage": "pre_primary|post_primary_general|runoff|top_two|top_four_rcv|uncontested|special|unknown",
+      "contest_stage": "@@CONTEST_STAGES@@",
       "election_date": "<YYYY-MM-DD or best estimate>",
       "primary_status": "<brief status of primaries/results/filing list>",
       "official_roster_source_url": "<official source URL if found, otherwise null>",
@@ -1215,6 +1215,14 @@ Do NOT modify any other data (issues, summaries, polls, etc.)."""
 # handlers validates against — so the prompt cannot promise the model something
 # the tool rejects. Substituted with @@TOKEN@@ rather than str.format so the
 # runtime {race_id}/{current_date} placeholders survive for the caller.
+# The stage list the prompt shows the model is the same enum the tool schema
+# offers and the handler validates against. Spelling it out here let the three
+# drift, and a stage the prompt never names is one the model never emits.
+_CONTEST_STAGES_TEXT = "|".join(stage.value for stage in ContestStage)
+if "@@CONTEST_STAGES@@" not in DISCOVERY_USER:  # pragma: no cover - guards against silent drift
+    raise RuntimeError("DISCOVERY_USER is missing the @@CONTEST_STAGES@@ slot")
+DISCOVERY_USER = DISCOVERY_USER.replace("@@CONTEST_STAGES@@", _CONTEST_STAGES_TEXT)
+
 for _token, _rendered in (
     ("@@MEMBERSHIP_EVIDENCE_RULES@@", render_membership_rules()),
     ("@@COMPLETENESS_EVIDENCE_RULES@@", render_completeness_rules()),
