@@ -473,9 +473,32 @@ async def audit_race_assets(
     )
 
 
+#: Literal junk a model sometimes leaves behind, matched exactly.
+#:
+#: Narrower than ``shared.run_health.PLACEHOLDER_JUNK_MARKERS`` on purpose, and
+#: the difference is the scan, not the judgement: run_health tests one stance
+#: string, while this walks every string in a whole draft. Markers that are junk
+#: as a stance but plausible as some other field's value — "none", "na", "test" —
+#: would block publication over a legitimate district or party here, so they stay
+#: out. Everything below is junk wherever it appears.
+_PLACEHOLDER_VALUES = frozenset(
+    {
+        "DRAFT",
+        "TODO",
+        "TBD",
+        "PLACEHOLDER",
+        "WIP",
+        "FIXME",
+        "XXX",
+        "DUMMY",
+        "LOREM IPSUM",
+    }
+)
+
+
 def _contains_placeholder(value: Any) -> bool:
     if isinstance(value, str):
-        return value.strip().upper() in {"DRAFT", "TODO", "TBD", "PLACEHOLDER"}
+        return value.strip().upper() in _PLACEHOLDER_VALUES
     if isinstance(value, list):
         return any(_contains_placeholder(item) for item in value)
     if isinstance(value, dict):

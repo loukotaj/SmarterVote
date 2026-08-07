@@ -881,3 +881,37 @@ def test_configure_cloud_run_identity_token_is_opt_out(monkeypatch):
 
     assert calls == []
     assert "SMARTERVOTE_RACES_API_CLOUD_RUN_ID_TOKEN" not in os.environ
+
+
+# ---------------------------------------------------------------------------
+# Placeholder detection
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("marker", ["DRAFT", "todo", " Tbd ", "placeholder", "WIP", "fixme", "xxx", "dummy", "lorem ipsum"])
+def test_contains_placeholder_catches_literal_junk(marker):
+    """`assess_publish_readiness` is the gate an operator runs before publishing,
+    so anything the pipeline's own junk detector would fail a run for must not
+    slip past it. This set had drifted to four markers against run_health's."""
+    from smartervote_mcp.server import _contains_placeholder
+
+    assert _contains_placeholder({"candidates": [{"issues": {"Healthcare": {"stance": marker}}}]})
+
+
+@pytest.mark.parametrize("value", ["None", "N/A", "na", "test", "example", "sample"])
+def test_contains_placeholder_ignores_words_that_are_real_field_values(value):
+    """Deliberately absent. This walks every string in a whole draft, not one
+    stance, so a marker that is plausible as a district, party or title would
+    block publication over legitimate data. run_health can afford them because
+    it only ever looks at a single stance."""
+    from smartervote_mcp.server import _contains_placeholder
+
+    assert not _contains_placeholder({"district": value, "candidates": [{"party": value}]})
+
+
+def test_contains_placeholder_only_matches_a_whole_value():
+    """A real stance that merely mentions a marker word must not be flagged."""
+    from smartervote_mcp.server import _contains_placeholder
+
+    assert not _contains_placeholder({"stance": "Supports a draft treaty on emissions"})
+    assert not _contains_placeholder({"summary": "Chaired the committee's XXXI review"})
