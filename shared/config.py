@@ -6,6 +6,16 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
+# These name real GCS prefixes and Firestore collections, but they are not the
+# only place those names appear: most call sites write the string inline —
+# `db.collection("pipeline_queue")`, `db.collection("races")` — rather than
+# importing from here. `pipeline_queue` and `races` in particular are spelled out
+# at roughly seventy call sites across pipeline_client and services/races-api and
+# imported from this module at none.
+#
+# So treat this as a register of the names in use, not as a single point of
+# control: renaming a collection means a repo-wide search, and changing a value
+# here alone would move only the handful of callers that do import it.
 GCS_DRAFTS_PREFIX = "drafts"
 GCS_RACES_PREFIX = "races"
 GCS_RETIRED_PREFIX = "retired"

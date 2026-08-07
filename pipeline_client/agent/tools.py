@@ -137,8 +137,6 @@ IMAGE_SEARCH_TOOL: Dict = {
     },
 }
 
-WEB_TOOLS: List[Dict] = [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL, IMAGE_SEARCH_TOOL]
-
 # ---------------------------------------------------------------------------
 # Roster editing tools
 # ---------------------------------------------------------------------------
