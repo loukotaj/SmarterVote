@@ -3,7 +3,12 @@ import type {
   ForecastRating,
   RaceSummary,
 } from "$lib/types";
-import { GOVERNOR_HOLDOVERS, SENATE_HOLDOVERS } from "./holdovers";
+import {
+  CHAMBER_SEAT_TOTALS,
+  CURRENT_CHAMBER_COMPOSITION,
+  GOVERNOR_HOLDOVERS,
+  SENATE_HOLDOVERS,
+} from "./holdovers";
 
 export type ForecastTab = "house" | "senate" | "governors";
 
@@ -56,14 +61,6 @@ const RATINGS: ForecastRating[] = [
   "safe_r",
   "other",
 ];
-
-const HOUSE_CURRENT_BASELINE = { Democratic: 212, Republican: 218, Other: 1 };
-
-const EXPECTED_TOTALS: Record<ForecastTab, number> = {
-  house: 435,
-  senate: 100,
-  governors: 50,
-};
 
 const ABBR_TO_STATE: Record<string, string> = {
   al: "Alabama",
@@ -240,16 +237,8 @@ function emptyRatingCounts(): Record<ForecastRating, number> {
   >;
 }
 
-function baselineFor(tab: ForecastTab): Record<string, number> {
-  if (tab === "senate") return { Democratic: 34, Republican: 31, Other: 0 };
-  if (tab === "governors") return { Democratic: 6, Republican: 8, Other: 0 };
-  return { Democratic: 0, Republican: 0, Other: 0 };
-}
-
 function currentBaselineFor(tab: ForecastTab): Record<string, number> {
-  if (tab === "senate") return { Democratic: 47, Republican: 53, Other: 0 };
-  if (tab === "governors") return { Democratic: 24, Republican: 26, Other: 0 };
-  return { ...HOUSE_CURRENT_BASELINE };
+  return { ...CURRENT_CHAMBER_COMPOSITION[tab] };
 }
 
 /**
@@ -326,12 +315,9 @@ export function aggregateForecasts(
         }
       }
     }
-  } else {
-    const base = baselineFor(tab);
-    for (const [party, count] of Object.entries(base)) {
-      projected[party] = count;
-    }
   }
+  // The House has no holdovers — every seat is up — so `projected` starts at zero
+  // and is built entirely from the races themselves.
 
   const forecasted: ForecastRace[] = [];
   const missingForecasts: RaceSummary[] = [];
@@ -418,7 +404,7 @@ export function aggregateForecasts(
     ratingCounts,
     races: forecasted,
     missingForecasts,
-    totalExpected: EXPECTED_TOTALS[tab],
+    totalExpected: CHAMBER_SEAT_TOTALS[tab],
     holdovers: holdoversList,
   };
 }
