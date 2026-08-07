@@ -16,7 +16,7 @@ from pathlib import Path
 
 import pytest
 
-from shared.forecast_summary import ABBR_TO_STATE, GOVERNOR_HOLDOVERS, SENATE_HOLDOVERS
+from shared.forecast_summary import ABBR_TO_STATE, GOVERNOR_HOLDOVERS, INCUMBENT_FALLBACKS, SENATE_HOLDOVERS
 
 HOLDOVERS_TS = Path(__file__).resolve().parents[1] / "web" / "src" / "lib" / "utils" / "holdovers.ts"
 FORECAST_TS = Path(__file__).resolve().parents[1] / "web" / "src" / "lib" / "utils" / "forecast.ts"
@@ -82,3 +82,25 @@ def test_state_abbreviation_tables_match():
     ts_table = dict(re.findall(r'(\w+)\s*:\s*"([^"]+)"', body))
     assert len(ts_table) == 50, f"TypeScript ABBR_TO_STATE has {len(ts_table)} states"
     assert ts_table == ABBR_TO_STATE
+
+
+def test_incumbent_fallbacks_match_python():
+    """The last-resort party guess for an unforecasted race, maintained twice.
+
+    Both sides fall back to this table when the candidate roster says nothing, so
+    a state present on one side only makes the page and the API guess different
+    parties for the same race.
+    """
+    body = _table_body(FORECAST_TS.read_text(encoding="utf-8"), "INCUMBENT_FALLBACKS")
+    ts_table: dict[str, dict[str, str]] = {}
+    for chamber_match in re.finditer(r"(\w+)\s*:\s*\{([^}]*)\}", body):
+        chamber = chamber_match.group(1)
+        ts_table[chamber] = {
+            (state_match.group(1) or state_match.group(2)): state_match.group(3)
+            for state_match in re.finditer(
+                r'(?:"([^"]+)"|([A-Za-z]\w*))\s*:\s*"(Democratic|Republican)"',
+                chamber_match.group(2),
+            )
+        }
+    assert set(ts_table) == set(INCUMBENT_FALLBACKS), "chambers differ between the two tables"
+    assert ts_table == {chamber: dict(states) for chamber, states in INCUMBENT_FALLBACKS.items()}

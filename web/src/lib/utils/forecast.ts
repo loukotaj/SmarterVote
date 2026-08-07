@@ -122,6 +122,15 @@ export function getRaceState(race: RaceSummary): string | null {
   return ABBR_TO_STATE[prefix] || null;
 }
 
+/**
+ * Last-resort party guess for a state whose race carries no usable roster.
+ *
+ * This is a hand-maintained list covering only the states somebody happened to
+ * notice, so it must stay a *fallback* — `fallbackPartyForRace` reads the actual
+ * candidate roster first, which works for every race rather than these six.
+ * Mirrors INCUMBENT_FALLBACKS in `shared/forecast_summary.py`; the two are kept
+ * in step by `tests/test_holdover_table_sync.py`.
+ */
 export const INCUMBENT_FALLBACKS: Record<
   string,
   Record<string, "Democratic" | "Republican">
@@ -254,6 +263,57 @@ export function isValidGovernorControlRace(race: RaceSummary): boolean {
   return !state || !(state in GOVERNOR_HOLDOVERS);
 }
 
+/**
+ * Best guess at who holds a race that has no forecast yet.
+ *
+ * Mirrors `fallback_party_for_race` in `shared/forecast_summary.py`, in the same
+ * order: the roster's own incumbent, then the roster's party majority, then the
+ * hand-maintained per-state fallback, then the Senate holdover table. The roster
+ * steps come first deliberately — they work for every race, where the per-state
+ * table only covers the handful of states someone thought to add.
+ *
+ * Returns null where Python returns "Other", i.e. nothing in the data supports a
+ * guess. Python counts that seat toward "Other"; the page leaves it out of the
+ * projection and lists it under unforecasted races instead.
+ */
+export function fallbackPartyForRace(
+  race: RaceSummary,
+  tab: ForecastTab,
+): "Democratic" | "Republican" | null {
+  const candidates = race.candidates ?? [];
+
+  const incumbent = candidates.find((candidate) => candidate.incumbent);
+  if (incumbent) {
+    const party = normalizeForecastParty(incumbent.party);
+    if (party !== "Other") return party;
+  }
+
+  if (candidates.length > 0) {
+    let democratic = 0;
+    let republican = 0;
+    for (const candidate of candidates) {
+      const party = normalizeForecastParty(candidate.party);
+      if (party === "Democratic") democratic += 1;
+      else if (party === "Republican") republican += 1;
+    }
+    if (democratic > republican) return "Democratic";
+    if (republican > democratic) return "Republican";
+  }
+
+  const state = getRaceState(race);
+  if (!state) return null;
+
+  const stateFallback = INCUMBENT_FALLBACKS[tab]?.[state];
+  if (stateFallback) return stateFallback;
+
+  if (tab === "senate") {
+    const seats = SENATE_HOLDOVERS[state];
+    if (seats && seats.length > 0) return seats[seats.length - 1];
+  }
+
+  return null;
+}
+
 export function isForecastTab(
   value: string | null | undefined,
 ): value is ForecastTab {
@@ -325,10 +385,7 @@ export function aggregateForecasts(
   for (const race of scoped) {
     if (!race.forecast) {
       missingForecasts.push(race);
-      const stateName = getRaceState(race);
-      const fallbackParty = stateName
-        ? INCUMBENT_FALLBACKS[tab]?.[stateName]
-        : undefined;
+      const fallbackParty = fallbackPartyForRace(race, tab);
       if (fallbackParty) {
         projected[fallbackParty] = (projected[fallbackParty] ?? 0) + 1;
       }

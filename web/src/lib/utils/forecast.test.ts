@@ -7,6 +7,7 @@ import {
   getMostLikelySeatOutcome,
   isRaceInForecastTab,
   officeGroup,
+  fallbackPartyForRace,
   parseForecastTab,
   groupSeatDistribution,
   normalizeForecastParty,
@@ -424,6 +425,115 @@ describe("forecast utilities", () => {
         state: "Indiana",
       } as RaceSummary;
       expect(isRaceInForecastTab(race, "house")).toBe(true);
+    });
+  });
+
+  describe("fallbackPartyForRace", () => {
+    // Mirrors `fallback_party_for_race` in shared/forecast_summary.py. The roster
+    // steps must come first: they work for every race, where the per-state
+    // INCUMBENT_FALLBACKS table only covers a handful of states.
+    it("uses the roster's own incumbent before anything else", () => {
+      const race = {
+        ...baseRace,
+        id: "oh-senate-2026",
+        office: "U.S. Senate",
+        state: "Ohio",
+        candidates: [
+          { name: "A", party: "Republican", incumbent: true },
+          { name: "B", party: "Democratic", incumbent: false },
+          { name: "C", party: "Democratic", incumbent: false },
+        ],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "senate")).toBe("Republican");
+    });
+
+    it("falls back to the roster's party majority when nobody is flagged incumbent", () => {
+      const race = {
+        ...baseRace,
+        id: "oh-senate-2026",
+        office: "U.S. Senate",
+        state: "Ohio",
+        candidates: [
+          { name: "A", party: "Democratic", incumbent: false },
+          { name: "B", party: "Democratic", incumbent: false },
+          { name: "C", party: "Republican", incumbent: false },
+        ],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "senate")).toBe("Democratic");
+    });
+
+    it("prefers the roster over the hand-maintained state table", () => {
+      // Vermont's governors entry is Republican; the roster says otherwise.
+      const race = {
+        ...baseRace,
+        id: "vt-governor-2026",
+        office: "Governor",
+        state: "Vermont",
+        candidates: [{ name: "A", party: "Democratic", incumbent: true }],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "governors")).toBe("Democratic");
+    });
+
+    it("uses the state table when the roster is empty", () => {
+      const race = {
+        ...baseRace,
+        id: "vt-governor-2026",
+        office: "Governor",
+        state: "Vermont",
+        candidates: [],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "governors")).toBe("Republican");
+    });
+
+    it("uses the Senate holdover table as the last resort", () => {
+      const race = {
+        ...baseRace,
+        id: "wy-senate-2026",
+        office: "U.S. Senate",
+        state: "Wyoming",
+        candidates: [],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "senate")).toBe("Republican");
+    });
+
+    it("returns null when nothing in the data supports a guess", () => {
+      const race = {
+        ...baseRace,
+        id: "ga-house-05-2026",
+        office: "U.S. House",
+        state: "Georgia",
+        candidates: [],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "house")).toBeNull();
+    });
+
+    it("does not guess from an evenly split roster", () => {
+      const race = {
+        ...baseRace,
+        id: "ga-house-05-2026",
+        office: "U.S. House",
+        state: "Georgia",
+        candidates: [
+          { name: "A", party: "Democratic", incumbent: false },
+          { name: "B", party: "Republican", incumbent: false },
+        ],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "house")).toBeNull();
+    });
+
+    it("counts an unforecasted race toward the projection using the roster", () => {
+      const races = [
+        {
+          ...baseRace,
+          id: "ga-house-05-2026",
+          office: "U.S. House",
+          state: "Georgia",
+          candidates: [{ name: "A", party: "Democratic", incumbent: true }],
+        },
+      ] as RaceSummary[];
+      const aggregate = aggregateForecasts(races, "house");
+      expect(aggregate.missingForecasts).toHaveLength(1);
+      expect(aggregate.projected.Democratic).toBe(1);
     });
   });
 });
