@@ -8,11 +8,46 @@ The agent runs in phases:
 Optionally followed by OpenRouter-backed multi-model **review**.
 """
 
+import re
+from datetime import date, datetime, timezone
+
 from shared.models import CanonicalIssue
 
 from .roster_contract import render_completeness_rules, render_membership_rules, render_removal_rules, render_roster_cap_rules
 
 CANONICAL_ISSUES = [e.value for e in CanonicalIssue]
+
+_RACE_ID_YEAR = re.compile(r"-(\d{4})$")
+
+
+def cycle_year_for(race_id: str, *, today: date | None = None) -> str:
+    """The election year this race belongs to, taken from its ``-YYYY`` suffix.
+
+    Prompts must never hardcode a cycle. A literal year baked into a search
+    string ("<state> <office> 2026 candidate") keeps aiming the model at a past
+    election long after the site has moved on, and the model has no way to tell
+    the instruction is stale. Race IDs already carry the cycle — ``ga-senate-2026``,
+    ``az-house-07-2026`` — so read it from there and fall back to the current year
+    for the rare ID with no year suffix.
+    """
+    match = _RACE_ID_YEAR.search(str(race_id or ""))
+    if match:
+        return match.group(1)
+    return str((today or datetime.now(timezone.utc).date()).year)
+
+
+def cycle_kwargs(race_id: str, *, today: date | None = None) -> dict[str, str]:
+    """Cycle placeholders for ``str.format`` on any prompt template.
+
+    Spread this into every prompt format call (``**cycle_kwargs(race_id)``)
+    rather than picking out the keys each template happens to use today —
+    ``str.format`` ignores unused keywords, so a template that later gains a
+    cycle placeholder cannot silently start raising KeyError at a call site
+    someone forgot to update.
+    """
+    cycle = cycle_year_for(race_id, today=today)
+    return {"cycle_year": cycle, "prior_year": str(int(cycle) - 1)}
+
 
 # ------------------------------------------------------------------
 # Shared rules that apply to every prompt
@@ -61,11 +96,11 @@ CRITICAL — scope to THIS cycle's contest only:
 - For a U.S. Senate race, include ONLY candidates for the single Senate seat on
   the ballot this cycle. A state has two senators on staggered terms — do NOT
   include the state's OTHER sitting senator whose seat is not up this cycle
-  (e.g. for a 2026 Georgia Senate race do not list the senator whose term runs
-  past 2026). If the state's well-known incumbent is the one NOT up this cycle,
-  they are not a candidate here.
-- Do NOT include candidates from a PRIOR election cycle (a 2018/2020/2022
-  nominee or primary candidate) unless a {current_date}-current source confirms
+  (e.g. for a {cycle_year} Georgia Senate race do not list the senator whose term
+  runs past {cycle_year}). If the state's well-known incumbent is the one NOT up
+  this cycle, they are not a candidate here.
+- Do NOT include candidates from ANY prior election cycle (a nominee or primary
+  candidate from an earlier year) unless a {current_date}-current source confirms
   they have filed for THIS cycle's contest. Someone who ran before is not a
   current candidate by default.
 - A sitting officeholder running for a DIFFERENT office this cycle (e.g. a
@@ -130,10 +165,10 @@ least one Democratic AND one Republican candidate for a partisan general electio
 If only one major party appears and this is a partisan race (U.S. Senate, U.S. House,
 Governor), actively search for the other party's candidate before concluding the race
 is uncontested:
-- Search "<state> <office> 2026 <missing party> candidate" or "<office> race <state> 2026"
+- Search "<state> <office> {cycle_year} <missing party> candidate" or "<office> race <state> {cycle_year}"
 - Check if the current officeholder from the missing party is seeking re-election
 - Look at the official state election authority or secretary of state filing list
-- Search "ballotpedia.org <state> <office> 2026" for any additional candidate info
+- Search "ballotpedia.org <state> <office> {cycle_year}" for any additional candidate info
 
 A race with only one party's candidates is ONLY correct when you have confirmed that
 the other party genuinely did not field a candidate (e.g., no Republican filed for
@@ -746,7 +781,7 @@ Search for campaign finance data using at least 3 of these strategies:
   3. FEC: "<candidate name> FEC contributions site:fec.gov"
   4. State campaign finance portal (for state-level races — search
      "<state> campaign finance disclosure <candidate name>")
-  5. News: "<candidate name> biggest donors 2026" or "<candidate name> fundraising 2026"
+  5. News: "<candidate name> biggest donors {cycle_year}" or "<candidate name> fundraising {cycle_year}"
 
 Write a 2-3 sentence donor_summary including:
   - Which industries or sectors dominate (e.g., "real estate", "financial services",
@@ -774,7 +809,7 @@ or a NON-LEGISLATOR (challenger, executive, business person, etc.):
      1. GovTrack or Congress.gov: "<candidate name> voting record"
      2. VoteSmart: "<candidate name> votesmart"
      3. State legislature site: "<candidate name> [state] legislature votes"
-     4. News: "<candidate name> key votes 2025 2026"
+     4. News: "<candidate name> key votes {prior_year} {cycle_year}"
      Write a 2-3 sentence voting_summary describing:
      - Overall partisan alignment (e.g., "Voted with the Democratic caucus
        94% of the time in the 2025 session.")
@@ -976,7 +1011,7 @@ DATA-HYGIENE CHECKLIST (always run, regardless of flags):
 5. BALLOTPEDIA_URL VALIDATION: Use read_profile(section="meta") to check the
    current ballotpedia_url. If it is pointing to a candidate biography page
    (e.g. https://ballotpedia.org/Candidate_Name) rather than an election page
-   (e.g. https://ballotpedia.org/United_States_Senate_election_in_Michigan,_2026),
+   (e.g. https://ballotpedia.org/United_States_Senate_election_in_Michigan,_{cycle_year}),
    use web_search to find the correct election page URL and fix it with
    update_race_field(field="ballotpedia_url", value="<correct election URL>").
    Election page URLs typically contain "election_in_" or "primary_election_in_".
@@ -1054,15 +1089,15 @@ Representative, Congress, or Congressional District and the exact district.
 CRITICAL — scope to THIS cycle's contest only (remove anyone who fails this):
 - U.S. Senate race: only candidates for the single seat up this cycle. Do NOT
   keep the state's OTHER sitting senator whose seat is not up this cycle, and do
-  NOT keep prior-cycle (2018/2020/2022) nominees or candidates unless a current
-  source confirms they filed for THIS cycle's seat.
+  NOT keep nominees or candidates from any earlier cycle unless a current source
+  confirms they filed for THIS cycle's seat.
 - Remove incumbents who have announced they are not seeking re-election, are
   retiring, or are running for a different office this cycle.
 - A person who only ran in a previous election is not a current candidate.
 - Former officeholders who already left office (e.g. a retired, resigned,
   term-limited, or previously-defeated U.S. Representative, Senator, or Governor)
   are NOT current candidates unless a retrieved current source explicitly says
-  they filed for THIS 2026 contest. Someone who previously held or previously ran
+  they filed for THIS {cycle_year} contest. Someone who previously held or previously ran
   for this seat in an earlier cycle does not belong in the roster by default —
   being a real, well-known person is not evidence of a current candidacy.
 - For EVERY such person you encounter (the off-cycle senator, a prior-cycle
@@ -1150,11 +1185,11 @@ at least one Democratic AND one Republican candidate for a partisan general elec
 
 If only one major party appears in the updated roster, actively search for the
 other party's candidate before concluding the race is uncontested:
-- Search "<state> <office> 2026 <missing party> candidate" or "<race_id> general election"
+- Search "<state> <office> {cycle_year} <missing party> candidate" or "<race_id> general election"
 - Check whether the current officeholder from the missing party is seeking re-election
   (an incumbent running unopposed for their party may not appear on Ballotpedia's
   primary-focused election page — look them up directly)
-- Search "ballotpedia.org <state> <office> 2026" for any additional candidate info
+- Search "ballotpedia.org <state> <office> {cycle_year}" for any additional candidate info
 
 A single-party roster is ONLY acceptable when you have confirmed the other party
 genuinely did not field a candidate (e.g., no Republican filed, verified on the
@@ -1211,11 +1246,11 @@ A candidate should be removed ONLY if:
 - The candidate was clearly a primary loser or withdrew BEFORE the last_updated
   date (meaning they should never have been in the profile).
 - The candidate is a former officeholder or a prior-cycle candidate who is NOT a
-  declared/qualified candidate in THIS 2026 contest — for example a retired,
+  declared/qualified candidate in THIS {{cycle_year}} contest — for example a retired,
   resigned, term-limited, or previously-defeated member of Congress or other
-  official who is not currently running — and a search confirms no current 2026
-  candidacy in this specific race. Being a real, well-known person does NOT make
-  someone a current candidate.
+  official who is not currently running — and a search confirms no current
+  {{cycle_year}} candidacy in this specific race. Being a real, well-known person
+  does NOT make someone a current candidate.
 
 Do NOT remove a candidate simply because you are uncertain or their data is
 sparse. If you are not sure, keep them.
@@ -1246,7 +1281,7 @@ evidence is verified:
    questionable.
 4. For EACH candidate in the "added during the sync" list above, positively
    confirm them: search their exact name together with "{race_id}" or
-   "<state> <office> 2026" and verify a credible source names them as a candidate
+   "<state> <office> {cycle_year}" and verify a credible source names them as a candidate
    in this race. If no source confirms a newly added candidate, remove them as
    unverified/fabricated. This positive-confirmation burden applies ONLY to
    candidates added during the sync — never to pre-existing candidates.
@@ -1254,7 +1289,7 @@ evidence is verified:
    - Lost a completed primary/runoff/convention and you can cite the dated result
    - Officially withdrew or was disqualified
    - Is clearly fake or cannot be verified as a real candidate after search
-   - Is a former officeholder or prior-cycle candidate not running in THIS 2026
+   - Is a former officeholder or prior-cycle candidate not running in THIS {cycle_year}
      race, confirmed by search (e.g. a retired, resigned, or previously-defeated
      ex-Representative/Senator/Governor who has not filed this cycle)
 6. Keep every verified active candidate, including all participants in a runoff

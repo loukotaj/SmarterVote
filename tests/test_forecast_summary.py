@@ -1,3 +1,5 @@
+import re
+
 import pytest
 
 from shared.forecast_summary import (
@@ -5,6 +7,8 @@ from shared.forecast_summary import (
     GOVERNOR_HOLDOVERS,
     SENATE_HOLDOVERS,
     build_chamber_forecasts,
+    election_cycle_year,
+    get_chamber_forecast_system_prompt,
     is_chamber_control_race,
     office_group,
 )
@@ -430,3 +434,31 @@ def test_every_holdover_state_name_is_a_real_state():
     valid = set(ABBR_TO_STATE.values())
     assert set(SENATE_HOLDOVERS) <= valid
     assert set(GOVERNOR_HOLDOVERS) <= valid
+
+
+def test_election_cycle_year_reads_the_cycle_off_the_races():
+    races = [{"id": "ga-senate-2026"}, {"id": "az-house-07-2026"}, {"id": "me-governor-2026"}]
+    assert election_cycle_year(races) == "2026"
+
+
+def test_election_cycle_year_falls_back_to_election_date():
+    assert election_cycle_year([{"id": "no-year-slug", "election_date": "2028-11-07"}]) == "2028"
+
+
+def test_election_cycle_year_is_not_swung_by_one_malformed_id():
+    races = [{"id": "ga-senate-2026"}, {"id": "az-senate-2026"}, {"id": "stray-2018"}]
+    assert election_cycle_year(races) == "2026"
+
+
+def test_election_cycle_year_is_none_when_nothing_carries_a_year():
+    assert election_cycle_year([{"id": "mystery"}]) is None
+
+
+def test_chamber_forecast_prompt_names_the_cycle_it_was_given():
+    assert "in the 2028 election cycle" in get_chamber_forecast_system_prompt("US Senate", "2028")
+
+
+def test_chamber_forecast_prompt_stays_cycle_neutral_without_a_year():
+    prompt = get_chamber_forecast_system_prompt("US Senate")
+    assert "in the current election cycle" in prompt
+    assert not re.search(r"\b20\d{2}\b", prompt), "prompt must not name a hardcoded cycle"

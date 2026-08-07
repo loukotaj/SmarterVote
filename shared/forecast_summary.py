@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from datetime import datetime, timezone
 from typing import Any, Dict, Iterable, Literal
 
@@ -193,6 +194,32 @@ def race_state(race: Dict[str, Any]) -> str | None:
         return str(state)
     race_id = str(race.get("id") or race.get("race_id") or "")
     return ABBR_TO_STATE.get(race_id.split("-")[0].lower())
+
+
+_RACE_ID_YEAR = re.compile(r"-(\d{4})$")
+
+
+def election_cycle_year(races: Iterable[Dict[str, Any]]) -> str | None:
+    """The election year these races belong to, or None if they do not agree.
+
+    Read from the race IDs' ``-YYYY`` suffix, falling back to the year of
+    ``election_date``. Returned as the most common value so one malformed ID in
+    a chamber's worth of races cannot swing the answer.
+    """
+    counts: Dict[str, int] = {}
+    for race in races:
+        year = None
+        match = _RACE_ID_YEAR.search(str(race.get("id") or race.get("race_id") or ""))
+        if match:
+            year = match.group(1)
+        elif isinstance(race.get("election_date"), str) and len(race["election_date"]) >= 4:
+            candidate = race["election_date"][:4]
+            year = candidate if candidate.isdigit() else None
+        if year:
+            counts[year] = counts.get(year, 0) + 1
+    if not counts:
+        return None
+    return max(counts.items(), key=lambda item: item[1])[0]
 
 
 def is_chamber_control_race(race: Dict[str, Any], chamber: Chamber) -> bool:
@@ -641,11 +668,15 @@ def build_chamber_context(races: list[dict[str, Any]], name: str, summary: dict[
     return "\n".join(lines)
 
 
-def get_chamber_forecast_system_prompt(chamber_name: str) -> str:
+def get_chamber_forecast_system_prompt(chamber_name: str, cycle_year: str | int | None = None) -> str:
+    # Never hardcode the cycle here: the model is told which election it is
+    # analysing, so a stale literal would have it narrate the wrong one. Callers
+    # derive the year from the races themselves via `election_cycle_year`.
+    cycle_phrase = f"in the {cycle_year} election cycle" if cycle_year else "in the current election cycle"
     return (
         "You are a professional, nonpartisan, highly analytical election forecaster (like Cook Political Report, FiveThirtyEight, or Split Ticket). "
         f"Your goal is to output a JSON object containing a detailed forecast analysis for the {chamber_name} "
-        "in the 2026 election cycle, based on the forecast data provided. "
+        f"{cycle_phrase}, based on the forecast data provided. "
         "Your writing must sound like a short, sharp election analyst note, not an AI-generated report. "
         "Avoid generic filler phrases and AI boilerplate such as 'model assessment,' 'structured analysis,' "
         "'available indicators,' 'based on the data,' or generic caveats about uncertainty. "

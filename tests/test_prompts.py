@@ -1,5 +1,11 @@
 """Tests for pipeline agent prompt templates and formatting."""
 
+import re
+from datetime import date
+
+import pytest
+
+from pipeline_client.agent import prompts
 from pipeline_client.agent.prompts import (
     CANONICAL_ISSUES,
     DISCOVERY_SYSTEM,
@@ -18,6 +24,8 @@ from pipeline_client.agent.prompts import (
     UPDATE_ISSUE_SUBAGENT_USER,
     UPDATE_META_SYSTEM,
     UPDATE_META_USER,
+    cycle_kwargs,
+    cycle_year_for,
 )
 from shared.models import LEGACY_ISSUE_NAMES
 
@@ -67,7 +75,7 @@ def test_agent_prompts_do_not_request_legacy_issue_names():
 
 def test_discovery_user_formats():
     """Discovery user prompt accepts race_id and current_date."""
-    result = DISCOVERY_USER.format(race_id="mo-senate-2024", current_date="2026-06-14")
+    result = DISCOVERY_USER.format(**cycle_kwargs("mo-senate-2024"), race_id="mo-senate-2024", current_date="2026-06-14")
     assert "mo-senate-2024" in result
     assert "2026-06-14" in result
     assert "Lock the race identity" in result
@@ -140,6 +148,7 @@ def test_iterate_user_formats():
 def test_roster_sync_prompt_formats():
     """Roster sync prompt accepts race_id, last_updated, candidate_names."""
     result = ROSTER_SYNC_USER.format(
+        **cycle_kwargs("ga-senate-2026"),
         race_id="ga-senate-2026",
         last_updated="2025-01-01T00:00:00Z",
         current_date="2026-06-14",
@@ -197,7 +206,7 @@ def test_update_issue_subagent_prompt_formats():
 
 def test_discovery_prompt_mentions_donor_sources():
     """Discovery prompt tells the model to include donor summary and links."""
-    result = DISCOVERY_USER.format(race_id="mo-senate-2024", current_date="2026-06-14")
+    result = DISCOVERY_USER.format(**cycle_kwargs("mo-senate-2024"), race_id="mo-senate-2024", current_date="2026-06-14")
     assert "donor_summary" in result
     assert "donor_sources" in result
     assert "links" in result
@@ -455,3 +464,57 @@ def test_forecast_prompt_and_evidence_gate_agree_on_named_rating_sources():
         }
     }
     assert forecast_evidence_gaps(unattributed_lean) == ["missing_explicit_sources"]
+
+
+# Lines that quote a sample answer or a sample data value rather than issuing an
+# instruction — a concrete year there demonstrates the expected specificity and
+# never becomes a stale search term.
+_EXEMPT_SAMPLE_TEXT = re.compile(r'Example|e\.g\.|^\s*"\w+":|session\."|package\."')
+
+
+# ---------------------------------------------------------------------------
+# Cycle-year generality
+# ---------------------------------------------------------------------------
+
+
+def test_cycle_year_reads_the_year_off_the_race_id():
+    assert cycle_year_for("ga-senate-2026") == "2026"
+    assert cycle_year_for("az-house-07-2026") == "2026"
+    assert cycle_year_for("mo-senate-2024") == "2024"
+    assert cycle_year_for("ne-governor-2028") == "2028"
+
+
+def test_cycle_year_falls_back_to_the_current_year_without_a_suffix():
+    assert cycle_year_for("some-odd-slug", today=date(2031, 4, 2)) == "2031"
+    assert cycle_year_for("", today=date(2031, 4, 2)) == "2031"
+
+
+def test_cycle_kwargs_exposes_the_cycle_and_the_year_before_it():
+    assert cycle_kwargs("ga-senate-2026") == {"cycle_year": "2026", "prior_year": "2025"}
+
+
+@pytest.mark.parametrize(
+    "name, template",
+    sorted(
+        (name, value)
+        for name, value in vars(prompts).items()
+        if name.isupper() and isinstance(value, str) and not name.startswith("_")
+    ),
+)
+def test_no_prompt_hardcodes_an_election_year(name, template):
+    """A literal year in a prompt keeps aiming the model at a past election.
+
+    Search strings and contest-scoping rules must use {cycle_year}/{prior_year},
+    which are resolved from the race ID. Illustrative example *outputs* (a sample
+    donor summary, a sample career date range) are exempt — they demonstrate
+    formatting and do not steer a search — so this checks only lines that look
+    like instructions rather than quoted sample text.
+    """
+    offenders = []
+    for line in template.splitlines():
+        if not re.search(r"\b(19|20)\d{2}\b", line):
+            continue
+        if _EXEMPT_SAMPLE_TEXT.search(line):
+            continue
+        offenders.append(line.strip())
+    assert not offenders, f"{name} hardcodes an election year:\n" + "\n".join(offenders)

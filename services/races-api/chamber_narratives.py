@@ -8,6 +8,7 @@ import httpx
 
 from shared.forecast_summary import (
     build_chamber_context,
+    election_cycle_year,
     get_chamber_forecast_system_prompt,
     is_chamber_control_race,
     summarize_chamber,
@@ -58,8 +59,10 @@ async def _call_openrouter(messages: list[dict[str, str]], *, model: str) -> dic
     return resp.json()
 
 
-async def generate_chamber_analysis(chamber_name: str, context_text: str, *, model: str) -> dict[str, str]:
-    system_prompt = get_chamber_forecast_system_prompt(chamber_name)
+async def generate_chamber_analysis(
+    chamber_name: str, context_text: str, *, model: str, cycle_year: str | None = None
+) -> dict[str, str]:
+    system_prompt = get_chamber_forecast_system_prompt(chamber_name, cycle_year)
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": f"Here is the aggregated forecast data for the {chamber_name}:\n\n{context_text}"},
@@ -77,10 +80,11 @@ async def generate_chamber_analysis(chamber_name: str, context_text: str, *, mod
 
 async def generate_chamber_analyses(summaries: list[dict[str, Any]], *, model: str) -> Dict[Chamber, dict[str, str]]:
     chamber_names: Dict[Chamber, str] = {"senate": "US Senate", "house": "US House", "governors": "Governors"}
+    cycle_year = election_cycle_year(summaries)
     analyses: Dict[Chamber, dict[str, str]] = {}
     for chamber, name in chamber_names.items():
         races = races_for_chamber(summaries, chamber)
         summary = summarize_chamber(summaries, chamber)
         context = build_chamber_context(races, name, summary)
-        analyses[chamber] = await generate_chamber_analysis(name, context, model=model)
+        analyses[chamber] = await generate_chamber_analysis(name, context, model=model, cycle_year=cycle_year)
     return analyses

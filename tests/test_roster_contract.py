@@ -10,7 +10,7 @@ here that fails means that class of bug is back.
 import pytest
 
 from pipeline_client.agent import handlers
-from pipeline_client.agent.prompts import ROSTER_SYNC_USER
+from pipeline_client.agent.prompts import ROSTER_SYNC_USER, cycle_kwargs
 from pipeline_client.agent.roster import ROSTER_CAP
 from pipeline_client.agent.roster_contract import (
     AUTHORITATIVE_SOURCE_CLASSES,
@@ -32,6 +32,7 @@ def test_prompt_carries_no_unsubstituted_slots():
 def test_prompt_still_formats_with_runtime_placeholders():
     """Rendering the contract must not consume the caller's format placeholders."""
     rendered = ROSTER_SYNC_USER.format(
+        **cycle_kwargs("ne-house-02-2026"),
         race_id="ne-house-02-2026",
         last_updated="2026-07-01",
         current_date="2026-08-02",
