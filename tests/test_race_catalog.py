@@ -5,6 +5,7 @@ from datetime import datetime, timedelta, timezone
 from shared.models import CanonicalIssue
 from shared.race_catalog import (
     _coerce_datetime,
+    _strong_roster_source,
     build_agent_metrics_summary,
     build_candidate_summaries,
     build_catalog_health,
@@ -299,3 +300,42 @@ def test_build_versioned_catalog_fields_prefixes_keys():
         "draft_quality_grade": "A",
         "draft_catalog_health": build_catalog_health(race_data),
     }
+
+
+# ---------------------------------------------------------------------------
+# `_strong_roster_source` re-derives the roster contract's tier rule
+# ---------------------------------------------------------------------------
+
+
+def test_strong_roster_source_agrees_with_the_roster_contract():
+    """`shared.race_catalog` says a roster source is strong when
+    `tier <= 2 and retrieval_status == "content"`. That is the roster contract's
+    COMPLETENESS_TIERS spelled out as a literal.
+
+    `shared` sits below `pipeline_client` and cannot import the contract, so the
+    rule is written twice by necessity. This asserts the two still say the same
+    thing: change the contract's tiers and the catalog's counts of
+    "strong evidence" candidates silently stop matching what the tool enforces.
+    """
+    from pipeline_client.agent.roster_contract import COMPLETENESS_TIERS, MEMBERSHIP_TIERS
+
+    assert max(COMPLETENESS_TIERS) == 2, "race_catalog hardcodes `tier <= 2`"
+    assert min(COMPLETENESS_TIERS) >= 1
+    assert all(
+        tier.retrieval_status == "content" for tier in MEMBERSHIP_TIERS if tier.tier in COMPLETENESS_TIERS
+    ), 'race_catalog hardcodes retrieval_status == "content" for these tiers'
+
+
+def test_strong_roster_source_accepts_and_rejects_by_that_rule():
+    race_id = "ga-senate-2026"
+    strong = {"url": "https://sos.ga.gov/x", "evidence_tier": 1, "retrieval_status": "content", "race_id": race_id}
+    assert _strong_roster_source(strong, race_id)
+
+    # A snippet is never strong, whatever tier it claims.
+    assert not _strong_roster_source({**strong, "retrieval_status": "snippet"}, race_id)
+    # Tier 3 is outside the completeness tiers.
+    assert not _strong_roster_source({**strong, "evidence_tier": 3}, race_id)
+    # Evidence for a different contest does not support this one.
+    assert not _strong_roster_source({**strong, "race_id": "az-senate-2026"}, race_id)
+    # A source with no URL cannot be cited at all.
+    assert not _strong_roster_source({**strong, "url": ""}, race_id)
