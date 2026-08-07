@@ -4,6 +4,7 @@ import {
   partyBadgeClass,
   partyRing,
   partyInitialBg,
+  partyKey,
   partySlug,
 } from "./party";
 
@@ -127,6 +128,72 @@ describe("party utilities", () => {
     it("returns rep for Republicans", () => {
       expect(partySlug("Republican")).toBe("rep");
       expect(partySlug("r")).toBe("rep");
+    });
+  });
+
+  describe("consistency across helpers", () => {
+    // These four helpers describe the same candidate in four places on the page.
+    // Before they shared a classifier, only partyAbbr and partyBadgeClass knew
+    // about independents, so an independent wore a purple pill above a grey
+    // avatar ring.
+    const INDEPENDENT_LABELS = ["Independent", "independent", "i", "I"];
+
+    it.each(INDEPENDENT_LABELS)(
+      "gives %s the independent treatment in every helper",
+      (label) => {
+        expect(partyKey(label)).toBe("ind");
+        expect(partyAbbr(label)).toBe("I");
+        expect(partyBadgeClass(label)).toContain("purple");
+        expect(partyRing(label)).toBe("ring-purple-500");
+        expect(partyInitialBg(label)).toBe("bg-purple-500");
+      },
+    );
+
+    it.each([
+      ["Democratic", "dem"],
+      ["Republican", "rep"],
+      ["Independent", "ind"],
+      ["Green", "grn"],
+      ["Libertarian", "lib"],
+      ["Nonpartisan", "other"],
+      ["Undeclared", "other"],
+    ])("classifies %s as %s", (label, key) => {
+      expect(partyKey(label)).toBe(key);
+    });
+
+    it("never leaves a recognised party without a ring or avatar colour", () => {
+      // A party the classifier knows but a helper forgot would fall through to
+      // undefined and render an unstyled element.
+      for (const label of [
+        "Democratic",
+        "Republican",
+        "Independent",
+        "Green",
+        "Libertarian",
+        "Constitution",
+      ]) {
+        expect(partyRing(label)).toMatch(/^ring-/);
+        expect(partyInitialBg(label)).toMatch(/^bg-/);
+        expect(partyBadgeClass(label)).toContain("bg-");
+        expect(partyAbbr(label)).not.toBe("");
+      }
+    });
+
+    it("keeps an absent party distinct from an unrecognised one", () => {
+      // Nothing claimed vs. claimed-but-unknown are different states and the
+      // avatar reflects that; collapsing them would lose the distinction.
+      expect(partyRing(undefined)).not.toBe(partyRing("Constitution"));
+      expect(partyInitialBg(undefined)).not.toBe(
+        partyInitialBg("Constitution"),
+      );
+    });
+
+    it("keeps partySlug to the two parties the stylesheet defines", () => {
+      // .poll-bar-fill.dem and .poll-bar-fill.rep are the only rules that exist;
+      // returning anything else would name a class with no styling behind it.
+      expect(partySlug("Independent")).toBe("");
+      expect(partySlug("Libertarian")).toBe("");
+      expect(partySlug("Green")).toBe("");
     });
   });
 });

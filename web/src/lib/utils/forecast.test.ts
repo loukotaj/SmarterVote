@@ -616,6 +616,7 @@ describe("forecast utilities", () => {
       const sorted = sortForecastRaces(
         [rated("a", "other"), rated("b", "safe_d"), rated("c", "tossup")],
         "rating",
+        undefined,
       ).map((race) => race.id);
       expect(sorted).toEqual(["b", "c", "a"]);
     });
@@ -634,7 +635,7 @@ describe("forecast utilities", () => {
       const shuffled = [...FORECAST_RATING_ORDER]
         .reverse()
         .map((rating, i) => rated(`r${i}`, rating));
-      const sorted = sortForecastRaces(shuffled, "rating").map(
+      const sorted = sortForecastRaces(shuffled, "rating", undefined).map(
         (race) => race.forecast.rating,
       );
       expect(sorted).toEqual(FORECAST_RATING_ORDER);
