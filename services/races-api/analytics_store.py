@@ -14,6 +14,8 @@ from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
 
+from shared.config import FIRESTORE_ANALYTICS_EVENTS_COLLECTION
+
 logger = logging.getLogger("races_api")
 
 _SQLITE_EVENT_LIMIT = 10_000
@@ -143,7 +145,7 @@ class AnalyticsStore:
                 "ip_hash": ip_hash,
                 "referer": referer,
             }
-            await self._client.collection("analytics_events").add(doc)
+            await self._client.collection(FIRESTORE_ANALYTICS_EVENTS_COLLECTION).add(doc)
         except Exception:
             logger.debug("Firestore log_request failed", exc_info=True)
 
@@ -183,7 +185,7 @@ class AnalyticsStore:
     async def _overview_firestore(self, hours: int) -> Dict[str, Any]:
         cutoff = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
         try:
-            query = self._client.collection("analytics_events").where("timestamp", ">=", cutoff)
+            query = self._client.collection(FIRESTORE_ANALYTICS_EVENTS_COLLECTION).where("timestamp", ">=", cutoff)
             docs = [doc.to_dict() async for doc in query.stream()]
             return _compute_overview(docs, hours)
         except Exception:
@@ -214,7 +216,7 @@ class AnalyticsStore:
     async def _race_stats_firestore(self, hours: int) -> List[Dict[str, Any]]:
         cutoff = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
         try:
-            query = self._client.collection("analytics_events").where("timestamp", ">=", cutoff)
+            query = self._client.collection(FIRESTORE_ANALYTICS_EVENTS_COLLECTION).where("timestamp", ">=", cutoff)
             docs = [doc.to_dict() async for doc in query.stream()]
             return _compute_race_stats([d for d in docs if d.get("race_id")])
         except Exception:
@@ -246,7 +248,7 @@ class AnalyticsStore:
     async def _timeseries_firestore(self, hours: int, bucket_minutes: int) -> List[Dict[str, Any]]:
         cutoff = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
         try:
-            query = self._client.collection("analytics_events").where("timestamp", ">=", cutoff)
+            query = self._client.collection(FIRESTORE_ANALYTICS_EVENTS_COLLECTION).where("timestamp", ">=", cutoff)
             docs = [doc.to_dict() async for doc in query.stream()]
             return _compute_timeseries(docs, hours, bucket_minutes)
         except Exception:

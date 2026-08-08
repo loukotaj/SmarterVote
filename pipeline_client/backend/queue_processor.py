@@ -25,6 +25,7 @@ import uuid
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Optional
 
+from shared.config import FIRESTORE_QUEUE_COLLECTION, FIRESTORE_RACES_COLLECTION, FIRESTORE_RUNS_COLLECTION
 from shared.pipeline_config import RetentionConfig
 from shared.race_catalog import build_race_summary_fields, build_versioned_catalog_fields
 from shared.run_health import RunFailureReason, RunHealthStatus, classify_exception
@@ -69,7 +70,7 @@ def _lease_expired(data: Dict[str, Any], now: datetime) -> bool:
 
 def _set_race_if_current(db: Any, race_id: str, run_id: str, update: Dict[str, Any]) -> bool:
     """Update the race record only if this run still owns it (guards ghost writes)."""
-    race_ref = db.collection("races").document(race_id)
+    race_ref = db.collection(FIRESTORE_RACES_COLLECTION).document(race_id)
     try:
         race_doc = race_ref.get()
         race_data = race_doc.to_dict() if getattr(race_doc, "exists", False) else {}
@@ -236,7 +237,7 @@ async def process_claimed_item(
     run_id = item_data.get("run_id") or uuid.uuid4().hex
     is_continuation = bool(item_data.get("is_continuation"))
     existing_data_gcs_path = item_data.get("existing_data_gcs_path")
-    item_ref = db.collection("pipeline_queue").document(item_id)
+    item_ref = db.collection(FIRESTORE_QUEUE_COLLECTION).document(item_id)
 
     if not race_id:
         item_ref.update(
@@ -250,7 +251,7 @@ async def process_claimed_item(
         )
         return
 
-    run_ref = db.collection("pipeline_runs").document(run_id)
+    run_ref = db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id)
     if not run_ref.get().exists:
         run_ref.set(
             {
@@ -272,7 +273,7 @@ async def process_claimed_item(
     else:
         run_ref.update({"status": "running", "queue_item_id": item_id})
 
-    db.collection("races").document(race_id).set(
+    db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).set(
         {"status": "running", "current_run_id": run_id, "race_id": race_id}, merge=True
     )
 
@@ -314,7 +315,7 @@ async def process_claimed_item(
                     failure_reason = RunFailureReason.BUDGET_EXHAUSTED
                     logger.warning(error_msg)
                     break
-                cont_ref = db.collection("pipeline_queue").document(exc.continuation_item_id)
+                cont_ref = db.collection(FIRESTORE_QUEUE_COLLECTION).document(exc.continuation_item_id)
                 cont_doc = cont_ref.get()
                 cont_data = cont_doc.to_dict() if getattr(cont_doc, "exists", False) else None
                 if not isinstance(cont_data, dict):
@@ -491,7 +492,9 @@ async def process_claimed_item(
         )
         draft_data = _load_gcs_json(gcs, bucket_name, f"drafts/{race_id}.json")
         if isinstance(draft_data, dict):
-            db.collection("races").document(race_id).set(_draft_catalog_update(race_id, draft_data), merge=True)
+            db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).set(
+                _draft_catalog_update(race_id, draft_data), merge=True
+            )
     else:
         reason = failure_reason or RunFailureReason.UNKNOWN_ERROR
         run_health = {

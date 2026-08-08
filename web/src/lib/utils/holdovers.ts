@@ -76,3 +76,50 @@ export const SENATE_HOLDOVERS: Record<string, ("Democratic" | "Republican")[]> =
     Texas: ["Republican"],
     Wyoming: ["Republican"],
   };
+
+/**
+ * Each chamber's composition going into this election, used as the baseline the
+ * projection is compared against ("net change: D +3").
+ *
+ * This is cycle data and it moves with the holdover tables above: seats not up
+ * this cycle carry over, so `composition − holdovers` is exactly the set of
+ * seats on the ballot. Rolling the site to a new cycle means editing both, and
+ * `holdovers.test.ts` fails if only one of them is updated.
+ */
+export const CURRENT_CHAMBER_COMPOSITION: Record<
+  "house" | "senate" | "governors",
+  Record<"Democratic" | "Republican" | "Other", number>
+> = {
+  house: { Democratic: 212, Republican: 218, Other: 1 },
+  senate: { Democratic: 47, Republican: 53, Other: 0 },
+  governors: { Democratic: 24, Republican: 26, Other: 0 },
+};
+
+/** Total seats in each chamber. */
+export const CHAMBER_SEAT_TOTALS: Record<
+  "house" | "senate" | "governors",
+  number
+> = {
+  house: 435,
+  senate: 100,
+  governors: 50,
+};
+
+/**
+ * Seats currently held by nobody, so that `CURRENT_CHAMBER_COMPOSITION` plus
+ * these adds up to `CHAMBER_SEAT_TOTALS`.
+ *
+ * Recorded explicitly rather than left as the difference: a composition that
+ * silently falls short of the chamber total looks identical to one where
+ * somebody mistyped a party count, and the forecast page renders either without
+ * complaint. Vacancies do move between elections — update this alongside the
+ * composition above.
+ */
+export const CHAMBER_VACANCIES: Record<
+  "house" | "senate" | "governors",
+  number
+> = {
+  house: 4,
+  senate: 0,
+  governors: 0,
+};

@@ -1472,6 +1472,88 @@ def test_cap_roster_keeps_incumbent_and_minor_party_when_room():
     assert "Dem Incumbent" in names  # incumbent always survives the cap
 
 
+def _capped(candidates, **race_fields):
+    from pipeline_client.agent.phases import _cap_roster
+
+    race_json = {"candidates": candidates, **race_fields}
+    _cap_roster(race_json)
+    return [c["name"] for c in race_json["candidates"]]
+
+
+def _filler(prefix, party, count):
+    return [{"name": f"{prefix}{i}", "party": party, "summary": "s", "roster_sources": [{"url": "u"}]} for i in range(count)]
+
+
+def test_cap_roster_keeps_an_incumbent_who_belongs_to_neither_major_party():
+    """The reserved slots are keyed on party and were filled before signal was
+    consulted, so an independent incumbent — Vermont's and Maine's senators, a
+    governor elected outside both parties — was dropped for a fourth Republican
+    despite incumbency outweighing every other signal a hundred to one."""
+    names = _capped(
+        _filler("D", "Democratic", 4)
+        + _filler("R", "Republican", 4)
+        + [{"name": "Independent Incumbent", "party": "Independent", "incumbent": True, "summary": "s"}]
+    )
+    assert "Independent Incumbent" in names
+    assert len(names) == 8
+
+
+def test_cap_roster_ignores_party_balance_in_a_top_four_contest():
+    """Alaska advances the top four regardless of party, so reserving seats for
+    the two major parties describes a contest that is not being held. Its
+    governor field — twelve Republicans, two Democrats, three independents —
+    filled the cap with six Republicans and dropped every independent."""
+    names = _capped(
+        _filler("R", "Republican", 12)
+        + _filler("D", "Democratic", 2)
+        + [
+            {
+                "name": "Notable Independent",
+                "party": "Independent",
+                "summary": "s",
+                "roster_sources": [{"url": "u"}],
+                "image_url": "i",
+            }
+        ]
+        + _filler("I", "Independent", 2),
+        contest_stage="top_four_rcv",
+    )
+    assert "Notable Independent" in names, "a well-sourced independent must outrank a bare Republican"
+    assert len(names) == 8
+
+
+def test_cap_roster_ignores_party_balance_in_a_top_two_contest():
+    names = _capped(
+        _filler("R", "Republican", 8)
+        + [
+            {
+                "name": "Notable Independent",
+                "party": "Independent",
+                "summary": "s",
+                "roster_sources": [{"url": "u"}],
+                "image_url": "i",
+            }
+        ],
+        contest_stage="top_two",
+    )
+    assert "Notable Independent" in names
+
+
+def test_cap_roster_still_balances_a_two_party_general():
+    """The party reservation is right for a normal general and must be kept."""
+    names = _capped(
+        _filler("D", "Democratic", 5) + _filler("R", "Republican", 5),
+        contest_stage="post_primary_general",
+    )
+    assert sum(1 for n in names if n.startswith("D")) == 4
+    assert sum(1 for n in names if n.startswith("R")) == 4
+
+
+def test_cap_roster_leaves_a_short_roster_alone():
+    names = _capped(_filler("D", "Democratic", 2) + _filler("R", "Republican", 2), contest_stage="top_four_rcv")
+    assert len(names) == 4
+
+
 def test_sanitize_polling_drops_non_roster_placeholder_poll():
     race_json = {
         "id": "ar-governor-2026",

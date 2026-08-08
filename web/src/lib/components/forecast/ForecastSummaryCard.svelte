@@ -18,6 +18,7 @@
   export let threshold: number;
   export let narrative: string;
   export let updatedAt: string | undefined;
+  export let cycleYear: string | null = null;
 </script>
 
 <!-- Forecast Above-The-Fold Layout: Election Summary -->
@@ -34,6 +35,7 @@
       {mostLikelyOutcome}
       {tossupCount}
       {competitiveRaceCount}
+      {cycleYear}
     />
 
     <!-- Right Column: Charts / Stats -->

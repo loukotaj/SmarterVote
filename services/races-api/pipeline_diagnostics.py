@@ -12,6 +12,12 @@ import gcs_helpers
 from config import DATA_DIR
 
 from pipeline_client.logging_utils import sanitize_log_data
+from shared.config import (
+    FIRESTORE_QUEUE_COLLECTION,
+    FIRESTORE_RACES_COLLECTION,
+    FIRESTORE_RUN_LOGS_SUBCOLLECTION,
+    FIRESTORE_RUNS_COLLECTION,
+)
 
 _DIAGNOSTICS_SCHEMA = "smartervote.pipeline-diagnostics.v1"
 _MISSING_STANCE_MARKERS = {"", "draft", "no public position found", "unknown", "n/a"}
@@ -125,21 +131,21 @@ def _draft_summary(draft: Optional[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
 
 def build_diagnostics_bundle(run_id: str, db: Any) -> Optional[Dict[str, Any]]:
     """Combine run, queue, logs, race state, and draft output into one export."""
-    run_ref = db.collection("pipeline_runs").document(run_id)
+    run_ref = db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id)
     run = _plain(run_ref.get())
     if run is None:
         return None
 
-    log_query = run_ref.collection("logs").order_by("__name__").limit(_MAX_DIAGNOSTIC_LOGS)
+    log_query = run_ref.collection(FIRESTORE_RUN_LOGS_SUBCOLLECTION).order_by("__name__").limit(_MAX_DIAGNOSTIC_LOGS)
     logs = [_plain(doc) for doc in log_query.stream()]
     logs = [entry for entry in logs if entry is not None]
 
     logs.sort(key=_log_sort_key)
-    queue_docs = db.collection("pipeline_queue").where("run_id", "==", run_id).limit(100).stream()
+    queue_docs = db.collection(FIRESTORE_QUEUE_COLLECTION).where("run_id", "==", run_id).limit(100).stream()
     queue_items = [item for item in (_plain(doc) for doc in queue_docs) if item is not None]
 
     race_id = str(run.get("race_id") or (run.get("payload") or {}).get("race_id") or "")
-    race_record = _plain(db.collection("races").document(race_id).get()) if race_id else None
+    race_record = _plain(db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).get()) if race_id else None
     draft = _load_draft(race_id) if race_id else None
 
     level_counts = Counter(str(entry.get("level") or "info").lower() for entry in logs)

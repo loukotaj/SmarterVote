@@ -673,7 +673,7 @@ def _get_other_state_candidates(race_id: str, state: str | None) -> set[str]:
             from google.cloud import firestore
 
             db = firestore.Client(project=project) if project else firestore.Client()
-            races_ref = db.collection("races").where("state", "==", state).stream()
+            races_ref = db.collection(FIRESTORE_RACES_COLLECTION).where("state", "==", state).stream()
             for doc in races_ref:
                 other_race_id = doc.id
                 if other_race_id == race_id:
@@ -686,7 +686,7 @@ def _get_other_state_candidates(race_id: str, state: str | None) -> set[str]:
             pass
     else:
         try:
-            from shared.config import local_paths
+            from shared.config import FIRESTORE_RACES_COLLECTION, local_paths
 
             prefix = race_id.split("-")[0].lower() if "-" in race_id else ""
             if not prefix:

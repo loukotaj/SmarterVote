@@ -14,7 +14,7 @@ describe("ForecastMissingRaces", () => {
     expect(container.querySelector("section")).toBeNull();
   });
 
-  it("lists unforecasted races and resolves an incumbent-fallback party from the state", () => {
+  it("lists unforecasted races and estimates a party from the state table", () => {
     const races: RaceSummary[] = [
       {
         id: "va-senate-2026",
@@ -39,7 +39,26 @@ describe("ForecastMissingRaces", () => {
     expect(
       screen.getByText("2026 U.S. Senate election in Virginia"),
     ).toBeTruthy();
-    expect(screen.getByText(/Democratic \(Incumbent Fallback\)/)).toBeTruthy();
+    expect(screen.getByText(/Democratic \(Estimated\)/)).toBeTruthy();
     expect(screen.getByText("Unknown")).toBeTruthy();
+  });
+
+  it("estimates from the candidate roster rather than the state table", () => {
+    // Georgia is in neither INCUMBENT_FALLBACKS nor the governors holdover table,
+    // so before the roster was consulted this row read "Unknown".
+    const races: RaceSummary[] = [
+      {
+        id: "ga-governor-2026",
+        title: "2026 Georgia gubernatorial election",
+        state: "Georgia",
+        election_date: "2026-11-03",
+        updated_utc: "2026-07-01T00:00:00Z",
+        candidates: [{ name: "A", party: "Republican", incumbent: true }],
+      },
+    ];
+
+    render(ForecastMissingRaces, { races, activeTab: "governors" });
+
+    expect(screen.getByText(/Republican \(Estimated\)/)).toBeTruthy();
   });
 });

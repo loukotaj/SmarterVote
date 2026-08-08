@@ -22,6 +22,9 @@ _PLACEHOLDER_STANCES = {
     "unknown",
     "wip",
 }
+#: Longest a stance opening with a placeholder word may be and still count as junk.
+_PLACEHOLDER_PREFIX_MAX_CHARS = 60
+
 _CANONICAL_ISSUES = {issue.value for issue in CanonicalIssue}
 
 
@@ -130,7 +133,14 @@ def _issue_verdict(value: Any) -> tuple[bool, bool, bool]:
     placeholder_prefix = any(
         normalized == marker or normalized.startswith(f"{marker} ") for marker in _PLACEHOLDER_STANCES if marker
     )
-    if not stance or normalized in _PLACEHOLDER_STANCES or (len(normalized) <= 60 and placeholder_prefix):
+    # The length bound is what keeps a real stance that merely opens with a
+    # marker word — "None of the proposed reforms go far enough because..." —
+    # from being discarded as a placeholder. Only a short one is junk.
+    if (
+        not stance
+        or normalized in _PLACEHOLDER_STANCES
+        or (len(normalized) <= _PLACEHOLDER_PREFIX_MAX_CHARS and placeholder_prefix)
+    ):
         return False, False, False
     no_position = "no public position found" in normalized or "no publicly stated position" in normalized
     sources = value.get("sources")

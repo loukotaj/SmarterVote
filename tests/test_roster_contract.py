@@ -10,12 +10,13 @@ here that fails means that class of bug is back.
 import pytest
 
 from pipeline_client.agent import handlers
-from pipeline_client.agent.prompts import ROSTER_SYNC_USER
+from pipeline_client.agent.prompts import DISCOVERY_USER, ROSTER_SYNC_USER, cycle_kwargs
 from pipeline_client.agent.roster import ROSTER_CAP
 from pipeline_client.agent.roster_contract import (
     AUTHORITATIVE_SOURCE_CLASSES,
     COMPLETENESS_SOURCE_CLASSES,
     COMPLETENESS_TIERS,
+    CONTEST_STAGES,
     MEMBERSHIP_TIERS,
     QUALIFYING_SOURCE_CLASSES,
     ROSTER_LISTING_SOURCE_CLASSES,
@@ -23,6 +24,14 @@ from pipeline_client.agent.roster_contract import (
     lacks_tier3_corroboration,
     tier_rejection_reason,
 )
+from pipeline_client.agent.tools import (
+    ADD_CANDIDATE_TOOL,
+    CONTEST_STAGE_VALUES,
+    FINALIZE_ROSTER_TOOL,
+    REMOVE_CANDIDATE_TOOL,
+    SET_CANDIDATE_ROSTER_SOURCES_TOOL,
+)
+from shared.models import ContestStage
 
 
 def test_prompt_carries_no_unsubstituted_slots():
@@ -32,6 +41,7 @@ def test_prompt_carries_no_unsubstituted_slots():
 def test_prompt_still_formats_with_runtime_placeholders():
     """Rendering the contract must not consume the caller's format placeholders."""
     rendered = ROSTER_SYNC_USER.format(
+        **cycle_kwargs("ne-house-02-2026"),
         race_id="ne-house-02-2026",
         last_updated="2026-07-01",
         current_date="2026-08-02",
@@ -193,3 +203,75 @@ def test_adjudicator_withdrawal_question_covers_the_same_grounds():
     question = _CLAIM_QUESTIONS[Claim.WITHDRAWAL].casefold()
     for keyword in ("withdraw", "disqualified", "primary", "former officeholder"):
         assert keyword in question, f"withdrawal question omits {keyword!r}"
+
+
+# ---------------------------------------------------------------------------
+# Contest stages
+# ---------------------------------------------------------------------------
+
+
+def test_every_contest_stage_reaches_validator_schema_and_prompt():
+    """A stage the model is never shown is a stage it can never emit.
+
+    The stage list is consumed in four places: the ContestStage enum, the
+    handler's validator (CONTEST_STAGES), the tool schema the model is given
+    (CONTEST_STAGE_VALUES) and the JSON shape spelled out in DISCOVERY_USER.
+    They were four hand-written copies. Adding a stage for a state whose rules
+    need one — a Louisiana-style all-party primary, say — had to land in all
+    four, and missing the schema or the prompt fails silently: the tool accepts
+    a value the model is never told exists.
+    """
+    canonical = [stage.value for stage in ContestStage]
+
+    assert CONTEST_STAGES == frozenset(canonical)
+    assert CONTEST_STAGE_VALUES == canonical, "tool schema must offer the stages in enum order"
+    assert "|".join(canonical) in DISCOVERY_USER
+    assert "@@CONTEST_STAGES@@" not in DISCOVERY_USER, "stage token was never substituted"
+
+
+# ---------------------------------------------------------------------------
+# Tool schemas must promise only what the handler accepts
+# ---------------------------------------------------------------------------
+
+
+def _schema_enums(node, field):
+    """Every `enum` list declared for `field` anywhere inside a tool schema."""
+    found = []
+    if isinstance(node, dict):
+        for key, value in node.items():
+            if key == field and isinstance(value, dict) and "enum" in value:
+                found.append(tuple(value["enum"]))
+            found.extend(_schema_enums(value, field))
+    elif isinstance(node, list):
+        for item in node:
+            found.extend(_schema_enums(item, field))
+    return found
+
+
+ROSTER_SOURCE_TOOLS = [ADD_CANDIDATE_TOOL, REMOVE_CANDIDATE_TOOL, SET_CANDIDATE_ROSTER_SOURCES_TOOL]
+
+
+@pytest.mark.parametrize("tool", ROSTER_SOURCE_TOOLS, ids=lambda t: t["function"]["name"])
+def test_source_type_schema_offers_only_classes_that_can_qualify(tool):
+    """`other` used to be offered by add_candidate and set_candidate_roster_sources.
+
+    It is the one class that can never carry roster evidence — the rendered
+    contract says so outright — and `_roster_source_rejection_reason` refuses it.
+    Offering it costs an iteration: the model picks the value the schema told it
+    was legal, the call fails, and it has to guess what to send instead. This is
+    the same prompt-promises-what-the-tool-rejects bug this module exists to stop.
+    """
+    for enum_values in _schema_enums(tool, "type"):
+        assert set(enum_values) == QUALIFYING_SOURCE_CLASSES
+        assert "other" not in enum_values
+
+
+@pytest.mark.parametrize(
+    "tool",
+    ROSTER_SOURCE_TOOLS + [FINALIZE_ROSTER_TOOL],
+    ids=lambda t: t["function"]["name"],
+)
+def test_retrieval_status_schema_matches_the_graded_values(tool):
+    graded = {tier.retrieval_status for tier in MEMBERSHIP_TIERS}
+    for enum_values in _schema_enums(tool, "retrieval_status"):
+        assert set(enum_values) == graded

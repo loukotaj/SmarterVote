@@ -9,17 +9,25 @@
   export let mostLikelyOutcome: { key: string; probability: number };
   export let tossupCount: number;
   export let competitiveRaceCount: number;
+  /** Election year this summary describes; null when the races do not say. */
+  export let cycleYear: string | null = null;
 </script>
 
 <div class="lg:col-span-6 flex flex-col space-y-6">
   <div class="space-y-2">
     <div class="flex items-center justify-between">
       <h2 class="text-2xl font-black text-content tracking-tight">
-        2026 {activeTab === "house"
-          ? "House"
-          : activeTab === "senate"
-            ? "Senate"
-            : "Governor"} Election Summary
+        {[
+          cycleYear,
+          activeTab === "house"
+            ? "House"
+            : activeTab === "senate"
+              ? "Senate"
+              : "Governor",
+          "Election Summary",
+        ]
+          .filter(Boolean)
+          .join(" ")}
       </h2>
     </div>
 

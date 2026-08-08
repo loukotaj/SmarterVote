@@ -2,7 +2,7 @@
  * Shared numeric constants for the SmarterVote frontend.
  *
  * Centralises magic numbers that were previously inlined across
- * pipelineStore, pipelineApiService, and components.
+ * pipelineApiService and components.
  */
 
 // ---------------------------------------------------------------------------

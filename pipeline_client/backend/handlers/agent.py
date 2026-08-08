@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any, Deque, Dict, List, Optional, Set
 
 from pipeline_client.logging_utils import sanitize_log_message_with_metadata
-from shared.config import GCS_CHECKPOINTS_PREFIX, local_paths
+from shared.config import FIRESTORE_QUEUE_COLLECTION, GCS_CHECKPOINTS_PREFIX, local_paths
 from shared.pipeline_config import RetentionConfig
 
 
@@ -272,7 +272,7 @@ class AgentHandler:
                 db = _get_db()
                 if db is None:
                     return
-                doc = db.collection("pipeline_queue").document(queue_item_id).get()
+                doc = db.collection(FIRESTORE_QUEUE_COLLECTION).document(queue_item_id).get()
                 if doc.exists and (doc.to_dict() or {}).get("status") == "cancelled":
                     raise AgentCancelled(f"Run {run_id or ''} for {race_id} was cancelled")
             except AgentCancelled:
@@ -621,7 +621,7 @@ class AgentHandler:
                         "fetched_chars": cost_snapshot.get("fetched_chars", 0),
                         "page_budget_blocked": cost_snapshot.get("page_budget_blocked", 0),
                     }
-                db.collection("pipeline_queue").document(item_id).set(
+                db.collection(FIRESTORE_QUEUE_COLLECTION).document(item_id).set(
                     {
                         "id": item_id,
                         "race_id": current_race_id,

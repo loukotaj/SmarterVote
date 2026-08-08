@@ -1,16 +1,9 @@
 import { candidateSlug } from "$lib/utils/format";
 import type { ChamberForecasts, Race, RaceSummary } from "$lib/types";
-import {
-  publicDataBase as configuredPublicDataBase,
-  racesApiBase,
-} from "$lib/config/api";
+import { publicDataBase as configuredPublicDataBase } from "$lib/config/api";
 
 let summariesCache: Promise<RaceSummary[]> | null = null;
 const raceCache = new Map<string, Promise<Race>>();
-
-export function publicApiBase(): string {
-  return racesApiBase();
-}
 
 function publicDataBase(): string | undefined {
   return configuredPublicDataBase();

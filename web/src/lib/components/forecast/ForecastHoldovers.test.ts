@@ -19,7 +19,11 @@ describe("ForecastHoldovers", () => {
   });
 
   it("toggles the holdover list open and closed for senate/governors tabs", async () => {
-    render(ForecastHoldovers, { activeTab: "senate", holdovers });
+    render(ForecastHoldovers, {
+      activeTab: "senate",
+      holdovers,
+      cycleYear: "2026",
+    });
 
     expect(screen.getByText("Senate Seats Not Up in 2026")).toBeTruthy();
     expect(screen.getByText(/2\s+seats/)).toBeTruthy();
@@ -36,7 +40,22 @@ describe("ForecastHoldovers", () => {
   });
 
   it("uses the governor-specific heading for the governors tab", () => {
-    render(ForecastHoldovers, { activeTab: "governors", holdovers });
+    render(ForecastHoldovers, {
+      activeTab: "governors",
+      holdovers,
+      cycleYear: "2026",
+    });
     expect(screen.getByText("Governor Seats Not Up in 2026")).toBeTruthy();
+  });
+
+  it("says 'this cycle' rather than a wrong year when the races carry none", () => {
+    // The year is derived from the races, so a catalog that cannot say which
+    // cycle it describes must not fall back to a hardcoded one.
+    render(ForecastHoldovers, {
+      activeTab: "senate",
+      holdovers,
+      cycleYear: null,
+    });
+    expect(screen.getByText("Senate Seats Not Up in this cycle")).toBeTruthy();
   });
 });

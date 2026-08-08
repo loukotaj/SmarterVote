@@ -25,24 +25,6 @@ def _candidate_info_score(candidate: Dict[str, Any]) -> int:
     return score
 
 
-def _select_candidates_for_research(
-    candidate_names: List[str],
-    race_json: Dict[str, Any],
-    *,
-    max_candidates: Optional[int],
-    target_no_info: bool,
-    log: Any,
-) -> List[str]:
-    """Compatibility wrapper returning the selected candidate batch."""
-    return plan_candidate_work(
-        candidate_names,
-        race_json,
-        max_candidates=max_candidates,
-        target_no_info=target_no_info,
-        log=log,
-    ).selected
-
-
 def plan_candidate_work(
     candidate_names: List[str],
     race_json: Dict[str, Any],

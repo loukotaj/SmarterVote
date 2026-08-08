@@ -9,6 +9,8 @@ import gcp_costs
 from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException
 
+from shared.config import FIRESTORE_METRICS_COLLECTION, FIRESTORE_RUNS_COLLECTION
+
 router = APIRouter()
 
 
@@ -266,7 +268,7 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
 
     # Primary source: pipeline_metrics (includes tokens/cost/model fields).
     try:
-        docs = db.collection("pipeline_metrics").order_by("timestamp", direction="DESCENDING").limit(limit).stream()
+        docs = db.collection(FIRESTORE_METRICS_COLLECTION).order_by("timestamp", direction="DESCENDING").limit(limit).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
             if plain is None:
@@ -281,7 +283,12 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
     # populated but stale metrics collection does not make current rows look free.
     try:
         for timestamp_field in ("progress_updated_at", "completed_at", "updated_at", "started_at"):
-            docs = db.collection("pipeline_runs").order_by(timestamp_field, direction="DESCENDING").limit(limit).stream()
+            docs = (
+                db.collection(FIRESTORE_RUNS_COLLECTION)
+                .order_by(timestamp_field, direction="DESCENDING")
+                .limit(limit)
+                .stream()
+            )
             for doc in docs:
                 plain = firestore_helpers._doc_to_plain(doc)
                 if plain is None:
@@ -351,7 +358,7 @@ async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str,
     metric_query_ok = False
     run_query_ok = False
     try:
-        docs = db.collection("pipeline_metrics").order_by("timestamp", direction="DESCENDING").limit(5000).stream()
+        docs = db.collection(FIRESTORE_METRICS_COLLECTION).order_by("timestamp", direction="DESCENDING").limit(5000).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
             if plain is None:
@@ -363,7 +370,7 @@ async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str,
         logging.warning("Failed to summarize pipeline_metrics: %s", exc)
 
     try:
-        docs = db.collection("pipeline_runs").limit(5000).stream()
+        docs = db.collection(FIRESTORE_RUNS_COLLECTION).limit(5000).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
             if plain is None or not _has_pipeline_cost_data(plain):

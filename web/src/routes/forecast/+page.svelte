@@ -17,6 +17,7 @@
   import type { ChamberForecasts, RaceSummary } from "$lib/types";
   import {
     aggregateForecasts,
+    electionCycleYear,
     getMostLikelySeatOutcome,
     getRaceState,
     groupSeatDistribution,
@@ -86,6 +87,18 @@
       if (state) counts[state] = (counts[state] ?? 0) + 1;
       return counts;
     }, {});
+
+  // "other" sits off the Safe D - Safe R axis, so it only earns a tile when a
+  // race actually holds that rating. Without it the tiles silently fail to
+  // total the number of forecast races; with it always present, every ordinary
+  // page carries a permanent zero.
+  $: ratingBreakdownOrder =
+    (aggregate.ratingCounts.other ?? 0) > 0
+      ? [...FORECAST_RATING_ORDER, "other" as const]
+      : FORECAST_RATING_ORDER;
+
+  // The cycle these races belong to, for headings and holdover copy.
+  $: cycleYear = electionCycleYear(races);
 
   // Dynamic colors and tooltips for the map
   $: stateMapData = buildStateMapData(races, activeTab);
@@ -217,6 +230,7 @@
       {mostLikelyOutcome}
       tossupCount={chamberSummary?.tossup_count ?? 0}
       competitiveRaceCount={chamberSummary?.competitive_race_count ?? 0}
+      {cycleYear}
       {outcomeProbabilities}
       {projectedSeats}
       {totalSeats}
@@ -265,7 +279,7 @@
     </section>
 
     <ForecastRatingsBreakdown
-      ratingOrder={FORECAST_RATING_ORDER}
+      ratingOrder={ratingBreakdownOrder}
       ratingCounts={aggregate.ratingCounts}
     />
 
@@ -283,7 +297,11 @@
 
     <ForecastMissingRaces races={filteredMissingRaces} {activeTab} />
 
-    <ForecastHoldovers {activeTab} holdovers={aggregate.holdovers} />
+    <ForecastHoldovers
+      {activeTab}
+      holdovers={aggregate.holdovers}
+      {cycleYear}
+    />
   {/if}
 </div>
 

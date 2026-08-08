@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import uuid
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
@@ -14,11 +13,6 @@ _RETENTION = RetentionConfig.from_env()
 def _now() -> str:
     """Return the current time in UTC ISO 8601 format."""
     return datetime.now(timezone.utc).isoformat()
-
-
-def _new_id() -> str:
-    """Return a new UUID."""
-    return str(uuid.uuid4())
 
 
 def _queue_ttl_at() -> datetime:

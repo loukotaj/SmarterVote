@@ -14,6 +14,7 @@ describe("ForecastSummaryStats", () => {
       mostLikelyOutcome: { key: "51D - 49R", probability: 0.23 },
       tossupCount: 4,
       competitiveRaceCount: 9,
+      cycleYear: "2026",
     });
 
     expect(screen.getByText("2026 Senate Election Summary")).toBeTruthy();

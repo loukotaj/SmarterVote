@@ -2,9 +2,8 @@
   import { browser } from "$app/environment";
   import type { RaceSummary } from "$lib/types";
   import {
-    getRaceState,
+    fallbackPartyForRace,
     raceHref,
-    INCUMBENT_FALLBACKS,
     type ForecastTab,
   } from "$lib/utils/forecast";
   import { partyClass } from "$lib/utils/forecastPresentation";
@@ -42,10 +41,7 @@
         </thead>
         <tbody class="divide-y divide-stroke/40">
           {#each races as race}
-            {@const stateName = getRaceState(race)}
-            {@const fallback = stateName
-              ? INCUMBENT_FALLBACKS[activeTab]?.[stateName]
-              : undefined}
+            {@const fallback = fallbackPartyForRace(race, activeTab)}
             <tr class="hover:bg-surface-alt/10 transition-colors">
               <td class="px-5 py-3">
                 <a
@@ -65,7 +61,7 @@
               <td class="px-5 py-3">
                 {#if fallback}
                   <span class={`font-semibold ${partyClass(fallback)}`}>
-                    {fallback} (Incumbent Fallback)
+                    {fallback} (Estimated)
                   </span>
                 {:else}
                   <span class="text-content-subtle">Unknown</span>

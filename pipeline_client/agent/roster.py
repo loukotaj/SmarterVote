@@ -89,6 +89,16 @@ def backfill_source_timestamps(race_json: Dict[str, Any], *, now: datetime | Non
                     source["last_accessed"] = fallback
 
 
+#: Contests where the leading candidates advance regardless of party, so
+#: reserving roster slots per major party misdescribes the race.
+PARTY_AGNOSTIC_CONTEST_STAGES = frozenset({"top_two", "top_four_rcv"})
+
+
+def _party_balance_applies(race_json: Dict[str, Any]) -> bool:
+    stage = str(race_json.get("contest_stage") or "").strip().lower()
+    return stage not in PARTY_AGNOSTIC_CONTEST_STAGES
+
+
 def cap_roster(race_json: Dict[str, Any], log: Any | None = None, limit: int = ROSTER_CAP) -> None:
     candidates = race_json.get("candidates")
     if not isinstance(candidates, list) or len(candidates) <= limit:
@@ -114,14 +124,39 @@ def cap_roster(race_json: Dict[str, Any], log: Any | None = None, limit: int = R
         indices.sort(key=lambda index: (-signal(candidates[index]), index))
 
     kept: set[int] = set()
-    for party in ("D", "R"):
-        kept.update(groups[party][:4])
-    rest = groups["D"][4:] + groups["R"][4:] + groups["O"]
-    rest.sort(key=lambda index: (-signal(candidates[index]), index))
-    for index in rest:
-        if len(kept) >= limit:
-            break
-        kept.add(index)
+
+    # An incumbent is never a casualty of balancing. The reserved slots below
+    # are keyed on party, so an independent incumbent — Vermont's and Maine's
+    # senators, a governor elected outside both parties — used to be dropped
+    # before signal was consulted at all, despite incumbency outweighing every
+    # other signal a hundred to one.
+    kept.update(
+        index for index, candidate in enumerate(candidates) if isinstance(candidate, dict) and candidate.get("incumbent")
+    )
+
+    if not _party_balance_applies(race_json):
+        # Top-two and top-four contests advance the leading candidates whatever
+        # their party, so reserving seats for the two major parties describes a
+        # contest that is not being held. Alaska's top-four governor field —
+        # twelve Republicans, two Democrats, three independents — filled the cap
+        # with six Republicans and dropped every independent.
+        ranked = sorted(range(len(candidates)), key=lambda index: (-signal(candidates[index]), index))
+        for index in ranked:
+            if len(kept) >= limit:
+                break
+            kept.add(index)
+    else:
+        for party in ("D", "R"):
+            for index in groups[party][:4]:
+                if len(kept) >= limit:
+                    break
+                kept.add(index)
+        rest = groups["D"][4:] + groups["R"][4:] + groups["O"]
+        rest.sort(key=lambda index: (-signal(candidates[index]), index))
+        for index in rest:
+            if len(kept) >= limit:
+                break
+            kept.add(index)
 
     kept_indices = sorted(kept)[:limit]
     kept_set = set(kept_indices)

@@ -113,7 +113,9 @@ def _per_million(record: Dict[str, Any], field: str) -> Optional[float]:
 def _released(record: Optional[Dict[str, Any]]) -> Optional[datetime.date]:
     if not record or not record.get("created"):
         return None
-    return datetime.datetime.utcfromtimestamp(record["created"]).date()
+    # utcfromtimestamp() is deprecated from 3.12 and slated for removal; the
+    # aware form yields the same calendar date.
+    return datetime.datetime.fromtimestamp(record["created"], datetime.timezone.utc).date()
 
 
 def _provider(model_id: str) -> str:

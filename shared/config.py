@@ -12,11 +12,23 @@ GCS_RETIRED_PREFIX = "retired"
 GCS_ARTIFACTS_PREFIX = "artifacts"
 GCS_CHECKPOINTS_PREFIX = "checkpoints"
 
+# Every Firestore collection the system reads or writes. Import these rather
+# than spelling the name inline: `tests/test_firestore_collection_names.py`
+# fails on a bare `collection("...")` anywhere in the tree, so the set below is
+# the whole vocabulary and a rename lands in one place.
 FIRESTORE_QUEUE_COLLECTION = "pipeline_queue"
 FIRESTORE_RUNS_COLLECTION = "pipeline_runs"
 FIRESTORE_RACES_COLLECTION = "races"
 FIRESTORE_SEARCH_CACHE_COLLECTION = "search_cache"
 FIRESTORE_PAGE_CACHE_COLLECTION = "page_cache"
+FIRESTORE_METRICS_COLLECTION = "pipeline_metrics"
+FIRESTORE_ANALYTICS_EVENTS_COLLECTION = "analytics_events"
+
+# Subcollections, nested under a document rather than at the root. Named apart
+# because `runs` is a child of a race document and is a different thing from the
+# top-level `pipeline_runs`; the two are easy to confuse at a call site.
+FIRESTORE_RACE_RUNS_SUBCOLLECTION = "runs"
+FIRESTORE_RUN_LOGS_SUBCOLLECTION = "logs"
 
 
 @dataclass(frozen=True)

@@ -40,6 +40,7 @@ from __future__ import annotations
 
 import re
 import sys
+import types
 import typing
 from dataclasses import dataclass, field
 from enum import Enum
@@ -148,7 +149,7 @@ FRONTEND_ONLY_OR_OTHER_BACKEND_TYPES: Dict[str, str] = {
     "RENAMED_ISSUE_NOTES": "Frontend-only user-facing copy (tooltip text) for renamed issues; has no backend equivalent.",
     "CandidateSummary": "Mirrors services/races-api/schemas.py:CandidateSummary (search/listing projection), not shared/models.py:Candidate.",
     "RaceSummary": "Mirrors services/races-api/schemas.py:RaceSummary, not shared/models.py:RaceJSON.",
-    "RunStatus": "Mirrors pipeline_client/backend/models.py run-status string literals used by RunInfo/RunStep; not part of shared/models.py.",
+    "RunStatus": "Mirrors pipeline_client/backend/models.py:RunStatus, not shared/models.py; checked separately by check_run_status().",
     "PipelineStepId": "Mirrors shared/pipeline_config.py:PIPELINE_STEP_IDS; checked separately by check_pipeline_step_ids().",
     "PIPELINE_STEPS": "Derived const array; checked separately by check_pipeline_step_ids().",
     "DEFAULT_UPDATE_PIPELINE_STEP_IDS": "Derived const array mirroring shared/pipeline_config.py:DEFAULT_UPDATE_PIPELINE_STEPS; checked separately by check_pipeline_step_ids().",
@@ -169,7 +170,7 @@ FRONTEND_ONLY_OR_OTHER_BACKEND_TYPES: Dict[str, str] = {
     "GcpCostServiceLine": "GCP billing export line-item shape (admin cost dashboard); no backend Pydantic model.",
     "GcpCostSummary": "GCP billing export summary shape (admin cost dashboard); no backend Pydantic model.",
     "RaceRecord": "Mirrors pipeline_client/backend/race_manager.py:RaceRecord (unified admin race-catalog record), not shared/models.py:RaceJSON.",
-    "RaceStatusType": "Mirrors the RaceStatus string values used by RaceRecord (pipeline_client/backend/race_manager.py); RaceStatus is a plain str class, not a Python Enum.",
+    "RaceStatusType": "Mirrors pipeline_client/backend/race_manager.py:RaceStatus, a plain str class rather than a Python Enum so check_enums cannot reach it; checked separately by check_race_status().",
     "ChamberForecastDetails": "Chamber-forecast (House/Senate/Governors) response shape produced by a separate forecast pipeline; not part of shared/models.py.",
     "ChamberForecasts": "Chamber-forecast top-level response shape; not part of shared/models.py.",
 }
@@ -372,9 +373,19 @@ def _quoted_string_literals(tokens: List[str]) -> set:
 
 
 def _unwrap_optional(annotation: Any) -> tuple:
-    """Return (inner_type, is_optional) for an annotation, unwrapping Optional[X]."""
+    """Return (inner_type, is_optional) for an annotation, unwrapping Optional[X].
+
+    Both spellings of a union have to be handled. `Optional[str]` and
+    `Union[str, None]` carry `typing.Union` as their origin, but PEP 604's
+    `str | None` carries `types.UnionType`, and matching only the former makes
+    this report a field as required when it is optional — plus a type mismatch
+    on the same field, because the annotation is never unwrapped to its inner
+    type. Every model checked today spells it `Optional[X]`, so the blind spot
+    costs nothing right now and would surface as a spray of false failures the
+    first time someone modernised one of them.
+    """
     origin = get_origin(annotation)
-    if origin is Union:
+    if origin is Union or origin is types.UnionType:
         args = get_args(annotation)
         non_none = [a for a in args if a is not type(None)]  # noqa: E721
         is_optional = type(None) in args
@@ -604,6 +615,68 @@ def check_model(ts_name: str, model_cls: Type[BaseModel], ts_interfaces: Dict[st
     return violations
 
 
+def check_race_status(ts_source: str) -> List[str]:
+    """Bonus check: RaceStatusType in types.ts vs race_manager's RaceStatus.
+
+    RaceStatus is a plain `str` subclass rather than an Enum, so `check_enums`
+    cannot reach it and the allowlist said as much without anything taking over.
+    Its values are also restated in the inline comment on `RaceRecord.status`,
+    which this compares too — a comment that has quietly stopped being true is
+    worse than none, since it is what the next reader trusts.
+    """
+    from pipeline_client.backend import race_manager
+
+    violations = []
+    py_values = {value for name, value in vars(race_manager.RaceStatus).items() if name.isupper() and isinstance(value, str)}
+
+    unions = parse_ts_type_unions(ts_source)
+    if "RaceStatusType" not in unions:
+        return ["[RaceStatusType] TS union type not found in types.ts"]
+    ts_values = _quoted_string_literals(unions["RaceStatusType"])
+    if ts_values != py_values:
+        violations.append(
+            f"[RaceStatusType] mismatch vs pipeline_client.backend.race_manager.RaceStatus: "
+            f"ts={sorted(ts_values)} python={sorted(py_values)}"
+        )
+
+    source = (REPO_ROOT / "pipeline_client" / "backend" / "race_manager.py").read_text(encoding="utf-8")
+    comment = re.search(r"status:\s*str\s*=\s*\"empty\"\s*#\s*(.+)", source)
+    if comment:
+        documented = {part.strip() for part in comment.group(1).split("|") if part.strip()}
+        if documented != py_values:
+            violations.append(
+                f"[RaceRecord.status] the inline comment listing statuses is out of date: "
+                f"comment={sorted(documented)} python={sorted(py_values)}"
+            )
+    return violations
+
+
+def check_run_status(ts_source: str) -> List[str]:
+    """Bonus check: RunStatus in types.ts vs pipeline_client's RunStatus enum.
+
+    RunStatus is excluded from `check_enums` because it lives in
+    pipeline_client/backend/models.py rather than shared/models.py, and that
+    exclusion left it with no check at all — unlike PipelineStepId, which is
+    excluded for the same reason and then checked here. Both sides serialize
+    the same run documents, so a value added on one side and not the other
+    gives the admin UI a status it will not render.
+    """
+    from pipeline_client.backend.models import RunStatus
+
+    violations = []
+    unions = parse_ts_type_unions(ts_source)
+    if "RunStatus" not in unions:
+        return ["[RunStatus] TS union type not found in types.ts"]
+    ts_values = _quoted_string_literals(unions["RunStatus"])
+    py_values = {status.value for status in RunStatus}
+    if ts_values != py_values:
+        violations.append(
+            f"[RunStatus] mismatch vs pipeline_client.backend.models.RunStatus: "
+            f"ts={sorted(ts_values)} python={sorted(py_values)}"
+        )
+    return violations
+
+
 def check_pipeline_step_ids(ts_source: str) -> List[str]:
     """Bonus check: PipelineStepId / PIPELINE_STEPS in types.ts vs the
     canonical step order + weights in shared/pipeline_config.py."""
@@ -670,6 +743,8 @@ def run_checks(types_ts_path: Path = DEFAULT_TYPES_TS_PATH) -> List[str]:
     violations += check_legacy_issue_names(ts_source)
     violations += check_model_overrides_shape(ts_interfaces)
     violations += check_pipeline_step_ids(ts_source)
+    violations += check_run_status(ts_source)
+    violations += check_race_status(ts_source)
 
     for ts_name, model_cls in CHECKED_MODELS.items():
         violations += check_model(ts_name, model_cls, ts_interfaces)

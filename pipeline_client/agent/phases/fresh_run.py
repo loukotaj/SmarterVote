@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 from ..llm import _ensure_dict
-from ..prompts import DISCOVERY_SYSTEM, DISCOVERY_USER
+from ..prompts import DISCOVERY_SYSTEM, DISCOVERY_USER, cycle_kwargs
 from ..run_budget import RunBudget
 from ..selection import _scale_iterations, _select_target_candidates
 from ..utils import make_logger
@@ -50,7 +50,11 @@ async def _run_fresh(
         await _agent_loop(
             DISCOVERY_SYSTEM,
             (f"## Run Goal\n{goal}\n\n" if goal else "")
-            + DISCOVERY_USER.format(race_id=race_id, current_date=datetime.now(timezone.utc).date().isoformat()),
+            + DISCOVERY_USER.format(
+                **cycle_kwargs(race_id),
+                race_id=race_id,
+                current_date=datetime.now(timezone.utc).date().isoformat(),
+            ),
             model=model,
             on_log=on_log,
             race_id=race_id,

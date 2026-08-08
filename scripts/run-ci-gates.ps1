@@ -102,7 +102,16 @@ try {
 
     Invoke-Step "Pipeline tests" {
         $env:PYTHONPATH = "."
-        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_races_api_admin.py --cov=pipeline_client --cov=shared --cov=smartervote_mcp --cov-report=term-missing --cov-fail-under=60"
+        # Keep --cov-fail-under equal to the value in .github/workflows/ci.yaml.
+        # The floor is ratcheted upward over time, and a lower one here makes this
+        # script pass a branch that CI then rejects — which is the one thing a
+        # local mirror of CI must never do.
+        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_races_api_admin.py --cov=pipeline_client --cov=shared --cov=smartervote_mcp --cov-report=term-missing --cov-fail-under=65"
+    }
+
+    Invoke-Step "Frontend/backend type sync" {
+        $env:PYTHONPATH = "."
+        Invoke-Expression "$python scripts/check_type_sync.py"
     }
 
     Invoke-Step "Python formatting" {

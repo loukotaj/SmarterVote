@@ -14,6 +14,7 @@ from ..prompts import (
     ROSTER_VERIFY_USER,
     UPDATE_META_SYSTEM,
     UPDATE_META_USER,
+    cycle_kwargs,
 )
 from ..roster_adjudicator import format_contest_label
 from ..run_budget import RunBudget, RunBudgetExceeded
@@ -129,6 +130,7 @@ async def _run_update(
                     ROSTER_SYNC_SYSTEM,
                     (f"## Run Goal\n{goal}\n\n" if goal else "")
                     + ROSTER_SYNC_USER.format(
+                        **cycle_kwargs(race_id),
                         race_id=race_id,
                         last_updated=last_updated,
                         current_date=as_of_date,
@@ -223,8 +225,9 @@ async def _run_update(
             log("info", f"  Roster verify: checking {len(post_sync_names)} candidate(s)")
             try:
                 await _agent_loop(
-                    ROSTER_VERIFY_SYSTEM,
+                    ROSTER_VERIFY_SYSTEM.format(**cycle_kwargs(race_id)),
                     ROSTER_VERIFY_USER.format(
+                        **cycle_kwargs(race_id),
                         race_id=race_id,
                         current_date=as_of_date,
                         candidate_names=", ".join(post_sync_names),

@@ -7,6 +7,10 @@
     party: "Democratic" | "Republican" | "Other";
     count: number;
   }[];
+  /** Election year these holdovers sit out; null when the races do not say. */
+  export let cycleYear: string | null = null;
+
+  $: cycleLabel = cycleYear ?? "this cycle";
 
   let showHoldovers = false;
 </script>
@@ -23,8 +27,8 @@
       <div class="flex items-center gap-3">
         <h2 class="text-base font-bold text-content">
           {activeTab === "governors"
-            ? "Governor Seats Not Up in 2026"
-            : "Senate Seats Not Up in 2026"}
+            ? `Governor Seats Not Up in ${cycleLabel}`
+            : `Senate Seats Not Up in ${cycleLabel}`}
         </h2>
         <span
           class="bg-surface-alt text-content-muted font-bold text-xs px-2.5 py-0.5 rounded-full border border-stroke/60"
@@ -41,8 +45,8 @@
     {#if showHoldovers}
       <div class="p-5 bg-surface-alt/10">
         <p class="text-xs text-content-subtle mb-4">
-          These seats are not up for election in 2026 and are factored into our
-          control calculations based on current incumbent party representation.
+          These seats are not up for election in {cycleLabel} and are factored into
+          our control calculations based on current incumbent party representation.
         </p>
         <div
           class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3"

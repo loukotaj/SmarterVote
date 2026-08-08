@@ -22,18 +22,22 @@ repos:
       - id: check-symlinks
       - id: check-toml
 
+  # black and isort are pinned to the versions .github/workflows/ci.yaml
+  # installs. A hook that formats with a newer release than the gate validates
+  # with produces the one outcome a pre-commit hook must not: a file the hook
+  # just rewrote, that CI then rejects.
   - repo: https://github.com/psf/black
-    rev: 23.12.1
+    rev: 23.11.0
     hooks:
       - id: black
         language_version: python3
-        files: ^(pipeline_client|services|scripts|shared|tests|functions)/.*\.py$
+        files: ^(pipeline_client|services|scripts|shared|smartervote_mcp|tests)/.*\.py$
         stages: [manual]
 
   - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
+    rev: 5.12.0
     hooks:
       - id: isort
         args: ["--profile", "black"]
-        files: ^(pipeline_client|services|scripts|shared|tests|functions)/.*\.py$
+        files: ^(pipeline_client|services|scripts|shared|smartervote_mcp|tests)/.*\.py$
         stages: [manual]
