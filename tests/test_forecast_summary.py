@@ -505,3 +505,71 @@ def test_chamber_forecast_prompt_stays_cycle_neutral_without_a_year():
     prompt = get_chamber_forecast_system_prompt("US Senate")
     assert "in the current election cycle" in prompt
     assert not re.search(r"\b20\d{2}\b", prompt), "prompt must not name a hardcoded cycle"
+
+
+def test_context_states_who_currently_holds_each_competitive_seat():
+    """The narrative cannot tell a hold from a pickup without this.
+
+    The published Senate note listed Maine among the seats Democrats had to
+    "defend" at 64%, when the seat is Susan Collins's and a Democratic win there
+    would be a pickup. The context gave a rating and a probability and nothing
+    about the incumbent, so the model had no way to get it right.
+    """
+    from shared.forecast_summary import build_chamber_context
+
+    context = build_chamber_context(
+        [
+            {
+                "id": "me-senate-2026",
+                "title": "Maine U.S. Senate Election, 2026",
+                "office": "United States Senate",
+                "forecast": {"rating": "tilt_d", "predicted_winner_party": "Democratic", "win_probability": 0.64},
+                "candidates": [
+                    {"name": "Susan Collins", "party": "Republican", "incumbent": True},
+                    {"name": "Troy Jackson", "party": "Democratic"},
+                ],
+            },
+            {
+                "id": "oh-senate-2026-special",
+                "title": "Ohio Senate Special",
+                "office": "United States Senate",
+                "forecast": {"rating": "tossup", "predicted_winner_party": "Republican", "win_probability": 0.55},
+                "candidates": [{"name": "A", "party": "Republican"}, {"name": "B", "party": "Democratic"}],
+            },
+        ],
+        "US Senate",
+        {
+            "control_party": "Republican",
+            "control_probability": 0.533,
+            "outcome_probabilities": {"Democratic": 0.467, "Republican": 0.533, "tie_50_50": 0.199},
+            "projected_seats": {"Democratic": 50, "Republican": 50},
+            "expected_seats": {"Democratic": 50.0, "Republican": 49.7},
+        },
+    )
+
+    # A Democratic-favored race on a Republican-held seat is a pickup, not a defense.
+    assert "Maine U.S. Senate Election, 2026: Tilt DEMOCRATIC (Win Prob: 64.0%, currently Republican-held)" in context
+    # No incumbent running reads as an open seat rather than being left ambiguous.
+    assert "Ohio Senate Special: Toss-up (Win Prob: 55.0%, open seat, no incumbent running)" in context
+
+
+def test_forecast_prompt_forbids_defending_a_seat_the_party_does_not_hold():
+    from shared.forecast_summary import get_chamber_forecast_system_prompt
+
+    prompt = get_chamber_forecast_system_prompt("US Senate")
+
+    assert "pickup opportunity" in prompt
+    assert "does not currently hold" in prompt
+
+
+def test_narrative_review_prompt_carries_an_optional_goal():
+    from shared.forecast_summary import get_chamber_narrative_review_prompt
+
+    without = get_chamber_narrative_review_prompt("US Senate")
+    assert "corrections" in without
+    assert "currently holds" in without
+
+    with_goal = get_chamber_narrative_review_prompt("US Senate", "lead with the tipping-point races")
+    assert "lead with the tipping-point races" in with_goal
+    # An editorial steer must never be able to override a factual correction.
+    assert "which always win" in with_goal

@@ -10,6 +10,7 @@ from shared.forecast_summary import (
     build_chamber_context,
     election_cycle_year,
     get_chamber_forecast_system_prompt,
+    get_chamber_narrative_review_prompt,
     is_chamber_control_race,
     summarize_chamber,
 )
@@ -78,7 +79,53 @@ async def generate_chamber_analysis(
     return {key: str(parsed[key]).strip() for key in REQUIRED_ANALYSIS_KEYS}
 
 
-async def generate_chamber_analyses(summaries: list[dict[str, Any]], *, model: str) -> Dict[Chamber, dict[str, str]]:
+async def review_chamber_analysis(
+    chamber_name: str,
+    context_text: str,
+    analysis: dict[str, str],
+    *,
+    model: str,
+    goal: str | None = None,
+) -> tuple[dict[str, str], list[str]]:
+    """Re-read a drafted analysis against its own data and correct contradictions.
+
+    Returns the analysis and the corrections applied. On any failure the draft
+    comes back untouched: a review pass that cannot run is not a reason to lose
+    an otherwise usable narrative.
+    """
+    messages = [
+        {"role": "system", "content": get_chamber_narrative_review_prompt(chamber_name, goal)},
+        {
+            "role": "user",
+            "content": (
+                f"Authoritative forecast data for the {chamber_name}:\n\n{context_text}\n\n"
+                f"Drafted analysis to review:\n\n{json.dumps(analysis, indent=2)}"
+            ),
+        },
+    ]
+    try:
+        data = await _call_openrouter(messages, model=model)
+        content = str(data["choices"][0]["message"]["content"]).strip()
+        parsed = json.loads(_strip_markdown_code_fence(content))
+        if not isinstance(parsed, dict):
+            raise ValueError("chamber narrative review response must be a JSON object")
+        missing = [key for key in REQUIRED_ANALYSIS_KEYS if not parsed.get(key)]
+        if missing:
+            raise ValueError(f"chamber narrative review missing required keys: {missing}")
+    except (httpx.HTTPError, ValueError, KeyError, json.JSONDecodeError):
+        return analysis, []
+
+    corrections = [str(item).strip() for item in (parsed.get("corrections") or []) if str(item).strip()]
+    return {key: str(parsed[key]).strip() for key in REQUIRED_ANALYSIS_KEYS}, corrections
+
+
+async def generate_chamber_analyses(
+    summaries: list[dict[str, Any]],
+    *,
+    model: str,
+    review: bool = False,
+    goal: str | None = None,
+) -> Dict[Chamber, dict[str, str]]:
     chamber_names: Dict[Chamber, str] = {"senate": "US Senate", "house": "US House", "governors": "Governors"}
     cycle_year = election_cycle_year(summaries)
     analyses: Dict[Chamber, dict[str, str]] = {}
@@ -86,5 +133,10 @@ async def generate_chamber_analyses(summaries: list[dict[str, Any]], *, model: s
         races = races_for_chamber(summaries, chamber)
         summary = summarize_chamber(summaries, chamber)
         context = build_chamber_context(races, name, summary)
-        analyses[chamber] = await generate_chamber_analysis(name, context, model=model, cycle_year=cycle_year)
+        analysis = await generate_chamber_analysis(name, context, model=model, cycle_year=cycle_year)
+        if review:
+            analysis, corrections = await review_chamber_analysis(name, context, analysis, model=model, goal=goal)
+            if corrections:
+                analysis = {**analysis, "review_corrections": corrections}
+        analyses[chamber] = analysis
     return analyses

@@ -1363,10 +1363,23 @@ async def generate_chamber_forecasts(
     # Must match DEFAULT_CHAMBER_FORECAST_MODEL in
     # services/races-api/routers/races_admin/forecasts.py.
     model: str = "google/gemini-3.6-flash",
+    review: bool = False,
+    goal: str | None = None,
 ) -> Dict[str, Any]:
-    """Automatically generate chamber-level forecast narratives using an LLM on the remote races-api backend."""
+    """Automatically generate chamber-level forecast narratives using an LLM on the remote races-api backend.
+
+    Set ``review=True`` to run a second pass that re-reads each drafted narrative against the same forecast data
+    and rewrites claims that contradict it — for instance describing a seat as defended by the party that does not
+    hold it. It costs one extra LLM call per chamber and reports what it changed under ``review_corrections``.
+
+    ``goal`` is an optional editorial steer for that pass, e.g. "lead with the tipping-point races". Factual
+    corrections always take precedence over it. It requires ``review=True``.
+    """
     client = _client()
-    res = await client.post("/api/races/chamber_forecasts/generate", json={"model": model})
+    payload: Dict[str, Any] = {"model": model, "review": review}
+    if goal:
+        payload["goal"] = goal
+    res = await client.post("/api/races/chamber_forecasts/generate", json=payload)
     return {"success": True, "api_response": res}
 
 

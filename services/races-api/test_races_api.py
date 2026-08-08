@@ -598,3 +598,85 @@ def test_generate_chamber_forecasts_fails_without_saving_when_llm_fails(client, 
 
     draft_resp = client.get("/api/races/chamber_forecasts/draft")
     assert draft_resp.status_code == 404
+
+
+def _stub_analysis(chamber_name):
+    return {
+        "narrative": f"{chamber_name} narrative",
+        "bottom_line": f"{chamber_name} bottom line",
+        "why_party_favored": f"{chamber_name} why favored",
+        "opposing_party_path": f"{chamber_name} opposing path",
+        "key_uncertainty": f"{chamber_name} uncertainty",
+    }
+
+
+def test_generate_chamber_forecasts_skips_review_by_default(client, monkeypatch):
+    """The review pass costs an extra call per chamber, so it stays opt-in."""
+    reviewed = []
+
+    async def fake_generate(chamber_name, context_text, *, model, cycle_year=None):
+        return _stub_analysis(chamber_name)
+
+    async def fake_review(chamber_name, context_text, analysis, *, model, goal=None):
+        reviewed.append(chamber_name)
+        return analysis, []
+
+    import chamber_narratives
+
+    monkeypatch.setattr(chamber_narratives, "generate_chamber_analysis", fake_generate)
+    monkeypatch.setattr(chamber_narratives, "review_chamber_analysis", fake_review)
+
+    resp = client.post("/api/races/chamber_forecasts/generate", json={})
+
+    assert resp.status_code == 200
+    assert reviewed == []
+    assert resp.json()["reviewed"] is False
+
+
+def test_generate_chamber_forecasts_review_applies_corrections_and_forwards_goal(client, monkeypatch):
+    """review=true rewrites the draft and reports what it actually corrected."""
+    seen_goals = []
+
+    async def fake_generate(chamber_name, context_text, *, model, cycle_year=None):
+        return _stub_analysis(chamber_name)
+
+    async def fake_review(chamber_name, context_text, analysis, *, model, goal=None):
+        seen_goals.append(goal)
+        corrected = {**analysis, "narrative": f"{chamber_name} corrected narrative"}
+        return corrected, [f"{chamber_name}: called a Republican-held seat a Democratic defense"]
+
+    import chamber_narratives
+
+    monkeypatch.setattr(chamber_narratives, "generate_chamber_analysis", fake_generate)
+    monkeypatch.setattr(chamber_narratives, "review_chamber_analysis", fake_review)
+
+    resp = client.post(
+        "/api/races/chamber_forecasts/generate",
+        json={"review": True, "goal": "lead with the tipping-point races"},
+    )
+
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["reviewed"] is True
+    assert seen_goals == ["lead with the tipping-point races"] * 3
+    assert body["forecast"]["senate"] == "US Senate corrected narrative"
+    assert "Republican-held seat" in body["review_corrections"]["senate"][0]
+    # Operator-facing only: the published payload must not carry it.
+    assert "review_corrections" not in body["forecast"]["chambers"]["senate"]
+
+
+@pytest.mark.asyncio
+async def test_review_chamber_analysis_returns_the_draft_when_the_pass_fails(monkeypatch):
+    """A review that cannot run is not a reason to lose a usable narrative."""
+    import chamber_narratives
+
+    async def failing_call(messages, *, model):
+        raise ValueError("provider unavailable")
+
+    monkeypatch.setattr(chamber_narratives, "_call_openrouter", failing_call)
+
+    draft = _stub_analysis("US Senate")
+    result, corrections = await chamber_narratives.review_chamber_analysis("US Senate", "context", draft, model="test/model")
+
+    assert result == draft
+    assert corrections == []
