@@ -893,6 +893,9 @@ def test_contains_placeholder_catches_literal_junk(marker):
     """`assess_publish_readiness` is the gate an operator runs before publishing,
     so anything the pipeline's own junk detector would fail a run for must not
     slip past it. This set had drifted to four markers against run_health's."""
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
     from smartervote_mcp.server import _contains_placeholder
 
     assert _contains_placeholder({"candidates": [{"issues": {"Healthcare": {"stance": marker}}}]})
@@ -904,6 +907,9 @@ def test_contains_placeholder_ignores_words_that_are_real_field_values(value):
     stance, so a marker that is plausible as a district, party or title would
     block publication over legitimate data. run_health can afford them because
     it only ever looks at a single stance."""
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
     from smartervote_mcp.server import _contains_placeholder
 
     assert not _contains_placeholder({"district": value, "candidates": [{"party": value}]})
@@ -911,6 +917,9 @@ def test_contains_placeholder_ignores_words_that_are_real_field_values(value):
 
 def test_contains_placeholder_only_matches_a_whole_value():
     """A real stance that merely mentions a marker word must not be flagged."""
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
     from smartervote_mcp.server import _contains_placeholder
 
     assert not _contains_placeholder({"stance": "Supports a draft treaty on emissions"})

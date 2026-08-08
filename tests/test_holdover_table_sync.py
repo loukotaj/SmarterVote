@@ -11,6 +11,8 @@ These tests parse the TypeScript source and compare it to the Python tables.
 
 from __future__ import annotations
 
+import ast
+import pathlib
 import re
 from pathlib import Path
 
@@ -77,6 +79,24 @@ def _ts_abbr_to_state() -> dict[str, str]:
     return dict(re.findall(r'(\w+)\s*:\s*"([^"]+)"', body))
 
 
+def _mcp_us_states() -> dict[str, str]:
+    """Read `_US_STATES` out of the MCP server's source rather than importing it.
+
+    `smartervote_mcp.server` imports the MCP SDK at module scope, and that SDK is
+    not installed in the CI job that runs these tests. Importing would make this
+    guard skip exactly where it is most wanted — the point of comparing four
+    copies of a table is that all four are compared, everywhere.
+    """
+    source = (pathlib.Path(__file__).resolve().parents[1] / "smartervote_mcp" / "server.py").read_text(encoding="utf-8")
+    tree = ast.parse(source)
+    for node in tree.body:
+        targets = node.targets if isinstance(node, ast.Assign) else ([node.target] if isinstance(node, ast.AnnAssign) else [])
+        for target in targets:
+            if isinstance(target, ast.Name) and target.id == "_US_STATES":
+                return ast.literal_eval(node.value)
+    raise AssertionError("_US_STATES not found in smartervote_mcp/server.py")
+
+
 def _all_state_tables() -> dict[str, dict[str, str]]:
     """The four independently-maintained abbreviation-to-name tables.
 
@@ -87,12 +107,11 @@ def _all_state_tables() -> dict[str, dict[str, str]]:
     letting them disagree is not, which is what this checks.
     """
     from pipeline_client.agent.ballotpedia import _STATE_NAMES
-    from smartervote_mcp.server import _US_STATES
 
     return {
         "shared.forecast_summary.ABBR_TO_STATE": {k.lower(): v for k, v in ABBR_TO_STATE.items()},
         "ballotpedia._STATE_NAMES": {k.lower(): v for k, v in _STATE_NAMES.items()},
-        "smartervote_mcp.server._US_STATES": {k.lower(): v for k, v in _US_STATES.items()},
+        "smartervote_mcp.server._US_STATES": {k.lower(): v for k, v in _mcp_us_states().items()},
         "web/.../forecast.ts ABBR_TO_STATE": {k.lower(): v for k, v in _ts_abbr_to_state().items()},
     }
 
