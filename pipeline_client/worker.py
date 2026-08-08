@@ -31,6 +31,8 @@ from typing import Any, Set
 
 from dotenv import load_dotenv
 
+from shared.config import FIRESTORE_QUEUE_COLLECTION
+
 load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / ".env")
 
 # Shared backends use FIRESTORE_PROJECT for mode detection, while workstation
@@ -131,7 +133,7 @@ def _pending_items(db: Any, runner: str, limit: int = 50):
     """
     from google.cloud.firestore_v1 import FieldFilter  # type: ignore
 
-    query = db.collection("pipeline_queue").where(filter=FieldFilter("runner", "==", runner))
+    query = db.collection(FIRESTORE_QUEUE_COLLECTION).where(filter=FieldFilter("runner", "==", runner))
     query = query.where(filter=FieldFilter("status", "==", "pending"))
     docs = list(query.limit(limit).stream())
     items = []
@@ -149,7 +151,7 @@ async def _process_one(
 
     async with sem:
         lease_owner = f"{os.getenv('HOSTNAME', 'local-worker')}:{uuid.uuid4()}"
-        item_ref = db.collection("pipeline_queue").document(item_id)
+        item_ref = db.collection(FIRESTORE_QUEUE_COLLECTION).document(item_id)
         claimed = await asyncio.to_thread(claim_item, db, item_ref, lease_owner, runner)
         if not claimed:
             return  # lost the race / already terminal
@@ -219,7 +221,7 @@ async def run_worker() -> None:
             capacity = _CONCURRENCY - len(in_flight)
             queue_item_id = os.getenv("QUEUE_ITEM_ID", "").strip()
             if _ONCE and queue_item_id:
-                doc = db.collection("pipeline_queue").document(queue_item_id).get()
+                doc = db.collection(FIRESTORE_QUEUE_COLLECTION).document(queue_item_id).get()
                 data = doc.to_dict() if getattr(doc, "exists", False) else None
                 items = [(queue_item_id, data)] if isinstance(data, dict) else []
             else:
