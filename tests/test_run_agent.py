@@ -1,4 +1,4 @@
-from pipeline_client.agent.model_registry import CHEAP_GEMINI_MODEL, CHEAP_MODEL, DEEPSEEK_FLASH_MODEL, MID_MODEL
+from pipeline_client.agent.model_registry import DEFAULT_RESEARCH_MODEL, PREMIUM_RESEARCH_MODEL, SMALL_MODEL
 
 """Tests for run_agent orchestration and _load_existing helper."""
 
@@ -242,7 +242,7 @@ async def test_run_agent_fresh():
 
     assert result["id"] == "test-2024"
     assert "updated_utc" in result
-    assert result["generator"] == [DEEPSEEK_FLASH_MODEL, CHEAP_MODEL]
+    assert result["generator"] == [DEFAULT_RESEARCH_MODEL, SMALL_MODEL]
     # discovery + image + 12 issue sub-agents + finance + refine + meta refine = 17
     assert mock_loop.call_count == 17
 
@@ -625,7 +625,7 @@ async def test_run_agent_normalizes_output():
 
     assert result["id"] == "race-2024"
     assert "updated_utc" in result
-    assert result["generator"] == [DEEPSEEK_FLASH_MODEL, CHEAP_MODEL]
+    assert result["generator"] == [DEFAULT_RESEARCH_MODEL, SMALL_MODEL]
     assert result["contest_stage"] == "unknown"
     assert result["run_audit"]["contest_stage"] == "unknown"
     assert "No roster membership changes detected." in result["run_audit"]["candidate_changes"]
@@ -723,13 +723,17 @@ async def test_run_agent_adds_donor_source_timestamps():
 
 @pytest.mark.asyncio
 async def test_run_agent_model_selection():
-    """run_agent selects the configured primary model for cheap, quality, and balanced profiles."""
+    """run_agent selects the configured primary model for each profile.
+
+    An unset cheap_mode resolves to `default` rather than to a middle tier: the
+    middle profile it used to select was both weaker and dearer than `default`.
+    """
     discovery_result = {"id": "m-2024", "candidates": []}
 
     cases = [
-        (True, DEEPSEEK_FLASH_MODEL),
-        (False, MID_MODEL),
-        (None, CHEAP_GEMINI_MODEL),
+        (True, DEFAULT_RESEARCH_MODEL),
+        (False, PREMIUM_RESEARCH_MODEL),
+        (None, DEFAULT_RESEARCH_MODEL),
     ]
 
     for cheap_mode, expected_model in cases:
@@ -747,7 +751,7 @@ async def test_run_agent_model_selection():
 
 @pytest.mark.asyncio
 async def test_run_agent_custom_profile_preserved():
-    """Custom profile uses balanced defaults but is recorded as custom."""
+    """Custom profile falls back to `default` models but is recorded as custom."""
     discovery_result = {"id": "custom-2024", "candidates": []}
 
     with (
@@ -757,7 +761,7 @@ async def test_run_agent_custom_profile_preserved():
         mock_loop.return_value = discovery_result
         result = await run_agent("custom-2024", model_profile="custom", existing_data={})
 
-    assert mock_loop.call_args_list[0].kwargs["model"] == CHEAP_GEMINI_MODEL
+    assert mock_loop.call_args_list[0].kwargs["model"] == DEFAULT_RESEARCH_MODEL
     assert result["agent_metrics"]["model_profile"] == "custom"
 
 
@@ -783,8 +787,8 @@ async def test_run_agent_respects_review_provider_selection():
         )
 
     assert result["generator"] == [
-        DEEPSEEK_FLASH_MODEL,
-        CHEAP_MODEL,
+        DEFAULT_RESEARCH_MODEL,
+        SMALL_MODEL,
         "anthropic/claude-haiku-4.5",
     ]
     assert mock_reviews.call_args.kwargs["review_providers"] == ["claude"]

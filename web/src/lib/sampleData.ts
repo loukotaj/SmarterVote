@@ -1,3 +1,4 @@
+import { PROFILE_DEFAULTS } from "./config/modelCatalog";
 import type { Race, Source, SourceType } from "./types";
 
 /**
@@ -216,10 +217,12 @@ export const sampleRace: Race = {
   jurisdiction: "Sample State",
   contest_stage: "unknown",
   updated_utc: "2025-01-15T12:00:00Z",
+  // Drawn from the generated catalog so the sample race shows the models a
+  // real default-profile run would actually list.
   generator: [
-    "openai/gpt-5.4-mini",
-    "anthropic/claude-haiku-4.5",
-    "x-ai/grok-4.3",
+    PROFILE_DEFAULTS.default.primary,
+    PROFILE_DEFAULTS.default.review_claude,
+    PROFILE_DEFAULTS.default.review_grok,
   ],
   polling: [],
   reviews: [],

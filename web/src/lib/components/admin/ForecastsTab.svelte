@@ -5,8 +5,6 @@
 
   export let apiService: PipelineApiService;
 
-  const DEFAULT_MODEL = "google/gemini-3.5-flash";
-
   let loading = true;
   let generating = false;
   let publishing = false;
@@ -14,7 +12,9 @@
   let notice: { type: "success" | "error"; message: string } | null = null;
   let published: ChamberForecasts | null = null;
   let draft: ChamberForecasts | null = null;
-  let model = DEFAULT_MODEL;
+  // Left blank so the API's own default applies. Keeping a copy of the model ID
+  // here is what let this control drift onto a stale model.
+  let model = "";
 
   function errorMessage(e: unknown): string {
     return e instanceof Error ? e.message : String(e);
@@ -110,6 +110,7 @@
           id="model-select"
           type="text"
           bind:value={model}
+          placeholder="server default"
           class="w-60 rounded border border-stroke bg-surface px-3 py-1.5 text-sm text-content focus:ring-1 focus:ring-blue-500 focus:outline-none"
         />
       </div>

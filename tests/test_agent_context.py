@@ -34,14 +34,14 @@ def _tool_round(index, content):
 
 def test_model_budget_uses_large_catalog_window():
     budget = AgentContextBudget.for_model(
-        "openai/gpt-5.4-mini",
+        "google/gemini-3.5-flash-lite",
         phase_name="discovery",
         max_iterations=15,
         max_output_tokens=16_384,
     )
 
-    assert budget.context_window_tokens == 400_000
-    assert budget.target_input_tokens == 300_000
+    assert budget.context_window_tokens == 1_048_576
+    assert budget.target_input_tokens == 786_432
     assert budget.maximum_input_tokens < budget.context_window_tokens
     assert budget.maximum_input_tokens + budget.reserved_output_tokens <= budget.context_window_tokens
 

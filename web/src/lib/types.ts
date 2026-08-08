@@ -459,7 +459,7 @@ export interface RunOptions {
   note?: string;
   goal?: string;
   cheap_mode?: boolean;
-  model_profile?: "economy" | "balanced" | "quality" | "custom";
+  model_profile?: "default" | "premium" | "custom";
   model_overrides?: {
     primary?: string;
     small?: string;

@@ -125,6 +125,12 @@ jobs:
       - name: Check web/src/lib/types.ts mirrors shared/models.py and shared/pipeline_options.py
         run: PYTHONPATH=. python scripts/check_type_sync.py
 
+      # The frontend's model catalog is generated from shared/model_catalog.py.
+      # Before it was, the admin model picker silently drifted onto models the
+      # pipeline had already retired.
+      - name: Check web/src/lib/config/modelCatalog.ts is regenerated
+        run: PYTHONPATH=. python scripts/generate_model_catalog_ts.py --check
+
   test-apis:
     name: Test API Services
     runs-on: ubuntu-latest

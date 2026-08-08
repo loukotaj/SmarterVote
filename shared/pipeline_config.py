@@ -6,6 +6,7 @@ import os
 from dataclasses import dataclass
 from typing import Iterable, Mapping
 
+from shared.model_catalog import MODEL_PROFILES, MODEL_ROLES, normalize_profile_name
 from shared.models import CanonicalIssue
 
 PIPELINE_STEP_ORDER: tuple[str, ...] = (
@@ -63,8 +64,9 @@ PIPELINE_STEP_WEIGHTS: dict[str, int] = {
     "iteration": 8,
 }
 
-MODEL_PROFILES = frozenset({"economy", "balanced", "quality", "custom"})
-MODEL_ROLES = frozenset({"primary", "small", "roster", "review_claude", "review_gemini", "review_grok"})
+# MODEL_PROFILES and MODEL_ROLES are imported from shared.model_catalog, which
+# owns every model-shaped fact, and re-exported here because callers already
+# reach for shared.pipeline_config when validating run options.
 REVIEW_PROVIDERS: tuple[str, ...] = ("claude", "gemini", "grok")
 REVIEW_PROVIDER_IDS = frozenset(REVIEW_PROVIDERS)
 
@@ -215,12 +217,14 @@ def normalize_review_providers(value: Iterable[str] | None) -> list[str] | None:
 
 
 def normalize_model_profile(value: str | None) -> str | None:
-    if value is None:
-        return None
-    normalized = value.strip().lower()
-    if normalized not in MODEL_PROFILES:
-        raise ValueError("model_profile must be one of: economy, balanced, quality, custom")
-    return normalized
+    """Validate a requested model profile, mapping retired names forward.
+
+    Queue items and stored run records outlive profile renames, so a run queued
+    as ``economy`` or ``quality`` must still resolve rather than fail validation
+    at replay time. :func:`shared.model_catalog.normalize_profile_name` owns
+    that mapping.
+    """
+    return normalize_profile_name(value)
 
 
 def validate_model_override_keys(value: Mapping[str, str] | None) -> dict[str, str] | None:

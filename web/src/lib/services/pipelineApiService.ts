@@ -796,15 +796,25 @@ export class PipelineApiService {
     return await res.json();
   }
 
+  /**
+   * Generate a chamber forecast draft.
+   *
+   * Omit `model` to use the server's default. The browser deliberately does not
+   * carry its own copy of that model ID: this file and ForecastsTab both used to
+   * hardcode one, and both had drifted onto a model that was older and dearer on
+   * output than the one the API actually intended. The default lives in
+   * `shared/model_catalog.py` and nowhere else.
+   */
   async generateChamberForecastDraft(
-    model = "google/gemini-3.5-flash",
+    model?: string,
   ): Promise<ChamberForecastGenerateResponse> {
+    const trimmed = model?.trim();
     const res = await fetchWithAuth(
       `${this.apiBase}/api/races/chamber_forecasts/generate`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ model }),
+        body: JSON.stringify(trimmed ? { model: trimmed } : {}),
       },
       120_000,
     );

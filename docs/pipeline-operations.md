@@ -119,12 +119,18 @@ existing citations. An obsolete URL must be removed explicitly. Confirmed HTTP
 404/410 candidate sources are removed deterministically and tombstoned so
 baseline restoration cannot reintroduce them.
 
-### Economy versus quality models
+### Default versus premium models
+
+There are two model profiles, `default` and `premium`, plus `custom` for a run
+that sets roles by hand. (A third, `balanced`, was removed: it was strictly
+dominated by `default` — a weaker primary model at a higher input price.)
 
 `cheap_mode=true` is the default for routine and targeted work. It selects the
-economy model profile but does not bypass review or quality gates. Set
-`cheap_mode=false` only when intentionally using a non-economy profile. Model
-overrides should be exceptional and recorded in the run note.
+`default` profile but does not bypass review or quality gates. Set
+`cheap_mode=false` only when intentionally paying for `premium`. Model overrides
+should be exceptional and recorded in the run note. Runs queued under the
+retired profile names still resolve: `economy` and `balanced` map to `default`,
+`quality` maps to `premium`.
 
 The largest update cost drivers are issue research across every
 candidate/issue pair and repeated whole-profile review. A narrow research step
@@ -288,8 +294,8 @@ attribution still rolls up by phase family; only budgeting is per unit. Defaults
 are documented in `.env.example`.
 
 For an issue unit, a ceiling ends further searching but does not manufacture a
-result. The last turn escalates from an economy model when a stronger configured
-fallback exists, receives the accumulated evidence, and is forced to call
+result. The last turn escalates to a stronger model when the catalog defines
+one for the model in play (`shared.model_catalog.MODEL_ESCALATION`), receives the accumulated evidence, and is forced to call
 `set_issue_stance`. A documented absence is always stored as the exact marker
 `No public position found` with low confidence, including when a later review
 model tries to append its research explanation to the stance field. The
