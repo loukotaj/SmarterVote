@@ -1,4 +1,4 @@
-import type { Race, RaceSummary } from "$lib/types";
+import type { RaceSummary } from "$lib/types";
 
 export interface HomepageMetrics {
   guides: number;
