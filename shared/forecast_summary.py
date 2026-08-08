@@ -379,18 +379,21 @@ def summarize_chamber(
     competitive_race_notes: list[tuple[int, str]] = []
 
     rep_holdovers = 0
+    holdover_seats = 0
     if chamber == "senate":
         for state, parties in SENATE_HOLDOVERS.items():
             seats = parties[:1] if state in active_states else parties
             for party in seats:
                 projected[party] += 1
                 expected[party] += 1
+                holdover_seats += 1
                 if party == "Republican":
                     rep_holdovers += 1
     elif chamber == "governors":
         for party in GOVERNOR_HOLDOVERS.values():
             projected[party] += 1
             expected[party] += 1
+            holdover_seats += 1
             if party == "Republican":
                 rep_holdovers += 1
 
@@ -471,6 +474,27 @@ def summarize_chamber(
             key = f"{r_seats}R-{d_seats}D"  # tie split
         if prob > 0.0005:  # Keep only non-trivial probabilities to limit payload size
             seat_distribution[key] = round(prob, 4)
+
+    # Projected seats is the single most likely joint outcome — the peak of the
+    # distribution above — rather than the sum of each race's most likely winner.
+    # Those are different statistics: summing per-race modes gives the mode of the
+    # marginals, which need not be the mode of the joint distribution. The Senate
+    # reported a 50-50 projection while its distribution actually peaked at
+    # 51D-49R, which contradicted a Democratic control call derived from the same
+    # probabilities and made the forecast unpublishable.
+    #
+    # This only holds when every seat is accounted for, because the non-Republican
+    # side is derived by subtraction. With a partial race set that subtraction
+    # would hand every unrepresented seat to the Democrats, so fall back to the
+    # per-race tally, which only ever counts seats it actually saw.
+    if holdover_seats + len(races) == total_chamber_seats:
+        mode_index = max(range(len(dp)), key=lambda index: dp[index])
+        mode_republican = rep_holdovers + mode_index
+        projected = {
+            "Democratic": total_chamber_seats - mode_republican,
+            "Republican": mode_republican,
+            "Other": 0,
+        }
 
     dem_control_probability = max(0.01, min(0.99, dem_control_probability))
     republican_probability = max(0.01, min(0.99, republican_probability))
