@@ -10,6 +10,7 @@ from urllib.parse import unquote
 
 from mcp.server.fastmcp import FastMCP
 
+from shared.model_catalog import DEFAULT_CHAMBER_FORECAST_MODEL
 from smartervote_mcp.client import RacesApiClient, compact_options
 
 mcp = FastMCP("SmarterVote Races")
@@ -20,17 +21,19 @@ def _client() -> RacesApiClient:
 
 
 def _pipeline_options(**kwargs: Any) -> Dict[str, Any]:
-    """Build RunOptions for MCP tools, defaulting to cheap/economy mode.
+    """Build RunOptions for MCP tools, defaulting to the cheap `default` profile.
 
-    Non-economy model profiles can override cheap_mode downstream, so require an
-    explicit cheap_mode=False opt-out before allowing them through.
+    Anything above `default` costs materially more per race, and a profile name
+    alone can raise spend without the caller ever saying so. Require an explicit
+    ``cheap_mode=False`` as the sign-off. Retired profile names are still
+    rejected the same way, since they map forward onto `premium`.
     """
     requested_cheap_mode = kwargs.get("cheap_mode")
     model_profile = kwargs.get("model_profile")
-    if requested_cheap_mode is not False and model_profile in {"balanced", "quality", "custom"}:
+    if requested_cheap_mode is not False and model_profile in {"premium", "custom", "balanced", "quality"}:
         raise ValueError(
-            "Non-economy model_profile requires explicit cheap_mode=False. "
-            "Omit model_profile or use model_profile='economy' for the default cheap run."
+            "model_profile above 'default' requires explicit cheap_mode=False. "
+            "Omit model_profile or use model_profile='default' for the standard cheap run."
         )
     kwargs["cheap_mode"] = False if requested_cheap_mode is False else True
     return compact_options(**kwargs)
@@ -632,11 +635,11 @@ async def queue_races(
 ) -> Dict[str, Any]:
     """Queue one or more races for pipeline processing.
 
-    Defaults to cheap/economy mode, routed to the long-lived local Docker
+    Defaults to the cheap `default` profile, routed to the long-lived local Docker
     worker (runner="local"). Pass runner="cloud_run" to use the one-shot Cloud
     Run Job instead (currently broken: the races-api service account is
     missing run.invoker on pipeline-job-dev, so dispatch 403s as of 2026-07-17).
-    Expensive default/quality/custom model profiles require explicitly passing
+    The expensive `premium` and `custom` model profiles require explicitly passing
     cheap_mode=False. Set baseline_source="published" for a targeted repair
     that must ignore any existing draft; the default "latest" behavior prefers
     a draft and falls back to published data. Set resume_partial=True only when
@@ -728,7 +731,7 @@ async def run_race(
 ) -> Dict[str, Any]:
     """Queue a single race for pipeline processing.
 
-    Defaults to cheap/economy mode, routed to the long-lived local Docker
+    Defaults to the cheap `default` profile, routed to the long-lived local Docker
     worker (runner="local"). Pass runner="cloud_run" to use the one-shot Cloud
     Run Job instead (currently broken: the races-api service account is
     missing run.invoker on pipeline-job-dev, so dispatch 403s as of 2026-07-17).
@@ -1360,9 +1363,7 @@ async def review_chamber_forecast_drafts() -> Dict[str, Any]:
 
 @mcp.tool(structured_output=False)
 async def generate_chamber_forecasts(
-    # Must match DEFAULT_CHAMBER_FORECAST_MODEL in
-    # services/races-api/routers/races_admin/forecasts.py.
-    model: str = "google/gemini-3.6-flash",
+    model: str = DEFAULT_CHAMBER_FORECAST_MODEL,
     review: bool = False,
     goal: str | None = None,
 ) -> Dict[str, Any]:

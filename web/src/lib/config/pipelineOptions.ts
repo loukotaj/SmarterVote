@@ -1,53 +1,17 @@
 import type { RunOptions } from "$lib/types";
+import {
+  DEFAULT_REVIEWER_MODELS,
+  RESEARCH_MODELS,
+  REVIEWER_DEFS,
+  type ReviewerKey,
+} from "$lib/config/modelCatalog";
 
-export type ReviewerKey = "claude" | "gemini" | "grok";
-
-export const REVIEWER_DEFS: {
-  key: ReviewerKey;
-  name: string;
-  options: { value: string; label: string }[];
-}[] = [
-  {
-    key: "claude",
-    name: "Claude",
-    options: [
-      { value: "anthropic/claude-sonnet-4.6", label: "Claude Sonnet 4.6" },
-      { value: "anthropic/claude-haiku-4.5", label: "Claude Haiku 4.5" },
-    ],
-  },
-  {
-    key: "gemini",
-    name: "Gemini",
-    options: [
-      {
-        value: "google/gemini-3.1-pro-preview",
-        label: "Gemini 3.1 Pro (Preview)",
-      },
-      {
-        value: "google/gemini-3.1-flash-lite-preview",
-        label: "Gemini 3.1 Flash Lite",
-      },
-    ],
-  },
-  {
-    key: "grok",
-    name: "Grok",
-    options: [
-      { value: "x-ai/grok-4.20", label: "Grok 4.20" },
-      { value: "x-ai/grok-4.3", label: "Grok 4.3" },
-    ],
-  },
-];
-
-export const RESEARCH_MODELS = [
-  { value: "", label: "Auto (profile selects)" },
-  { value: "openai/gpt-5.4", label: "GPT-5.4 - best quality" },
-  { value: "openai/gpt-5.4-mini", label: "GPT-5.4 mini - fast & smart" },
-  {
-    value: "openai/gpt-5-nano",
-    label: "GPT-5 nano - advanced low-cost override",
-  },
-];
+// The model lists are generated from shared/model_catalog.py -- see
+// scripts/generate_model_catalog_ts.py. They used to be written out by hand
+// here, and went stale: the picker offered gpt-5.4, gemini-3.1-pro-preview and
+// grok-4.20 for months after the pipeline stopped running any of them.
+export { DEFAULT_REVIEWER_MODELS, RESEARCH_MODELS, REVIEWER_DEFS };
+export type { ReviewerKey };
 
 export function createDefaultReviewerEnabled(
   reviewEnabled: boolean = false,
@@ -59,11 +23,7 @@ export function createDefaultReviewerEnabled(
 }
 
 export function createDefaultReviewerModels(): Record<ReviewerKey, string> {
-  return {
-    claude: "anthropic/claude-haiku-4.5",
-    gemini: "google/gemini-3.1-flash-lite-preview",
-    grok: "x-ai/grok-4.3",
-  };
+  return { ...DEFAULT_REVIEWER_MODELS };
 }
 
 export function applyReviewerModelOptions(

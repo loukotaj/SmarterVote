@@ -119,6 +119,12 @@ try {
         Invoke-Expression "$python -m isort --check-only shared smartervote_mcp services/races-api tests pipeline_client scripts"
     }
 
+    Invoke-Step "Generated type and model catalog sync" {
+        $env:PYTHONPATH = "."
+        Invoke-Expression "$python scripts/check_type_sync.py"
+        Invoke-Expression "$python scripts/generate_model_catalog_ts.py --check"
+    }
+
     Invoke-Step "Races API tests" {
         Push-Location "services/races-api"
         try {

@@ -238,7 +238,7 @@ def test_validation_grade_caps_error_flags_below_passing():
 @pytest.mark.asyncio
 async def test_run_single_review_claude():
     """_run_single_review with the Claude role returns structured review."""
-    from pipeline_client.agent.review import DEFAULT_CLAUDE_MODEL, _run_single_review
+    from pipeline_client.agent.review import _review_model_for, _run_single_review
 
     review_response = json.dumps(
         {
@@ -254,13 +254,13 @@ async def test_run_single_review_claude():
 
     assert result is not None
     assert result["verdict"] == "approved"
-    assert result["model"] == DEFAULT_CLAUDE_MODEL
+    assert result["model"] == _review_model_for("claude", cheap_mode=False)
 
 
 @pytest.mark.asyncio
 async def test_run_single_review_gemini():
     """_run_single_review with the Gemini role returns structured review."""
-    from pipeline_client.agent.review import DEFAULT_GEMINI_MODEL, _run_single_review
+    from pipeline_client.agent.review import _review_model_for, _run_single_review
 
     review_response = json.dumps(
         {

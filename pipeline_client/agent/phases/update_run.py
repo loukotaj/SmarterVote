@@ -6,7 +6,6 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 from ..handlers import _make_editing_handlers
-from ..model_registry import NEMOTRON_ULTRA_MODEL
 from ..prompts import (
     ROSTER_SYNC_SYSTEM,
     ROSTER_SYNC_USER,
@@ -153,7 +152,7 @@ async def _run_update(
                     extra_tool_handlers=handlers,
                     tools_mode=True,
                     run_budget=run_budget,
-                    tool_error_escalation_model=NEMOTRON_ULTRA_MODEL,
+                    escalate_on_tool_errors=True,
                     required_final_tool_name="finalize_roster",
                     required_final_instruction=(
                         "Do not stop yet. Finish the authoritative exact-contest roster, ensure every active "
@@ -317,7 +316,7 @@ async def _run_update(
                     extra_tool_handlers=handlers,
                     tools_mode=True,
                     run_budget=run_budget,
-                    tool_error_escalation_model=NEMOTRON_ULTRA_MODEL,
+                    escalate_on_tool_errors=True,
                     required_final_tool_name="finalize_metadata",
                     required_final_instruction=(
                         "Research is over. Synthesize the evidence already collected into a substantive race "

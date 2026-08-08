@@ -81,12 +81,19 @@ deliberately mocks away:
 python scripts/check_model_catalog.py
 ```
 
-It verifies catalog prices and context windows against OpenRouter's live list,
-that every profile role and escalation target is still served, that escalations
-move *up* a tier, that `quality` is never worse than `economy`, and that the two
-hardcoded chamber-forecast literals still agree. Prices and version orderings
-have both drifted silently into shipped bugs before — model IDs do not sort the
-way they read (`grok-4.20` predates `grok-4.3`), so trust release dates, not names.
+Every model choice lives in `shared/model_catalog.py` and nowhere else. The
+guard verifies prices, cache prices and context windows against OpenRouter's
+live list; that every profile role and escalation target is still served; that
+each escalation climbs the **intelligence index** (not the price — an escalation
+to a cheaper-but-weaker model once read as healthy for months); that `premium`
+is never worse than `default`; that the roster adjudicator differs from every
+profile's research and roster model; and that no model ID is hardcoded anywhere
+outside the catalog. Prices and version orderings have both drifted silently
+into shipped bugs — model IDs do not sort the way they read (`grok-4.20`
+predates `grok-4.3`), so trust release dates, not names.
+
+The frontend's copy is generated: after changing the catalog, run
+`python scripts/generate_model_catalog_ts.py` and commit the result.
 
 ## Python Conventions
 
@@ -114,7 +121,7 @@ way they read (`grok-4.20` predates `grok-4.3`), so trust release dates, not nam
 3. **Production API is `services/races-api`** — new admin behavior goes there first; `pipeline_client/backend/main.py` is local debug only
 4. **Storage mode** — `local` uses filesystem, `gcp` uses GCS + Firestore (see `PIPELINE_MODES.md`)
 5. **Static GCS hosting** — if `VITE_PUBLIC_DATA_URL` is set, public reads go directly to GCS; publish keeps `races/summaries.json` index up to date
-6. **Pipeline mode** — prefer cheap/economy for queued race work; only use expensive models when explicitly asked
+6. **Pipeline mode** — prefer the cheap `default` profile for queued race work; only use `premium` when explicitly asked
 7. **Pipeline run cost** — **full research runs are expensive** (LLM + web search API costs per candidate per race; real issues research runs ~$0.20–0.30/candidate). Only queue full runs when the user explicitly asks or there is a clear data quality problem requiring it. Never batch-queue full runs autonomously without user sign-off — queue small batches (a handful of races, not dozens) and verify results before continuing.
    - **"Refresh" means the lightweight core refresh — use the `refresh_race_core` MCP tool, don't hand-roll it.** It is the canonical definition: `enabled_steps=["discovery","images","polling","forecast","voter_resources"]` (drop `images` / `voter_resources` via `include_images=False` / `include_voter_resources=False`). Re-verifies the exact-contest roster, refreshes candidate summaries and headshots, re-pulls polls, regenerates the evidence-backed forecast. Order matters and the tool encodes it — `discovery` must settle the roster before the rest. Roughly **$0.09/race** for the discovery/polling/forecast core. It does **not** include `issues`, `finance`, `refinement`, `review`, or `iteration`. Never read "refresh" as authorization to spend on issue research; a full run costs ~5-10x a refresh and needs its own explicit ask.
    - **Standalone/targeted single-step runs are fine** for `steps=["discovery"]` (fix candidate lists), `steps=["forecast"]`, `steps=["polling"]`, or image-only refreshes — each is a self-contained, useful unit of work on its own.
