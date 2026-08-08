@@ -21,6 +21,21 @@ __all__ = ["DEFAULT_CHAMBER_FORECAST_MODEL", "GenerateForecastsRequest", "router
 
 class GenerateForecastsRequest(BaseModel):
     model: str = Field(default=DEFAULT_CHAMBER_FORECAST_MODEL)
+    review: bool = Field(
+        default=False,
+        description=(
+            "Run a second pass that re-reads each drafted narrative against the same forecast data and rewrites "
+            "claims that contradict it, such as describing a seat as defended by the party that does not hold it. "
+            "Costs one extra LLM call per chamber."
+        ),
+    )
+    goal: str | None = Field(
+        default=None,
+        description=(
+            "Optional editorial steer applied during the review pass, e.g. 'lead with the tipping-point races' or "
+            "'keep it under three sentences'. Factual corrections always take precedence. Requires review=true."
+        ),
+    )
 
 
 @router.get("/api/races/chamber_forecasts/draft", dependencies=[Depends(verify_token)])
@@ -48,7 +63,7 @@ async def generate_chamber_forecasts_endpoint(
         raise HTTPException(status_code=500, detail=f"Invalid summaries from publish service: {type(summaries)}")
 
     try:
-        analyses = await generate_chamber_analyses(summaries, model=payload.model)
+        analyses = await generate_chamber_analyses(summaries, model=payload.model, review=payload.review, goal=payload.goal)
     except Exception as exc:
         logging.error("Error generating chamber forecast analyses using model %s: %s", payload.model, exc, exc_info=True)
         raise HTTPException(status_code=502, detail=f"LLM chamber forecast generation failed: {exc}") from exc
@@ -68,6 +83,12 @@ async def generate_chamber_forecasts_endpoint(
         "message": "Draft chamber forecasts generated successfully",
         "updated_at": forecast_data["updated_at"],
         "model": payload.model,
+        "reviewed": payload.review,
+        "review_corrections": {
+            chamber: analysis["review_corrections"]
+            for chamber, analysis in analyses.items()
+            if analysis.get("review_corrections")
+        },
         "forecast": forecast_data,
     }
 

@@ -146,22 +146,56 @@ def test_polling_semantics_reject_placeholder_and_election_results():
     )
 
 
-def test_automated_warning_caps_validation_below_passing():
+def test_automated_warnings_deduct_rather_than_veto():
+    """Warnings scale with how many there are instead of pinning the score.
+
+    They used to cap the average at 79 against a pass mark of 80, so one
+    advisory flag was an unconditional veto — a race three models approved at 93
+    graded C and no further research could lift it, because every surviving
+    warning re-applied the same cap.
+    """
+
+    def grade_with(warning_count: int, score: int = 96):
+        return compute_validation_grade(
+            [
+                {"model": "reviewer", "score": score, "verdict": "approved", "flags": []},
+                {
+                    "model": "automated-profile-quality",
+                    "score": None,
+                    "verdict": "flagged",
+                    "flags": [{"severity": "warning", "field": f"candidate.field_{i}"} for i in range(warning_count)],
+                },
+            ]
+        )
+
+    # A strong review absorbs a couple of advisory flags.
+    one = grade_with(1)
+    assert one["score"] == 93
+    assert one["passed"] is True
+
+    # But they accumulate, and enough of them still block.
+    assert grade_with(6)["passed"] is False
+
+    # A weaker review has far less headroom than a strong one.
+    assert grade_with(2, score=83)["passed"] is False
+
+
+def test_error_flags_still_block_regardless_of_score():
+    """Errors are not advisory, so they stay an unconditional block."""
     grade = compute_validation_grade(
         [
-            {"model": "reviewer", "score": 96, "verdict": "approved", "flags": []},
+            {"model": "reviewer", "score": 99, "verdict": "approved", "flags": []},
             {
                 "model": "automated-profile-quality",
                 "score": None,
                 "verdict": "flagged",
-                "flags": [{"severity": "warning", "field": "candidate.summary_sources"}],
+                "flags": [{"severity": "error", "field": "candidates[0].name"}],
             },
         ]
     )
 
-    assert grade["score"] == 79
-    assert grade["grade"] == "C"
     assert grade["passed"] is False
+    assert grade["score"] < 80
 
 
 def test_quality_check_flags_implausible_house_term_count():

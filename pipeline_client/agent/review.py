@@ -61,6 +61,13 @@ _REVIEWABLE_RACE_FIELDS = tuple(field for field in RaceJSON.model_fields if fiel
 _REVIEWABLE_CANDIDATE_FIELDS = tuple(Candidate.model_fields)
 _STALE_ACCESS_THRESHOLD = timedelta(days=365)
 
+# A race must reach this to publish.
+PASSING_SCORE = 80
+# What each warning-severity flag costs. Warnings are advisory, so they scale
+# rather than veto: at 3 points a race reviewed in the 90s survives two or three
+# of them, while one scraping by in the low 80s does not.
+WARNING_SCORE_PENALTY = 3
+
 
 def build_semantic_review_packet(race_json: Dict[str, Any]) -> Dict[str, Any]:
     """Return the complete semantic RaceJSON surface without operational metadata."""
@@ -412,12 +419,28 @@ async def check_profile_links(
     for url, path, err in check_results:
         if err:
             reason, permanent = err
+            # Severity tracks what the check actually establishes. A 404, a 410,
+            # an unresolvable host or a bad certificate is real evidence the
+            # citation is gone. A timeout, a connection reset or a 5xx says only
+            # that the host misbehaved during this one scan, which is a weaker
+            # claim — reporting both as warnings let a single flaky fetch speak
+            # with the authority of a confirmed dead link. 401/403/429 never
+            # reach here at all; _is_access_restricted_response already treats
+            # bot-blocking as no evidence either way.
             flags.append(
                 {
                     "field": path,
-                    "concern": f"Cited source URL ({url}) returned a dead link: {reason}.",
-                    "suggestion": "Verify the URL, find a replacement source, and update the stance.",
-                    "severity": "warning",
+                    "concern": (
+                        f"Cited source URL ({url}) returned a dead link: {reason}."
+                        if permanent
+                        else f"Cited source URL ({url}) was unreachable during this check: {reason}."
+                    ),
+                    "suggestion": (
+                        "Verify the URL, find a replacement source, and update the stance."
+                        if permanent
+                        else "Re-check the URL; this may be a transient outage rather than a broken citation."
+                    ),
+                    "severity": "warning" if permanent else "info",
                     # Machine-readable so deterministic cleanup does not have to
                     # parse these back out of prose. Recovering the URL by regex
                     # truncated any address containing parentheses — which covers
@@ -428,9 +451,14 @@ async def check_profile_links(
                 }
             )
 
-    verdict = "flagged" if flags else "approved"
-    summary = f"Scanned {len(urls_to_check)} source links. Found {len(flags)} dead link(s)."
-    log("info", f"  Link Validator: {verdict} ({len(flags)} dead links found)")
+    confirmed = sum(1 for flag in flags if flag.get("permanent_failure"))
+    unreachable = len(flags) - confirmed
+    verdict = "flagged" if confirmed else "approved"
+    summary = (
+        f"Scanned {len(urls_to_check)} source links. Found {confirmed} dead link(s) "
+        f"and {unreachable} that were unreachable without confirming they are gone."
+    )
+    log("info", f"  Link Validator: {verdict} ({confirmed} dead, {unreachable} unreachable)")
 
     return {
         "model": "automated-link-validator",
@@ -870,14 +898,24 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
 
     avg = round(sum(scores) / len(scores))
     avg = max(0, min(100, avg))
-    blocking_flags = [
-        flag
-        for review in reviews
-        for flag in (review.get("flags") or [])
-        if isinstance(flag, dict) and flag.get("severity") in {"warning", "error"}
-    ]
-    if blocking_flags:
-        avg = min(avg, 79)
+    flags = [flag for review in reviews for flag in (review.get("flags") or []) if isinstance(flag, dict)]
+    error_flags = [flag for flag in flags if flag.get("severity") == "error"]
+    warning_flags = [flag for flag in flags if flag.get("severity") == "warning"]
+
+    # An error means something is demonstrably wrong — a placeholder candidate
+    # name, an issue stance the pipeline was asked to research and did not. Those
+    # still pin the grade below the pass mark however well the race scored.
+    if error_flags:
+        avg = min(avg, PASSING_SCORE - 1)
+
+    # Warnings are advisory, and used to pin the score to the same place. Against
+    # a pass mark of 80 that made a single warning an unconditional veto: a race
+    # three models approved at an average of 93 graded C over three unsourced
+    # stances and one dead link, and no further research could lift it, because
+    # every surviving warning re-applied the identical cap. They now cost a fixed
+    # amount each, so a strong review absorbs a couple and a weak one carrying
+    # many still fails.
+    avg = max(0, avg - WARNING_SCORE_PENALTY * len(warning_flags))
 
     if avg >= 90:
         grade = "A"
@@ -890,18 +928,25 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
     else:
         grade = "F"
 
-    passed = avg >= 80
+    passed = avg >= PASSING_SCORE
     verdicts = [r.get("verdict", "") for r in eligible_reviews]
     approved_count = sum(1 for v in verdicts if v == "approved")
     total = len(eligible_reviews)
 
-    if blocking_flags:
+    deduction = (
+        f"after a {WARNING_SCORE_PENALTY * len(warning_flags)}-point deduction for {len(warning_flags)} warning flag(s)"
+    )
+    if error_flags:
         summary = (
-            f"Below quality threshold - {approved_count}/{total} reviewers approved, average score capped at {avg}/100 "
-            f"because {len(blocking_flags)} warning-or-higher quality flag(s) remain."
+            f"Below quality threshold - {approved_count}/{total} reviewers approved, but {len(error_flags)} "
+            f"error-severity flag(s) block publication (scored {avg}/100)."
         )
+    elif passed and warning_flags:
+        summary = f"Validated by {approved_count}/{total} reviewers at {avg}/100 {deduction}."
     elif passed:
         summary = f"Validated by {approved_count}/{total} reviewers with an average score of {avg}/100."
+    elif warning_flags:
+        summary = f"Below quality threshold - {approved_count}/{total} reviewers approved, {avg}/100 {deduction}."
     else:
         summary = f"Below quality threshold - {approved_count}/{total} reviewers approved, average score {avg}/100."
 

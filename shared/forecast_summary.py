@@ -604,6 +604,22 @@ def build_chamber_forecasts(
     }
 
 
+def _seat_control_note(race: Dict[str, Any]) -> str:
+    """Describe who holds the seat now, so a hold can be told apart from a flip.
+
+    Without this the context carried only a rating and a probability, which
+    cannot distinguish the two. The published Senate narrative listed Maine among
+    the seats Democrats had to "defend" at 64%, when the seat is Susan Collins's
+    and a Democratic win there would be a pickup.
+    """
+    for candidate in race.get("candidates") or []:
+        if not isinstance(candidate, dict) or not candidate.get("incumbent"):
+            continue
+        party = normalize_party(candidate.get("party"))
+        return f"currently {party}-held" if party != "Other" else "currently held by an independent"
+    return "open seat, no incumbent running"
+
+
 def build_chamber_context(races: list[dict[str, Any]], name: str, summary: dict[str, Any]) -> str:
     if not races:
         return f"No published races found for the {name}."
@@ -620,21 +636,27 @@ def build_chamber_context(races: list[dict[str, Any]], name: str, summary: dict[
         title = race.get("title") or race.get("id")
         if "toss-up" in rating or "tossup" in rating:
             toss_ups += 1
-            competitive_list.append(f"- {title}: Toss-up (Win Prob: {prob * 100:.1f}%)")
+            competitive_list.append(f"- {title}: Toss-up (Win Prob: {prob * 100:.1f}%, {_seat_control_note(race)})")
         elif "tilt" in rating:
-            competitive_list.append(f"- {title}: Tilt {winner_party.upper()} (Win Prob: {prob * 100:.1f}%)")
+            competitive_list.append(
+                f"- {title}: Tilt {winner_party.upper()} (Win Prob: {prob * 100:.1f}%, {_seat_control_note(race)})"
+            )
             if "democrat" in winner_party:
                 dem_wins += 1
             elif "republican" in winner_party or "gop" in winner_party:
                 gop_wins += 1
         elif "lean" in rating:
-            competitive_list.append(f"- {title}: Lean {winner_party.upper()} (Win Prob: {prob * 100:.1f}%)")
+            competitive_list.append(
+                f"- {title}: Lean {winner_party.upper()} (Win Prob: {prob * 100:.1f}%, {_seat_control_note(race)})"
+            )
             if "democrat" in winner_party:
                 dem_wins += 1
             elif "republican" in winner_party or "gop" in winner_party:
                 gop_wins += 1
         elif "likely" in rating:
-            competitive_list.append(f"- {title}: Likely {winner_party.upper()} (Win Prob: {prob * 100:.1f}%)")
+            competitive_list.append(
+                f"- {title}: Likely {winner_party.upper()} (Win Prob: {prob * 100:.1f}%, {_seat_control_note(race)})"
+            )
             if "democrat" in winner_party:
                 dem_wins += 1
             elif "republican" in winner_party or "gop" in winner_party:
@@ -692,6 +714,44 @@ def build_chamber_context(races: list[dict[str, Any]], name: str, summary: dict[
     return "\n".join(lines)
 
 
+def get_chamber_narrative_review_prompt(chamber_name: str, goal: str | None = None) -> str:
+    """Prompt for the pass that re-reads a drafted narrative against its own data.
+
+    The generator writes prose from a context block nothing holds it to, so
+    claims drift from the numbers printed beside them — a seat described as
+    defended by the party that does not hold it, a total that does not match the
+    authoritative projection. This pass rewrites only what contradicts the data.
+    """
+    instructions = (
+        "You are a meticulous editor reviewing a nonpartisan election forecast note for factual consistency with "
+        f"the underlying data for the {chamber_name}. You are given the authoritative forecast context and a drafted "
+        "analysis.\n\n"
+        "Check every claim in the draft against the context:\n"
+        "1. Seat totals, probabilities and percentages must match the context exactly. Never state a number the "
+        "context does not contain.\n"
+        "2. A party can only be described as defending or holding a seat it currently holds. The context gives the "
+        "current holder of every competitive race. A race the favored party does not hold is a pickup for them.\n"
+        "3. Do not conflate the projected seat split with the party most likely to control the chamber. Where they "
+        "differ, state both.\n"
+        "4. Named races must appear in the context, with the rating and direction the context gives them.\n"
+        "5. The prose must read as a sharp analyst note, free of AI boilerplate and filler.\n"
+    )
+    if goal:
+        instructions += (
+            "\nThe author also asks you to revise toward this goal. Apply it only where it does not conflict with "
+            f"the factual checks above, which always win:\n{goal}\n"
+        )
+    instructions += (
+        "\nReturn ONLY a JSON object with these keys:\n"
+        "- 'corrections': an array of short strings, one per problem you found and fixed, describing the error rather "
+        "than the edit. Empty if the draft was already sound.\n"
+        "- 'narrative', 'bottom_line', 'why_party_favored', 'opposing_party_path', 'key_uncertainty': the corrected "
+        "text, each returned unchanged if it needed no correction.\n\n"
+        "Output ONLY the JSON object, with no markdown code blocks, no backticks, and no extra text."
+    )
+    return instructions
+
+
 def get_chamber_forecast_system_prompt(chamber_name: str, cycle_year: str | int | None = None) -> str:
     # Never hardcode the cycle here: the model is told which election it is
     # analysing, so a stale literal would have it narrate the wrong one. Callers
@@ -719,5 +779,9 @@ def get_chamber_forecast_system_prompt(chamber_name: str, cycle_year: str | int 
         "copy projected and expected seat totals exactly, never invent or arithmetically alter them, and do not conflate the "
         "central projected seat split with the party that has the highest outright-control probability. If those point to "
         "different parties, explain that distinction plainly.\n\n"
+        "Every competitive race states who currently holds the seat. Use it: a race the favored party does not already "
+        "hold is a pickup opportunity for them and a seat the other party is defending. Never describe a party as "
+        "defending or holding a seat it does not currently hold, and never call a race a flip when the favored party is "
+        "the incumbent one.\n\n"
         "Output ONLY the JSON object, with no markdown code blocks, no backticks, and no extra text. Do not mention that you are an AI."
     )

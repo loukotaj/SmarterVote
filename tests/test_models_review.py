@@ -517,6 +517,52 @@ async def test_check_profile_links():
 
 
 @pytest.mark.asyncio
+async def test_link_severity_tracks_confidence_that_the_link_is_gone():
+    """A 404 is evidence a citation died. A 503 only says the host misbehaved.
+
+    Both used to be reported as warnings, which let one flaky fetch speak with
+    the authority of a confirmed dead link — and under the old scoring cap a
+    single warning was enough to block publication outright.
+    """
+    import httpx
+
+    from pipeline_client.agent.review import check_profile_links
+
+    statuses = {
+        "https://example.com/gone": 404,
+        "https://example.com/flaky": 503,
+        "https://example.com/botwalled": 403,
+    }
+
+    async def mock_head(url, *args, **kwargs):
+        return httpx.Response(statuses.get(url, 200), request=httpx.Request("HEAD", url))
+
+    race_data = {
+        "id": "mo-senate-2026",
+        "candidates": [
+            {
+                "name": "Candidate A",
+                "summary_sources": [
+                    {"url": url, "type": "website", "last_accessed": "2026-06-12T00:00:00Z"} for url in statuses
+                ],
+            }
+        ],
+    }
+
+    with patch("httpx.AsyncClient.head", side_effect=mock_head), patch("httpx.AsyncClient.get", side_effect=mock_head):
+        review = await check_profile_links(race_data)
+
+    by_url = {flag["url"]: flag for flag in review["flags"]}
+
+    assert by_url["https://example.com/gone"]["severity"] == "warning"
+    assert by_url["https://example.com/flaky"]["severity"] == "info"
+    # Bot-blocking establishes nothing either way, so it is not reported at all.
+    assert "https://example.com/botwalled" not in by_url
+    # Only a confirmed death flags the review.
+    assert review["verdict"] == "flagged"
+
+
+@pytest.mark.asyncio
 async def test_check_profile_links_skips_profiles_without_sources():
     from pipeline_client.agent.review import check_profile_links
 
