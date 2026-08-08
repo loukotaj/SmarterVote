@@ -1,4 +1,4 @@
-import type { Race, RaceSummary } from "$lib/types";
+import type { RaceSummary } from "$lib/types";
 
 export interface HomepageMetrics {
   guides: number;
@@ -88,30 +88,4 @@ export function homepageMetrics(
     lastUpdated: new Date(Math.max(...timestamps)).toISOString(),
     snapshotDate,
   };
-}
-
-export function isPreviewEligible(race: Race, now = new Date()): boolean {
-  const candidates = race.candidates.filter(
-    (candidate) => !candidate.withdrawn,
-  );
-  if (Date.parse(race.election_date) <= now.getTime()) return false;
-  if (candidates.length < 2 || candidates.length > 3) return false;
-  if (!race.validation_grade?.passed) return false;
-
-  return candidates.slice(0, 2).every((candidate) => {
-    const positions = Object.values(candidate.issues).filter(Boolean);
-    if (!candidate.summary.trim() || positions.length < 6) return false;
-    const sourced = positions.filter(
-      (position) => position && position.sources.length > 0,
-    ).length;
-    return (
-      sourced / positions.length >= 0.8 &&
-      positions.every(
-        (position) =>
-          position &&
-          position.confidence !== "low" &&
-          position.confidence !== "unknown",
-      )
-    );
-  });
 }

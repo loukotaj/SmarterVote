@@ -13,7 +13,7 @@ import sqlite3
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
 
-from shared.config import local_paths
+from shared.config import FIRESTORE_METRICS_COLLECTION, local_paths
 
 logger = logging.getLogger("pipeline")
 
@@ -45,7 +45,7 @@ class PipelineMetricsStore:
         serper_calls      int
     """
 
-    _COLLECTION = "pipeline_metrics"
+    _COLLECTION = FIRESTORE_METRICS_COLLECTION
 
     def __init__(self) -> None:
         explicit_db_path = os.getenv("PIPELINE_METRICS_DB_PATH")

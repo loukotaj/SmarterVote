@@ -3,7 +3,12 @@ import type {
   ForecastRating,
   RaceSummary,
 } from "$lib/types";
-import { GOVERNOR_HOLDOVERS, SENATE_HOLDOVERS } from "./holdovers";
+import {
+  CHAMBER_SEAT_TOTALS,
+  CURRENT_CHAMBER_COMPOSITION,
+  GOVERNOR_HOLDOVERS,
+  SENATE_HOLDOVERS,
+} from "./holdovers";
 
 export type ForecastTab = "house" | "senate" | "governors";
 
@@ -56,14 +61,6 @@ const RATINGS: ForecastRating[] = [
   "safe_r",
   "other",
 ];
-
-const HOUSE_CURRENT_BASELINE = { Democratic: 212, Republican: 218, Other: 1 };
-
-const EXPECTED_TOTALS: Record<ForecastTab, number> = {
-  house: 435,
-  senate: 100,
-  governors: 50,
-};
 
 const ABBR_TO_STATE: Record<string, string> = {
   al: "Alabama",
@@ -125,6 +122,15 @@ export function getRaceState(race: RaceSummary): string | null {
   return ABBR_TO_STATE[prefix] || null;
 }
 
+/**
+ * Last-resort party guess for a state whose race carries no usable roster.
+ *
+ * This is a hand-maintained list covering only the states somebody happened to
+ * notice, so it must stay a *fallback* — `fallbackPartyForRace` reads the actual
+ * candidate roster first, which works for every race rather than these six.
+ * Mirrors INCUMBENT_FALLBACKS in `shared/forecast_summary.py`; the two are kept
+ * in step by `tests/test_holdover_table_sync.py`.
+ */
 export const INCUMBENT_FALLBACKS: Record<
   string,
   Record<string, "Democratic" | "Republican">
@@ -142,15 +148,36 @@ export const INCUMBENT_FALLBACKS: Record<
   house: {},
 };
 
+// `office` is free text written by the research model, so the same chamber shows
+// up as "U.S. Senate", "US Senate", "United States Senate", or bare "Senate".
+// Match on the chamber word and rule out state legislatures separately, rather
+// than requiring one exact federal spelling — anchoring on a spelling silently
+// drops whole races from the forecast page. Mirrors `office_group` in
+// `shared/forecast_summary.py`.
+const STATE_LEGISLATIVE_OFFICE_MARKERS = [
+  "state senate",
+  "state senator",
+  "state house",
+  "state representative",
+  "state assembly",
+  "state legislature",
+  "state legislative",
+  "general assembly",
+  "house of delegates",
+];
+
 export function officeGroup(race: RaceSummary): ForecastTab | null {
   const office = (race.office || "").toLowerCase();
-  if (office.includes("state senate") || office.includes("state senator"))
+  if (STATE_LEGISLATIVE_OFFICE_MARKERS.some((m) => office.includes(m)))
     return null;
-  if (office.includes("united states senate") || office.includes("u.s. senate"))
-    return "senate";
+  if (office.includes("senate") || office.includes("senator")) return "senate";
   if (office.includes("governor") || office.includes("gubernatorial"))
     return "governors";
-  if (office.includes("house") || office.includes("representative"))
+  if (
+    office.includes("house") ||
+    office.includes("representative") ||
+    office.includes("congress")
+  )
     return "house";
   return null;
 }
@@ -219,20 +246,124 @@ function emptyRatingCounts(): Record<ForecastRating, number> {
   >;
 }
 
-function baselineFor(tab: ForecastTab): Record<string, number> {
-  if (tab === "senate") return { Democratic: 34, Republican: 31, Other: 0 };
-  if (tab === "governors") return { Democratic: 6, Republican: 8, Other: 0 };
-  return { Democratic: 0, Republican: 0, Other: 0 };
-}
-
 function currentBaselineFor(tab: ForecastTab): Record<string, number> {
-  if (tab === "senate") return { Democratic: 47, Republican: 53, Other: 0 };
-  if (tab === "governors") return { Democratic: 24, Republican: 26, Other: 0 };
-  return { ...HOUSE_CURRENT_BASELINE };
+  return { ...CURRENT_CHAMBER_COMPOSITION[tab] };
 }
 
+/**
+ * A governor race in a holdover state is not on this cycle's ballot — that
+ * state's seat is already counted from GOVERNOR_HOLDOVERS, so counting the race
+ * too would double-count the state. Deriving this from the holdover table keeps
+ * it correct when the table rolls forward to the next cycle; naming individual
+ * race IDs does not. Mirrors `is_chamber_control_race` in
+ * `shared/forecast_summary.py`.
+ */
 export function isValidGovernorControlRace(race: RaceSummary): boolean {
-  return race.id !== "in-governor-2026";
+  const state = getRaceState(race);
+  return !state || !(state in GOVERNOR_HOLDOVERS);
+}
+
+/**
+ * Best guess at who holds a race that has no forecast yet.
+ *
+ * Mirrors `fallback_party_for_race` in `shared/forecast_summary.py`, in the same
+ * order: the roster's own incumbent, then the roster's party majority, then the
+ * hand-maintained per-state fallback, then the Senate holdover table. The roster
+ * steps come first deliberately — they work for every race, where the per-state
+ * table only covers the handful of states someone thought to add.
+ *
+ * Returns null where Python returns "Other", i.e. nothing in the data supports a
+ * guess. Python counts that seat toward "Other"; the page leaves it out of the
+ * projection and lists it under unforecasted races instead.
+ */
+export function fallbackPartyForRace(
+  race: RaceSummary,
+  tab: ForecastTab,
+): "Democratic" | "Republican" | null {
+  const candidates = race.candidates ?? [];
+
+  const incumbent = candidates.find((candidate) => candidate.incumbent);
+  if (incumbent) {
+    const party = normalizeForecastParty(incumbent.party);
+    if (party !== "Other") return party;
+  }
+
+  if (candidates.length > 0) {
+    let democratic = 0;
+    let republican = 0;
+    for (const candidate of candidates) {
+      const party = normalizeForecastParty(candidate.party);
+      if (party === "Democratic") democratic += 1;
+      else if (party === "Republican") republican += 1;
+    }
+    if (democratic > republican) return "Democratic";
+    if (republican > democratic) return "Republican";
+  }
+
+  const state = getRaceState(race);
+  if (!state) return null;
+
+  const stateFallback = INCUMBENT_FALLBACKS[tab]?.[state];
+  if (stateFallback) return stateFallback;
+
+  if (tab === "senate") {
+    const seats = SENATE_HOLDOVERS[state];
+    if (seats && seats.length > 0) return seats[seats.length - 1];
+  }
+
+  return null;
+}
+
+const RACE_ID_YEAR = /-(\d{4})$/;
+
+/**
+ * The election year these races belong to, or null if none of them say.
+ *
+ * Read from each race id's `-YYYY` suffix, falling back to the year of
+ * `election_date`, and returned as the most common value so one malformed id
+ * cannot swing a whole page. Mirrors `election_cycle_year` in
+ * `shared/forecast_summary.py`.
+ *
+ * The forecast page used to write "2026" into its headings, its holdover
+ * explanation and its map tooltips. Those are user-facing sentences that go
+ * quietly wrong the moment the site covers another cycle — nothing errors, the
+ * page just states the wrong year.
+ */
+export function electionCycleYear(races: RaceSummary[]): string | null {
+  const counts = new Map<string, number>();
+  for (const race of races) {
+    const fromId = RACE_ID_YEAR.exec(race.id || "");
+    let year = fromId ? fromId[1] : null;
+    if (!year && typeof race.election_date === "string") {
+      const candidate = race.election_date.slice(0, 4);
+      if (/^\d{4}$/.test(candidate)) year = candidate;
+    }
+    if (year) counts.set(year, (counts.get(year) ?? 0) + 1);
+  }
+  let best: string | null = null;
+  let bestCount = 0;
+  for (const [year, count] of counts) {
+    if (count > bestCount) {
+      best = year;
+      bestCount = count;
+    }
+  }
+  return best;
+}
+
+/**
+ * Position of a rating on the Safe D → Safe R axis, with anything off that axis
+ * sorted last.
+ *
+ * FORECAST_RATING_ORDER deliberately omits "other" — the rating a race gets when
+ * the forecast cannot place it on the two-party spectrum, which in practice
+ * means an independent is in contention. `indexOf` returns -1 for it, so sorting
+ * by rating used to lift exactly those races above Safe D and open the list with
+ * them.
+ */
+export function ratingSortIndex(rating: ForecastRating): number {
+  const index = FORECAST_RATING_ORDER.indexOf(rating);
+  return index === -1 ? FORECAST_RATING_ORDER.length : index;
 }
 
 export function isForecastTab(
@@ -296,12 +427,9 @@ export function aggregateForecasts(
         }
       }
     }
-  } else {
-    const base = baselineFor(tab);
-    for (const [party, count] of Object.entries(base)) {
-      projected[party] = count;
-    }
   }
+  // The House has no holdovers — every seat is up — so `projected` starts at zero
+  // and is built entirely from the races themselves.
 
   const forecasted: ForecastRace[] = [];
   const missingForecasts: RaceSummary[] = [];
@@ -309,10 +437,7 @@ export function aggregateForecasts(
   for (const race of scoped) {
     if (!race.forecast) {
       missingForecasts.push(race);
-      const stateName = getRaceState(race);
-      const fallbackParty = stateName
-        ? INCUMBENT_FALLBACKS[tab]?.[stateName]
-        : undefined;
+      const fallbackParty = fallbackPartyForRace(race, tab);
       if (fallbackParty) {
         projected[fallbackParty] = (projected[fallbackParty] ?? 0) + 1;
       }
@@ -388,7 +513,7 @@ export function aggregateForecasts(
     ratingCounts,
     races: forecasted,
     missingForecasts,
-    totalExpected: EXPECTED_TOTALS[tab],
+    totalExpected: CHAMBER_SEAT_TOTALS[tab],
     holdovers: holdoversList,
   };
 }
@@ -681,9 +806,9 @@ export function sortForecastRaces(
       return stateA.localeCompare(stateB);
     }
     if (sortBy === "rating") {
-      const indexA = FORECAST_RATING_ORDER.indexOf(a.forecast.rating);
-      const indexB = FORECAST_RATING_ORDER.indexOf(b.forecast.rating);
-      return indexA - indexB;
+      return (
+        ratingSortIndex(a.forecast.rating) - ratingSortIndex(b.forecast.rating)
+      );
     }
     if (sortBy === "probability") {
       const probA = a.forecast.win_probability ?? 0;

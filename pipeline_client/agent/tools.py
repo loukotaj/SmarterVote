@@ -6,6 +6,15 @@ orchestration logic.  Import the individual constants or the aggregate lists.
 
 from typing import Dict, List
 
+from shared.models import ContestStage
+
+from .roster_contract import QUALIFYING_SOURCE_CLASS_VALUES, RETRIEVAL_STATUS_VALUES
+
+#: Stage values offered to the model. Derived from the canonical enum so the
+#: schema cannot advertise a stage the tool rejects, or omit one it accepts —
+#: a stage the model is never shown is a stage it can never produce.
+CONTEST_STAGE_VALUES: List[str] = [stage.value for stage in ContestStage]
+
 # ---------------------------------------------------------------------------
 # Web search / page fetch
 # ---------------------------------------------------------------------------
@@ -128,8 +137,6 @@ IMAGE_SEARCH_TOOL: Dict = {
     },
 }
 
-WEB_TOOLS: List[Dict] = [SEARCH_TOOL, FETCH_TOOL, BALLOTPEDIA_TOOL, BALLOTPEDIA_ELECTION_TOOL, IMAGE_SEARCH_TOOL]
-
 # ---------------------------------------------------------------------------
 # Roster editing tools
 # ---------------------------------------------------------------------------
@@ -154,7 +161,7 @@ ADD_CANDIDATE_TOOL: Dict = {
                             "url": {"type": "string"},
                             "type": {
                                 "type": "string",
-                                "enum": ["official", "ballotpedia", "fec", "news", "campaign", "other"],
+                                "enum": QUALIFYING_SOURCE_CLASS_VALUES,
                             },
                             "title": {"type": "string"},
                             "evidence": {"type": "string", "description": "Short note explaining what the source confirms."},
@@ -176,7 +183,7 @@ ADD_CANDIDATE_TOOL: Dict = {
                                 "type": "integer",
                                 "description": "1 = fetched official/FEC, 2 = fetched other, 3 = snippet.",
                             },
-                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                            "retrieval_status": {"type": "string", "enum": RETRIEVAL_STATUS_VALUES},
                         },
                         "required": ["url", "title"],
                     },
@@ -226,7 +233,7 @@ REMOVE_CANDIDATE_TOOL: Dict = {
                         "type": "object",
                         "properties": {
                             "url": {"type": "string"},
-                            "type": {"type": "string", "enum": ["official", "ballotpedia", "fec", "news", "campaign"]},
+                            "type": {"type": "string", "enum": QUALIFYING_SOURCE_CLASS_VALUES},
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
                             "evidence_text": {"type": "string", "description": "Alias for evidence."},
@@ -244,7 +251,7 @@ REMOVE_CANDIDATE_TOOL: Dict = {
                                 "type": "integer",
                                 "description": "1 = fetched official/FEC, 2 = fetched other, 3 = snippet.",
                             },
-                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                            "retrieval_status": {"type": "string", "enum": RETRIEVAL_STATUS_VALUES},
                         },
                     },
                 },
@@ -287,7 +294,7 @@ SET_CANDIDATE_ROSTER_SOURCES_TOOL: Dict = {
                             "url": {"type": "string"},
                             "type": {
                                 "type": "string",
-                                "enum": ["official", "ballotpedia", "fec", "news", "campaign", "other"],
+                                "enum": QUALIFYING_SOURCE_CLASS_VALUES,
                             },
                             "title": {"type": "string"},
                             "evidence": {"type": "string"},
@@ -306,7 +313,7 @@ SET_CANDIDATE_ROSTER_SOURCES_TOOL: Dict = {
                                 "type": "integer",
                                 "description": "1 = fetched official/FEC, 2 = fetched other, 3 = snippet.",
                             },
-                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                            "retrieval_status": {"type": "string", "enum": RETRIEVAL_STATUS_VALUES},
                         },
                     },
                 },
@@ -327,19 +334,7 @@ SET_RACE_IDENTITY_TOOL: Dict = {
                 "office": {"type": "string"},
                 "state": {"type": "string"},
                 "district": {"type": "string"},
-                "contest_stage": {
-                    "type": "string",
-                    "enum": [
-                        "pre_primary",
-                        "post_primary_general",
-                        "runoff",
-                        "top_two",
-                        "top_four_rcv",
-                        "uncontested",
-                        "special",
-                        "unknown",
-                    ],
-                },
+                "contest_stage": {"type": "string", "enum": CONTEST_STAGE_VALUES},
                 "election_date": {"type": "string"},
                 "primary_status": {"type": "string"},
                 "official_roster_source_url": {"type": "string"},
@@ -403,7 +398,7 @@ FINALIZE_ROSTER_TOOL: Dict = {
                                             "type": "integer",
                                             "description": "1 = fetched official/FEC, 2 = fetched other, 3 = snippet.",
                                         },
-                                        "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                                        "retrieval_status": {"type": "string", "enum": RETRIEVAL_STATUS_VALUES},
                                     },
                                     "required": ["url", "title"],
                                 },
@@ -446,7 +441,7 @@ FINALIZE_ROSTER_TOOL: Dict = {
                                 "type": "integer",
                                 "description": "1 = fetched official/FEC, 2 = fetched other, 3 = snippet.",
                             },
-                            "retrieval_status": {"type": "string", "enum": ["content", "snippet"]},
+                            "retrieval_status": {"type": "string", "enum": RETRIEVAL_STATUS_VALUES},
                         },
                         "required": ["url", "title", "evidence"],
                     },
@@ -750,7 +745,7 @@ CLEAR_EDUCATION_TOOL: Dict = {
     },
 }
 
-BIO_TOOLS: List[Dict] = [
+BACKGROUND_TOOLS: List[Dict] = [
     ADD_CAREER_ENTRY_TOOL,
     REMOVE_CAREER_ENTRY_TOOL,
     UPDATE_CAREER_ENTRY_TOOL,
@@ -760,7 +755,6 @@ BIO_TOOLS: List[Dict] = [
     CLEAR_CAREER_TOOL,
     CLEAR_EDUCATION_TOOL,
 ]
-BACKGROUND_TOOLS = BIO_TOOLS  # backward-compat alias
 
 # ---------------------------------------------------------------------------
 # Issue stance tool

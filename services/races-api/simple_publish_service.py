@@ -21,10 +21,6 @@ _DEFAULT_CACHE_TTL = 300
 _SUMMARIES_BLOB = "races/summaries.json"
 
 
-def _is_published_race_blob(blob_name: str) -> bool:
-    return blob_name.startswith("races/") and blob_name.endswith(".json") and blob_name != _SUMMARIES_BLOB
-
-
 def _normalize_summary_index(payload) -> list[dict] | None:
     if not isinstance(payload, list):
         return None

@@ -4,7 +4,7 @@ import time
 from typing import Any, Dict, List
 
 from ..patches import _apply_finance_patch  # noqa: F401 — re-exported for backward compat
-from ..prompts import FINANCE_VOTING_SYSTEM, FINANCE_VOTING_USER
+from ..prompts import FINANCE_VOTING_SYSTEM, FINANCE_VOTING_USER, cycle_kwargs
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..selection import _scale_iterations
 from ._common import (
@@ -47,6 +47,7 @@ async def run_finance_phase(ctx: PhaseContext) -> None:
         finance_result = await _agent_loop(
             FINANCE_VOTING_SYSTEM,
             FINANCE_VOTING_USER.format(
+                **cycle_kwargs(race_id),
                 race_id=race_id,
                 candidate_names=", ".join(candidate_names),
                 race_identity_context=_race_identity_context(race_json),

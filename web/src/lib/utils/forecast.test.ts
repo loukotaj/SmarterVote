@@ -1,12 +1,16 @@
 import { describe, expect, it } from "vitest";
-import type { RaceSummary } from "$lib/types";
+import type { ForecastRating, RaceSummary } from "$lib/types";
 import {
   aggregateForecasts,
   filterForecastRaces,
   getControlRelevanceScore,
   getMostLikelySeatOutcome,
   isRaceInForecastTab,
+  FORECAST_RATING_ORDER,
+  electionCycleYear,
+  ratingSortIndex,
   officeGroup,
+  fallbackPartyForRace,
   parseForecastTab,
   groupSeatDistribution,
   normalizeForecastParty,
@@ -341,6 +345,300 @@ describe("forecast utilities", () => {
           filterParty: "Republican",
         }).map((r) => r.id),
       ).toEqual(["b"]);
+    });
+  });
+
+  describe("chamber classification generality", () => {
+    // `office` is free text written by the research model, so the classifier
+    // must not depend on one federal spelling — anchoring on a spelling used to
+    // drop "US Senate" and bare "Senate" races off the forecast page entirely.
+    it.each([
+      "U.S. Senate",
+      "US Senate",
+      "United States Senate",
+      "Senate",
+      "Senator",
+    ])("classifies %s as the federal Senate", (office) => {
+      expect(officeGroup({ ...baseRace, id: "x-senate-2026", office })).toBe(
+        "senate",
+      );
+    });
+
+    it.each(["U.S. House", "US House of Representatives", "Congress"])(
+      "classifies %s as the federal House",
+      (office) => {
+        expect(officeGroup({ ...baseRace, id: "x-house-2026", office })).toBe(
+          "house",
+        );
+      },
+    );
+
+    it.each([
+      "Georgia State Senate District 5",
+      "State Senator",
+      "State House of Representatives",
+      "Virginia House of Delegates",
+      "State Assembly",
+      "General Assembly",
+    ])("does not classify %s into any federal chamber", (office) => {
+      expect(
+        officeGroup({ ...baseRace, id: "x-state-2026", office }),
+      ).toBeNull();
+    });
+
+    // Not Indiana-specific: the rule is "this state's governor is not up this
+    // cycle", derived from GOVERNOR_HOLDOVERS.
+    it.each(["Indiana", "Kentucky", "Louisiana", "Virginia"])(
+      "excludes the %s governor race from governor control math",
+      (state) => {
+        const race = {
+          ...baseRace,
+          id: "xx-governor-2026",
+          office: "Governor",
+          state,
+        } as RaceSummary;
+        expect(isRaceInForecastTab(race, "governors")).toBe(false);
+      },
+    );
+
+    it("still counts a governor race in a state that is on the ballot", () => {
+      const race = {
+        ...baseRace,
+        id: "ga-governor-2026",
+        office: "Governor",
+        state: "Georgia",
+      } as RaceSummary;
+      expect(isRaceInForecastTab(race, "governors")).toBe(true);
+    });
+
+    it("resolves the holdover state from the race id when state is absent", () => {
+      const race = {
+        ...baseRace,
+        id: "in-governor-2026",
+        office: "Governor",
+      } as RaceSummary;
+      expect(isRaceInForecastTab(race, "governors")).toBe(false);
+    });
+
+    it("does not extend the governor holdover exclusion to other chambers", () => {
+      const race = {
+        ...baseRace,
+        id: "in-house-01-2026",
+        office: "U.S. House",
+        state: "Indiana",
+      } as RaceSummary;
+      expect(isRaceInForecastTab(race, "house")).toBe(true);
+    });
+  });
+
+  describe("fallbackPartyForRace", () => {
+    // Mirrors `fallback_party_for_race` in shared/forecast_summary.py. The roster
+    // steps must come first: they work for every race, where the per-state
+    // INCUMBENT_FALLBACKS table only covers a handful of states.
+    it("uses the roster's own incumbent before anything else", () => {
+      const race = {
+        ...baseRace,
+        id: "oh-senate-2026",
+        office: "U.S. Senate",
+        state: "Ohio",
+        candidates: [
+          { name: "A", party: "Republican", incumbent: true },
+          { name: "B", party: "Democratic", incumbent: false },
+          { name: "C", party: "Democratic", incumbent: false },
+        ],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "senate")).toBe("Republican");
+    });
+
+    it("falls back to the roster's party majority when nobody is flagged incumbent", () => {
+      const race = {
+        ...baseRace,
+        id: "oh-senate-2026",
+        office: "U.S. Senate",
+        state: "Ohio",
+        candidates: [
+          { name: "A", party: "Democratic", incumbent: false },
+          { name: "B", party: "Democratic", incumbent: false },
+          { name: "C", party: "Republican", incumbent: false },
+        ],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "senate")).toBe("Democratic");
+    });
+
+    it("prefers the roster over the hand-maintained state table", () => {
+      // Vermont's governors entry is Republican; the roster says otherwise.
+      const race = {
+        ...baseRace,
+        id: "vt-governor-2026",
+        office: "Governor",
+        state: "Vermont",
+        candidates: [{ name: "A", party: "Democratic", incumbent: true }],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "governors")).toBe("Democratic");
+    });
+
+    it("uses the state table when the roster is empty", () => {
+      const race = {
+        ...baseRace,
+        id: "vt-governor-2026",
+        office: "Governor",
+        state: "Vermont",
+        candidates: [],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "governors")).toBe("Republican");
+    });
+
+    it("uses the Senate holdover table as the last resort", () => {
+      const race = {
+        ...baseRace,
+        id: "wy-senate-2026",
+        office: "U.S. Senate",
+        state: "Wyoming",
+        candidates: [],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "senate")).toBe("Republican");
+    });
+
+    it("returns null when nothing in the data supports a guess", () => {
+      const race = {
+        ...baseRace,
+        id: "ga-house-05-2026",
+        office: "U.S. House",
+        state: "Georgia",
+        candidates: [],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "house")).toBeNull();
+    });
+
+    it("does not guess from an evenly split roster", () => {
+      const race = {
+        ...baseRace,
+        id: "ga-house-05-2026",
+        office: "U.S. House",
+        state: "Georgia",
+        candidates: [
+          { name: "A", party: "Democratic", incumbent: false },
+          { name: "B", party: "Republican", incumbent: false },
+        ],
+      } as RaceSummary;
+      expect(fallbackPartyForRace(race, "house")).toBeNull();
+    });
+
+    it("counts an unforecasted race toward the projection using the roster", () => {
+      const races = [
+        {
+          ...baseRace,
+          id: "ga-house-05-2026",
+          office: "U.S. House",
+          state: "Georgia",
+          candidates: [{ name: "A", party: "Democratic", incumbent: true }],
+        },
+      ] as RaceSummary[];
+      const aggregate = aggregateForecasts(races, "house");
+      expect(aggregate.missingForecasts).toHaveLength(1);
+      expect(aggregate.projected.Democratic).toBe(1);
+    });
+  });
+
+  describe("electionCycleYear", () => {
+    // Mirrors `election_cycle_year` in shared/forecast_summary.py. The page used
+    // to hardcode "2026" into its headings, holdover copy and map tooltips —
+    // user-facing sentences that go quietly wrong once the site covers another
+    // cycle, with nothing to error on.
+    it("reads the cycle off the race ids", () => {
+      const races = [
+        { ...baseRace, id: "ga-senate-2026" },
+        { ...baseRace, id: "az-house-07-2026" },
+        { ...baseRace, id: "me-governor-2026" },
+      ] as RaceSummary[];
+      expect(electionCycleYear(races)).toBe("2026");
+    });
+
+    it("falls back to election_date when an id carries no year", () => {
+      const races = [
+        { ...baseRace, id: "no-year-slug", election_date: "2028-11-07" },
+      ] as RaceSummary[];
+      expect(electionCycleYear(races)).toBe("2028");
+    });
+
+    it("is not swung by a single malformed id", () => {
+      const races = [
+        { ...baseRace, id: "ga-senate-2026" },
+        { ...baseRace, id: "az-senate-2026" },
+        { ...baseRace, id: "stray-2018" },
+      ] as RaceSummary[];
+      expect(electionCycleYear(races)).toBe("2026");
+    });
+
+    it("returns null when nothing carries a year", () => {
+      const races = [
+        { ...baseRace, id: "mystery", election_date: "" },
+      ] as RaceSummary[];
+      expect(electionCycleYear(races)).toBeNull();
+    });
+
+    it("agrees with the Python implementation on a mixed cycle", () => {
+      const races = [
+        { ...baseRace, id: "ga-senate-2028" },
+        { ...baseRace, id: "az-house-07-2028" },
+        { ...baseRace, id: "me-governor-2026" },
+      ] as RaceSummary[];
+      expect(electionCycleYear(races)).toBe("2028");
+    });
+  });
+
+  describe("rating sort order", () => {
+    const rated = (id: string, rating: ForecastRating) =>
+      ({
+        ...baseRace,
+        id,
+        office: "U.S. Senate",
+        forecast: {
+          predicted_winner_party: "Other",
+          party_probabilities: {},
+          rating,
+          confidence: "low",
+          rationale: "",
+          based_on_poll_count: 0,
+          generated_at: "2026-06-20T00:00:00Z",
+          model: "m",
+          source_urls: [],
+          key_reasons: [],
+          market_signals: [],
+        },
+      }) as ForecastRace;
+
+    it("sorts an off-axis rating last, not ahead of Safe D", () => {
+      // "other" is the rating a race gets when the forecast cannot place it on
+      // the two-party spectrum — in practice, an independent in contention.
+      // FORECAST_RATING_ORDER omits it, so indexOf returned -1 and those races
+      // opened the list ahead of Safe D.
+      const sorted = sortForecastRaces(
+        [rated("a", "other"), rated("b", "safe_d"), rated("c", "tossup")],
+        "rating",
+        undefined,
+      ).map((race) => race.id);
+      expect(sorted).toEqual(["b", "c", "a"]);
+    });
+
+    it("gives every on-axis rating its documented position", () => {
+      FORECAST_RATING_ORDER.forEach((rating, index) => {
+        expect(ratingSortIndex(rating)).toBe(index);
+      });
+    });
+
+    it("ranks an unrecognised rating past the end of the axis", () => {
+      expect(ratingSortIndex("other")).toBe(FORECAST_RATING_ORDER.length);
+    });
+
+    it("still orders the full axis Safe D through Safe R", () => {
+      const shuffled = [...FORECAST_RATING_ORDER]
+        .reverse()
+        .map((rating, i) => rated(`r${i}`, rating));
+      const sorted = sortForecastRaces(shuffled, "rating", undefined).map(
+        (race) => race.forecast.rating,
+      );
+      expect(sorted).toEqual(FORECAST_RATING_ORDER);
     });
   });
 });

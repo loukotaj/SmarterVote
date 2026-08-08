@@ -9,6 +9,8 @@ the aggregate RunHealthVerdict computed by compute_run_health_verdict.
 import pytest
 
 from shared.run_health import (
+    BUDGET_EXCEPTION_NAMES,
+    CANCELLED_EXCEPTION_NAMES,
     RunFailureReason,
     RunHealthStatus,
     RunHealthVerdict,
@@ -366,3 +368,44 @@ def test_compute_run_health_verdict_serializes_to_json_safe_dict():
     assert dumped["status"] == "failed"
     assert set(dumped["reasons"]) == {"step_no_data", "validation_failed"}
     assert dumped["step_failures"][0]["reason"] == "step_no_data"
+
+
+# ---------------------------------------------------------------------------
+# Duck-typed classification against the real pipeline_client exceptions
+# ---------------------------------------------------------------------------
+
+
+def test_classify_exception_recognises_the_real_control_flow_exceptions():
+    """`run_health` matches these by class name so it need not import
+    pipeline_client (see its module docstring). That keeps the layering clean
+    and makes a rename on the pipeline side invisible: the match stops hitting,
+    the run is filed UNKNOWN_ERROR, and nothing says why.
+
+    Classifying the genuine article — not a stand-in — is what makes this catch it.
+    """
+    from pipeline_client.agent.run_budget import RunBudgetExceeded
+    from pipeline_client.backend.handlers.agent import AgentCancelled
+
+    assert classify_exception(RunBudgetExceeded("out of time")) is RunFailureReason.BUDGET_EXHAUSTED
+    assert classify_exception(AgentCancelled("admin cancelled")) is RunFailureReason.CANCELLED
+
+    assert RunBudgetExceeded.__name__ in BUDGET_EXCEPTION_NAMES
+    assert AgentCancelled.__name__ in CANCELLED_EXCEPTION_NAMES
+
+
+def test_classify_exception_reads_the_provider_error_family_by_attribute():
+    """The ProviderError family is matched on `.code`, also without importing it."""
+    from pipeline_client.agent.errors import PermanentProviderError, RetryableProviderError
+
+    auth = PermanentProviderError("bad key", provider="openrouter", code="auth_failure")
+    assert classify_exception(auth) is RunFailureReason.PROVIDER_AUTH_FAILURE
+
+    limited = RetryableProviderError("slow down", provider="openrouter", code="rate_limited")
+    assert classify_exception(limited) is RunFailureReason.PROVIDER_RATE_LIMIT
+
+    timed_out = RetryableProviderError("no answer", provider="serper", code="timeout")
+    assert classify_exception(timed_out) is RunFailureReason.PROVIDER_TIMEOUT
+
+
+def test_classify_exception_falls_back_to_unknown():
+    assert classify_exception(ValueError("something else")) is RunFailureReason.UNKNOWN_ERROR

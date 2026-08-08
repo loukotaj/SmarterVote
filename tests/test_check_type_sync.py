@@ -9,7 +9,7 @@ inputs.
 
 import sys
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional, Union, get_args
 
 import pytest
 from pydantic import BaseModel
@@ -231,3 +231,40 @@ def test_main_exits_nonzero_on_drift(tmp_path, real_ts_source, capsys):
     assert exit_code == 1
     out = capsys.readouterr().out
     assert "FAILED" in out
+
+
+# ---------------------------------------------------------------------------
+# Both spellings of an optional annotation
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "annotation",
+    [Optional[str], Union[str, None], str | None],
+    ids=["Optional[str]", "Union[str, None]", "str | None"],
+)
+def test_unwrap_optional_handles_every_spelling_of_optional(annotation):
+    """PEP 604's `str | None` carries types.UnionType as its origin, not
+    typing.Union. Matching only the latter reported the field as required and,
+    because the annotation was never unwrapped, raised a second false type
+    mismatch on the same field. Every model checked today writes `Optional[X]`,
+    so this cost nothing until someone modernised one."""
+    inner, is_optional = cts._unwrap_optional(annotation)
+    assert inner is str
+    assert is_optional is True
+
+
+def test_unwrap_optional_leaves_non_optional_annotations_alone():
+    assert cts._unwrap_optional(str) == (str, False)
+    assert cts._unwrap_optional(List[str]) == (List[str], False)
+
+
+@pytest.mark.parametrize(
+    "annotation",
+    [Union[int, str, None], int | str | None],
+    ids=["Union[int, str, None]", "int | str | None"],
+)
+def test_unwrap_optional_keeps_a_multi_member_union_intact(annotation):
+    inner, is_optional = cts._unwrap_optional(annotation)
+    assert is_optional is True
+    assert set(get_args(inner)) == {int, str}

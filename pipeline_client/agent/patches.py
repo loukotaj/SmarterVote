@@ -184,21 +184,3 @@ def _apply_finance_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: 
 
         updated += 1
     log("info", f"  Finance/voting patch applied — {updated} candidates updated")
-
-
-def _deduplicate_donors(donors: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """Kept for backward-compat with any update-run paths that may load old data."""
-    best: Dict[str, Dict[str, Any]] = {}
-    for d in donors:
-        key = d.get("name", "").strip().lower()
-        if not key:
-            continue
-        existing = best.get(key)
-        if existing is None:
-            best[key] = d
-        else:
-            new_amt = d.get("amount") or 0
-            old_amt = existing.get("amount") or 0
-            if new_amt > old_amt:
-                best[key] = d
-    return list(best.values())

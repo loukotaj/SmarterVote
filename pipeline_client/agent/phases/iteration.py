@@ -5,7 +5,7 @@ import json
 from typing import Any, Dict, List, Optional
 
 from ..handlers import _make_editing_handlers
-from ..prompts import CANONICAL_ISSUES, ITERATE_META_USER, ITERATE_SYSTEM, ITERATE_USER
+from ..prompts import CANONICAL_ISSUES, ITERATE_META_USER, ITERATE_SYSTEM, ITERATE_USER, cycle_kwargs
 from ..review_flags import format_review_flags as _format_review_flags
 from ..run_budget import RunBudget, RunBudgetExceeded
 from ..selection import _scale_iterations
@@ -134,6 +134,7 @@ async def _run_iteration_pass(
         await _agent_loop(
             ITERATE_SYSTEM,
             ITERATE_META_USER.format(
+                **cycle_kwargs(race_id),
                 race_id=race_id,
                 race_description=working.get("description", ""),
                 race_identity_context=identity_context,

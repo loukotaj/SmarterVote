@@ -141,6 +141,48 @@ def test_house_race_uses_possessive_congressional_district_urls():
     assert default_ballotpedia_race_url("ar-house-03-2026") == "https://ballotpedia.org/Arkansas'_3rd_Congressional_District"
 
 
+# AK, DE, ND, SD, VT and WY elect one at-large representative, so their race ids
+# carry no district segment. They were the only House races that could not reach
+# the canonical district-page URL: the parser required four id segments and these
+# have three, so `default_ballotpedia_race_url` silently fell back to the
+# election page for a sixth of the states with a House seat.
+AT_LARGE_HOUSE_RACES = [
+    ("ak-house-2026", "Alaska"),
+    ("de-house-2026", "Delaware"),
+    ("nd-house-2026", "North_Dakota"),
+    ("sd-house-2026", "South_Dakota"),
+    ("vt-house-2026", "Vermont"),
+    ("wy-house-2026", "Wyoming"),
+]
+
+
+@pytest.mark.parametrize("race_id, state", AT_LARGE_HOUSE_RACES)
+def test_at_large_house_races_get_a_district_url(race_id, state):
+    assert (
+        _race_id_to_ballotpedia_district_url(race_id) == f"https://ballotpedia.org/{state}'s_at-large_Congressional_District"
+    )
+
+
+@pytest.mark.parametrize("race_id, state", AT_LARGE_HOUSE_RACES)
+def test_at_large_house_races_prefer_the_district_page(race_id, state):
+    """Same precedence numbered districts get: district page over election page."""
+    assert default_ballotpedia_race_url(race_id) == f"https://ballotpedia.org/{state}'s_at-large_Congressional_District"
+
+
+@pytest.mark.parametrize("race_id, state", AT_LARGE_HOUSE_RACES)
+def test_at_large_house_election_urls_name_the_cycle(race_id, state):
+    assert (
+        _race_id_to_ballotpedia_url(race_id)
+        == f"https://ballotpedia.org/{state}'s_at-large_Congressional_District_election,_2026"
+    )
+
+
+@pytest.mark.parametrize("race_id", ["ak-house", "ak", "", "garbage", "xx-house-2026", "ak-house-notayear"])
+def test_malformed_race_ids_still_yield_no_url(race_id):
+    """Loosening the segment count must not start inventing URLs for junk ids."""
+    assert default_ballotpedia_race_url(race_id) is None
+
+
 def test_candidate_parser_uses_current_primary_votebox_sections():
     html = """
     <table><tr><td><a href="/Nathan_Deal">Nathan Deal</a></td><td>Republican incumbent</td></tr></table>
@@ -335,3 +377,23 @@ async def test_election_lookup_fetches_district_fallback_when_generated_url_fail
     assert result["candidates"] == [{"name": "Jane Doe", "party": "Democratic", "incumbent": False}]
     assert any("Congressional_District_election" in call for call in fake_client.calls)
     assert any(call.endswith("Congressional_District") for call in fake_client.calls)
+
+
+# The Wikipedia fallback exists because Ballotpedia bot-blocks data-center IPs,
+# so it matters most in production. It covered only governor and senate races,
+# leaving every House race without the fallback the module is built around.
+@pytest.mark.parametrize("race_id, state", AT_LARGE_HOUSE_RACES)
+def test_at_large_house_races_have_a_wikipedia_fallback(race_id, state):
+    """Verified against the live API: these use the singular "election"."""
+    assert (
+        _race_id_to_wikipedia_url(race_id)
+        == f"https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_election_in_{state}"
+    )
+
+
+@pytest.mark.parametrize("race_id", ["ga-house-05-2026", "ca-house-06-2026", "tx-house-11-2026"])
+def test_numbered_house_districts_get_no_wikipedia_fallback(race_id):
+    """Deliberate: Wikipedia files these under one statewide article covering
+    every district, so parsing it would pull other districts' candidates into
+    this roster. No fallback beats a roster contaminated with the wrong race."""
+    assert _race_id_to_wikipedia_url(race_id) is None

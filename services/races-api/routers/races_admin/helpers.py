@@ -15,6 +15,7 @@ import gcs_helpers
 from fastapi import HTTPException, Request
 from routers.utils import _coerce_datetime, _queue_ttl_at
 
+from shared.config import FIRESTORE_QUEUE_COLLECTION, FIRESTORE_RACES_COLLECTION, FIRESTORE_RUNS_COLLECTION
 from shared.pipeline_config import RetentionConfig
 from shared.race_catalog import build_race_summary_fields
 
@@ -138,7 +139,7 @@ def _backfill_catalog_from_storage(race_id: str) -> Dict[str, Any] | None:
 
 def _run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
     try:
-        run_doc = db.collection("pipeline_runs").document(run_id).get()
+        run_doc = db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id).get()
     except Exception:
         return False
     if not getattr(run_doc, "exists", False):
@@ -149,14 +150,14 @@ def _run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
 
 def _is_run_actually_active(db: Any, run_id: str) -> bool:
     """Return True only when run + queue docs both indicate active work."""
-    run_ref = db.collection("pipeline_runs").document(str(run_id))
+    run_ref = db.collection(FIRESTORE_RUNS_COLLECTION).document(str(run_id))
     run_doc = run_ref.get()
     if not run_doc.exists:
         return False
     run_data = run_doc.to_dict() or {}
     if run_data.get("status") not in ("pending", "running"):
         return False
-    queue_docs = db.collection("pipeline_queue").where("run_id", "==", str(run_id)).stream()
+    queue_docs = db.collection(FIRESTORE_QUEUE_COLLECTION).where("run_id", "==", str(run_id)).stream()
     return any((doc.to_dict() or {}).get("status") in ("pending", "running") for doc in queue_docs)
 
 
@@ -192,11 +193,11 @@ def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tu
         run_ref = None
         now = datetime.now(timezone.utc)
         if run_id:
-            run_ref = db.collection("pipeline_runs").document(run_id)
+            run_ref = db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id)
             run_doc = run_ref.get()
             if run_doc.exists:
                 run_actually_active = _active_doc_is_fresh(run_doc.to_dict() or {}, now)
-                queue_docs = db.collection("pipeline_queue").where("run_id", "==", run_id).stream()
+                queue_docs = db.collection(FIRESTORE_QUEUE_COLLECTION).where("run_id", "==", run_id).stream()
                 active_queue_docs = [doc for doc in queue_docs if _active_doc_is_fresh(doc.to_dict() or {}, now)]
                 # A current worker lease is stronger liveness evidence than a
                 # quiet pipeline_runs document during a long model/tool call.
@@ -214,7 +215,7 @@ def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tu
                 )
             else:
                 # If pipeline_run doc doesn't exist yet (e.g. pending in queue), the run is active if the queue doc is active and fresh
-                queue_docs = db.collection("pipeline_queue").where("run_id", "==", run_id).stream()
+                queue_docs = db.collection(FIRESTORE_QUEUE_COLLECTION).where("run_id", "==", run_id).stream()
                 active_queue_docs = [doc for doc in queue_docs if _active_doc_is_fresh(doc.to_dict() or {}, now)]
                 run_actually_active = bool(active_queue_docs)
         if not run_actually_active:
@@ -231,7 +232,7 @@ def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tu
                 except Exception as exc:
                     logging.warning("Failed to mark stale run %s failed: %s", run_id, exc)
             if run_id:
-                for doc in db.collection("pipeline_queue").where("run_id", "==", run_id).stream():
+                for doc in db.collection(FIRESTORE_QUEUE_COLLECTION).where("run_id", "==", run_id).stream():
                     try:
                         data = doc.to_dict() or {}
                         if data.get("status") in ("pending", "running"):
@@ -272,7 +273,7 @@ def _recheck_race_status(db: Any, race_id: str, race_data: Dict[str, Any]) -> tu
             firestore_helpers._fs_update_race(race_id, update)
             updated = True
             reconciled_view = {**race_data, **update}
-    updated_doc = db.collection("races").document(race_id).get()
+    updated_doc = db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).get()
     latest = firestore_helpers._doc_to_plain(updated_doc)
     if latest is not None and not latest.get("race_id"):
         latest["race_id"] = race_id
@@ -391,7 +392,7 @@ def _run_completed_at(data: Dict[str, Any]) -> datetime | None:
 def _pipeline_run_stats(db: Any) -> Dict[str, Dict[str, Any]]:
     """Aggregate run counts from canonical pipeline_runs docs for the races table."""
     stats: Dict[str, Dict[str, Any]] = {}
-    runs_ref = db.collection("pipeline_runs")
+    runs_ref = db.collection(FIRESTORE_RUNS_COLLECTION)
     used_projection = False
     try:
         selected_ref = runs_ref.select(["race_id", "status", "started_at", "completed_at", "updated_at", "payload.race_id"])

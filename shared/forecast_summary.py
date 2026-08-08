@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from datetime import datetime, timezone
 from typing import Any, Dict, Iterable, Literal
 
@@ -108,6 +109,7 @@ ABBR_TO_STATE = {
     "ia": "Iowa",
     "id": "Idaho",
     "il": "Illinois",
+    "in": "Indiana",
     "ks": "Kansas",
     "ky": "Kentucky",
     "la": "Louisiana",
@@ -155,13 +157,33 @@ def normalize_party(party: Any) -> Party:
     return "Other"
 
 
+# `office` is free text written by the research model, so the same chamber shows
+# up as "U.S. Senate", "US Senate", "United States Senate", or bare "Senate".
+# Match on the chamber word and rule out state legislatures separately, rather
+# than requiring one exact federal spelling — anchoring on a spelling silently
+# drops whole races from the chamber math.
+STATE_LEGISLATIVE_OFFICE_MARKERS = (
+    "state senate",
+    "state senator",
+    "state house",
+    "state representative",
+    "state assembly",
+    "state legislature",
+    "state legislative",
+    "general assembly",
+    "house of delegates",
+)
+
+
 def office_group(race: Dict[str, Any]) -> Chamber | None:
     office = str(race.get("office") or "").lower()
-    if "senate" in office:
+    if any(marker in office for marker in STATE_LEGISLATIVE_OFFICE_MARKERS):
+        return None
+    if "senate" in office or "senator" in office:
         return "senate"
     if "governor" in office or "gubernatorial" in office:
         return "governors"
-    if "house" in office or "representative" in office:
+    if "house" in office or "representative" in office or "congress" in office:
         return "house"
     return None
 
@@ -172,6 +194,48 @@ def race_state(race: Dict[str, Any]) -> str | None:
         return str(state)
     race_id = str(race.get("id") or race.get("race_id") or "")
     return ABBR_TO_STATE.get(race_id.split("-")[0].lower())
+
+
+_RACE_ID_YEAR = re.compile(r"-(\d{4})$")
+
+
+def election_cycle_year(races: Iterable[Dict[str, Any]]) -> str | None:
+    """The election year these races belong to, or None if they do not agree.
+
+    Read from the race IDs' ``-YYYY`` suffix, falling back to the year of
+    ``election_date``. Returned as the most common value so one malformed ID in
+    a chamber's worth of races cannot swing the answer.
+    """
+    counts: Dict[str, int] = {}
+    for race in races:
+        year = None
+        match = _RACE_ID_YEAR.search(str(race.get("id") or race.get("race_id") or ""))
+        if match:
+            year = match.group(1)
+        elif isinstance(race.get("election_date"), str) and len(race["election_date"]) >= 4:
+            candidate = race["election_date"][:4]
+            year = candidate if candidate.isdigit() else None
+        if year:
+            counts[year] = counts.get(year, 0) + 1
+    if not counts:
+        return None
+    return max(counts.items(), key=lambda item: item[1])[0]
+
+
+def is_chamber_control_race(race: Dict[str, Any], chamber: Chamber) -> bool:
+    """Whether ``race`` should be counted toward ``chamber``'s seat math.
+
+    A governor race in a `GOVERNOR_HOLDOVERS` state is not on this cycle's
+    ballot — that state's seat is already counted from the holdover table, so
+    counting the race as well double-counts the state. Deriving the exclusion
+    from the holdover table keeps it correct when the table is rolled forward to
+    the next cycle; naming individual race IDs does not.
+    """
+    if office_group(race) != chamber:
+        return False
+    if chamber == "governors" and race_state(race) in GOVERNOR_HOLDOVERS:
+        return False
+    return True
 
 
 def fallback_party_for_race(race: Dict[str, Any]) -> Party:
@@ -236,11 +300,7 @@ def _race_party_probabilities(forecast: Dict[str, Any]) -> Dict[Party, float]:
 
 
 def _chamber_races(summaries: Iterable[Dict[str, Any]], chamber: Chamber) -> list[Dict[str, Any]]:
-    return [
-        race
-        for race in summaries
-        if office_group(race) == chamber and not (chamber == "governors" and race.get("id") == "in-governor-2026")
-    ]
+    return [race for race in summaries if is_chamber_control_race(race, chamber)]
 
 
 def _projected_control(projected: Dict[Party, int], chamber: Chamber) -> Party:
@@ -632,11 +692,15 @@ def build_chamber_context(races: list[dict[str, Any]], name: str, summary: dict[
     return "\n".join(lines)
 
 
-def get_chamber_forecast_system_prompt(chamber_name: str) -> str:
+def get_chamber_forecast_system_prompt(chamber_name: str, cycle_year: str | int | None = None) -> str:
+    # Never hardcode the cycle here: the model is told which election it is
+    # analysing, so a stale literal would have it narrate the wrong one. Callers
+    # derive the year from the races themselves via `election_cycle_year`.
+    cycle_phrase = f"in the {cycle_year} election cycle" if cycle_year else "in the current election cycle"
     return (
         "You are a professional, nonpartisan, highly analytical election forecaster (like Cook Political Report, FiveThirtyEight, or Split Ticket). "
         f"Your goal is to output a JSON object containing a detailed forecast analysis for the {chamber_name} "
-        "in the 2026 election cycle, based on the forecast data provided. "
+        f"{cycle_phrase}, based on the forecast data provided. "
         "Your writing must sound like a short, sharp election analyst note, not an AI-generated report. "
         "Avoid generic filler phrases and AI boilerplate such as 'model assessment,' 'structured analysis,' "
         "'available indicators,' 'based on the data,' or generic caveats about uncertainty. "

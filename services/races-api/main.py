@@ -63,14 +63,6 @@ _ADMIN_API_KEY = os.getenv("ADMIN_API_KEY")
 _http_bearer = HTTPBearer(auto_error=False)
 
 
-def _require_admin_key(x_admin_key: str = Header(default="")) -> None:
-    """Dependency: reject requests missing a valid X-Admin-Key header."""
-    if not _ADMIN_API_KEY:
-        raise HTTPException(status_code=503, detail="Admin API key not configured")
-    if not secrets.compare_digest(x_admin_key, _ADMIN_API_KEY):
-        raise HTTPException(status_code=401, detail="Invalid or missing X-Admin-Key")
-
-
 async def _require_admin_access(
     credentials: HTTPAuthorizationCredentials | None = Depends(_http_bearer),
     x_admin_key: str = Header(default=""),

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import type { RaceSummary } from "$lib/types";
-  import { formatRating, raceHref } from "$lib/utils/forecast";
+  import { formatRating, getRaceState, raceHref } from "$lib/utils/forecast";
   import { probability, ratingClass } from "$lib/utils/forecastPresentation";
 
   export let races: RaceSummary[];
@@ -89,8 +89,7 @@
               href={browser ? raceHref(race.id) : undefined}
               class="inline-flex min-h-11 items-center font-black text-sm text-content hover:text-blue-600 dark:hover:text-blue-400 truncate"
             >
-              {race.state ||
-                race.title?.replace("2026 U.S. Senate election in ", "")}
+              {getRaceState(race) || race.title}
             </a>
             {#if rating}
               <span

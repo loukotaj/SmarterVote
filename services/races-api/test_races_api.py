@@ -552,9 +552,11 @@ def test_chamber_forecasts_endpoints(client, monkeypatch, data_dir):
 def test_generate_chamber_forecasts_defaults_to_gemini_35_flash(client, monkeypatch):
     """POST /api/races/chamber_forecasts/generate uses the requested default model."""
     seen_models = []
+    seen_cycle_years = []
 
-    async def fake_generate_chamber_analysis(chamber_name, context_text, *, model):
+    async def fake_generate_chamber_analysis(chamber_name, context_text, *, model, cycle_year=None):
         seen_models.append(model)
+        seen_cycle_years.append(cycle_year)
         return {
             "narrative": f"{chamber_name} narrative",
             "bottom_line": f"{chamber_name} bottom line",
@@ -573,12 +575,16 @@ def test_generate_chamber_forecasts_defaults_to_gemini_35_flash(client, monkeypa
     body = resp.json()
     assert body["model"] == "google/gemini-3.6-flash"
     assert seen_models == ["google/gemini-3.6-flash"] * 3
+    # The cycle must reach the prompt from the race data, not a hardcoded literal.
+    # These fixtures are mo-senate-2024, so a "2026" here would mean the prompt is
+    # still naming a cycle of its own choosing.
+    assert seen_cycle_years == ["2024"] * 3
 
 
 def test_generate_chamber_forecasts_fails_without_saving_when_llm_fails(client, monkeypatch):
     """LLM failures should return an explicit error and not save deterministic fallback data."""
 
-    async def failing_generate_chamber_analysis(chamber_name, context_text, *, model):
+    async def failing_generate_chamber_analysis(chamber_name, context_text, *, model, cycle_year=None):
         raise RuntimeError("provider unavailable")
 
     import chamber_narratives

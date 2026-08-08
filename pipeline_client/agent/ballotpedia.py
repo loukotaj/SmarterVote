@@ -312,14 +312,22 @@ _STATE_NAMES = {
 
 
 def _district_label_from_parts(district_parts: List[str]) -> str:
+    """Ballotpedia's name for a district: "5th", or "at-large" for a lone seat.
+
+    Six states (AK, DE, ND, SD, VT, WY) elect a single at-large representative,
+    so their race ids carry no district segment at all — ``ak-house-2026``, not
+    ``ak-house-01-2026``. An empty `district_parts` is that case, not an error.
+    """
     district_num_str = district_parts[0] if district_parts else ""
+    if not district_num_str:
+        return "at-large"
     try:
         n = int(district_num_str)
-        suffix_map = {1: "st", 2: "nd", 3: "rd"}
-        ordinal = suffix_map.get(n % 10 if n % 100 not in (11, 12, 13) else 0, "th")
-        return f"{n}{ordinal}"
     except ValueError:
-        return district_num_str or "at-large"
+        return district_num_str
+    suffix_map = {1: "st", 2: "nd", 3: "rd"}
+    ordinal = suffix_map.get(n % 10 if n % 100 not in (11, 12, 13) else 0, "th")
+    return f"{n}{ordinal}"
 
 
 def _state_possessive_url(state_url: str) -> str:
@@ -327,8 +335,12 @@ def _state_possessive_url(state_url: str) -> str:
 
 
 def _parse_house_race_parts(race_id: str) -> Optional[tuple[str, str, str]]:
+    # Three parts is the shortest valid House id: an at-large state has no
+    # district segment (`ak-house-2026`). Requiring four excluded exactly the six
+    # at-large states from the district-page URL, so they were the only House
+    # races that could never reach the canonical ballotpedia_url the rest get.
     parts = race_id.lower().split("-")
-    if len(parts) < 4:
+    if len(parts) < 3:
         return None
 
     state_abbr = parts[0].upper()
@@ -485,7 +497,21 @@ _WIKI_EXCLUDE_SECTIONS = (
 
 
 def _race_id_to_wikipedia_url(race_id: str) -> Optional[str]:
-    """Derive a Wikipedia election-article URL from a race_id (governor/senate)."""
+    """Derive a Wikipedia election-article URL from a race_id.
+
+    Covers governor, senate, and at-large House races. A numbered House district
+    deliberately gets no URL: Wikipedia files those under one statewide article
+    covering every district at once, so parsing it would pull candidates from
+    other districts into this race's roster — worse than having no fallback.
+
+    An at-large state has exactly one representative, so its statewide article
+    describes precisely this contest. Wikipedia marks the difference with the
+    singular "election" ("2026 United States House of Representatives election in
+    Alaska"); the plural form used for multi-district states 404s for them.
+    Whether a race is at-large is read off the id — an at-large id carries no
+    district segment — so this needs no list of at-large states to fall out of
+    date at the next reapportionment.
+    """
     parts = race_id.lower().split("-")
     if len(parts) < 3:
         return None
@@ -512,6 +538,10 @@ def _race_id_to_wikipedia_url(race_id: str) -> Optional[str]:
         return f"https://en.wikipedia.org/wiki/{year}_{state_url}_gubernatorial{special}_election"
     if "senate" in office_parts:
         return f"https://en.wikipedia.org/wiki/{year}_United_States_Senate{special}_election_in_{state_url}"
+    if "house" in office_parts:
+        if [part for part in office_parts if part != "house"]:
+            return None  # numbered district — see docstring
+        return f"https://en.wikipedia.org/wiki/{year}_United_States_House_of_Representatives{special}_election_in_{state_url}"
     return None
 
 
