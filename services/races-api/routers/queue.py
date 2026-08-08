@@ -17,6 +17,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from request_models import RaceQueueRequest, validate_race_id
 from routers.utils import _queue_ttl_at
 
+from shared.config import FIRESTORE_QUEUE_COLLECTION, FIRESTORE_RACES_COLLECTION, FIRESTORE_RUNS_COLLECTION
 from shared.pipeline_config import PIPELINE_STEP_LABELS, PIPELINE_STEP_ORDER, PIPELINE_STEP_WEIGHTS, RetentionConfig
 
 router = APIRouter()
@@ -42,11 +43,11 @@ def _dispatch_if_cloud_run(db: Any, item: Dict[str, Any]) -> Dict[str, Any] | No
     try:
         dispatch = dispatch_pipeline_job(str(item["id"]))
         update = {"dispatch_status": "submitted", **dispatch}
-        db.collection("pipeline_queue").document(str(item["id"])).update(update)
+        db.collection(FIRESTORE_QUEUE_COLLECTION).document(str(item["id"])).update(update)
         return update
     except Exception as exc:
         error = f"Cloud Run Job dispatch failed: {exc}"
-        db.collection("pipeline_queue").document(str(item["id"])).update(
+        db.collection(FIRESTORE_QUEUE_COLLECTION).document(str(item["id"])).update(
             {"status": "failed", "dispatch_status": "failed", "error": error, "ttl_at": _queue_ttl_at()}
         )
         firestore_helpers._fs_update_race(
@@ -57,7 +58,7 @@ def _dispatch_if_cloud_run(db: Any, item: Dict[str, Any]) -> Dict[str, Any] | No
 
 def _current_run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
     try:
-        run_doc = db.collection("pipeline_runs").document(run_id).get()
+        run_doc = db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id).get()
         run_data = firestore_helpers._doc_to_plain(run_doc)
     except Exception:
         return False
@@ -69,14 +70,14 @@ def _current_run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
 def _is_run_actually_active(db: Any, run_id: str) -> bool:
     """Return True only when run + queue docs both indicate active work."""
     try:
-        run_doc = db.collection("pipeline_runs").document(str(run_id)).get()
+        run_doc = db.collection(FIRESTORE_RUNS_COLLECTION).document(str(run_id)).get()
         run_data = firestore_helpers._doc_to_plain(run_doc)
     except Exception:
         return False
     if not run_data or run_data.get("status") not in _ACTIVE_STATUSES:
         return False
     try:
-        queue_docs = db.collection("pipeline_queue").where("run_id", "==", str(run_id)).limit(20).stream()
+        queue_docs = db.collection(FIRESTORE_QUEUE_COLLECTION).where("run_id", "==", str(run_id)).limit(20).stream()
         return any((doc.to_dict() or {}).get("status") in _ACTIVE_STATUSES for doc in queue_docs)
     except Exception:
         return False
@@ -119,9 +120,9 @@ def _normalize_continuation_ancestors(items: list[Dict[str, Any]]) -> list[Dict[
 
 def _normalize_terminal_run_items(db: Any, items: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
     """Mirror authoritative run/race state onto stale active queue items."""
-    runs_ref = db.collection("pipeline_runs")
-    queue_ref = db.collection("pipeline_queue")
-    races_ref = db.collection("races")
+    runs_ref = db.collection(FIRESTORE_RUNS_COLLECTION)
+    queue_ref = db.collection(FIRESTORE_QUEUE_COLLECTION)
+    races_ref = db.collection(FIRESTORE_RACES_COLLECTION)
     normalized = []
     for item in items:
         next_item = dict(item)
@@ -181,7 +182,7 @@ async def get_queue(active_only: bool = False, limit: int = 200) -> Dict[str, An
     """
     db = firestore_helpers._get_fs()
     limit = max(1, min(limit, 500))
-    query = db.collection("pipeline_queue")
+    query = db.collection(FIRESTORE_QUEUE_COLLECTION)
     if active_only:
         query = query.where("status", "in", sorted(_ACTIVE_STATUSES))
     docs = query.order_by("created_at", direction="DESCENDING").limit(limit).stream()
@@ -227,7 +228,7 @@ async def queue_races(request: RaceQueueRequest) -> Dict[str, Any]:
         try:
             from google.cloud.firestore_v1 import SERVER_TIMESTAMP  # type: ignore
 
-            race_doc = db.collection("races").document(race_id).get()
+            race_doc = db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).get()
             if getattr(race_doc, "exists", False) is True:
                 race_data = race_doc.to_dict() or {}
                 race_data = _self_heal_stale_active_race(db, race_id, race_data)
@@ -247,7 +248,7 @@ async def queue_races(request: RaceQueueRequest) -> Dict[str, Any]:
                 "runner": (options or {}).get("runner") or _default_runner(),
                 "created_at": SERVER_TIMESTAMP,
             }
-            db.collection("pipeline_queue").document(item_id).set(item)
+            db.collection(FIRESTORE_QUEUE_COLLECTION).document(item_id).set(item)
             firestore_helpers._fs_update_race(race_id, {"status": "queued", "current_run_id": run_id})
             dispatch = _dispatch_if_cloud_run(db, item)
             added.append(
@@ -272,7 +273,7 @@ async def clear_finished_queue() -> Dict[str, Any]:
     db = firestore_helpers._get_fs()
     finished_statuses = {"completed", "failed", "cancelled", "continued"}
     removed = 0
-    docs = db.collection("pipeline_queue").where("status", "in", sorted(finished_statuses)).limit(500).stream()
+    docs = db.collection(FIRESTORE_QUEUE_COLLECTION).where("status", "in", sorted(finished_statuses)).limit(500).stream()
     for doc in docs:
         doc.reference.delete()
         removed += 1
@@ -284,7 +285,7 @@ async def clear_pending_queue() -> Dict[str, Any]:
     """Cancel all pending (not yet started) queue items."""
     db = firestore_helpers._get_fs()
     removed = 0
-    docs = db.collection("pipeline_queue").where("status", "==", "pending").limit(500).stream()
+    docs = db.collection(FIRESTORE_QUEUE_COLLECTION).where("status", "==", "pending").limit(500).stream()
     for doc in docs:
         data = doc.to_dict() or {}
         doc.reference.update({"status": "cancelled", "lease_owner": None, "lease_expires_at": None, "ttl_at": _queue_ttl_at()})
@@ -304,7 +305,7 @@ async def remove_queue_item(item_id: str, force: bool = False) -> Dict[str, Any]
     for stuck queue items.
     """
     db = firestore_helpers._get_fs()
-    doc = db.collection("pipeline_queue").document(item_id).get()
+    doc = db.collection(FIRESTORE_QUEUE_COLLECTION).document(item_id).get()
     if not doc.exists:
         raise HTTPException(status_code=404, detail="Queue item not found")
     data = doc.to_dict() or {}

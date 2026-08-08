@@ -19,7 +19,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Optional
 
 from pipeline_client.logging_utils import sanitize_log_data, sanitize_log_message, sanitize_log_message_with_metadata
-from shared.config import FIRESTORE_RUNS_COLLECTION
+from shared.config import FIRESTORE_RUN_LOGS_SUBCOLLECTION, FIRESTORE_RUNS_COLLECTION
 from shared.pipeline_config import RetentionConfig
 
 logger = logging.getLogger("pipeline")
@@ -135,10 +135,10 @@ class FirestoreLogger:
             if hasattr(db, "batch"):
                 batch = db.batch()
                 for doc_id, entry in pending:
-                    batch.set(run_ref.collection("logs").document(doc_id), entry)
+                    batch.set(run_ref.collection(FIRESTORE_RUN_LOGS_SUBCOLLECTION).document(doc_id), entry)
                 batch.commit()
             else:
-                logs = run_ref.collection("logs")
+                logs = run_ref.collection(FIRESTORE_RUN_LOGS_SUBCOLLECTION)
                 for doc_id, entry in pending:
                     logs.document(doc_id).set(entry)
         except Exception as exc:

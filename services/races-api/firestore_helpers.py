@@ -6,6 +6,7 @@ from typing import Any, Dict, Optional
 
 from fastapi import HTTPException
 
+from shared.config import FIRESTORE_RACES_COLLECTION
 from shared.race_catalog import build_race_summary_fields, build_versioned_catalog_fields
 
 _FIRESTORE_PROJECT = os.getenv("FIRESTORE_PROJECT") or os.getenv("PROJECT_ID")
@@ -64,7 +65,7 @@ def _fs_update_race(race_id: str, fields: Dict[str, Any]) -> None:
         fields.setdefault("updated_at", SERVER_TIMESTAMP)
         if fields.get("race_id") is None:
             fields["race_id"] = race_id
-        _get_fs().collection("races").document(race_id).set(fields, merge=True)
+        _get_fs().collection(FIRESTORE_RACES_COLLECTION).document(race_id).set(fields, merge=True)
     except Exception as exc:
         logging.warning("Firestore race update %s failed: %s", race_id, exc)
 

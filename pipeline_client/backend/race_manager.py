@@ -21,13 +21,14 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel
 
+from shared.config import FIRESTORE_RACE_RUNS_SUBCOLLECTION, FIRESTORE_RACES_COLLECTION
 from shared.pipeline_config import FreshnessConfig
 
 from .models import RunInfo, RunStatus
 
 logger = logging.getLogger("pipeline")
 
-_COLLECTION = "races"
+_COLLECTION = FIRESTORE_RACES_COLLECTION
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -199,7 +200,7 @@ class RaceManager:
                 if not doc_ref.get().exists:
                     return in_cache  # was in cache but not yet in Firestore
                 # Delete subcollection runs first
-                runs_ref = doc_ref.collection("runs")
+                runs_ref = doc_ref.collection(FIRESTORE_RACE_RUNS_SUBCOLLECTION)
                 for run_doc in runs_ref.stream():
                     run_doc.reference.delete()
                 doc_ref.delete()
@@ -502,7 +503,13 @@ class RaceManager:
     def get_run(self, race_id: str, run_id: str) -> Optional[RunInfo]:
         if self._db is not None:
             try:
-                doc = self._db.collection(_COLLECTION).document(race_id).collection("runs").document(run_id).get()
+                doc = (
+                    self._db.collection(_COLLECTION)
+                    .document(race_id)
+                    .collection(FIRESTORE_RACE_RUNS_SUBCOLLECTION)
+                    .document(run_id)
+                    .get()
+                )
                 if doc.exists:
                     run = RunInfo(**(doc.to_dict() or {}))
                     self._local_runs.setdefault(race_id, {})[run_id] = run  # populate cache
@@ -521,7 +528,7 @@ class RaceManager:
                 docs = (
                     self._db.collection(_COLLECTION)
                     .document(race_id)
-                    .collection("runs")
+                    .collection(FIRESTORE_RACE_RUNS_SUBCOLLECTION)
                     .order_by("started_at", direction=Query.DESCENDING)
                     .limit(limit)
                     .stream()
@@ -561,7 +568,12 @@ class RaceManager:
 
         if self._db is not None:
             try:
-                doc_ref = self._db.collection(_COLLECTION).document(race_id).collection("runs").document(run_id)
+                doc_ref = (
+                    self._db.collection(_COLLECTION)
+                    .document(race_id)
+                    .collection(FIRESTORE_RACE_RUNS_SUBCOLLECTION)
+                    .document(run_id)
+                )
                 if doc_ref.get().exists:
                     doc_ref.delete()
                     return True
@@ -769,7 +781,13 @@ class RaceManager:
             logger.debug("Skipping Firestore write for deleted run %s/%s", race_id, run_id)
             return
         try:
-            (self._db.collection(_COLLECTION).document(race_id).collection("runs").document(run_id).set(data))
+            (
+                self._db.collection(_COLLECTION)
+                .document(race_id)
+                .collection(FIRESTORE_RACE_RUNS_SUBCOLLECTION)
+                .document(run_id)
+                .set(data)
+            )
         except Exception:
             logger.exception("Firestore write_run failed for %s/%s", race_id, run_id)
 

@@ -16,6 +16,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from pipeline_diagnostics import build_diagnostics_bundle
 from routers.utils import _coerce_datetime, _queue_ttl_at
 
+from shared.config import (
+    FIRESTORE_QUEUE_COLLECTION,
+    FIRESTORE_RACES_COLLECTION,
+    FIRESTORE_RUN_LOGS_SUBCOLLECTION,
+    FIRESTORE_RUNS_COLLECTION,
+)
 from shared.pipeline_config import RetentionConfig
 
 router = APIRouter()
@@ -145,7 +151,7 @@ def _is_stale_active_run(data: Dict[str, Any], now: datetime) -> bool:
 def _has_live_queue_lease(db: Any, run_id: str, now: datetime) -> bool:
     """Return True when a worker still owns an unexpired lease for this run."""
     try:
-        queue_docs = db.collection("pipeline_queue").where("run_id", "==", run_id).limit(20).stream()
+        queue_docs = db.collection(FIRESTORE_QUEUE_COLLECTION).where("run_id", "==", run_id).limit(20).stream()
         for queue_doc in queue_docs:
             data = queue_doc.to_dict() or {}
             lease_expires_at = _coerce_datetime(data.get("lease_expires_at"))
@@ -161,7 +167,7 @@ def _has_live_queue_lease(db: Any, run_id: str, now: datetime) -> bool:
 
 def _current_run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
     try:
-        run_doc = db.collection("pipeline_runs").document(run_id).get()
+        run_doc = db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id).get()
         run_data = firestore_helpers._doc_to_plain(run_doc)
     except Exception:
         logger.exception("Unable to read current run %s while reconciling state", run_id)
@@ -177,13 +183,13 @@ def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[s
     if not run_id or run.get("status") not in _ACTIVE_STATUSES:
         return run
 
-    runs_ref = db.collection("pipeline_runs")
-    queue_ref = db.collection("pipeline_queue")
+    runs_ref = db.collection(FIRESTORE_RUNS_COLLECTION)
+    queue_ref = db.collection(FIRESTORE_QUEUE_COLLECTION)
     race_id = run.get("race_id") or (run.get("payload") or {}).get("race_id")
 
     if race_id:
         try:
-            race_doc = db.collection("races").document(str(race_id)).get()
+            race_doc = db.collection(FIRESTORE_RACES_COLLECTION).document(str(race_id)).get()
             race_data = firestore_helpers._doc_to_plain(race_doc)
         except Exception:
             logger.exception("Unable to read race %s while normalizing run %s", race_id, run_id)
@@ -269,7 +275,7 @@ async def list_runs(limit: int = 50) -> Dict[str, Any]:
 
     def _ordered_runs(field: str) -> list[Dict[str, Any]]:
         try:
-            docs = db.collection("pipeline_runs").order_by(field, direction="DESCENDING").limit(limit).stream()
+            docs = db.collection(FIRESTORE_RUNS_COLLECTION).order_by(field, direction="DESCENDING").limit(limit).stream()
             return [r for r in (firestore_helpers._doc_to_plain(d) for d in docs) if r is not None]
         except Exception:
             return []
@@ -279,7 +285,7 @@ async def list_runs(limit: int = 50) -> Dict[str, Any]:
     for field in ("progress_updated_at", "completed_at", "updated_at", "started_at"):
         runs.extend(_ordered_runs(field))
 
-    active_docs = db.collection("pipeline_runs").where("status", "in", ["pending", "running"]).limit(500).stream()
+    active_docs = db.collection(FIRESTORE_RUNS_COLLECTION).where("status", "in", ["pending", "running"]).limit(500).stream()
     active_runs = [firestore_helpers._doc_to_plain(d) for d in active_docs]
     active_runs = [r for r in active_runs if r is not None]
     now = datetime.now(timezone.utc)
@@ -301,7 +307,7 @@ async def list_runs(limit: int = 50) -> Dict[str, Any]:
 async def list_active_runs() -> Dict[str, Any]:
     """List currently running or pending pipeline runs."""
     db = firestore_helpers._get_fs()
-    docs = db.collection("pipeline_runs").where("status", "in", ["pending", "running"]).limit(500).stream()
+    docs = db.collection(FIRESTORE_RUNS_COLLECTION).where("status", "in", ["pending", "running"]).limit(500).stream()
     runs = [firestore_helpers._doc_to_plain(d) for d in docs]
     runs = [r for r in runs if r is not None]
     now = datetime.now(timezone.utc)
@@ -314,7 +320,7 @@ async def list_active_runs() -> Dict[str, Any]:
 async def get_run(run_id: str) -> Dict[str, Any]:
     """Get details of a specific run from Firestore."""
     db = firestore_helpers._get_fs()
-    doc = db.collection("pipeline_runs").document(run_id).get()
+    doc = db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id).get()
     data = firestore_helpers._doc_to_plain(doc)
     if data is None:
         raise HTTPException(status_code=404, detail="Run not found")
@@ -345,7 +351,7 @@ async def get_run_logs(
     it is greater than zero.
     """
     db = firestore_helpers._get_fs()
-    logs_ref = db.collection("pipeline_runs").document(run_id).collection("logs")
+    logs_ref = db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id).collection(FIRESTORE_RUN_LOGS_SUBCOLLECTION)
     limit = max(1, min(limit, 5000))
 
     if cursor is not None or since == 0:
@@ -382,7 +388,7 @@ async def prune_runs() -> Dict[str, Any]:
     """Prune all terminal runs (completed, failed, cancelled, continued) from Firestore."""
     db = firestore_helpers._get_fs()
     terminal_statuses = ["completed", "failed", "cancelled", "continued"]
-    runs_ref = db.collection("pipeline_runs")
+    runs_ref = db.collection(FIRESTORE_RUNS_COLLECTION)
     docs = list(runs_ref.where("status", "in", terminal_statuses).limit(500).stream())
 
     batch = db.batch()
@@ -391,7 +397,7 @@ async def prune_runs() -> Dict[str, Any]:
 
     for doc in docs:
         # Delete logs subcollection first
-        logs_ref = doc.reference.collection("logs")
+        logs_ref = doc.reference.collection(FIRESTORE_RUN_LOGS_SUBCOLLECTION)
         log_docs = list(logs_ref.stream())
         for log_doc in log_docs:
             batch.delete(log_doc.reference)
@@ -420,7 +426,7 @@ async def prune_runs() -> Dict[str, Any]:
 async def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
     """Cancel an active run or delete a finished one from Firestore."""
     db = firestore_helpers._get_fs()
-    doc_ref = db.collection("pipeline_runs").document(run_id)
+    doc_ref = db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id)
     doc = doc_ref.get()
     if not doc.exists:
         raise HTTPException(status_code=404, detail="Run not found")
@@ -428,7 +434,7 @@ async def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
     status = data.get("status", "")
     if status in ("pending", "running"):
         doc_ref.update({"status": "cancelled"})
-        for queue_doc in db.collection("pipeline_queue").where("run_id", "==", run_id).limit(20).stream():
+        for queue_doc in db.collection(FIRESTORE_QUEUE_COLLECTION).where("run_id", "==", run_id).limit(20).stream():
             queue_data = queue_doc.to_dict() or {}
             if queue_data.get("status") in ("pending", "running"):
                 queue_doc.reference.update(
@@ -436,7 +442,7 @@ async def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
                 )
         race_id = data.get("race_id")
         if race_id:
-            race_doc = db.collection("races").document(str(race_id)).get()
+            race_doc = db.collection(FIRESTORE_RACES_COLLECTION).document(str(race_id)).get()
             race_data = firestore_helpers._doc_to_plain(race_doc) or {}
             if race_data.get("status") in ("queued", "running") and race_data.get("current_run_id") == run_id:
                 firestore_helpers._fs_update_race(race_id, {"status": "cancelled", "current_run_id": None})
@@ -445,7 +451,7 @@ async def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
         # Delete logs subcollection first
         batch = db.batch()
         op_count = 0
-        logs_ref = doc_ref.collection("logs")
+        logs_ref = doc_ref.collection(FIRESTORE_RUN_LOGS_SUBCOLLECTION)
         log_docs = list(logs_ref.stream())
         for log_doc in log_docs:
             batch.delete(log_doc.reference)

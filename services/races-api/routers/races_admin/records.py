@@ -20,6 +20,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from request_models import AssetAuditRequest, RepairPlanRequest, RunOptions, validate_race_id
 from routers.utils import _queue_ttl_at
 
+from shared.config import FIRESTORE_QUEUE_COLLECTION, FIRESTORE_RACES_COLLECTION, FIRESTORE_RUNS_COLLECTION
 from shared.repair_planner import build_repair_plan, summarize_repair_plans
 
 from .helpers import (
@@ -39,7 +40,7 @@ router = APIRouter()
 async def list_all_races(reconcile_active: bool = False) -> Dict[str, Any]:
     """List all race records from Firestore (admin view with catalog metadata)."""
     db = firestore_helpers._get_fs()
-    docs = db.collection("races").limit(10000).stream()
+    docs = db.collection(FIRESTORE_RACES_COLLECTION).limit(10000).stream()
     races = []
     for d in docs:
         plain = firestore_helpers._doc_to_plain(d)
@@ -81,7 +82,7 @@ async def list_all_races(reconcile_active: bool = False) -> Dict[str, Any]:
 async def list_draft_races() -> Dict[str, Any]:
     """List all draft race summaries from the Firestore race catalog."""
     db = firestore_helpers._get_fs()
-    docs = db.collection("races").limit(1000).stream()
+    docs = db.collection(FIRESTORE_RACES_COLLECTION).limit(1000).stream()
     races = []
     for doc in docs:
         data = firestore_helpers._doc_to_plain(doc)
@@ -97,7 +98,7 @@ async def list_draft_races() -> Dict[str, Any]:
 async def recheck_all_race_statuses(cursor: str | None = None, limit: int = 50) -> Dict[str, Any]:
     """Reconcile one bounded catalog page and return an opaque continuation cursor."""
     db = firestore_helpers._get_fs()
-    docs = db.collection("races").limit(10000).stream()
+    docs = db.collection(FIRESTORE_RACES_COLLECTION).limit(10000).stream()
     races: list[Dict[str, Any]] = []
     updated = 0
     docs_by_race_id: dict[str, Any] = {}
@@ -150,7 +151,7 @@ async def plan_race_repairs(request: RepairPlanRequest) -> Dict[str, Any]:
     plans = []
     missing_race_ids = []
     for race_id in request.race_ids:
-        catalog_doc = db.collection("races").document(race_id).get()
+        catalog_doc = db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).get()
         catalog = firestore_helpers._doc_to_plain(catalog_doc) or {}
         _apply_catalog_view(catalog)
         race_data = gcs_helpers._gcs_get_race_json(race_id, "drafts")
@@ -282,7 +283,7 @@ async def audit_race_assets(request: AssetAuditRequest) -> Dict[str, Any]:
             }
             results.append(result)
             if request.persist:
-                db.collection("races").document(race_id).set(
+                db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).set(
                     {"asset_audit": result, "asset_audited_at": audited_at},
                     merge=True,
                 )
@@ -294,7 +295,7 @@ async def get_race_record(race_id: str, reconcile: bool = True) -> Dict[str, Any
     """Get a single race record from Firestore."""
     validate_race_id(race_id)
     db = firestore_helpers._get_fs()
-    doc = db.collection("races").document(race_id).get()
+    doc = db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).get()
     data = firestore_helpers._doc_to_plain(doc)
     if data is None:
         raise HTTPException(status_code=404, detail="Race not found")
@@ -318,7 +319,7 @@ async def delete_race_record(request: Request, race_id: str) -> Dict[str, Any]:
     gcs_helpers._gcs_delete_race_json(race_id, "drafts")
     gcs_helpers.update_gcs_summaries_json({race_id: None})
     try:
-        firestore_helpers._get_fs().collection("races").document(race_id).delete()
+        firestore_helpers._get_fs().collection(FIRESTORE_RACES_COLLECTION).document(race_id).delete()
     except Exception as exc:
         logging.warning("Firestore delete race %s failed: %s", race_id, exc)
     _clear_public_race_cache(request)
@@ -330,13 +331,13 @@ async def cancel_race(race_id: str) -> Dict[str, Any]:
     """Cancel a queued or running race by updating Firestore state."""
     validate_race_id(race_id)
     db = firestore_helpers._get_fs()
-    race_doc = db.collection("races").document(race_id).get()
+    race_doc = db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).get()
     if not race_doc.exists:
         raise HTTPException(status_code=404, detail="Race not found")
     race_data = race_doc.to_dict() or {}
     if race_data.get("status") not in ("queued", "running"):
         raise HTTPException(status_code=400, detail="Race is not queued or running")
-    for doc in db.collection("pipeline_queue").where("race_id", "==", race_id).stream():
+    for doc in db.collection(FIRESTORE_QUEUE_COLLECTION).where("race_id", "==", race_id).stream():
         d = doc.to_dict() or {}
         if d.get("status") in ("pending", "running"):
             doc.reference.update(
@@ -344,7 +345,7 @@ async def cancel_race(race_id: str) -> Dict[str, Any]:
             )
     run_id = race_data.get("current_run_id")
     if run_id:
-        run_ref = db.collection("pipeline_runs").document(run_id)
+        run_ref = db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id)
         run_doc = run_ref.get()
         if run_doc.exists and (run_doc.to_dict() or {}).get("status") in ("pending", "running"):
             run_ref.update({"status": "cancelled"})
@@ -357,7 +358,7 @@ async def recheck_race_status(race_id: str) -> Dict[str, Any]:
     """Re-derive race status from GCS storage state and backfill missing race docs."""
     validate_race_id(race_id)
     db = firestore_helpers._get_fs()
-    race_doc = db.collection("races").document(race_id).get()
+    race_doc = db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).get()
     if not race_doc.exists:
         update = _backfill_catalog_from_storage(race_id)
         if update is None:
@@ -376,7 +377,7 @@ async def run_race_pipeline(race_id: str, options: RunOptions | None = None) -> 
     from google.cloud.firestore_v1 import SERVER_TIMESTAMP  # type: ignore
 
     db = firestore_helpers._get_fs()
-    race_doc = db.collection("races").document(race_id).get()
+    race_doc = db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).get()
     if race_doc.exists:
         race_data = race_doc.to_dict() or {}
         race_data = _self_heal_stale_active_race(db, race_id, race_data)
@@ -395,16 +396,16 @@ async def run_race_pipeline(race_id: str, options: RunOptions | None = None) -> 
         "runner": opts.get("runner") or os.getenv("PIPELINE_DEFAULT_RUNNER", "local").strip().lower(),
         "created_at": SERVER_TIMESTAMP,
     }
-    db.collection("pipeline_queue").document(item_id).set(item)
+    db.collection(FIRESTORE_QUEUE_COLLECTION).document(item_id).set(item)
     firestore_helpers._fs_update_race(race_id, {"status": "queued", "current_run_id": run_id})
     dispatch = None
     if item["runner"] == "cloud_run":
         try:
             dispatch = dispatch_pipeline_job(item_id)
-            db.collection("pipeline_queue").document(item_id).update({"dispatch_status": "submitted", **dispatch})
+            db.collection(FIRESTORE_QUEUE_COLLECTION).document(item_id).update({"dispatch_status": "submitted", **dispatch})
         except Exception as exc:
             error = f"Cloud Run Job dispatch failed: {exc}"
-            db.collection("pipeline_queue").document(item_id).update(
+            db.collection(FIRESTORE_QUEUE_COLLECTION).document(item_id).update(
                 {"status": "failed", "dispatch_status": "failed", "error": error, "ttl_at": _queue_ttl_at()}
             )
             firestore_helpers._fs_update_race(
