@@ -10,7 +10,7 @@ from openai import APIConnectionError
 from pipeline_client.agent.agent import _agent_loop
 from pipeline_client.agent.errors import RetryableProviderError
 from pipeline_client.agent.llm import _await_with_run_budget, _call_openrouter, _provider_usage_cost
-from pipeline_client.agent.model_registry import CHEAP_GEMINI_MODEL, DEFAULT_MODEL
+from pipeline_client.agent.model_registry import DEFAULT_RESEARCH_MODEL, SMALL_MODEL, escalation_for
 
 FAKE_RACE_JSON = {
     "id": "mo-senate-2024",
@@ -636,8 +636,6 @@ async def test_agent_loop_nudges_model_toward_final_answer_in_json_mode():
 
 @pytest.mark.asyncio
 async def test_agent_loop_forces_required_tool_with_stronger_model_at_token_ceiling():
-    from pipeline_client.agent.model_registry import CHEAP_MODEL, DEFAULT_MODEL
-
     final_response = _mock_openai_response(
         tool_calls=[
             {
@@ -662,7 +660,7 @@ async def test_agent_loop_forces_required_tool_with_stronger_model_at_token_ceil
         result = await _agent_loop(
             "system",
             "user",
-            model=CHEAP_MODEL,
+            model=SMALL_MODEL,
             phase_name="issue-test",
             tools_mode=True,
             extra_tools=[final_tool],
@@ -673,7 +671,7 @@ async def test_agent_loop_forces_required_tool_with_stronger_model_at_token_ceil
         )
 
     assert handler.call_count == 1
-    assert call.call_args.kwargs["model"] == DEFAULT_MODEL
+    assert call.call_args.kwargs["model"] == escalation_for(SMALL_MODEL)
     assert call.call_args.kwargs["tool_choice"] == {
         "type": "function",
         "function": {"name": "set_issue_stance"},
@@ -703,7 +701,7 @@ async def test_agent_loop_does_not_accept_early_stop_before_required_final_tool(
         result = await _agent_loop(
             "system",
             "user",
-            model=CHEAP_GEMINI_MODEL,
+            model=DEFAULT_RESEARCH_MODEL,
             phase_name="roster-finalize-test",
             tools_mode=True,
             extra_tools=[final_tool],
@@ -720,8 +718,6 @@ async def test_agent_loop_does_not_accept_early_stop_before_required_final_tool(
 
 @pytest.mark.asyncio
 async def test_agent_loop_reserves_strong_edit_turn_before_forced_finalization():
-    from pipeline_client.agent.model_registry import DEFAULT_MODEL, NEMOTRON_ULTRA_MODEL
-
     searched = _mock_openai_response(
         tool_calls=[
             {"id": "search", "function": {"name": "web_search", "arguments": json.dumps({"query": "official roster"})}}
@@ -755,19 +751,19 @@ async def test_agent_loop_reserves_strong_edit_turn_before_forced_finalization()
         result = await _agent_loop(
             "system",
             "user",
-            model=DEFAULT_MODEL,
+            model=DEFAULT_RESEARCH_MODEL,
             phase_name="roster-final-turns",
             max_iterations=3,
             tools_mode=True,
             extra_tools=[edit_tool, final_tool],
             extra_tool_handlers={"set_sources": lambda _args: "OK", "finalize_roster": lambda _args: "OK"},
             required_final_tool_name="finalize_roster",
-            tool_error_escalation_model=NEMOTRON_ULTRA_MODEL,
+            escalate_on_tool_errors=True,
             return_tool_trace=True,
         )
 
     assert result["_tool_trace"]["required_final_tool_succeeded"] is True
-    assert call.call_args_list[1].kwargs["model"] == NEMOTRON_ULTRA_MODEL
+    assert call.call_args_list[1].kwargs["model"] == escalation_for(DEFAULT_RESEARCH_MODEL)
     prep_tool_names = {tool["function"]["name"] for tool in call.call_args_list[1].kwargs["tools"]}
     assert prep_tool_names == {"set_sources", "finalize_roster"}
     assert call.call_args_list[2].kwargs["tool_choice"]["function"]["name"] == "finalize_roster"
@@ -805,7 +801,7 @@ async def test_agent_loop_injects_actual_search_and_fetch_urls_into_editing_call
         await _agent_loop(
             "system",
             "user",
-            model=DEFAULT_MODEL,
+            model=DEFAULT_RESEARCH_MODEL,
             phase_name="roster-provenance",
             max_iterations=5,
             tools_mode=True,
@@ -820,8 +816,6 @@ async def test_agent_loop_injects_actual_search_and_fetch_urls_into_editing_call
 
 @pytest.mark.asyncio
 async def test_agent_loop_escalates_after_repeated_blocked_edits():
-    from pipeline_client.agent.model_registry import CHEAP_MODEL, NEMOTRON_ULTRA_MODEL
-
     blocked_calls = _mock_openai_response(
         tool_calls=[
             {"id": "call_1", "function": {"name": "add_candidate", "arguments": json.dumps({"name": "A"})}},
@@ -839,15 +833,15 @@ async def test_agent_loop_escalates_after_repeated_blocked_edits():
         await _agent_loop(
             "system",
             "user",
-            model=CHEAP_MODEL,
+            model=SMALL_MODEL,
             phase_name="roster-test",
             tools_mode=True,
             extra_tools=[tool],
             extra_tool_handlers={"add_candidate": lambda _args: "Blocked adding candidate: insufficient evidence"},
-            tool_error_escalation_model=NEMOTRON_ULTRA_MODEL,
+            escalate_on_tool_errors=True,
         )
 
-    assert [entry.kwargs["model"] for entry in call.call_args_list] == [CHEAP_MODEL, NEMOTRON_ULTRA_MODEL]
+    assert [entry.kwargs["model"] for entry in call.call_args_list] == [SMALL_MODEL, escalation_for(SMALL_MODEL)]
     second_messages = call.call_args_list[1].args[0]
     assert any("pivot to higher-priority official evidence" in (message.get("content") or "") for message in second_messages)
 
@@ -884,8 +878,7 @@ async def test_agent_loop_raises_on_empty_choices_response():
 
 @pytest.mark.asyncio
 async def test_agent_loop_elevates_model_on_bad_json():
-    """_agent_loop elevates model from cheap model to default model on retry when JSON parsing fails."""
-    from pipeline_client.agent.model_registry import DEEPSEEK_FLASH_MODEL, NEMOTRON_ULTRA_MODEL
+    """A JSON-parse failure retries on the escalation target, not the same model."""
 
     bad_response = _mock_openai_response(content="not valid JSON")
     good_response = _mock_openai_response(content=json.dumps({"success": True}))
@@ -895,11 +888,11 @@ async def test_agent_loop_elevates_model_on_bad_json():
         result = await _agent_loop(
             "system",
             "user",
-            model=DEEPSEEK_FLASH_MODEL,
+            model=DEFAULT_RESEARCH_MODEL,
             phase_name="test-elevation",
         )
 
     assert result == {"success": True}
     assert mock_call.call_count == 2
-    assert mock_call.call_args_list[0].kwargs["model"] == DEEPSEEK_FLASH_MODEL
-    assert mock_call.call_args_list[1].kwargs["model"] == NEMOTRON_ULTRA_MODEL
+    assert mock_call.call_args_list[0].kwargs["model"] == DEFAULT_RESEARCH_MODEL
+    assert mock_call.call_args_list[1].kwargs["model"] == escalation_for(DEFAULT_RESEARCH_MODEL)

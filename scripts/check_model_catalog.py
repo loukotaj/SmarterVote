@@ -1,21 +1,24 @@
-"""Check the hand-maintained model catalog and profiles against OpenRouter's live model list.
+"""Check ``shared/model_catalog.py`` against OpenRouter's live model list.
 
 Why this exists
 ---------------
-`pipeline_client/agent/model_registry.py` hardcodes prices, context windows and
-per-role model choices. All of that is written down by hand and none of it is
-verified by anything, so it drifts silently against a provider catalog that
-changes weekly. Two separate classes of bug have already shipped from this:
+The catalog hardcodes prices, cache prices, context windows, capability scores
+and per-role model choices. All of it is written by hand, against a provider
+catalog that changes weekly. Three classes of bug have shipped from this:
 
-- **Stale prices.** deepseek-v4-flash was recorded at $0.077/$0.154 long after it
-  repriced to $0.14/$0.28, and two nemotron entries were similarly wrong. Cost
-  estimates and every "cheapest capable model" judgment built on them were off.
+- **Stale prices.** deepseek-v4-flash sat at $0.077/$0.154 long after repricing
+  to $0.14/$0.28. Every "cheapest capable model" judgment built on it was wrong.
 - **Version strings read as integers.** Grok sorts by decimal, so 4.20
-  (2026-03-31) is *older* than 4.3 (2026-04-30). Reading it the other way put the
-  quality profile's reviewer on an older model than economy's, and made the
-  escalation map fall back to something worse than what it escaped from.
+  (2026-03-31) is *older* than 4.3 (2026-04-30). Reading it the other way put
+  the premium reviewer on an older model than the default one.
+- **Price mistaken for capability.** The escalation map sent
+  deepseek-v4-flash-0731 (intelligence 49.9) to nemotron-3-ultra (37.8) at 6.7x
+  the input price. The old version of this script checked that an escalation
+  target cost *more* and reported that downgrade as healthy for months. Open
+  weights broke the price/capability correlation that check depended on; the
+  capability check below replaces it.
 
-Neither is catchable by the normal test suite, because `tests/conftest.py` mocks
+None of it is catchable by the test suite, because ``tests/conftest.py`` mocks
 all network access by design. So this is a script, run deliberately, not a test.
 
     python scripts/check_model_catalog.py           # report + exit 1 on drift
@@ -24,20 +27,19 @@ all network access by design. So this is a script, run deliberately, not a test.
 What is checked (these fail)
 ----------------------------
 1. Every catalog entry is still served by OpenRouter.
-2. Catalog prices match live prices exactly.
+2. Catalog input, output and cached-input prices match live prices exactly.
 3. Context windows match live, where OpenRouter reports one.
-4. Every model named by a profile role or the escalation map exists in the catalog.
-5. Every escalation edge moves *up* a capability tier, using output price as the
-   proxy. A lateral or downward edge means a stalled model "escalates" into
-   something no better, which is the failure mode that made the grok bug invisible.
-6. For each role, the quality profile's model is not worse than economy's — never a
-   lower output-price tier, and never older when both come from the same provider.
-   This is the grok inversion stated directly, so it cannot come back by another
-   route. Recency is only compared within a provider because dates do not rank
-   across families: gpt-5.6-terra is older than deepseek-v4-flash and far stronger.
-7. The two hardcoded chamber-forecast models agree with each other. They live
-   outside the profile system (races-api router + MCP tool signature) and nothing
-   sweeps them forward, so they can only be kept honest by comparison.
+4. Every model named by a profile role or the escalation map is catalogued.
+5. Every escalation edge climbs the **intelligence index**. A lateral or
+   downward edge means a stalled model "escalates" into something no better.
+6. For each role, `premium` is not worse than `default` — never a lower
+   intelligence score, and never older when both come from the same provider.
+7. The roster adjudicator differs from the `primary` and `roster` model of every
+   profile. That separation is the gate's entire claim to independence, and it
+   is load-bearing on a publish path.
+8. No model ID is hardcoded anywhere outside the catalog. This is the structural
+   fix for the drift that produced four separate copies of the chamber-forecast
+   model, two of which were stale.
 
 What is only advised (these never fail)
 ---------------------------------------
@@ -58,28 +60,43 @@ import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 
-from pipeline_client.agent.llm import CHEAP_TO_DEFAULT_MODEL_FALLBACK  # noqa: E402
-from pipeline_client.agent.model_registry import MODEL_CATALOG, PROFILE_DEFAULTS  # noqa: E402
-from shared.pipeline_config import MODEL_ROLES  # noqa: E402
+from shared.model_catalog import (  # noqa: E402
+    ADJUDICATOR_MODEL,
+    MODEL_CATALOG,
+    MODEL_ESCALATION,
+    MODEL_ROLES,
+    PROFILE_DEFAULTS,
+)
 
 OPENROUTER_MODELS_URL = "https://openrouter.ai/api/v1/models"
-
-# The chamber-forecast model is the one choice outside PROFILE_DEFAULTS. It is
-# written in two places that must agree; see the comments on both sides.
-CHAMBER_FORECAST_SITES = (
-    (Path("services/races-api/routers/races_admin/forecasts.py"), r'DEFAULT_CHAMBER_FORECAST_MODEL\s*=\s*"([^"]+)"'),
-    (Path("smartervote_mcp/server.py"), r'model:\s*str\s*=\s*"(google/[^"]+)",\s*\n\) -> Dict\[str, Any\]:'),
-)
 
 # Tolerance for float comparison of per-million prices. OpenRouter reports
 # per-token strings like "0.0000001"; scaling to per-million reintroduces binary
 # float error well below a hundredth of a cent, which is not real drift.
 PRICE_EPSILON = 1e-6
+
+# Files that may legitimately spell out a model ID: the catalog defines them,
+# and the generated frontend copy is derived from it by build script.
+_HARDCODE_EXEMPT = (
+    Path("shared/model_catalog.py"),
+    Path("scripts/check_model_catalog.py"),
+    Path("web/src/lib/config/modelCatalog.ts"),
+)
+# Tests assert on concrete model IDs on purpose — that is the point of them.
+_HARDCODE_EXEMPT_PATTERNS = ("test_", "_test.", ".test.", ".spec.", "conftest.py")
+_HARDCODE_SEARCH_DIRS = ("shared", "pipeline_client", "services", "smartervote_mcp", "web/src", "infra")
+_HARDCODE_SUFFIXES = {".py", ".ts", ".svelte", ".tf", ".yaml", ".yml"}
+# `provider/model-name` inside a string literal. Deliberately anchored on the
+# providers we actually use rather than any slash-separated pair, so ordinary
+# paths and URLs do not trip it.
+_MODEL_ID_PATTERN = re.compile(
+    r"""["'](openai|anthropic|google|deepseek|x-ai|nvidia|meta-llama|mistralai|qwen)/[a-z0-9][\w.\-]*["']"""
+)
 
 
 def _fetch_live_models() -> Dict[str, Dict[str, Any]]:
@@ -102,7 +119,7 @@ def _fetch_live_models() -> Dict[str, Dict[str, Any]]:
 
 def _per_million(record: Dict[str, Any], field: str) -> Optional[float]:
     raw = (record.get("pricing") or {}).get(field)
-    if raw is None:
+    if raw in (None, ""):
         return None
     try:
         return float(raw) * 1_000_000
@@ -120,14 +137,6 @@ def _provider(model_id: str) -> str:
     return model_id.split("/", 1)[0]
 
 
-def _read_literal(path: Path, pattern: str) -> Optional[str]:
-    full = REPO_ROOT / path
-    if not full.exists():
-        return None
-    match = re.search(pattern, full.read_text(encoding="utf-8"))
-    return match.group(1) if match else None
-
-
 def _check_catalog(live: Dict[str, Dict[str, Any]]) -> List[str]:
     """Catalog entries must still exist and still cost what we say they cost."""
     errors: List[str] = []
@@ -139,15 +148,25 @@ def _check_catalog(live: Dict[str, Dict[str, Any]]) -> List[str]:
         for field, recorded, label in (
             ("prompt", spec.input_per_m, "input"),
             ("completion", spec.output_per_m, "output"),
+            ("input_cache_read", spec.cached_input_per_m, "cached input"),
         ):
             actual = _per_million(record, field)
             if actual is None:
+                if recorded is not None:
+                    errors.append(
+                        f"{model_id}: catalog records a {label} price of ${recorded:g}/M but OpenRouter reports none"
+                    )
+                continue
+            if recorded is None:
+                errors.append(f"{model_id}: OpenRouter reports a {label} price of ${actual:g}/M but the catalog records none")
                 continue
             if abs(actual - recorded) > PRICE_EPSILON:
                 errors.append(f"{model_id}: {label} price is ${actual:g}/M live, catalog says ${recorded:g}/M")
         live_ctx = record.get("context_length")
         if live_ctx and spec.context_window_tokens and int(live_ctx) != int(spec.context_window_tokens):
             errors.append(f"{model_id}: context window is {live_ctx} live, catalog says {spec.context_window_tokens}")
+        if spec.intelligence is None:
+            errors.append(f"{model_id}: no intelligence score recorded")
     return errors
 
 
@@ -155,7 +174,7 @@ def _check_profiles(live: Dict[str, Dict[str, Any]]) -> List[str]:
     """Every role must name a model we have a spec for and that is actually served."""
     errors: List[str] = []
     for profile, roles in sorted(PROFILE_DEFAULTS.items()):
-        for role in MODEL_ROLES:
+        for role in sorted(MODEL_ROLES):
             model_id = roles.get(role)
             if model_id is None:
                 errors.append(f"profile {profile!r}: no model for role {role!r}")
@@ -168,77 +187,118 @@ def _check_profiles(live: Dict[str, Dict[str, Any]]) -> List[str]:
 
 
 def _check_escalation() -> List[str]:
-    """An escalation must buy something. Output price stands in for capability:
-    a fallback into an equal-or-cheaper tier is the bug, not the price."""
+    """An escalation must buy capability.
+
+    Intelligence, not price. This check used to compare output price, which is
+    what let a 12-point downgrade read as an upgrade for months.
+    """
     errors: List[str] = []
-    for source, target in CHEAP_TO_DEFAULT_MODEL_FALLBACK.items():
-        for label, model_id in (("source", source), ("target", target)):
-            if model_id not in MODEL_CATALOG:
-                errors.append(f"escalation {source} -> {target}: {label} {model_id} is not in MODEL_CATALOG")
-        if source in MODEL_CATALOG and target in MODEL_CATALOG:
-            if MODEL_CATALOG[target].output_per_m <= MODEL_CATALOG[source].output_per_m:
-                errors.append(
-                    f"escalation {source} -> {target}: target is not a higher tier "
-                    f"(${MODEL_CATALOG[target].output_per_m:g}/M out vs ${MODEL_CATALOG[source].output_per_m:g}/M) "
-                    f"-- escalating here buys nothing"
-                )
+    for source, target in sorted(MODEL_ESCALATION.items()):
+        missing = [label for label, mid in (("source", source), ("target", target)) if mid not in MODEL_CATALOG]
+        for label in missing:
+            mid = source if label == "source" else target
+            errors.append(f"escalation {source} -> {target}: {label} {mid} is not in MODEL_CATALOG")
+        if missing:
+            continue
+        source_iq = MODEL_CATALOG[source].intelligence
+        target_iq = MODEL_CATALOG[target].intelligence
+        if target_iq <= source_iq:
+            errors.append(
+                f"escalation {source} -> {target}: target is not more capable "
+                f"({target_iq} vs {source_iq} on the intelligence index) -- escalating here buys nothing"
+            )
     return errors
 
 
-def _check_quality_not_worse(live: Dict[str, Dict[str, Any]]) -> List[str]:
-    """Paying for `quality` must not hand you something worse than `economy` gives away.
+def _check_premium_not_worse(live: Dict[str, Dict[str, Any]]) -> List[str]:
+    """Paying for `premium` must not hand you something worse than `default` gives away.
 
-    "Worse" is checked two ways, because neither signal is sufficient alone:
+    Checked two ways, because neither signal is sufficient alone:
 
-    - **Tier**, always. Output price is the proxy, so a quality role priced below
-      the economy role for the same job is flagged regardless of vintage.
+    - **Capability**, always. A premium role scoring below the default role for
+      the same job is flagged regardless of vintage or price.
     - **Recency, within one provider only.** Release dates only compare when the
-      models are from the same family; gpt-5.6-terra being older than
-      deepseek-v4-flash says nothing about which is stronger. Restricting to a
-      single provider is what makes this precise enough to act on — and it is
-      exactly the shape of the grok bug, where 4.20 and 4.3 were the same price
-      from the same provider and only the date revealed the inversion.
+      models come from the same family; gpt-5.6-terra being older than
+      deepseek-v4-flash-0731 says nothing about which is stronger. Restricting
+      to one provider is exactly the shape of the grok bug, where 4.20 and 4.3
+      were the same price from the same provider and only the date revealed it.
     """
     errors: List[str] = []
-    economy, quality = PROFILE_DEFAULTS.get("economy", {}), PROFILE_DEFAULTS.get("quality", {})
-    for role in MODEL_ROLES:
-        cheap_id, good_id = economy.get(role), quality.get(role)
+    default, premium = PROFILE_DEFAULTS.get("default", {}), PROFILE_DEFAULTS.get("premium", {})
+    for role in sorted(MODEL_ROLES):
+        cheap_id, good_id = default.get(role), premium.get(role)
         if not cheap_id or not good_id or cheap_id == good_id:
             continue
         if cheap_id in MODEL_CATALOG and good_id in MODEL_CATALOG:
-            cheap_out, good_out = MODEL_CATALOG[cheap_id].output_per_m, MODEL_CATALOG[good_id].output_per_m
-            if good_out < cheap_out:
+            cheap_iq, good_iq = MODEL_CATALOG[cheap_id].intelligence, MODEL_CATALOG[good_id].intelligence
+            if good_iq < cheap_iq:
                 errors.append(
-                    f"role {role!r}: quality uses {good_id} (${good_out:g}/M out) which is a LOWER tier "
-                    f"than economy's {cheap_id} (${cheap_out:g}/M out)"
+                    f"role {role!r}: premium uses {good_id} ({good_iq}) which is LESS capable "
+                    f"than default's {cheap_id} ({cheap_iq})"
                 )
         if _provider(cheap_id) != _provider(good_id):
             continue
         cheap_date, good_date = _released(live.get(cheap_id)), _released(live.get(good_id))
         if cheap_date and good_date and good_date < cheap_date:
             errors.append(
-                f"role {role!r}: quality uses {good_id} ({good_date}) which is OLDER than "
-                f"economy's same-provider {cheap_id} ({cheap_date})"
+                f"role {role!r}: premium uses {good_id} ({good_date}) which is OLDER than "
+                f"default's same-provider {cheap_id} ({cheap_date})"
             )
     return errors
 
 
-def _check_chamber_forecast(live: Dict[str, Dict[str, Any]]) -> List[str]:
+def _check_adjudicator(live: Dict[str, Dict[str, Any]]) -> List[str]:
+    """The roster gate must not be judged by the model that produced the evidence.
+
+    Roster edits are made from roster-phase loops (the `roster` model) and from
+    metadata/refinement loops (the `primary` model), so the adjudicator has to
+    differ from both, in every profile.
+    """
     errors: List[str] = []
-    found: List[Tuple[Path, Optional[str]]] = [
-        (path, _read_literal(path, pattern)) for path, pattern in CHAMBER_FORECAST_SITES
-    ]
-    missing = [str(path) for path, value in found if value is None]
-    if missing:
-        errors.append(f"chamber-forecast model literal not found in: {', '.join(missing)} (did the declaration move?)")
-        return errors
-    values = {value for _, value in found}
-    if len(values) > 1:
-        detail = ", ".join(f"{path}={value}" for path, value in found)
-        errors.append(f"chamber-forecast model disagrees between call sites: {detail}")
-    for _, value in found:
-        if value and value not in live:
-            errors.append(f"chamber-forecast model {value} is not served by OpenRouter")
+    if ADJUDICATOR_MODEL not in MODEL_CATALOG:
+        errors.append(f"adjudicator {ADJUDICATOR_MODEL} is not in MODEL_CATALOG")
+    if ADJUDICATOR_MODEL not in live:
+        errors.append(f"adjudicator {ADJUDICATOR_MODEL} is not served by OpenRouter")
+    for profile, roles in sorted(PROFILE_DEFAULTS.items()):
+        for role in ("primary", "roster"):
+            if roles.get(role) == ADJUDICATOR_MODEL:
+                errors.append(
+                    f"adjudicator {ADJUDICATOR_MODEL} is also profile {profile!r} role {role!r} -- "
+                    f"the gate would be judging evidence it produced itself"
+                )
+    return errors
+
+
+def _check_no_hardcoded_models() -> List[str]:
+    """No model ID may be written down outside the catalog.
+
+    Every drift bug this script exists to catch started as a second copy of a
+    model ID. Deleting the possibility beats detecting the consequence.
+    """
+    errors: List[str] = []
+    exempt = {(REPO_ROOT / path).resolve() for path in _HARDCODE_EXEMPT}
+    for directory in _HARDCODE_SEARCH_DIRS:
+        root = REPO_ROOT / directory
+        if not root.exists():
+            continue
+        for path in sorted(root.rglob("*")):
+            if path.suffix not in _HARDCODE_SUFFIXES or not path.is_file():
+                continue
+            if path.resolve() in exempt or "node_modules" in path.parts or ".svelte-kit" in path.parts:
+                continue
+            if any(marker in path.name for marker in _HARDCODE_EXEMPT_PATTERNS):
+                continue
+            try:
+                text = path.read_text(encoding="utf-8")
+            except (OSError, UnicodeDecodeError):
+                continue
+            for lineno, line in enumerate(text.splitlines(), 1):
+                match = _MODEL_ID_PATTERN.search(line)
+                if match:
+                    rel = path.relative_to(REPO_ROOT).as_posix()
+                    errors.append(
+                        f"{rel}:{lineno}: hardcoded model ID {match.group(0)} -- import it from shared.model_catalog"
+                    )
     return errors
 
 
@@ -274,7 +334,11 @@ def _advise_newer(live: Dict[str, Dict[str, Any]]) -> List[str]:
         for other_id, other in live.items():
             if other_id == model_id or _provider(other_id) != _provider(model_id):
                 continue
-            if other_id.endswith(":free") or other_id.startswith("~") or _is_specialized(other_id):
+            # `:batch` variants price like a discount but settle asynchronously,
+            # which no inline pipeline call can wait for; `:free` is rate-limited
+            # and trains on the prompt. Neither is a substitute for the paid
+            # synchronous endpoint, so neither belongs in this advice.
+            if other_id.endswith((":free", ":batch")) or other_id.startswith("~") or _is_specialized(other_id):
                 continue
             other_date, other_out = _released(other), _per_million(other, "completion")
             if not other_date or other_out is None:
@@ -300,9 +364,10 @@ def main(argv: List[str]) -> int:
     sections = (
         ("catalog accuracy", _check_catalog(live)),
         ("profile roles", _check_profiles(live)),
-        ("escalation tiers", _check_escalation()),
-        ("quality not worse than economy", _check_quality_not_worse(live)),
-        ("chamber forecast", _check_chamber_forecast(live)),
+        ("escalation climbs", _check_escalation()),
+        ("premium not worse than default", _check_premium_not_worse(live)),
+        ("adjudicator independence", _check_adjudicator(live)),
+        ("no hardcoded model IDs", _check_no_hardcoded_models()),
     )
 
     total = 0

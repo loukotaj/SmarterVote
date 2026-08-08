@@ -78,7 +78,14 @@ def test_normalize_model_profile_none_passthrough():
 
 
 def test_normalize_model_profile_lowercases_valid_value():
-    assert normalize_model_profile("Economy") == "economy"
+    assert normalize_model_profile("Premium") == "premium"
+
+
+def test_normalize_model_profile_maps_retired_names_forward():
+    """Queue items outlive profile renames, so an old name must still validate."""
+    assert normalize_model_profile("economy") == "default"
+    assert normalize_model_profile("balanced") == "default"
+    assert normalize_model_profile("QUALITY") == "premium"
 
 
 def test_normalize_model_profile_invalid_raises():

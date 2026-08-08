@@ -41,15 +41,15 @@ def test_estimate_cost_zero_tokens_is_zero():
 
 
 def test_estimate_cost_uses_catalog_pricing_for_known_model():
-    cost = estimate_cost("openai/gpt-5.4-mini", 1000, 1000)
-    assert cost == pytest.approx(1000 / 1_000_000 * 0.75 + 1000 / 1_000_000 * 4.50)
+    cost = estimate_cost("openai/gpt-5.6-luna", 1000, 1000)
+    assert cost == pytest.approx(1000 / 1_000_000 * 0.10 + 1000 / 1_000_000 * 0.60)
 
 
 def test_estimate_cost_resolves_legacy_model_alias():
-    # "gpt-5.4-mini" is a legacy alias for "openai/gpt-5.4-mini" in MODEL_REGISTRY;
-    # both should price identically.
-    aliased = estimate_cost("gpt-5.4-mini", 2000, 500)
-    canonical = estimate_cost("openai/gpt-5.4-mini", 2000, 500)
+    # A legacy ID prices as the model it now resolves to, because that is the
+    # model the call will actually run on.
+    aliased = estimate_cost("gpt-5.6-luna", 2000, 500)
+    canonical = estimate_cost("openai/gpt-5.6-luna", 2000, 500)
     assert aliased == pytest.approx(canonical)
 
 

@@ -26,11 +26,12 @@ Determinism: pinned model, temperature 0, and an in-process cache keyed by
 :data:`ADJUDICATOR_MODEL` is pinned to an explicit version rather than a floating
 alias — a silent upgrade would move a publish gate with no commit to point at.
 
-The tier choice is deliberate and is explained at :data:`ADJUDICATOR_MODEL`.
-The short version: the nano tier is unusable here because OpenRouter rejects a
-``temperature`` parameter for it, so the gate could not be pinned to 0, and it
-returns empty content under a tight token budget — which on a fail-closed gate
-reads as a rejection of valid evidence.
+The tier choice is deliberate and is explained at
+:data:`shared.model_catalog.ADJUDICATOR_MODEL`. Two requirements rule out the
+bargain tiers regardless of price: the model must accept ``temperature=0``, or
+the gate cannot be pinned; and it must still answer under a 400-token ceiling,
+because a model that spends its whole budget on reasoning and returns empty
+content reads, on a fail-closed gate, as a rejection of valid evidence.
 
 Availability: this gate **fails closed**. If the provider is unreachable, out of
 quota, or returns something unparseable, the claim is rejected with a reason
@@ -45,20 +46,18 @@ import logging
 from dataclasses import dataclass
 from typing import Any, Dict, Iterable, Mapping
 
+from shared.model_catalog import ADJUDICATOR_MODEL as _ADJUDICATOR_MODEL
+
 logger = logging.getLogger("pipeline")
 
-#: Pinned deliberately. This model sits in front of publication; a floating
-#: alias would let a provider-side upgrade change the gate with no commit.
-#: Must be a tier that accepts ``temperature`` — see the module docstring.
-#:
-#: GPT-5.6 Luna, verified against the live API before adoption: it accepts
-#: ``temperature=0``, returns well-formed JSON, and calls tools correctly. It
-#: replaced gpt-5.4-mini, which it beats on every axis — newer generation, 1.05M
-#: context instead of 400K, and 7.5x cheaper ($0.10/$0.60 against $0.75/$4.50).
-#: The nano tier remains unsuitable: it spends ~384 reasoning tokens before any
-#: content and returns an empty message under a tight token budget, which on a
-#: fail-closed gate would silently reject valid evidence.
-ADJUDICATOR_MODEL = "openai/gpt-5.6-luna"
+#: The model is pinned in :mod:`shared.model_catalog` — see the notes on
+#: ``ADJUDICATOR_MODEL`` there for why it is that model and not a profile role.
+#: The short version: this gate sits in front of publication, so a floating
+#: choice would let a provider-side upgrade move it with no commit to point at,
+#: and it must differ from every profile's research and roster models or the
+#: independence claim in this module's docstring is not true.
+#: ``scripts/check_model_catalog.py`` enforces both properties.
+ADJUDICATOR_MODEL = _ADJUDICATOR_MODEL
 
 ADJUDICATOR_TEMPERATURE = 0.0
 ADJUDICATOR_MAX_TOKENS = 400

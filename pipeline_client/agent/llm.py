@@ -20,20 +20,7 @@ from .cost import (
     total_token_budget_reached,
 )
 from .errors import PermanentProviderError, RetryableProviderError
-from .model_registry import (
-    CHEAP_CLAUDE_MODEL,
-    CHEAP_GEMINI_MODEL,
-    CHEAP_GROK_MODEL,
-    CHEAP_MODEL,
-    DEEPSEEK_FLASH_MODEL,
-    DEFAULT_CLAUDE_MODEL,
-    DEFAULT_GEMINI_MODEL,
-    DEFAULT_GROK_MODEL,
-    DEFAULT_MODEL,
-    NANO_MODEL,
-    NEMOTRON_ULTRA_MODEL,
-    normalize_model_id,
-)
+from .model_registry import escalation_for, normalize_model_id
 from .roster_adjudicator import collect_roster_adjudications
 from .run_budget import RunBudget, RunBudgetExceeded
 from .source_types import normalize_source_type
@@ -48,14 +35,6 @@ logger = logging.getLogger("pipeline")
 #: and no content. Two is enough for a transient upstream blip without letting a
 #: persistently failing provider stall the loop.
 PROVIDER_ERROR_RETRIES = 2
-
-CHEAP_TO_DEFAULT_MODEL_FALLBACK = {
-    DEEPSEEK_FLASH_MODEL: NEMOTRON_ULTRA_MODEL,
-    CHEAP_MODEL: DEFAULT_MODEL,
-    CHEAP_CLAUDE_MODEL: DEFAULT_CLAUDE_MODEL,
-    CHEAP_GEMINI_MODEL: DEFAULT_GEMINI_MODEL,
-    CHEAP_GROK_MODEL: DEFAULT_GROK_MODEL,
-}
 
 
 def _tool_result_is_error(result: Any) -> bool:
@@ -460,13 +439,21 @@ async def _agent_loop(
     return_tool_trace: bool = False,
     required_final_tool_name: str | None = None,
     required_final_instruction: str = "",
-    tool_error_escalation_model: str | None = None,
+    escalate_on_tool_errors: bool = False,
 ) -> Dict[str, Any]:
     """Run a single agent loop.
 
     In normal (json) mode: search → answer → parse JSON.
     In tools_mode: the LLM uses editing tools to mutate state directly;
     the loop exits when the LLM stops making tool calls.  Returns ``{}``.
+
+    ``escalate_on_tool_errors`` asks for a climb to a stronger model after
+    repeated blocked edits. Callers say *whether* to escalate, never *to what*:
+    the target comes from :data:`shared.model_catalog.MODEL_ESCALATION`, keyed on
+    whatever model this loop is actually running. Naming a target at the call
+    site is how every phase ended up escalating to nemotron-3-ultra regardless
+    of profile — a model 12 index points weaker than the default research model
+    it was supposedly rescuing.
     """
     log = make_logger(on_log)
     set_current_phase(phase_name)
@@ -492,6 +479,9 @@ async def _agent_loop(
     required_final_tool_succeeded = False
     consecutive_tool_errors = 0
     tool_errors_escalated = False
+    # Resolved once from the loop's own model, so every escalation path in this
+    # function agrees on where "stronger" points.
+    tool_error_escalation_model = escalation_for(model) if escalate_on_tool_errors else None
     researched_urls: set[str] = set()
     fetched_urls: set[str] = set()
     tool_trace = {
@@ -523,9 +513,9 @@ async def _agent_loop(
         if tool_errors_escalated and tool_error_escalation_model:
             active_model = tool_error_escalation_model
         if _json_parse_failures > 0:
-            norm_model = normalize_model_id(model)
-            if norm_model in CHEAP_TO_DEFAULT_MODEL_FALLBACK:
-                active_model = CHEAP_TO_DEFAULT_MODEL_FALLBACK[norm_model]
+            escalated = escalation_for(model)
+            if escalated:
+                active_model = escalated
                 log(
                     "info",
                     f"  [{phase_name}] JSON parsing failed previously — elevating model from {model} to {active_model} for retry prompt",
@@ -534,10 +524,7 @@ async def _agent_loop(
         prepare_final_tool = bool(required_final_tool_name and not token_budget_reached and iteration == max_iterations - 2)
         force_final_tool = bool(required_final_tool_name and (token_budget_reached or iteration == max_iterations - 1))
         if prepare_final_tool:
-            fallback_model = (
-                CHEAP_TO_DEFAULT_MODEL_FALLBACK.get(normalize_model_id(active_model) or active_model)
-                or tool_error_escalation_model
-            )
+            fallback_model = escalation_for(active_model) or tool_error_escalation_model
             if fallback_model:
                 log("info", f"  [{phase_name}] escalating evidence application to {fallback_model}")
                 active_model = fallback_model
@@ -552,10 +539,7 @@ async def _agent_loop(
                 }
             )
         if force_final_tool:
-            fallback_model = (
-                CHEAP_TO_DEFAULT_MODEL_FALLBACK.get(normalize_model_id(active_model) or active_model)
-                or tool_error_escalation_model
-            )
+            fallback_model = escalation_for(active_model) or tool_error_escalation_model
             if fallback_model:
                 log("info", f"  [{phase_name}] escalating final evidence synthesis to {fallback_model}")
                 active_model = fallback_model

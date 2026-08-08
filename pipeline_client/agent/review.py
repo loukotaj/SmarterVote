@@ -17,15 +17,7 @@ from shared.pipeline_config import REVIEW_PROVIDERS
 
 from .cost import estimate_cost
 from .llm import _call_openrouter, _provider_usage_cost
-from .model_registry import (
-    CHEAP_CLAUDE_MODEL,
-    CHEAP_GEMINI_MODEL,
-    CHEAP_GROK_MODEL,
-    DEFAULT_CLAUDE_MODEL,
-    DEFAULT_GEMINI_MODEL,
-    DEFAULT_GROK_MODEL,
-    normalize_model_id,
-)
+from .model_registry import PROFILE_DEFAULTS, normalize_model_id
 from .phase_state import race_identity_context
 from .polling_quality import polling_semantic_problem
 from .prompts import REVIEW_SYSTEM, REVIEW_USER
@@ -35,11 +27,22 @@ from .web_tools import _get_validated
 
 logger = logging.getLogger("pipeline")
 
-_REVIEW_MODELS = {
-    REVIEW_PROVIDERS[0]: (DEFAULT_CLAUDE_MODEL, CHEAP_CLAUDE_MODEL),
-    REVIEW_PROVIDERS[1]: (DEFAULT_GEMINI_MODEL, CHEAP_GEMINI_MODEL),
-    REVIEW_PROVIDERS[2]: (DEFAULT_GROK_MODEL, CHEAP_GROK_MODEL),
+# Which profile role each review seat draws from. The models themselves are
+# never named here: this module used to carry its own provider -> (full, cheap)
+# table, a second source of truth that agent.py happened to override on every
+# call, so it could have drifted from the profiles indefinitely without any
+# test noticing.
+_REVIEW_ROLES = {
+    REVIEW_PROVIDERS[0]: "review_claude",
+    REVIEW_PROVIDERS[1]: "review_gemini",
+    REVIEW_PROVIDERS[2]: "review_grok",
 }
+
+
+def _review_model_for(provider: str, *, cheap_mode: bool) -> str:
+    """Return the profile-default model for a review seat."""
+    return PROFILE_DEFAULTS["default" if cheap_mode else "premium"][_REVIEW_ROLES[provider]]
+
 
 _ACCESS_RESTRICTED_HOSTS = frozenset({"facebook.com", "www.facebook.com", "m.facebook.com"})
 _OPERATIONAL_RACE_FIELDS = frozenset(
@@ -254,10 +257,9 @@ async def _run_single_review(
         race_identity_context=race_identity_context_text,
         research_effort_context=research_effort_context_text,
     )
-    if provider not in _REVIEW_MODELS:
+    if provider not in _REVIEW_ROLES:
         return None
-    full_model, _cheap_model = _REVIEW_MODELS[provider]
-    model_name = normalize_model_id(model_override) or full_model
+    model_name = normalize_model_id(model_override) or _review_model_for(provider, cheap_mode=False)
     try:
         log("info", f"  Reviewing with {model_name}...")
         call_result = await _call_review_model(REVIEW_SYSTEM, user_prompt, model=model_name, run_budget=run_budget)
@@ -780,9 +782,9 @@ async def run_reviews(
     import os
 
     requested_providers = (
-        [provider for provider in review_providers if provider in _REVIEW_MODELS]
+        [provider for provider in review_providers if provider in _REVIEW_ROLES]
         if review_providers is not None
-        else list(_REVIEW_MODELS)
+        else list(_REVIEW_ROLES)
     )
 
     if not os.environ.get("OPENROUTER_API_KEY"):
@@ -807,8 +809,9 @@ async def run_reviews(
 
     tasks = []
     for provider in requested_providers:
-        full_model, cheap_model_name = _REVIEW_MODELS[provider]
-        effective_model = normalize_model_id(model_overrides.get(provider)) or (cheap_model_name if cheap_mode else full_model)
+        effective_model = normalize_model_id(model_overrides.get(provider)) or _review_model_for(
+            provider, cheap_mode=bool(cheap_mode)
+        )
         tasks.append(
             _run_single_review(
                 race_id,
