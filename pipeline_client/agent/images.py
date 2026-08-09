@@ -131,8 +131,8 @@ def _looks_like_non_photo(url: str, alt: str = "") -> bool:
     return any(marker in haystack for marker in _GENERIC_CARD_MARKERS)
 
 
-def _looks_like_low_resolution_reference_photo(url: str) -> bool:
-    """Return True for usable-but-small reference headshots worth upgrading."""
+def _looks_like_govtrack_reference_headshot(url: str) -> bool:
+    """Return True for GovTrack's small legislator headshots worth upgrading."""
     try:
         parsed = urlparse(url)
     except Exception:
@@ -246,7 +246,7 @@ async def _lookup_known_page_image(candidate: Dict[str, Any]) -> Optional[str]:
                     accessible, final_url = await _check_url_accessible(image_url)
                     if accessible:
                         store_url = final_url if _is_valid_image_url(final_url) else image_url
-                        if _looks_like_low_resolution_reference_photo(store_url):
+                        if _looks_like_govtrack_reference_headshot(store_url):
                             continue
                         return store_url
     except Exception as exc:
@@ -553,7 +553,7 @@ async def _resolve_single_image(
     if not current_url:
         candidate["image_url"] = None
 
-    if current_url and _looks_like_low_resolution_reference_photo(current_url):
+    if current_url and _looks_like_govtrack_reference_headshot(current_url):
         low_resolution_fallback = current_url
         candidate["image_url"] = None
         current_url = None
