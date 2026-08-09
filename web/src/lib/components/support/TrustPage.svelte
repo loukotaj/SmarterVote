@@ -17,7 +17,7 @@
   <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
-<div class="mx-auto max-w-4xl px-4 py-10 sm:py-16">
+<div class="mx-auto max-w-4xl px-4 py-10 sm:py-16 min-h-[calc(100vh-16rem)]">
   <header class="mb-10 max-w-3xl">
     <p
       class="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-600 dark:text-primary-500"

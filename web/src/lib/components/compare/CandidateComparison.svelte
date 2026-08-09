@@ -161,7 +161,7 @@
     </div>
   {/if}
 
-  <div class="overflow-x-auto">
+  <div class="overflow-x-auto custom-scrollbar">
     <div style="min-width: {(compact ? 170 : 220) + candidates.length * 250}px">
       <div
         class:sticky={!compact}

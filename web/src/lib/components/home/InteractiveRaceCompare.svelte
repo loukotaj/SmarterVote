@@ -79,15 +79,15 @@
               type="button"
               on:click={() => (selectedId = race.id)}
               aria-pressed={selectedId === race.id}
-              class="min-h-11 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-bold transition {selectedId ===
+              class="min-h-11 max-w-[220px] whitespace-nowrap rounded-full border px-4 py-2 text-sm font-bold transition sm:max-w-none {selectedId ===
               race.id
                 ? 'border-blue-600 bg-blue-600 text-white shadow-md shadow-blue-600/20'
                 : 'border-stroke bg-surface text-content-muted hover:border-blue-400 hover:text-blue-700'}"
             >
-              <span class="mr-1 opacity-70"
+              <span class="mr-1 shrink-0 opacity-70"
                 >{String(index + 1).padStart(2, "0")}</span
               >
-              {race.jurisdiction} · {race.office}
+              <span class="truncate">{race.jurisdiction} · {race.office}</span>
             </button>
           {/each}
         </div>
