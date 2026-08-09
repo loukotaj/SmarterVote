@@ -3,6 +3,7 @@ import pytest
 from pipeline_client.agent.images import (
     _candidate_page_urls,
     _extract_page_image_urls,
+    _looks_like_govtrack_reference_headshot,
     _looks_like_non_photo,
     _lookup_wikipedia_image,
     _resolve_single_image,
@@ -156,7 +157,7 @@ async def test_resolve_single_image_replaces_existing_non_photo_url(monkeypatch)
 
 
 @pytest.mark.asyncio
-async def test_resolve_single_image_replaces_low_resolution_govtrack_reference_photo(monkeypatch):
+async def test_resolve_single_image_replaces_govtrack_reference_headshot(monkeypatch):
     low_res = "https://www.govtrack.us/static/legislator-photos/412609-200px.jpeg"
     replacement = "https://upload.wikimedia.org/wikipedia/commons/0/0b/Hill_French_119th_Congress.jpg"
     candidate = {"name": "French Hill", "image_url": low_res}
@@ -182,6 +183,12 @@ async def test_resolve_single_image_replaces_low_resolution_govtrack_reference_p
     await _resolve_single_image(candidate, agent_loop_fn=fail_agent, model="test")
 
     assert candidate["image_url"] == replacement
+
+
+def test_looks_like_govtrack_reference_headshot_is_specific_to_govtrack_pattern():
+    assert _looks_like_govtrack_reference_headshot("https://www.govtrack.us/static/legislator-photos/412609-200px.jpeg")
+    assert not _looks_like_govtrack_reference_headshot("https://example.com/static/legislator-photos/412609-200px.jpeg")
+    assert not _looks_like_govtrack_reference_headshot("https://www.govtrack.us/congress/members/french_hill/412609")
 
 
 @pytest.mark.asyncio
