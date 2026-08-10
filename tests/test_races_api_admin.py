@@ -3318,6 +3318,7 @@ def test_decode_jwt_refreshes_jwks_once_for_rotated_key(monkeypatch):
     with (
         patch("auth._get_jwks", new_callable=AsyncMock, side_effect=[stale, rotated]) as get_jwks,
         patch("auth.jwt.get_unverified_header", return_value={"kid": "new-key"}),
+        patch("auth.jwt.PyJWK.from_dict", return_value=MagicMock(key="public-key")),
         patch("auth.jwt.decode", return_value={"sub": "admin"}) as decode,
     ):
         result = asyncio.run(auth._decode_jwt("token"))

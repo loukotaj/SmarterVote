@@ -254,6 +254,7 @@ async def _run_single_review(
     run_budget: RunBudget | None = None,
     race_identity_context_text: str = "",
     research_effort_context_text: str = "",
+    correction_goal: str = "No correction goal was supplied.",
 ) -> Optional[Dict[str, Any]]:
     """Run a single review agent role (claude, gemini, or grok)."""
     log = make_logger(on_log)
@@ -263,6 +264,7 @@ async def _run_single_review(
         change_manifest=change_manifest,
         race_identity_context=race_identity_context_text,
         research_effort_context=research_effort_context_text,
+        correction_goal=correction_goal,
     )
     if provider not in _REVIEW_ROLES:
         return None
@@ -805,6 +807,7 @@ async def run_reviews(
     review_cache: Optional[Dict[str, Any]] = None,
     run_budget: RunBudget | None = None,
     issues_step_ran: bool = True,
+    goal: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """Run review roles in parallel through OpenRouter."""
     import os
@@ -852,6 +855,7 @@ async def run_reviews(
                 run_budget=run_budget,
                 race_identity_context_text=identity_context,
                 research_effort_context_text=research_effort_context,
+                correction_goal=goal or "No correction goal was supplied.",
             )
         )
 

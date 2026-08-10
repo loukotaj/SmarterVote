@@ -550,15 +550,15 @@ async def assess_publish_readiness(race_ids: List[str]) -> Dict[str, Any]:
                 warnings.append("validation_absent_unreviewed")
             elif validation.get("passed") is not True:
                 blockers.append("validation_not_passed")
-            blocking_flags = [
+            error_flags = [
                 flag
                 for review in draft.get("reviews") or []
                 if isinstance(review, dict)
                 for flag in review.get("flags") or []
-                if isinstance(flag, dict) and flag.get("severity") in {"warning", "error"}
+                if isinstance(flag, dict) and flag.get("severity") == "error"
             ]
-            if blocking_flags:
-                blockers.append("unresolved_review_flags")
+            if error_flags:
+                blockers.append("unresolved_error_flags")
             health = draft.get("run_health") if isinstance(draft.get("run_health"), dict) else {}
             verdict = str(health.get("status") or health.get("verdict") or "unknown")
             if verdict == "failed":

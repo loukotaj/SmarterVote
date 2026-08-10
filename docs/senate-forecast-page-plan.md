@@ -2,7 +2,7 @@
 
 Last reviewed: 2026-06-21.
 
-Status: Partially complete. The public forecast page now uses static-first chamber forecast data, honors the published chamber `control_party`, keeps expanded race analysis state stable, and has MCP support for audit/rerun/refresh/validate/publish/verify workflows. Remaining work is mostly product hardening: richer chamber forecast payload fields, stronger map semantics, and final live QA.
+Status: Implementation complete; live QA remains an operational release task. The public forecast page uses static-first chamber forecast data, honors the published chamber `control_party`, includes seat distributions and structured outlook analysis, keeps expanded race analysis state stable, and has MCP support for audit/rerun/refresh/validate/publish/verify workflows.
 
 ## Goal
 
@@ -10,12 +10,13 @@ Make the Senate forecast page feel like a real published forecast product, not a
 
 The Senate tab should display a coherent chamber-level projection from static published forecast data, then let users inspect the races driving that projection. The public page should not depend on browser API calls for forecast summary data.
 
-## Remaining Problems To Fix
+## Remaining Operational Work
 
-- Chamber-level probabilities are present when the static payload includes them, but the payload should be audited for complete probability and seat-distribution fields before final publish.
-- The current narrative is mechanically correct but not compelling as an outlook or analysis.
-- The map can show active races and holdovers, but it still needs stronger forecast meaning and shared helper coverage.
-- Final publish still needs a documented live QA pass using the MCP tools and Cloudflare deployment workflow.
+- Run the documented live QA pass against a reviewed forecast draft before the
+  next production publication. This requires GCP/MCP access and explicit
+  authorization because it can trigger paid research and change public data.
+- Decide cycle-specific VP tie-break assumptions as an editorial input before
+  generating a new chamber forecast.
 
 ## Product Principles
 

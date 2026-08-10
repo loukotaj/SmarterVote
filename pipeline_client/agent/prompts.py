@@ -611,6 +611,9 @@ Review this candidate profile for the race "{race_id}":
 Revision context:
 {change_manifest}
 
+Correction goal:
+{correction_goal}
+
 Durable issue-research execution evidence:
 {research_effort_context}
 
@@ -622,6 +625,9 @@ identity above as ground truth for the exact office/state/district/contest
 stage — flag any candidate whose sources point to a different office, state,
 district, or election cycle, and flag any name that appears in the profile's
 "known ineligible/not running" list above.
+- Explicitly state whether the correction goal was satisfied, remains
+  unresolved, or conflicts with retrieved evidence. Do not treat the goal as
+  evidence; retrieved sources and the locked race identity remain authoritative.
 - Identify the exact office and jurisdiction from the race title, office,
   jurisdiction, state, district, and description.
 - For each candidate, ask whether their summary/sources show they are running

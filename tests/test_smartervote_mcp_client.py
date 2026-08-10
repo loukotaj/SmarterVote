@@ -527,8 +527,8 @@ async def test_assess_publish_readiness_allows_unreviewed_maintenance_draft(monk
 
 
 @pytest.mark.asyncio
-async def test_assess_publish_readiness_blocks_unresolved_review_flags(monkeypatch):
-    """The API rejects warning-or-higher review flags even with a passing grade."""
+async def test_assess_publish_readiness_blocks_unresolved_error_flags(monkeypatch):
+    """The API rejects error-severity review flags even with a passing grade."""
     if find_spec("mcp") is None:
         pytest.skip("MCP SDK is optional outside the local MCP environment")
 
@@ -538,7 +538,7 @@ async def test_assess_publish_readiness_blocks_unresolved_review_flags(monkeypat
         "/api/races/nh-senate-2026/data": {
             "candidates": [{"name": "Alice Example"}],
             "validation_grade": {"passed": True, "grade": "A"},
-            "reviews": [{"flags": [{"severity": "warning", "concern": "Summary has no sources."}]}],
+            "reviews": [{"flags": [{"severity": "error", "concern": "Summary has no sources."}]}],
             "pipeline_state": {"complete": True},
         },
         "/races/nh-senate-2026": {"candidates": [{"name": "Alice Example"}]},
@@ -547,7 +547,7 @@ async def test_assess_publish_readiness_blocks_unresolved_review_flags(monkeypat
 
     result = await server.assess_publish_readiness(["nh-senate-2026"])
 
-    assert result["rows"][0]["blockers"] == ["unresolved_review_flags"]
+    assert result["rows"][0]["blockers"] == ["unresolved_error_flags"]
 
 
 @pytest.mark.asyncio

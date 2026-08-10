@@ -102,6 +102,7 @@ async def _run_update(
             max_candidates=max_candidates,
             target_no_info=target_no_info,
             target_candidate_names=target_candidate_names,
+            goal=goal,
             resume_partial=resume_partial,
             continue_incomplete_work=continue_incomplete_work,
             run_budget=run_budget,

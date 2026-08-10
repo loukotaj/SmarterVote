@@ -32,6 +32,10 @@ try {
     if (-not $env:VIRTUAL_ENV -and (Get-Command py -ErrorAction SilentlyContinue)) {
         $python = "py -3.11"
     }
+    $pythonVersion = Invoke-Expression "$python -c \"import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')\""
+    if ($pythonVersion -ne "3.11") {
+        throw "Local CI requires Python 3.11; selected interpreter reports $pythonVersion. Recreate .venv with 'py -3.11 -m venv .venv'."
+    }
 
     Write-Host "Running local CI gate checks from: $repoRoot" -ForegroundColor Yellow
     Write-Host "SkipInstall: $SkipInstall" -ForegroundColor Yellow
@@ -88,9 +92,8 @@ try {
     }
 
     Invoke-Step "Dependency audit" {
-        # PYSEC-2026-1325 affects ECDSA signing. SmarterVote only verifies Auth0 RS256 tokens.
-        Invoke-Expression "$python -m pip_audit --ignore-vuln PYSEC-2026-1325 -r pipeline_client/backend/requirements.txt"
-        Invoke-Expression "$python -m pip_audit --ignore-vuln PYSEC-2026-1325 -r services/races-api/requirements.txt"
+        Invoke-Expression "$python -m pip_audit -r pipeline_client/backend/requirements.txt"
+        Invoke-Expression "$python -m pip_audit -r services/races-api/requirements.txt"
         Push-Location "web"
         try {
             npm audit --omit=dev --audit-level=high
