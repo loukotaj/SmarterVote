@@ -339,8 +339,6 @@ def test_list_recent_runs_respects_limit(manager):
 
 
 def test_list_recent_runs_firestore_mode_merges_history_docs(manager):
-    from google.cloud.firestore import Query as real_query
-
     active = manager.create_run(["discovery"], RunRequest(payload={}))
 
     history_run = RunInfo(

@@ -9,10 +9,13 @@ import asyncio
 import logging
 from typing import Any, Dict, List
 
-from shared.run_health import RunFailureReason
-from shared.run_health import classify_exception as _classify_exception
-from shared.run_health import detect_empty_finance_output as _detect_empty_finance_output
-from shared.run_health import record_step_failure as _record_step_failure
+# Unused in this module but re-exported on purpose: the phase modules import all four
+# from ``._common`` rather than from ``shared.run_health``, so dropping them here breaks
+# finance, forecast, issues, iteration, polling, refinement and update_run at import time.
+from shared.run_health import RunFailureReason  # noqa: F401
+from shared.run_health import classify_exception as _classify_exception  # noqa: F401
+from shared.run_health import detect_empty_finance_output as _detect_empty_finance_output  # noqa: F401
+from shared.run_health import record_step_failure as _record_step_failure  # noqa: F401
 
 from .. import phase_state, roster
 from ..run_budget import RunBudget, RunBudgetExceeded

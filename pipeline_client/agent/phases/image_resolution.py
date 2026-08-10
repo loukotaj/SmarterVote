@@ -1,10 +1,8 @@
 """Phase 1b: verify and resolve direct candidate image URLs."""
 
 import time
-from typing import Any, Dict, Set
 
 from ..images import resolve_candidate_images
-from ..run_budget import RunBudget
 from .context import PhaseContext
 
 

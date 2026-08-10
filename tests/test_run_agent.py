@@ -7,7 +7,6 @@ import copy
 import json
 import os
 import re
-from pathlib import Path
 from unittest.mock import AsyncMock, patch
 
 import pytest
@@ -505,7 +504,7 @@ async def test_discovery_only_update_uses_update_discovery_phases():
 
     with patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop:
         mock_loop.side_effect = [{"_tool_trace": {"required_final_tool_succeeded": True}}, {}, {}]
-        result = await run_agent(
+        await run_agent(
             "al-senate-2026",
             cheap_mode=True,
             existing_data=existing,

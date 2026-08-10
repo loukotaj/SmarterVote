@@ -260,7 +260,7 @@ async def test_run_single_review_claude():
 @pytest.mark.asyncio
 async def test_run_single_review_gemini():
     """_run_single_review with the Gemini role returns structured review."""
-    from pipeline_client.agent.review import _review_model_for, _run_single_review
+    from pipeline_client.agent.review import _run_single_review
 
     review_response = json.dumps(
         {

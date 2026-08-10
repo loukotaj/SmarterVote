@@ -8,7 +8,7 @@ verdict from its `status` — see shared/run_health.py. These tests check that:
     still deserialize into RunInfo without raising.
 """
 
-from pipeline_client.backend.models import RunInfo, RunRequest, RunStatus, RunStep
+from pipeline_client.backend.models import RunInfo, RunRequest, RunStatus
 from pipeline_client.backend.run_manager import RunManager
 from shared.run_health import RunFailureReason, RunHealthStatus, RunHealthVerdict
 

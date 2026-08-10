@@ -5,7 +5,7 @@ import logging
 import re
 from html.parser import HTMLParser
 from typing import Any, Callable, Dict, List, Optional, Tuple
-from urllib.parse import quote, unquote, urljoin, urlparse
+from urllib.parse import unquote, urljoin, urlparse
 
 import httpx
 

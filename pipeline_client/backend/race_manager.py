@@ -13,7 +13,6 @@ Storage strategy mirrors run_manager.py:
 import json
 import logging
 import os
-import threading
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
@@ -24,7 +23,7 @@ from pydantic import BaseModel
 from shared.config import FIRESTORE_RACE_RUNS_SUBCOLLECTION, FIRESTORE_RACES_COLLECTION
 from shared.pipeline_config import FreshnessConfig
 
-from .models import RunInfo, RunStatus
+from .models import RunInfo
 
 logger = logging.getLogger("pipeline")
 

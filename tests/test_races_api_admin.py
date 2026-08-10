@@ -5,7 +5,6 @@ Auth is bypassed by patching `verify_token` to return an empty dict.
 """
 
 import asyncio
-import json
 import os
 
 # ---------------------------------------------------------------------------
@@ -1116,13 +1115,8 @@ def test_queue_race_success():
     os.environ["ADMIN_API_KEY"] = "test-key"
 
     db = _build_empty_firestore_mock()
-    added_docs: dict[str, dict] = {}
-
-    def _capture_set(data, **_kw):
-        pass  # just accept the call
 
     queue_doc_ref = MagicMock()
-    queue_doc_ref.set.side_effect = _capture_set
 
     coll_queue = MagicMock()
     coll_queue.document.return_value = queue_doc_ref
@@ -1142,7 +1136,6 @@ def test_queue_race_success():
 
     db.collection.side_effect = _coll
 
-    import importlib
     import sys
 
     # Reimport in a clean environment

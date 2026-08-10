@@ -6,8 +6,6 @@ the pipeline_client execution engine, storage, and logging.
 
 import json
 import logging
-import os
-import re
 import shutil
 import time
 import uuid
@@ -548,7 +546,6 @@ class AgentHandler:
 
         def _trigger_handoff(current_run_id: str, current_race_id: str, remaining: List[str], current_pct: int) -> None:
             """Save checkpoint to GCS, write continuation queue item, raise HandoffTriggered."""
-            from pipeline_client.backend.firestore_logger import FirestoreLogger as _FL
             from pipeline_client.backend.settings import settings
 
             item_id = uuid.uuid4().hex[:8]

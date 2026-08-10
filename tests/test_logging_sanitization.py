@@ -34,7 +34,7 @@ def test_sanitize_log_message_redacts_credentials() -> None:
 
 
 def test_sanitize_log_data_recurses() -> None:
-    sanitized = sanitize_log_data({"message": EXPOSED_URL, "nested": [f"Bearer abc.def.ghi"]})
+    sanitized = sanitize_log_data({"message": EXPOSED_URL, "nested": ["Bearer abc.def.ghi"]})
 
     assert "AIzaSy" not in sanitized["message"]
     assert sanitized["nested"] == ["Bearer [REDACTED]"]

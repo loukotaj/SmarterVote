@@ -10,7 +10,6 @@ import argparse
 import asyncio
 import json
 import logging
-import sys
 from pathlib import Path
 
 from dotenv import load_dotenv

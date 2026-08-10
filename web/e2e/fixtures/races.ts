@@ -367,9 +367,3 @@ export const flHouseUncontestedRace: Race = {
     },
   ],
 };
-
-export const FIXTURE_RACES: Record<string, Race> = {
-  [FIXTURE_RACE_IDS.senate]: ohSenateRace,
-  [FIXTURE_RACE_IDS.discovery]: txHouseDiscoveryRace,
-  [FIXTURE_RACE_IDS.uncontested]: flHouseUncontestedRace,
-};

@@ -2,11 +2,10 @@
 
 import json
 import time
-from typing import Any, Dict, Set
 
 from ..handlers import _make_editing_handlers
 from ..prompts import CANONICAL_ISSUES, REFINE_META_USER, REFINE_SYSTEM, REFINE_USER
-from ..run_budget import RunBudget, RunBudgetExceeded
+from ..run_budget import RunBudgetExceeded
 from ..tools import BACKGROUND_TOOLS, CANDIDATE_TOOLS, DESCRIPTION_TOOLS, ISSUE_TOOLS, READ_PROFILE_TOOL, RECORD_TOOLS
 from ._common import (
     _await_with_run_budget,
@@ -25,7 +24,6 @@ async def run_refinement_phase(ctx: PhaseContext) -> None:
     selected_name_set = ctx.selected_name_set
     model = ctx.model
     on_log = ctx.on_log
-    max_iterations = ctx.max_iterations
     step_enabled = ctx.step_enabled
     track = ctx.track
     is_update = ctx.is_update
