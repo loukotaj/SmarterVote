@@ -32,6 +32,7 @@ async def test_smartervote_mcp_exposes_lean_tool_surface():
         "get_race_data",
         "audit_draft_vs_published",
         "plan_repairs",
+        "audit_issue_research_readiness",
         "audit_race_assets",
         "assess_publish_readiness",
         "queue_races",
@@ -285,6 +286,244 @@ async def test_plan_repairs_forwards_bounded_read_only_request(monkeypatch):
         "/api/races/repair-plan",
         json={"race_ids": ["ca-house-05-2026"]},
     )
+
+
+@pytest.mark.asyncio
+async def test_audit_issue_research_readiness_compacts_repair_plans(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    response = {
+        "plans": [
+            {
+                "race_id": "fl-house-01-2026",
+                "research_tier": "partial_research",
+                "needs_repair": True,
+                "health": {
+                    "candidate_count": 2,
+                    "roster_strong_evidence_candidates": 1,
+                    "issue_slot_count": 24,
+                    "terminal_issue_count": 18,
+                    "missing_issue_count": 6,
+                    "validation_passed": False,
+                },
+                "repair_groups": [
+                    {
+                        "stage": "candidate",
+                        "candidate_names": ["Candidate One"],
+                        "enabled_steps": ["issues", "finance", "refinement"],
+                    }
+                ],
+                "estimated_max_cost_usd": 1.25,
+                "estimated_max_search_calls": 75,
+                "budget_warnings": ["Split this repair."],
+            },
+            {
+                "race_id": "fl-senate-2026-special",
+                "research_tier": "validated",
+                "needs_repair": False,
+                "health": {
+                    "candidate_count": 2,
+                    "roster_strong_evidence_candidates": 2,
+                    "issue_slot_count": 24,
+                    "terminal_issue_count": 24,
+                    "missing_issue_count": 0,
+                    "validation_passed": True,
+                },
+                "repair_groups": [],
+                "estimated_max_cost_usd": 0,
+                "estimated_max_search_calls": 0,
+                "budget_warnings": [],
+            },
+        ],
+        "missing_race_ids": ["missing-race"],
+    }
+    client = type("Client", (), {"post": AsyncMock(return_value=response)})()
+    monkeypatch.setattr(server, "_client", lambda: client)
+    monkeypatch.setattr(
+        server,
+        "list_admin_races",
+        AsyncMock(
+            return_value={
+                "races": [
+                    {
+                        "race_id": "fl-house-01-2026",
+                        "published_exists": True,
+                        "freshness": "stale",
+                        "forecast": {"rating": "lean_r"},
+                    },
+                    {
+                        "race_id": "fl-senate-2026-special",
+                        "published_exists": True,
+                        "freshness": "recent",
+                        "forecast": {"rating": "safe_r"},
+                    },
+                    {"race_id": "missing-race"},
+                ]
+            }
+        ),
+    )
+
+    result = await server.audit_issue_research_readiness(
+        ["fl-house-01-2026", "fl-senate-2026-special", "fl-house-01-2026", "missing-race"],
+        include_schedule=True,
+    )
+
+    client.post.assert_awaited_once_with(
+        "/api/races/repair-plan",
+        json={"race_ids": ["fl-house-01-2026", "fl-senate-2026-special", "missing-race"]},
+    )
+    first, second = result["rows"]
+    assert first["workstream"] == "roster_then_issue_research"
+    assert first["issue_candidate_names"] == ["Candidate One"]
+    assert first["issue_coverage_percent"] == 75.0
+    assert first["competitiveness_band"] == "competitive"
+    assert first["freshness"] == "stale"
+    assert second["workstream"] == "no_repair"
+    assert result["summary"] == {
+        "requested_race_count": 3,
+        "planned_race_count": 2,
+        "missing_race_count": 1,
+        "candidate_count": 4,
+        "issue_slot_count": 48,
+        "terminal_issue_count": 42,
+        "missing_issue_count": 6,
+        "issue_research_race_count": 1,
+        "stored_roster_evidence_incomplete_race_count": 1,
+        "validation_passed_race_count": 1,
+        "estimated_max_cost_usd": 1.25,
+        "estimated_max_search_calls": 75,
+        "workstreams": {"roster_then_issue_research": 1, "no_repair": 1},
+        "competitiveness": {"competitive": 1, "safe": 1},
+        "issue_research_by_competitiveness": {"competitive": 1},
+    }
+    assert result["missing_race_ids"] == ["missing-race"]
+    assert result["primary_result_verified"] is False
+    assert result["issue_queue"] == [
+        {
+            "position": 1,
+            "race_id": "fl-house-01-2026",
+            "forecast_rating": "lean_r",
+            "competitiveness_band": "competitive",
+            "missing_issue_count": 6,
+            "stored_roster_evidence_complete": False,
+            "pageviews": 0,
+            "api_requests": 0,
+            "estimated_max_cost_usd": 1.25,
+        }
+    ]
+    assert result["refresh_groups"] == [{"band": "lean", "group": 1, "race_ids": ["fl-house-01-2026"]}]
+
+
+@pytest.mark.asyncio
+async def test_audit_issue_research_readiness_can_scan_entire_catalog_in_batches(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    monkeypatch.setattr(
+        server,
+        "list_admin_races",
+        AsyncMock(
+            return_value={
+                "races": [
+                    {"race_id": "race-c"},
+                    {"race_id": "chamber_forecasts"},
+                    {"race_id": "race-a"},
+                    {"race_id": "race-b"},
+                ]
+            }
+        ),
+    )
+    client = type(
+        "Client",
+        (),
+        {
+            "post": AsyncMock(
+                side_effect=[
+                    {"plans": [], "missing_race_ids": ["race-a"]},
+                    {"plans": [], "missing_race_ids": ["race-c"]},
+                ]
+            )
+        },
+    )()
+    monkeypatch.setattr(server, "_client", lambda: client)
+
+    result = await server.audit_issue_research_readiness(include_rows=False, batch_size=2)
+
+    assert [call.kwargs["json"]["race_ids"] for call in client.post.await_args_list] == [
+        ["race-a", "race-b"],
+        ["race-c"],
+    ]
+    assert result["summary"]["requested_race_count"] == 3
+    assert result["summary"]["planned_race_count"] == 0
+    assert result["missing_race_ids"] == ["race-a", "race-c"]
+    assert result["rows"] == []
+
+
+@pytest.mark.asyncio
+async def test_audit_issue_research_readiness_orders_equal_ratings_by_observed_demand(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    plans = []
+    for race_id in ("low-demand", "high-demand"):
+        plans.append(
+            {
+                "race_id": race_id,
+                "needs_repair": True,
+                "health": {
+                    "candidate_count": 2,
+                    "roster_strong_evidence_candidates": 2,
+                    "issue_slot_count": 24,
+                    "terminal_issue_count": 12,
+                    "missing_issue_count": 12,
+                },
+                "repair_groups": [],
+                "estimated_max_cost_usd": 1,
+            }
+        )
+
+    async def get_response(path, *, params):
+        assert params == {"hours": 48}
+        if path == "/analytics/traffic":
+            return {"top_pages": [{"name": "/races/high-demand", "pageviews": 40}]}
+        if path == "/analytics/races":
+            return {"races": [{"race_id": "low-demand", "requests_24h": 5}]}
+        return {}
+
+    client = type(
+        "Client",
+        (),
+        {
+            "get": AsyncMock(side_effect=get_response),
+            "post": AsyncMock(return_value={"plans": plans}),
+        },
+    )()
+    monkeypatch.setattr(server, "_client", lambda: client)
+    monkeypatch.setattr(
+        server,
+        "list_admin_races",
+        AsyncMock(
+            return_value={
+                "races": [
+                    {"race_id": "low-demand", "forecast": {"rating": "tossup"}},
+                    {"race_id": "high-demand", "forecast": {"rating": "tossup"}},
+                ]
+            }
+        ),
+    )
+
+    result = await server.audit_issue_research_readiness(include_schedule=True, traffic_hours=48)
+
+    assert [row["race_id"] for row in result["issue_queue"]] == ["high-demand", "low-demand"]
+    assert result["issue_queue"][0]["pageviews"] == 40
+    assert result["issue_queue"][1]["api_requests"] == 5
 
 
 @pytest.mark.asyncio

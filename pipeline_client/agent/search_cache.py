@@ -24,6 +24,7 @@ import json
 import logging
 import os
 import sqlite3
+from contextlib import closing
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -69,7 +70,7 @@ class SearchCache:
 
     def _init_db(self):
         """Initialize SQLite database schema."""
-        with sqlite3.connect(self.db_path) as conn:
+        with closing(sqlite3.connect(self.db_path)) as conn:
             conn.execute(
                 """
                 CREATE TABLE IF NOT EXISTS search_cache (
@@ -133,7 +134,7 @@ class SearchCache:
         """
         query_hash = self._query_hash(query_text, race_id)
 
-        with sqlite3.connect(self.db_path) as conn:
+        with closing(sqlite3.connect(self.db_path)) as conn:
             conn.row_factory = sqlite3.Row
             cursor = conn.execute(
                 """
@@ -199,7 +200,7 @@ class SearchCache:
             return False
 
         try:
-            with sqlite3.connect(self.db_path) as conn:
+            with closing(sqlite3.connect(self.db_path)) as conn:
                 conn.execute(
                     """
                     INSERT OR REPLACE INTO search_cache
@@ -229,7 +230,7 @@ class SearchCache:
     def get_page(self, url: str) -> Optional[str]:
         """Return cached page text content, or None if not found/expired."""
         url_hash = hashlib.sha256(url.encode()).hexdigest()
-        with sqlite3.connect(self.db_path) as conn:
+        with closing(sqlite3.connect(self.db_path)) as conn:
             conn.row_factory = sqlite3.Row
             row = conn.execute(
                 "SELECT content FROM page_cache WHERE url_hash = ? AND expires_at > ?",
@@ -253,7 +254,7 @@ class SearchCache:
         now = datetime.now(timezone.utc)
         expires_at = now + timedelta(hours=ttl)
         try:
-            with sqlite3.connect(self.db_path) as conn:
+            with closing(sqlite3.connect(self.db_path)) as conn:
                 conn.execute(
                     """
                     INSERT OR REPLACE INTO page_cache
@@ -271,7 +272,7 @@ class SearchCache:
 
     def get_stats(self) -> Dict[str, Any]:
         """Get cache statistics."""
-        with sqlite3.connect(self.db_path) as conn:
+        with closing(sqlite3.connect(self.db_path)) as conn:
             # Total entries
             total = conn.execute("SELECT COUNT(*) FROM search_cache").fetchone()[0]
 
@@ -305,7 +306,7 @@ class SearchCache:
     def cleanup_expired(self) -> int:
         """Remove expired cache entries from both search and page caches."""
         now = datetime.now(timezone.utc).isoformat()
-        with sqlite3.connect(self.db_path) as conn:
+        with closing(sqlite3.connect(self.db_path)) as conn:
             search_cursor = conn.execute(
                 "DELETE FROM search_cache WHERE expires_at <= ?",
                 (now,),
@@ -331,7 +332,7 @@ class SearchCache:
 
     def clear_for_race(self, race_id: str) -> int:
         """Clear all cached searches for a specific race."""
-        with sqlite3.connect(self.db_path) as conn:
+        with closing(sqlite3.connect(self.db_path)) as conn:
             cursor = conn.execute("DELETE FROM search_cache WHERE race_id = ?", (race_id,))
             conn.commit()
             removed = cursor.rowcount
@@ -347,7 +348,11 @@ class SearchCache:
         """
         now = datetime.now(timezone.utc).isoformat()
         searches: List[Dict[str, Any]] = []
-        with sqlite3.connect(self.db_path) as conn:
+        # sqlite3.Connection's context manager commits or rolls back but does
+        # not close the connection. Explicit closure matters on Windows, where
+        # an open SQLite handle prevents temporary cache directories from being
+        # removed after this read.
+        with closing(sqlite3.connect(self.db_path)) as conn:
             rows = conn.execute(
                 "SELECT query_text, results FROM search_cache " "WHERE race_id = ? AND expires_at > ?",
                 (race_id, now),
@@ -370,7 +375,7 @@ class SearchCache:
 
     def clear_all(self) -> int:
         """Clear all cache entries across search and page caches."""
-        with sqlite3.connect(self.db_path) as conn:
+        with closing(sqlite3.connect(self.db_path)) as conn:
             search_cursor = conn.execute("DELETE FROM search_cache")
             page_cursor = conn.execute("DELETE FROM page_cache")
             conn.commit()

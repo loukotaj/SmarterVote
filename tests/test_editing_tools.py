@@ -1075,7 +1075,13 @@ def test_finalize_roster_atomically_applies_complete_proposed_roster():
             }
         },
         "candidates": [
-            {"name": "Rick Pressnell", "party": "Democratic", "summary": "Wrong contest"},
+            {
+                "name": "Rick Pressnell",
+                "party": "Democratic",
+                "summary": "Wrong contest",
+                "withdrawn": True,
+                "withdrawal_reason": "Previously removed through the evidence-checked removal path.",
+            },
             {"name": "Shomari Figures", "party": "Democratic", "summary": "Preserve this profile"},
         ],
     }
@@ -1219,6 +1225,114 @@ def test_finalize_roster_atomic_submission_requires_extracted_name_match():
 
     assert "source_candidate_names must match" in result
     assert [candidate["name"] for candidate in race_json["candidates"]] == ["Old Entry"]
+
+
+def test_finalize_roster_cannot_silently_drop_existing_third_party_candidate():
+    """Regression: a major-party-only sentence must not erase Ted Brown again."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    source_url = "https://example.org/2026-texas-senate"
+    source = {
+        "url": source_url,
+        "type": "news",
+        "title": "2026 United States Senate election in Texas",
+        "evidence": (
+            "Republican Ken Paxton and Democrat James Talarico are the nominees "
+            "for their respective parties in the 2026 Texas U.S. Senate election."
+        ),
+        "published_at": "2026-06-01",
+    }
+    race_json = {
+        "id": "tx-senate-2026",
+        "office": "United States Senate",
+        "jurisdiction": "Texas",
+        "election_date": "2026-11-03",
+        "pipeline_state": {"race_identity": {"office": "U.S. Senate", "contest_stage": "post_primary_general"}},
+        "candidates": [
+            {"name": "James Talarico", "party": "Democratic"},
+            {"name": "Ken Paxton", "party": "Republican"},
+            {"name": "Ted Brown", "party": "Libertarian"},
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Major-party nominees",
+            "candidates": [
+                {"name": "James Talarico", "party": "Democratic"},
+                {"name": "Ken Paxton", "party": "Republican"},
+            ],
+            "source_candidate_names": ["James Talarico", "Ken Paxton"],
+            "completeness_sources": [source],
+            "_research_trace": {"researched_urls": [source_url], "fetched_urls": [source_url]},
+        }
+    )
+
+    assert "silently drops active candidate(s): Ted Brown" in result
+    assert [candidate["name"] for candidate in race_json["candidates"]] == [
+        "James Talarico",
+        "Ken Paxton",
+        "Ted Brown",
+    ]
+
+
+def test_finalize_roster_accepts_exact_contest_field_size_with_separate_membership_sources():
+    """Texas can prove a bounded roster when the field page gives only a count."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    count_url = "https://www.localcandidates.org/elections/2026-us-senate-tx/general"
+    count_source = {
+        "url": count_url,
+        "type": "news",
+        "title": "2026 US Senate (TX) General Election",
+        "evidence": "General Election Nov 3, 2026 · 6 candidates · $47.3M raised",
+        "published_at": "2026-08-10",
+    }
+    names = ["James Talarico", "Ken Paxton", "Ted Brown"]
+    race_json = {
+        "id": "tx-senate-2026",
+        "office": "United States Senate",
+        "jurisdiction": "Texas",
+        "election_date": "2026-11-03",
+        "pipeline_state": {"race_identity": {"office": "U.S. Senate", "contest_stage": "post_primary_general"}},
+        "candidates": [{"name": name, "party": "Unknown"} for name in names],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+    candidates = []
+    researched_urls = [count_url]
+    for name, party in zip(names, ["Democratic", "Republican", "Libertarian"]):
+        slug = name.lower().replace(" ", "-")
+        url = f"https://example.org/2026-texas-senate/{slug}"
+        researched_urls.append(url)
+        candidates.append(
+            {
+                "name": name,
+                "party": party,
+                "roster_sources": [
+                    {
+                        "url": url,
+                        "type": "news",
+                        "title": f"{name} runs for Texas Senate",
+                        "evidence": f"{name} is a candidate in the 2026 Texas U.S. Senate election.",
+                        "published_at": "2026-08-01",
+                    }
+                ],
+            }
+        )
+
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Bounded roster supported by a counted exact-contest field.",
+            "candidates": candidates,
+            "source_candidate_names": names,
+            "completeness_sources": [count_source],
+            "_research_trace": {"researched_urls": researched_urls, "fetched_urls": researched_urls},
+        }
+    )
+
+    assert result == "Roster finalized with 3 evidence-backed active candidate(s)."
+    assert [candidate["name"] for candidate in race_json["candidates"]] == names
 
 
 def test_finalize_roster_allows_middle_initial_in_extracted_source_name():
@@ -2067,6 +2181,43 @@ def test_search_cache_list_cached_for_race():
         assert len(result["searches"]) == 1
         assert result["searches"][0]["query"] == "test query"
         assert "https://r.com" in result["searches"][0]["urls"]
+
+
+def test_education_year_normalizes_blank_to_none_and_numeric_text_to_int():
+    """Education edits must remain valid for RaceJSON's optional integer year."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Ted Brown", "education": []}]}
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    assert "Added education" in handlers["add_education_entry"](
+        {
+            "candidate_name": "Ted Brown",
+            "institution": "The Linsly School",
+            "degree": "High School Diploma",
+            "year": "",
+        }
+    )
+    assert race_json["candidates"][0]["education"][0]["year"] is None
+
+    assert "Updated 1 education" in handlers["update_education_entry"](
+        {
+            "candidate_name": "Ted Brown",
+            "institution": "The Linsly School",
+            "year": "1980",
+        }
+    )
+    assert race_json["candidates"][0]["education"][0]["year"] == 1980
+
+    result = handlers["update_education_entry"](
+        {
+            "candidate_name": "Ted Brown",
+            "institution": "The Linsly School",
+            "year": "unknown",
+        }
+    )
+    assert result == "ERROR: education year must be an integer or omitted."
+    assert race_json["candidates"][0]["education"][0]["year"] == 1980
 
 
 def _nj_race_json():
