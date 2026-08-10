@@ -41,12 +41,14 @@ test.describe("forecast page", () => {
     await expect(
       page.getByText(/Democrats have a narrow but real path/).first(),
     ).toBeVisible();
-    await expect(page.getByText("Ohio U.S. Senate Race 2026")).toBeVisible();
+    await expect(
+      page.getByText("2026 Ohio U.S. Senate Election"),
+    ).toBeVisible();
     await expect(page.getByText("Toss-up").first()).toBeVisible();
 
     await page.getByRole("button", { name: "Governors", exact: true }).click();
     await expect(page).toHaveURL(/tab=governors/);
-    await expect(page.getByText("Nevada Governor Race 2026")).toBeVisible();
+    await expect(page.getByText("2026 Nevada Governor Election")).toBeVisible();
     await expect(page.getByText("Likely D").first()).toBeVisible();
   });
 
@@ -54,7 +56,7 @@ test.describe("forecast page", () => {
     page,
   }) => {
     await gotoAndSettle(page, "/forecast/?tab=governors");
-    await expect(page.getByText("Nevada Governor Race 2026")).toBeVisible();
+    await expect(page.getByText("2026 Nevada Governor Election")).toBeVisible();
 
     await page.getByRole("button", { name: "Toss-ups" }).click();
 
@@ -62,7 +64,7 @@ test.describe("forecast page", () => {
       page.getByText("No forecasts found matching the selected filters."),
     ).toBeVisible();
     await page.getByRole("button", { name: "Clear all filters" }).click();
-    await expect(page.getByText("Nevada Governor Race 2026")).toBeVisible();
+    await expect(page.getByText("2026 Nevada Governor Election")).toBeVisible();
   });
 
   test("opening a race's details navigates to its detail page", async ({
@@ -72,11 +74,11 @@ test.describe("forecast page", () => {
     await gotoAndSettle(page, "/forecast/?tab=senate");
 
     await page
-      .getByRole("link", { name: "Ohio U.S. Senate Race 2026" })
+      .getByRole("link", { name: "2026 Ohio U.S. Senate Election" })
       .click();
 
     await expect(
-      page.getByRole("heading", { name: "Ohio U.S. Senate Race 2026" }),
+      page.getByRole("heading", { name: "2026 Ohio U.S. Senate Election" }),
     ).toBeVisible();
     await expect(page).toHaveURL(
       new RegExp(`/races/${FIXTURE_RACE_IDS.senate}/?$`),

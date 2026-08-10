@@ -17,10 +17,10 @@ test.describe("elections directory", () => {
     ).toBeVisible();
     await expect(page.getByText("Showing 4 of 4 races").first()).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Ohio U.S. Senate Race 2026" }),
+      page.getByRole("heading", { name: "2026 Ohio U.S. Senate Election" }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Nevada Governor Race 2026" }),
+      page.getByRole("heading", { name: "2026 Nevada Governor Election" }),
     ).toBeVisible();
   });
 
@@ -35,10 +35,10 @@ test.describe("elections directory", () => {
 
     await expect(page.getByText("1 race found").first()).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Ohio U.S. Senate Race 2026" }),
+      page.getByRole("heading", { name: "2026 Ohio U.S. Senate Election" }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Nevada Governor Race 2026" }),
+      page.getByRole("heading", { name: "2026 Nevada Governor Election" }),
     ).toHaveCount(0);
 
     // The hero search box reflects the active query from the URL.
@@ -56,10 +56,10 @@ test.describe("elections directory", () => {
 
     await expect(page.getByText("1 race found").first()).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Nevada Governor Race 2026" }),
+      page.getByRole("heading", { name: "2026 Nevada Governor Election" }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Ohio U.S. Senate Race 2026" }),
+      page.getByRole("heading", { name: "2026 Ohio U.S. Senate Election" }),
     ).toHaveCount(0);
   });
 
@@ -84,11 +84,11 @@ test.describe("elections directory", () => {
     await gotoAndSettle(page, "/elections/");
 
     await page
-      .getByRole("link", { name: /Ohio U\.S\. Senate Race 2026/ })
+      .getByRole("link", { name: /2026 Ohio U\.S\. Senate Election/ })
       .click();
 
     await expect(
-      page.getByRole("heading", { name: "Ohio U.S. Senate Race 2026" }),
+      page.getByRole("heading", { name: "2026 Ohio U.S. Senate Election" }),
     ).toBeVisible();
     await expect(page).toHaveURL(
       new RegExp(`/races/${FIXTURE_RACE_IDS.senate}/?$`),

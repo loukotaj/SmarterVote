@@ -2,6 +2,7 @@
   import { browser } from "$app/environment";
   import { isExternalUrl } from "$lib/utils/url";
   import type { ForecastRace } from "$lib/utils/forecast";
+  import { raceDisplayTitle } from "$lib/utils/raceTitle";
   import {
     formatRating,
     normalizeForecastParty,
@@ -42,7 +43,7 @@
           href={browser ? raceHref(race.id) : undefined}
           class="text-base font-extrabold text-content hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
         >
-          {race.title ?? race.id}
+          {raceDisplayTitle(race)}
         </a>
         <a
           href={browser ? raceHref(race.id) : undefined}

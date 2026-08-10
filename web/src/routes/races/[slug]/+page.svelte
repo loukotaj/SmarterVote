@@ -15,6 +15,11 @@
   import { isExternalUrl } from "$lib/utils/url";
   import { normalizeForecastParty } from "$lib/utils/forecast";
   import { formatElectionDate } from "$lib/utils/electionDate";
+  import {
+    raceDisplayTitle,
+    raceMetaDescription,
+    racePageTitle,
+  } from "$lib/utils/raceTitle";
 
   export let data: { prerenderedRace?: Race };
 
@@ -241,36 +246,18 @@
 </script>
 
 <svelte:head>
-  <title>{race?.title || "Loading..."} | Smarter.vote</title>
-  <meta
-    name="description"
-    content="Compare candidates for {race?.title ||
-      'this election'} on key issues using analysis from traceable public sources."
-  />
+  <title>{racePageTitle(race)}</title>
+  <meta name="description" content={raceMetaDescription(race)} />
   <link rel="canonical" href="https://smarter.vote/races/{slug}/" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://smarter.vote/races/{slug}/" />
-  <meta
-    property="og:title"
-    content="{race?.title || 'Election'} | Smarter.vote"
-  />
-  <meta
-    property="og:description"
-    content="Compare candidates for {race?.title ||
-      'this election'} on key issues using analysis from traceable public sources."
-  />
+  <meta property="og:title" content={racePageTitle(race)} />
+  <meta property="og:description" content={raceMetaDescription(race)} />
   <meta property="og:image" content="https://smarter.vote/og-image.png" />
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://smarter.vote/races/{slug}/" />
-  <meta
-    property="twitter:title"
-    content="{race?.title || 'Election'} | Smarter.vote"
-  />
-  <meta
-    property="twitter:description"
-    content="Compare candidates for {race?.title ||
-      'this election'} on key issues using analysis from traceable public sources."
-  />
+  <meta property="twitter:title" content={racePageTitle(race)} />
+  <meta property="twitter:description" content={raceMetaDescription(race)} />
   <meta property="twitter:image" content="https://smarter.vote/og-image.png" />
 </svelte:head>
 
@@ -354,11 +341,14 @@
     <!-- Race Header -->
     <Card tag="header" class="header-card">
       <div class="header-top">
-        <h1 class="header-title">{race.title}</h1>
+        <h1 class="header-title">{raceDisplayTitle(race)}</h1>
         {#if race.validation_grade}
           <ValidationGradeBadge grade={race.validation_grade} />
         {/if}
       </div>
+      <p class="mt-2 text-sm text-content-muted">
+        Compare candidates’ positions, polling, and sourced race updates.
+      </p>
       <div class="header-meta">
         <div class="info-row">
           <svg

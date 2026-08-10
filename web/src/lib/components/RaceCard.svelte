@@ -2,6 +2,7 @@
   import type { RaceSummary } from "$lib/types";
   import { partyAbbr, partyRing, partyInitialBg } from "$lib/utils/party";
   import { formatElectionDate } from "$lib/utils/electionDate";
+  import { raceDisplayTitle } from "$lib/utils/raceTitle";
 
   export let race: RaceSummary;
 
@@ -91,7 +92,7 @@
     <h3
       class="text-sm font-semibold text-content group-hover:text-blue-600 transition-colors leading-snug line-clamp-2 capitalize"
     >
-      {race.title ?? `${race.office ?? "Race"} — ${race.jurisdiction ?? ""}`}
+      {raceDisplayTitle(race)}
     </h3>
   </div>
 

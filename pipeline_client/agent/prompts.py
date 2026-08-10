@@ -201,7 +201,7 @@ Do NOT use a gallery page URL. Set to null if no direct image file is confirmed.
 Return JSON:
 {{
   "id": "{race_id}",
-  "title": "<descriptive race title>",
+  "title": "<canonical election name: YYYY State U.S. Senate Election; YYYY State's Nth Congressional District Election; or YYYY State Governor Election>",
   "office": "<office name>",
   "jurisdiction": "<full geographic scope, e.g. \"Missouri's 1st Congressional District\", \"Missouri\", \"United States\">",
   "state": "<US state name for map highlighting, e.g. \"Missouri\"; use null for national or multi-state races>",

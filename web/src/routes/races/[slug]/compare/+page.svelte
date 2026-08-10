@@ -7,6 +7,7 @@
   import type { Candidate, Race } from "$lib/types";
   import { candidateSlug } from "$lib/utils/format";
   import { onMount } from "svelte";
+  import { raceDisplayTitle } from "$lib/utils/raceTitle";
 
   export let data: { prerenderedRace?: Race };
 
@@ -90,11 +91,16 @@
 </script>
 
 <svelte:head>
-  <title>Compare Candidates | {race?.title || "Smarter.vote"}</title>
+  <title
+    >Compare Candidates | {race
+      ? raceDisplayTitle(race)
+      : "Smarter.vote"}</title
+  >
   <meta
     name="description"
-    content="Compare candidates side-by-side on key election issues for {race?.title ||
-      'this election'}."
+    content="Compare candidates side-by-side on key election issues for {race
+      ? raceDisplayTitle(race)
+      : 'this election'}."
   />
   <link rel="canonical" href="https://smarter.vote/races/{slug}/compare/" />
   <meta property="og:type" content="article" />
@@ -104,12 +110,15 @@
   />
   <meta
     property="og:title"
-    content="Compare Candidates | {race?.title || 'Smarter.vote'}"
+    content="Compare Candidates | {race
+      ? raceDisplayTitle(race)
+      : 'Smarter.vote'}"
   />
   <meta
     property="og:description"
-    content="Compare candidates side-by-side on key election issues for {race?.title ||
-      'this election'}."
+    content="Compare candidates side-by-side on key election issues for {race
+      ? raceDisplayTitle(race)
+      : 'this election'}."
   />
   <meta property="og:image" content="https://smarter.vote/og-image.png" />
   <meta property="twitter:card" content="summary_large_image" />
@@ -119,12 +128,15 @@
   />
   <meta
     property="twitter:title"
-    content="Compare Candidates | {race?.title || 'Smarter.vote'}"
+    content="Compare Candidates | {race
+      ? raceDisplayTitle(race)
+      : 'Smarter.vote'}"
   />
   <meta
     property="twitter:description"
-    content="Compare candidates side-by-side on key election issues for {race?.title ||
-      'this election'}."
+    content="Compare candidates side-by-side on key election issues for {race
+      ? raceDisplayTitle(race)
+      : 'this election'}."
   />
   <meta property="twitter:image" content="https://smarter.vote/og-image.png" />
 </svelte:head>

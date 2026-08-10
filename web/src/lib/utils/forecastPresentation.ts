@@ -9,6 +9,7 @@ import {
   type ForecastTab,
 } from "$lib/utils/forecast";
 import { GOVERNOR_HOLDOVERS, SENATE_HOLDOVERS } from "./holdovers";
+import { raceDisplayTitle } from "./raceTitle";
 
 export function partyClass(party: string): string {
   if (party === "Democratic") return "text-blue-600 dark:text-blue-400";
@@ -70,7 +71,7 @@ export function summarizeStateForecast(stateRaces: RaceSummary[]) {
             party === "Democratic" ? "D" : party === "Republican" ? "R" : party
           }`
         : "";
-      return `${race.title ?? race.id}: ${formatRating(
+      return `${raceDisplayTitle(race)}: ${formatRating(
         forecast.rating,
       )}${winProb}`;
     }),
@@ -458,7 +459,7 @@ export function buildStateMapData(
         title: state,
         subtitle: `${count} House race${count > 1 ? "s" : ""} in scope`,
         badge: summary.primary?.forecast
-          ? `${formatRating(summary.primary.forecast.rating)} bellwether`
+          ? `Closest race: ${formatRating(summary.primary.forecast.rating)}`
           : `${summary.forecastedCount}/${count} Forecasted`,
         badgeClass: summary.primary?.forecast?.rating.endsWith("_d")
           ? "!bg-blue-600 !text-white"

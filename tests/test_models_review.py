@@ -397,7 +397,7 @@ def test_issue_research_effort_context_distinguishes_attempted_absence_from_omis
     assert "0 no-position outputs without sufficient research provenance" in context
 
 
-def test_profile_quality_rejects_no_position_marker_without_attempt_provenance():
+def test_profile_quality_grandfathers_no_position_marker_without_legacy_telemetry():
     from pipeline_client.agent.review import check_profile_quality
     from shared.models import CanonicalIssue
 
@@ -420,9 +420,9 @@ def test_profile_quality_rejects_no_position_marker_without_attempt_provenance()
 
     review = check_profile_quality(race)
 
-    provenance_flags = [flag for flag in review["flags"] if "completed audit" in flag["concern"]]
-    assert len(provenance_flags) == 12
-    assert all(flag["severity"] == "error" for flag in provenance_flags)
+    legacy_flags = [flag for flag in review["flags"] if "legacy draft predates provenance logging" in flag["concern"]]
+    assert len(legacy_flags) == 12
+    assert all(flag["severity"] == "info" for flag in legacy_flags)
 
 
 def test_review_change_manifest_reports_changed_paths_without_reducing_packet():
@@ -793,8 +793,8 @@ def test_stance_level_audit_survives_missing_pipeline_state():
     assert audit_flags == []
 
 
-def test_unaudited_absence_is_still_flagged():
-    """The guard must still catch an absence nothing ever researched."""
+def test_unaudited_absence_without_race_telemetry_is_informational():
+    """Legacy drafts cannot prove provenance when no issue telemetry exists."""
     from pipeline_client.agent.review import check_profile_quality
 
     profile = {
@@ -813,7 +813,81 @@ def test_unaudited_absence_is_still_flagged():
     result = check_profile_quality(profile)
     audit_flags = [f for f in result.get("flags", []) if "completed audit" in str(f.get("concern", ""))]
 
+    assert len(audit_flags) == 0
+    legacy_flags = [
+        f for f in result.get("flags", []) if "legacy draft predates provenance logging" in str(f.get("concern", ""))
+    ]
+    assert len(legacy_flags) == 1
+    assert legacy_flags[0]["severity"] == "info"
+
+
+def test_profile_quality_accepts_source_backed_no_position_without_telemetry():
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "nj-senate-2026",
+        "candidates": [
+            {
+                "name": "Justin Murphy",
+                "issues": {
+                    "Tech & AI": {
+                        "stance": "No public position found",
+                        "confidence": "low",
+                        "sources": [{"url": "https://example.com/candidate"}],
+                    },
+                },
+            }
+        ],
+        "pipeline_state": {"issue_attempts": {}, "issue_research": {}},
+    }
+
+    result = check_profile_quality(profile)
+
+    assert not [f for f in result.get("flags", []) if ".issues.Tech & AI.stance" in str(f.get("field", ""))]
+
+
+def test_profile_quality_rejects_thin_no_position_audit():
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "nj-senate-2026",
+        "candidates": [
+            {
+                "name": "Justin Murphy",
+                "issues": {"Tech & AI": {"stance": "No public position found", "confidence": "low", "sources": []}},
+            }
+        ],
+        "pipeline_state": {
+            "issue_research": {"issues:Justin Murphy:Tech & AI": {"status": "completed", "search_calls": 1, "page_fetches": 0}}
+        },
+    }
+
+    result = check_profile_quality(profile)
+
+    audit_flags = [f for f in result.get("flags", []) if "completed audit" in str(f.get("concern", ""))]
     assert len(audit_flags) == 1
+    assert audit_flags[0]["severity"] == "error"
+
+
+def test_profile_quality_accepts_completed_no_position_audit_with_two_actions():
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "nj-senate-2026",
+        "candidates": [
+            {
+                "name": "Justin Murphy",
+                "issues": {"Tech & AI": {"stance": "No public position found", "confidence": "low", "sources": []}},
+            }
+        ],
+        "pipeline_state": {
+            "issue_research": {"issues:Justin Murphy:Tech & AI": {"status": "completed", "search_calls": 1, "page_fetches": 1}}
+        },
+    }
+
+    result = check_profile_quality(profile)
+
+    assert not [f for f in result.get("flags", []) if "completed audit" in str(f.get("concern", ""))]
 
 
 def test_research_audit_survives_schema_roundtrip():

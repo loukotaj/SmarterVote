@@ -688,7 +688,6 @@ def check_profile_quality(race_json: Dict[str, Any], *, issues_step_ran: bool = 
 
     required_issues = {issue.value for issue in CanonicalIssue}
     state = race_json.get("pipeline_state") if isinstance(race_json.get("pipeline_state"), dict) else {}
-    issue_attempts = state.get("issue_attempts") if isinstance(state.get("issue_attempts"), dict) else {}
     issue_research = state.get("issue_research") if isinstance(state.get("issue_research"), dict) else {}
     for index, candidate in enumerate(race_json.get("candidates") or []):
         if not isinstance(candidate, dict):
@@ -753,13 +752,22 @@ def check_profile_quality(race_json: Dict[str, Any], *, issues_step_ran: bool = 
                     if isinstance(audit, dict)
                     else 0
                 )
-                # Attempt count comes from the same record as the rest of the audit,
-                # so a durable stance-level audit is not defeated by run-scoped state.
-                attempts = int(issue_attempts.get(attempt_key, 0) or 0)
-                if isinstance(audit, dict) and audit.get("attempts") is not None:
-                    attempts = max(attempts, int(audit.get("attempts") or 0))
-                if _is_documented_absence(stance) and (
-                    attempts < 1 or not isinstance(audit, dict) or audit.get("status") != "completed" or researched_actions < 2
+                if _is_documented_absence(stance) and issue_data.get("sources"):
+                    # A source-backed absence is itself evidence that the issue was
+                    # researched. Older drafts predate provenance logging, so do
+                    # not reject their citations merely because no audit survived.
+                    continue
+                if _is_documented_absence(stance) and not isinstance(audit, dict) and not issue_research:
+                    flags.append(
+                        {
+                            "field": f"candidates[{index}].issues.{issue_name}.stance",
+                            "concern": "No-position result has no recorded research telemetry; this legacy draft predates provenance logging.",
+                            "suggestion": "Retain supporting sources when available; future issue runs will record search provenance.",
+                            "severity": "info",
+                        }
+                    )
+                elif _is_documented_absence(stance) and (
+                    not isinstance(audit, dict) or audit.get("status") != "completed" or researched_actions < 2
                 ):
                     flags.append(
                         {
