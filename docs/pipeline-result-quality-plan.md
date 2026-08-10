@@ -150,7 +150,7 @@ notes are tracked separately under Phases 2-7 below.
 
 ## Phase 2: Contest Stage Semantics
 
-Status: Proposed.
+Status: Implemented.
 
 ### Problem
 
@@ -202,7 +202,7 @@ This can start as internal metadata and prompt behavior.
 
 ## Phase 3: Candidate Provenance
 
-Status: Proposed.
+Status: Implemented.
 
 ### Problem
 
@@ -239,7 +239,7 @@ who the candidate is; roster provenance proves why they are in this race.
 
 ## Phase 4: Correction Goals as First-Class Constraints
 
-Status: Proposed.
+Status: Implemented.
 
 ### Problem
 
@@ -274,7 +274,7 @@ Each phase should restate the relevant goal fragment:
 
 ## Phase 5: Source Playbooks by Race Type
 
-Status: Proposed.
+Status: Implemented.
 
 ### Problem
 
@@ -302,7 +302,7 @@ Define prompt playbooks:
 
 ## Phase 6: Review Specialization
 
-Status: Proposed.
+Status: Implemented.
 
 ### Problem
 
@@ -330,7 +330,7 @@ This can be done through prompt structure without changing providers.
 
 ## Phase 7: Post-Run Audit Notes
 
-Status: Proposed.
+Status: Implemented.
 
 ### Problem
 
@@ -362,7 +362,16 @@ This is not a publish block. It is a triage aid.
 - Runs with unresolved roster uncertainty say so plainly.
 - Draft/published drift is easy to prioritize.
 
-## Implementation Order
+## Delivered State
+
+All seven phases are implemented in the shared schema, agent prompts and
+phase runners, review packet, and admin-visible race output. The current
+operational follow-up is data QA: run targeted, evidence-backed refreshes for
+races whose published data is stale or uncertain, review the generated draft,
+and publish only after validation passes. That work is intentionally not
+automated because it consumes external API budget and changes public data.
+
+## Historical Implementation Order
 
 1. Finish prompt/process changes already started:
    - race identity date-aware discovery

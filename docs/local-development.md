@@ -15,7 +15,7 @@ From the project root, the directory that contains `pyproject.toml`:
 
 ```powershell
 copy .env.example .env
-python -m venv .venv
+py -3.11 -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -c requirements-constraints.txt -r requirements.txt
 pip install -e shared/
@@ -93,7 +93,7 @@ npm run dev -- --host 0.0.0.0 --port 5173
 Optional MCP server, backed by the Races API:
 
 ```powershell
-python -m venv .venv-mcp
+py -3.11 -m venv .venv-mcp
 .venv-mcp\Scripts\Activate.ps1
 pip install -r requirements-mcp.txt
 $env:SMARTERVOTE_RACES_API_URL = "http://127.0.0.1:8080"

@@ -21,9 +21,10 @@ Best for development and small-scale use.
 **Setup**:
 
 ```powershell
-# Install dependencies
-pip install -r requirements.txt
-pip install -e shared/
+# Create the same Python 3.11 environment CI uses, then install dependencies.
+py -3.11 -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python -m pip install -e shared/
 
 # Set API keys in .env
 # OPENROUTER_API_KEY, SERPER_API_KEY

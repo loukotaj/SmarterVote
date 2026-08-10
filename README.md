@@ -15,8 +15,9 @@ SmarterVote uses a multi-phase AI agent to research election races and produce s
 ## Local Development
 
 ```powershell
-pip install -r requirements.txt
-pip install -e shared/
+py -3.11 -m venv .venv
+.\.venv\Scripts\python -m pip install -r requirements.txt
+.\.venv\Scripts\python -m pip install -e shared/
 copy .env.example .env
 
 cd web

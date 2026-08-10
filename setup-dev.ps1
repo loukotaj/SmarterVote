@@ -11,7 +11,19 @@ if (-not (Test-Path ".pre-commit-config.yaml")) {
 
 # Check if virtual environment exists
 if (-not (Test-Path ".venv")) {
-    Write-Host "ERROR: Virtual environment not found. Please run 'python -m venv .venv' first." -ForegroundColor Red
+    Write-Host "ERROR: Virtual environment not found. Please run 'py -3.11 -m venv .venv' first." -ForegroundColor Red
+    exit 1
+}
+
+# Keep local tooling aligned with the Python version used by CI and Cloud Run.
+$pythonExe = ".\.venv\Scripts\python.exe"
+if (-not (Test-Path $pythonExe)) {
+    Write-Host "ERROR: .venv does not contain a Windows Python executable." -ForegroundColor Red
+    exit 1
+}
+$pythonVersion = & $pythonExe -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')"
+if ($pythonVersion -ne "3.11") {
+    Write-Host "ERROR: .venv uses Python $pythonVersion. Recreate it with 'py -3.11 -m venv .venv'." -ForegroundColor Red
     exit 1
 }
 
@@ -46,7 +58,7 @@ function Invoke-SafeCommand {
 $success = $true
 
 # Install shared schema package first
-$success = $success -and (Invoke-SafeCommand "python -m pip install -e shared/" "Installing shared schema package")
+$success = $success -and (Invoke-SafeCommand "$pythonExe -m pip install -e shared/" "Installing shared schema package")
 
 # Install pre-commit hooks
 $success = $success -and (Invoke-SafeCommand "$precommitPath install" "Installing pre-commit hooks")

@@ -7,9 +7,10 @@ import time
 from typing import Optional
 
 import httpx
+import jwt
 from fastapi import Depends, Header, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from jose import JWTError, jwt
+from jwt import InvalidTokenError
 
 _http_bearer = HTTPBearer(auto_error=False)
 
@@ -53,7 +54,7 @@ async def _decode_jwt(token: str) -> dict:
         raise HTTPException(status_code=401, detail="Invalid token: signing key not found")
     return jwt.decode(
         token,
-        rsa_key,
+        jwt.PyJWK.from_dict(rsa_key).key,
         algorithms=["RS256"],
         audience=auth0_audience,
         issuer=f"https://{auth0_domain}/",
@@ -94,5 +95,5 @@ async def verify_token(
         raise HTTPException(status_code=401, detail="Missing token")
     try:
         return await _decode_jwt(credentials.credentials)
-    except (JWTError, httpx.HTTPError, KeyError, ValueError) as exc:
+    except (InvalidTokenError, httpx.HTTPError, KeyError, ValueError) as exc:
         raise HTTPException(status_code=401, detail="Invalid authentication") from exc

@@ -22,14 +22,15 @@ The current public product surface is documented in [architecture.md](architectu
 
 Agent-wide rules live in `../CLAUDE.md`; `../AGENTS.md` is the short entry point. CI commands are defined by `.github/workflows/ci.yaml`, with the runnable agent checklist in `.github/prompts/ci-check.prompt.md`.
 
-## Active plans
+## Historical implementation plans
 
-These documents track unfinished work. They are not general operating instructions and should be removed once their remaining work is delivered or abandoned.
+These documents record completed implementation decisions and remaining
+operational release checks. They are not general operating instructions.
 
-| Document | Status |
+| Document | Current status |
 | --- | --- |
-| [pipeline-result-quality-plan.md](pipeline-result-quality-plan.md) | Active quality-improvement plan; consult its delivered/remaining sections |
-| [senate-forecast-page-plan.md](senate-forecast-page-plan.md) | Partially complete product plan |
+| [pipeline-result-quality-plan.md](pipeline-result-quality-plan.md) | Implementation complete; targeted data-quality QA remains operational work |
+| [senate-forecast-page-plan.md](senate-forecast-page-plan.md) | Implementation complete; live publication QA remains an authorized release task |
 
 ## Maintenance rules
 

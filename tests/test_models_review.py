@@ -466,6 +466,26 @@ async def test_run_reviews_sends_identical_complete_packet_to_all_default_provid
 
 
 @pytest.mark.asyncio
+async def test_run_reviews_passes_correction_goal_to_each_reviewer(monkeypatch):
+    from pipeline_client.agent.review import run_reviews
+
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test")
+    received_goals = []
+
+    async def capture_review(_race_id, _profile_json, *, correction_goal, **_kwargs):
+        received_goals.append(correction_goal)
+        return {"model": "reviewer", "verdict": "approved", "flags": [], "summary": ""}
+
+    with (
+        patch("pipeline_client.agent.review._run_single_review", side_effect=capture_review),
+        patch("pipeline_client.agent.review.check_profile_links", new_callable=AsyncMock, return_value=None),
+    ):
+        await run_reviews("test-race-2026", _valid_review_profile(), goal="Verify the certified roster.")
+
+    assert received_goals == ["Verify the certified roster."] * 3
+
+
+@pytest.mark.asyncio
 async def test_check_profile_links():
     """check_profile_links programmatically detects dead and active URLs."""
     import httpx

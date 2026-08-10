@@ -303,17 +303,15 @@ def _assert_publishable_race(data: Dict[str, Any]) -> None:
             detail = f" Remaining steps: {', '.join(str(step) for step in remaining)}." if remaining else ""
             raise ValueError(f"Race draft is operationally incomplete and cannot be published.{detail}")
 
-    blocking_review_flags = [
+    error_flags = [
         flag
         for review in data.get("reviews") or []
         if isinstance(review, dict)
         for flag in review.get("flags") or []
-        if isinstance(flag, dict) and flag.get("severity") in {"warning", "error"}
+        if isinstance(flag, dict) and flag.get("severity") == "error"
     ]
-    if blocking_review_flags:
-        raise ValueError(
-            f"Race has {len(blocking_review_flags)} unresolved warning-or-higher review flag(s) and cannot be published"
-        )
+    if error_flags:
+        raise ValueError(f"Race has {len(error_flags)} unresolved error-severity review flag(s) and cannot be published")
 
     validation_grade = data.get("validation_grade")
     if not isinstance(validation_grade, dict):

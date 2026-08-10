@@ -12,11 +12,12 @@ from pathlib import Path
 from typing import Any, Dict
 
 import httpx
+import jwt
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from jose import JWTError, jwt
+from jwt import InvalidTokenError
 from pydantic import BaseModel
 
 from .logging_manager import logging_manager
@@ -83,7 +84,7 @@ async def _decode_token(token: str) -> Dict[str, Any]:
         raise HTTPException(status_code=401, detail="Invalid token")
     return jwt.decode(
         token,
-        rsa_key,
+        jwt.PyJWK.from_dict(rsa_key).key,
         algorithms=["RS256"],
         audience=settings.auth0_audience,
         issuer=f"https://{settings.auth0_domain}/",
@@ -104,7 +105,7 @@ async def verify_token(
         raise HTTPException(status_code=401, detail="Missing token")
     try:
         return await _decode_token(credentials.credentials)
-    except (JWTError, httpx.HTTPError, KeyError, ValueError) as exc:
+    except (InvalidTokenError, httpx.HTTPError, KeyError, ValueError) as exc:
         raise HTTPException(status_code=401, detail="Invalid authentication") from exc
 
 

@@ -11,7 +11,7 @@ slowapi==0.1.10
 httpx>=0.28.1,<1.0.0
 
 # JWT verification for Auth0
-python-jose[cryptography]==3.5.0
+PyJWT[crypto]==2.13.0
 
 # Google Cloud Storage (for reading race data in production)
 google-cloud-storage==3.13.0

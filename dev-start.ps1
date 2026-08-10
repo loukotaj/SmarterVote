@@ -62,6 +62,16 @@ $projectRoot = $PWD.Path
 $env:PYTHONPATH = $projectRoot
 $pythonExe = Join-Path $projectRoot ".venv\Scripts\python.exe"
 
+if (-not (Test-Path $pythonExe)) {
+    Write-Host "ERROR: .venv is missing. Create it with 'py -3.11 -m venv .venv', then install dependencies." -ForegroundColor Red
+    exit 1
+}
+$pythonVersion = & $pythonExe -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')"
+if ($pythonVersion -ne "3.11") {
+    Write-Host "ERROR: .venv uses Python $pythonVersion. Recreate it with 'py -3.11 -m venv .venv'." -ForegroundColor Red
+    exit 1
+}
+
 
 
 Write-Host ""

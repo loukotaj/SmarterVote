@@ -51,7 +51,7 @@ def test_publish_rejects_review_only_remaining_with_failed_grade():
         gcs_helpers.publish_race_to_gcs("nh-senate-2026", failed_review_race)
 
 
-def test_publish_rejects_unresolved_review_warning_even_with_passing_grade():
+def test_publish_allows_review_warnings_with_passing_grade():
     race = {
         "id": "nh-senate-2026",
         "candidates": [{"name": "Alice"}],
@@ -71,7 +71,38 @@ def test_publish_rejects_unresolved_review_warning_even_with_passing_grade():
         ],
     }
 
-    with pytest.raises(ValueError, match="unresolved warning-or-higher"):
+    with (
+        patch("gcs_helpers._gcs_archive_race"),
+        patch("gcs_helpers._gcs_put_race_json", return_value=True) as mock_put,
+        patch("gcs_helpers._gcs_delete_race_json", return_value=True),
+        patch("firestore_helpers._fs_update_race"),
+    ):
+        gcs_helpers.publish_race_to_gcs("nh-senate-2026", race)
+
+    mock_put.assert_called_once()
+
+
+def test_publish_rejects_unresolved_error_review_flag():
+    race = {
+        "id": "nh-senate-2026",
+        "candidates": [{"name": "Alice"}],
+        "validation_grade": {"grade": "A", "score": 95, "passed": True},
+        "reviews": [{"flags": [{"severity": "error", "concern": "Candidate is missing required evidence."}]}],
+    }
+
+    with pytest.raises(ValueError, match="unresolved error-severity"):
+        gcs_helpers._assert_publishable_race(race)
+
+
+def test_publish_rejects_review_warnings_with_failing_grade():
+    race = {
+        "id": "nh-senate-2026",
+        "candidates": [{"name": "Alice"}],
+        "validation_grade": {"grade": "C", "score": 75, "passed": False},
+        "reviews": [{"flags": [{"severity": "warning", "concern": "Summary has no sources."}]}],
+    }
+
+    with pytest.raises(ValueError, match="failed validation"):
         gcs_helpers._assert_publishable_race(race)
 
 
