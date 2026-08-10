@@ -257,6 +257,9 @@ export interface RosterResearchAudit {
   summary: string;
   active_candidate_count: number;
   completeness_sources: CandidateRosterSource[];
+  completeness_status?: "unproven";
+  completeness_note?: string;
+  completeness_reference_urls: string[];
 }
 
 export interface MetadataResearchAudit {

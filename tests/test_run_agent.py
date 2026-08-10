@@ -21,6 +21,7 @@ from pipeline_client.agent.phases import (
 )
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.backend.handlers.agent import HandoffTriggered
+from shared.models import RaceJSON
 from shared.pipeline_config import PIPELINE_STEP_IDS
 
 
@@ -525,15 +526,25 @@ async def test_unproven_roster_completeness_keeps_going_and_says_so():
     existing = {
         "id": "al-house-02-2026",
         "election_date": "2026-11-03",
-        "candidates": [{"name": "Wrong Contest", "party": "Unknown", "roster_sources": []}],
+        "candidates": [
+            {"name": "Wrong Contest", "party": "Unknown", "roster_sources": []},
+            {"name": "Supported Candidate", "party": "Unknown", "roster_sources": []},
+        ],
         "updated_utc": "2026-01-01T00:00:00Z",
     }
+
+    async def fail_roster_finalization(*_args, **kwargs):
+        if kwargs.get("phase_name") == "roster-verify":
+            kwargs["extra_tool_handlers"]["remove_candidate"](
+                {"name": "Wrong Contest", "reason": "Officially withdrew from the race."}
+            )
+        return {"_tool_trace": {"required_final_tool_succeeded": False}}
 
     with (
         patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
         patch("pipeline_client.agent.phases._sync_ballotpedia_roster", new_callable=AsyncMock),
     ):
-        mock_loop.return_value = {"_tool_trace": {"required_final_tool_succeeded": False}}
+        mock_loop.side_effect = fail_roster_finalization
         result = await run_agent(
             "al-house-02-2026",
             cheap_mode=True,
@@ -552,8 +563,13 @@ async def test_unproven_roster_completeness_keeps_going_and_says_so():
     assert "discovery" not in (result["pipeline_state"].get("remaining_steps") or [])
     assert result["run_health"]["status"] == "degraded"
     roster_research = result["pipeline_state"]["roster_research"]
+    assert roster_research["finalized_at"]
+    assert roster_research["summary"] == roster_research["completeness_note"]
     assert roster_research["completeness_status"] == "unproven"
     assert "could not confirm the complete candidate field" in roster_research["completeness_note"].lower()
+    assert [candidate["name"] for candidate in result["candidates"]] == ["Supported Candidate"]
+    assert roster_research["active_candidate_count"] == len(result["candidates"])
+    RaceJSON.model_validate(result)
     reasons = result["run_health"]["reasons"]
     assert "roster_completeness_unproven" in reasons
 

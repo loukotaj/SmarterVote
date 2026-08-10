@@ -7,6 +7,7 @@ authoritative source) without relying on the model to police itself.
 """
 
 import re
+from datetime import datetime, timezone
 from typing import Any, Dict, List
 
 from .. import roster
@@ -363,12 +364,16 @@ def _record_provisional_roster(race_json: Dict[str, Any], log: Any | None = None
     # ran sentences together ("...September 1, 2026 Expect this to firm up...").
     note = " ".join(part if part.rstrip().endswith((".", "!", "?")) else f"{part.rstrip()}." for part in note_parts)
 
-    roster_research = race_json.setdefault("pipeline_state", {}).setdefault("roster_research", {})
-    if isinstance(roster_research, dict):
-        roster_research["completeness_status"] = "unproven"
-        roster_research["completeness_note"] = note
-        roster_research["completeness_reference_urls"] = links
-        roster_research["active_candidate_count"] = len(names)
+    pipeline_state = race_json.setdefault("pipeline_state", {})
+    pipeline_state["roster_research"] = {
+        "finalized_at": datetime.now(timezone.utc).isoformat(),
+        "summary": note,
+        "active_candidate_count": len(names),
+        "completeness_sources": [],
+        "completeness_status": "unproven",
+        "completeness_note": note,
+        "completeness_reference_urls": links,
+    }
 
     record_step_failure(race_json, "discovery", RunFailureReason.ROSTER_COMPLETENESS_UNPROVEN, note)
     if log:
