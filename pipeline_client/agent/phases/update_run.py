@@ -124,6 +124,7 @@ async def _run_update(
             race_json["pipeline_state"]["completed_units"] = sorted(completed_units)
 
         pre_sync_names = list(candidate_names)
+        roster_sync_succeeded: bool | None = None
         if "discovery.roster_sync" not in completed_units:
             log("info", "Update Phase 0: Verifying candidate roster...")
             roster_sync_succeeded = False
@@ -196,9 +197,8 @@ async def _run_update(
                 # a pending `review` but nothing else, so fl-house-10-2026 (a
                 # decided, uncontested race whose roster is correct) was blocked
                 # by bookkeeping rather than by any doubt about its data. The
-                # provisional status is already recorded on roster_research and as
-                # a step failure, and every refresh re-runs discovery anyway.
-                _record_provisional_roster(race_json, log)
+                # provisional status is recorded below on roster_research and as a
+                # step failure, and every refresh re-runs discovery anyway.
                 pipeline_state = race_json.setdefault("pipeline_state", {})
                 pipeline_state["complete"] = False
                 track(
@@ -265,6 +265,12 @@ async def _run_update(
             )
         else:
             log("info", "  Roster verify restored from checkpoint")
+
+        if roster_sync_succeeded is False:
+            # Roster verification can remove stale or ineligible candidates, so
+            # finalize the provisional audit only after that phase has settled
+            # the active roster and its count.
+            _record_provisional_roster(race_json, log)
 
         candidate_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]
         candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)

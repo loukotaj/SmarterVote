@@ -460,6 +460,9 @@ class RosterResearchAudit(BaseModel):
     summary: str = ""
     active_candidate_count: int
     completeness_sources: List[CandidateRosterSource] = Field(default_factory=list)
+    completeness_status: Optional[Literal["unproven"]] = None
+    completeness_note: Optional[str] = None
+    completeness_reference_urls: List[str] = Field(default_factory=list)
 
 
 class MetadataResearchAudit(BaseModel):
