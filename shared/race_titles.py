@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from typing import Any, Mapping
 
 STATE_NAMES = {
@@ -81,14 +82,15 @@ def canonical_race_title(race: Mapping[str, Any], race_id: str | None = None) ->
     if "senate" in office:
         return f"{year} {state} U.S. Senate{special} Election"
     if "house" in office or "representative" in office:
-        try:
-            district_parts = [part for part in parts[1:] if part not in {"house", year, "special"}]
-            if not district_parts or district_parts == ["at", "large"]:
-                district = "At-Large"
-            else:
-                district = _ordinal("".join(district_parts))
-        except (TypeError, ValueError):
-            return race.get("title") or None
+        district_label = f'{race.get("district") or ""} {race.get("jurisdiction") or ""}'
+        labeled_district = re.search(r"\b(\d+)(?:st|nd|rd|th)?\s+(?:Congressional\s+)?District\b", district_label, re.I)
+        if re.search(r"\bat[- ]large\b", district_label, re.I) or {"at", "large"}.issubset(parts):
+            district = "At-Large"
+        elif labeled_district:
+            district = _ordinal(labeled_district.group(1))
+        else:
+            numeric_district = next((part for part in parts if part != year and part.isdigit()), None)
+            district = _ordinal(numeric_district) if numeric_district else "At-Large"
         return f"{year} {state}'s {district} Congressional District{special} Election"
     if "governor" in office or "gubernatorial" in office:
         if "lieutenant governor" in office:

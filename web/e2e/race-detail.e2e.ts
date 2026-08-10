@@ -15,7 +15,7 @@ test.describe("race detail page", () => {
     await page.goto(`/races/${FIXTURE_RACE_IDS.senate}/`);
 
     await expect(
-      page.getByRole("heading", { name: "Ohio U.S. Senate Race 2026" }),
+      page.getByRole("heading", { name: "2026 Ohio U.S. Senate Election" }),
     ).toBeVisible();
 
     // Candidates section
@@ -107,7 +107,7 @@ test.describe("race detail page", () => {
 
     await expect(
       page.getByRole("heading", {
-        name: "Florida's 9th Congressional District Race 2026",
+        name: "2026 Florida's 9th Congressional District Election",
       }),
     ).toBeVisible();
     await expect(page.getByRole("link", { name: "Compare all" })).toHaveCount(

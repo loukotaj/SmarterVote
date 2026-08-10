@@ -74,7 +74,7 @@ test.describe("candidate comparison page", () => {
       new RegExp(`/races/${FIXTURE_RACE_IDS.senate}/?$`),
     );
     await expect(
-      page.getByRole("heading", { name: "Ohio U.S. Senate Race 2026" }),
+      page.getByRole("heading", { name: "2026 Ohio U.S. Senate Election" }),
     ).toBeVisible();
   });
 });

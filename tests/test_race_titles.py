@@ -18,6 +18,17 @@ def test_canonical_race_title_normalizes_federal_races():
         canonical_race_title({"id": "wa-01-house-2026", "state": "Washington", "office": "U.S. Representative"})
         == "2026 Washington's 1st Congressional District Election"
     )
+    assert (
+        canonical_race_title(
+            {
+                "id": "e2e-oh-house-05-2026",
+                "state": "Ohio",
+                "office": "U.S. House",
+                "jurisdiction": "Ohio's 5th Congressional District",
+            }
+        )
+        == "2026 Ohio's 5th Congressional District Election"
+    )
 
 
 def test_canonical_race_title_normalizes_governor_and_preserves_other_offices():

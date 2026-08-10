@@ -6,7 +6,7 @@ type TitleRace = Pick<Race | RaceSummary, "id"> &
       Race | RaceSummary,
       "title" | "office" | "state" | "jurisdiction" | "election_date"
     >
-  >;
+  > & { district?: string | null };
 
 const STATE_NAMES: Record<string, string> = {
   al: "Alabama",
@@ -82,14 +82,23 @@ function ordinal(value: string): string {
   return `${number}${["th", "st", "nd", "rd"][number % 10] ?? "th"}`;
 }
 
-function houseDistrict(parts: string[], year: string): string | null {
+function houseDistrict(
+  race: TitleRace,
+  parts: string[],
+  year: string,
+): string | null {
   if (!parts.includes("house")) return null;
-  const district = parts
-    .slice(1)
-    .filter((part) => !["house", year, "special"].includes(part));
-  if (district.length === 0) return "At-Large";
-  if (district.join("-") === "at-large") return "At-Large";
-  return ordinal(district.join(""));
+  const districtLabel = `${race.district ?? ""} ${race.jurisdiction ?? ""}`;
+  if (/\bat[- ]large\b/i.test(districtLabel)) return "At-Large";
+  const labeledDistrict = districtLabel.match(
+    /\b(\d+)(?:st|nd|rd|th)?\s+(?:Congressional\s+)?District\b/i,
+  );
+  if (labeledDistrict) return ordinal(labeledDistrict[1]);
+  if (parts.includes("at") && parts.includes("large")) return "At-Large";
+  const numericDistrict = parts.find(
+    (part) => /^\d{1,3}$/.test(part) && part !== year,
+  );
+  return numericDistrict ? ordinal(numericDistrict) : "At-Large";
 }
 
 /** A concise, deterministic election name for every public-facing race surface. */
@@ -108,7 +117,7 @@ export function raceDisplayTitle(race: TitleRace): string {
     state &&
     (office.includes("house") || office.includes("representative"))
   ) {
-    const district = houseDistrict(parts, year);
+    const district = houseDistrict(race, parts, year);
     if (district)
       return `${year} ${state}'s ${district} Congressional District${special} Election`;
   }

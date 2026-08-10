@@ -44,6 +44,15 @@ describe("raceDisplayTitle", () => {
     ).toBe("2026 Washington's 1st Congressional District Election");
     expect(
       raceDisplayTitle({
+        id: "e2e-oh-house-05-2026",
+        title: "old",
+        office: "U.S. House",
+        state: "Ohio",
+        jurisdiction: "Ohio's 5th Congressional District",
+      }),
+    ).toBe("2026 Ohio's 5th Congressional District Election");
+    expect(
+      raceDisplayTitle({
         id: "de-house-at-large-2026",
         title: "old",
         office: "U.S. House",
