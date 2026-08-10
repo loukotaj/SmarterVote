@@ -1495,11 +1495,19 @@ def _make_editing_handlers(
         c = _find_candidate(name)
         if not c:
             return f"Candidate '{name}' not found."
+        year = args.get("year")
+        if year in (None, ""):
+            year = None
+        else:
+            try:
+                year = int(year)
+            except (TypeError, ValueError):
+                return "ERROR: education year must be an integer or omitted."
         entry = {
             "institution": args["institution"],
             "degree": args["degree"],
             "field": args.get("field"),
-            "year": args.get("year"),
+            "year": year,
         }
         # Dedup: same institution + degree -> skip
         inst_lower = args["institution"].lower()
@@ -1562,7 +1570,16 @@ def _make_editing_handlers(
         for entry in matched:
             for field in ("degree", "field", "year"):
                 if field in args:
-                    entry[field] = args[field]
+                    value = args[field]
+                    if field == "year":
+                        if value in (None, ""):
+                            value = None
+                        else:
+                            try:
+                                value = int(value)
+                            except (TypeError, ValueError):
+                                return "ERROR: education year must be an integer or omitted."
+                    entry[field] = value
         changes = {k: v for k, v in args.items() if k not in ("candidate_name", "institution")}
         log("info", f"    ✏️ Updated education entry '{args['institution']}' for {name}: {changes}")
         return f"Updated {len(matched)} education entry/entries for '{name}' matching '{args['institution']}'."

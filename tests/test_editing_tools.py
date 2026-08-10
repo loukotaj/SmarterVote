@@ -2183,6 +2183,43 @@ def test_search_cache_list_cached_for_race():
         assert "https://r.com" in result["searches"][0]["urls"]
 
 
+def test_education_year_normalizes_blank_to_none_and_numeric_text_to_int():
+    """Education edits must remain valid for RaceJSON's optional integer year."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    race_json = {"candidates": [{"name": "Ted Brown", "education": []}]}
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    assert "Added education" in handlers["add_education_entry"](
+        {
+            "candidate_name": "Ted Brown",
+            "institution": "The Linsly School",
+            "degree": "High School Diploma",
+            "year": "",
+        }
+    )
+    assert race_json["candidates"][0]["education"][0]["year"] is None
+
+    assert "Updated 1 education" in handlers["update_education_entry"](
+        {
+            "candidate_name": "Ted Brown",
+            "institution": "The Linsly School",
+            "year": "1980",
+        }
+    )
+    assert race_json["candidates"][0]["education"][0]["year"] == 1980
+
+    result = handlers["update_education_entry"](
+        {
+            "candidate_name": "Ted Brown",
+            "institution": "The Linsly School",
+            "year": "unknown",
+        }
+    )
+    assert result == "ERROR: education year must be an integer or omitted."
+    assert race_json["candidates"][0]["education"][0]["year"] == 1980
+
+
 def _nj_race_json():
     return {
         "id": "nj-senate-2026",
