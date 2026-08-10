@@ -158,4 +158,36 @@ describe("forecast presentation utilities", () => {
     expect(colors.California).toBe("var(--color-tossup)");
     expect(tooltips.California.badge).toBe("0/1 Forecasted");
   });
+
+  it("labels a forecasted House state's closest race without calling every state a bellwether", () => {
+    const races: RaceSummary[] = [
+      {
+        id: "tx-house-01-2026",
+        title: "Texas House 1",
+        office: "U.S. House",
+        state: "Texas",
+        election_date: "2026-11-03",
+        updated_utc: "2026-07-01T00:00:00Z",
+        candidates: [],
+        forecast: {
+          predicted_winner_party: "Republican",
+          party_probabilities: { Republican: 0.8, Democratic: 0.2 },
+          win_probability: 0.8,
+          rating: "likely_r",
+          confidence: "medium",
+          rationale: "Clear advantage.",
+          based_on_poll_count: 1,
+          generated_at: "2026-07-01T00:00:00Z",
+          model: "test",
+          source_urls: [],
+          key_reasons: [],
+          market_signals: [],
+        },
+      },
+    ];
+
+    const { tooltips } = buildStateMapData(races, "house");
+    expect(tooltips.Texas.badge).toBe("Closest race: Likely R");
+    expect(tooltips.Texas.badge).not.toContain("bellwether");
+  });
 });
