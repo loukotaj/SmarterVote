@@ -10,6 +10,7 @@
   import { getRace, getDraftRace } from "$lib/api";
   import { candidateSlug, formatModelName } from "$lib/utils/format";
   import { isExternalUrl } from "$lib/utils/url";
+  import { raceDisplayTitle } from "$lib/utils/raceTitle";
 
   export let data: { prerenderedRace?: Race };
 
@@ -105,12 +106,15 @@
 
 <svelte:head>
   <title
-    >{candidate?.name ?? "Candidate"} — {race?.title ?? "Loading..."} | Smarter.vote</title
+    >{candidate?.name ?? "Candidate"} — {race
+      ? raceDisplayTitle(race)
+      : "Loading..."} | Smarter.vote</title
   >
   <meta
     name="description"
-    content="Detailed profile for {candidate?.name ??
-      'candidate'} in {race?.title ?? 'this election'}."
+    content="Detailed profile for {candidate?.name ?? 'candidate'} in {race
+      ? raceDisplayTitle(race)
+      : 'this election'}."
   />
   <link
     rel="canonical"
@@ -123,13 +127,15 @@
   />
   <meta
     property="og:title"
-    content="{candidate?.name ?? 'Candidate'} — {race?.title ??
-      'Election'} | Smarter.vote"
+    content="{candidate?.name ?? 'Candidate'} — {race
+      ? raceDisplayTitle(race)
+      : 'Election'} | Smarter.vote"
   />
   <meta
     property="og:description"
-    content="Detailed profile for {candidate?.name ??
-      'candidate'} in {race?.title ?? 'this election'}."
+    content="Detailed profile for {candidate?.name ?? 'candidate'} in {race
+      ? raceDisplayTitle(race)
+      : 'this election'}."
   />
   <meta
     property="og:image"
@@ -142,13 +148,15 @@
   />
   <meta
     property="twitter:title"
-    content="{candidate?.name ?? 'Candidate'} — {race?.title ??
-      'Election'} | Smarter.vote"
+    content="{candidate?.name ?? 'Candidate'} — {race
+      ? raceDisplayTitle(race)
+      : 'Election'} | Smarter.vote"
   />
   <meta
     property="twitter:description"
-    content="Detailed profile for {candidate?.name ??
-      'candidate'} in {race?.title ?? 'this election'}."
+    content="Detailed profile for {candidate?.name ?? 'candidate'} in {race
+      ? raceDisplayTitle(race)
+      : 'this election'}."
   />
   <meta
     property="twitter:image"
@@ -286,7 +294,7 @@
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          Back to {race.title}
+          Back to {raceDisplayTitle(race)}
         </a>
         {#if otherCandidates.length > 0}
           <a

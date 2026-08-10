@@ -8,6 +8,7 @@
   import { candidateSlug } from "$lib/utils/format";
   import { debounce } from "$lib/utils/debounce";
   import { matchesSearchQuery } from "$lib/utils/search";
+  import { raceDisplayTitle } from "$lib/utils/raceTitle";
 
   export let races: RaceSummary[] = [];
   export let isAuthenticated = false;
@@ -95,7 +96,7 @@
             .map((candidate) => ({
               ...candidate,
               raceId: race.id,
-              raceTitle: race.title || race.id,
+              raceTitle: raceDisplayTitle(race),
             })),
         )
         .slice(0, 5)
@@ -369,7 +370,7 @@
                   aria-selected={index === activeIndex}
                 >
                   <span class="block truncate font-medium"
-                    >{race.title || race.id}</span
+                    >{raceDisplayTitle(race)}</span
                   >
                   <span class="block truncate text-content-subtle"
                     >{race.office || ""}{race.state

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import type { RaceSummary } from "$lib/types";
+  import { raceDisplayTitle } from "$lib/utils/raceTitle";
   import {
     fallbackPartyForRace,
     raceHref,
@@ -48,7 +49,7 @@
                   href={browser ? raceHref(race.id) : undefined}
                   class="font-semibold text-content hover:text-blue-600 dark:hover:text-blue-400"
                 >
-                  {race.title ?? race.id}
+                  {raceDisplayTitle(race)}
                 </a>
               </td>
               <td class="px-5 py-3 whitespace-nowrap">

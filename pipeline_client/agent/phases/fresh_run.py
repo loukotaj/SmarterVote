@@ -4,6 +4,8 @@ import time
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
+from shared.race_titles import apply_canonical_race_title
+
 from ..llm import _ensure_dict
 from ..prompts import DISCOVERY_SYSTEM, DISCOVERY_USER, cycle_kwargs
 from ..run_budget import RunBudget
@@ -67,6 +69,7 @@ async def _run_fresh(
         log,
     )
     _sanitize_roster(race_json, log)
+    apply_canonical_race_title(race_json, race_id)
     await _await_with_run_budget(
         _sync_ballotpedia_roster(race_json, race_id, log),
         run_budget=run_budget,
@@ -112,5 +115,6 @@ async def _run_fresh(
         )
     )
     _sanitize_roster(race_json, log)
+    apply_canonical_race_title(race_json, race_id)
 
     return race_json

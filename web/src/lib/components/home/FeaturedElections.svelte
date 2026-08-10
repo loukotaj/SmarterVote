@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { RaceSummary } from "$lib/types";
+  import { raceDisplayTitle } from "$lib/utils/raceTitle";
   export let races: RaceSummary[] = [];
 </script>
 
@@ -82,7 +83,7 @@
               <h3
                 class="mt-2 text-xl font-bold leading-snug text-content transition group-hover:text-blue-600 dark:group-hover:text-blue-400"
               >
-                {race.title ?? race.office}
+                {raceDisplayTitle(race)}
               </h3>
               <p class="mt-2 text-sm text-content-muted">
                 {race.candidates.length} candidates researched

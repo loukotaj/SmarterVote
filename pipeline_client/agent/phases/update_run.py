@@ -5,6 +5,8 @@ import time
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
+from shared.race_titles import apply_canonical_race_title
+
 from ..handlers import _make_editing_handlers
 from ..prompts import (
     ROSTER_SYNC_SYSTEM,
@@ -369,5 +371,6 @@ async def _run_update(
         )
     )
     _sanitize_roster(race_json, log)
+    apply_canonical_race_title(race_json, race_id)
 
     return race_json

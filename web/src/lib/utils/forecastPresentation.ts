@@ -9,6 +9,7 @@ import {
   type ForecastTab,
 } from "$lib/utils/forecast";
 import { GOVERNOR_HOLDOVERS, SENATE_HOLDOVERS } from "./holdovers";
+import { raceDisplayTitle } from "./raceTitle";
 
 export function partyClass(party: string): string {
   if (party === "Democratic") return "text-blue-600 dark:text-blue-400";
@@ -70,7 +71,7 @@ export function summarizeStateForecast(stateRaces: RaceSummary[]) {
             party === "Democratic" ? "D" : party === "Republican" ? "R" : party
           }`
         : "";
-      return `${race.title ?? race.id}: ${formatRating(
+      return `${raceDisplayTitle(race)}: ${formatRating(
         forecast.rating,
       )}${winProb}`;
     }),
