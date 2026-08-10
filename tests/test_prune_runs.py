@@ -4,8 +4,6 @@ import sys
 from datetime import datetime, timedelta, timezone
 from unittest.mock import MagicMock, patch
 
-import pytest
-
 RACES_API_DIR = pathlib.Path(__file__).parent.parent / "services" / "races-api"
 if str(RACES_API_DIR) not in sys.path:
     sys.path.insert(0, str(RACES_API_DIR))
@@ -152,10 +150,13 @@ def test_pipeline_metrics_summary_hours_filter():
     with patch("firestore_helpers._get_fs", return_value=db):
         tc = TestClient(app_module.app)
 
-        # Test without hours filter
+        # Test without hours filter — both the 1h-old and 48h-old run count.
         resp_all = tc.get("/pipeline/metrics/summary")
         assert resp_all.status_code == 200
         body_all = resp_all.json()
+
+        assert body_all["total_runs"] == 2
+        assert body_all["total_usd"] == 0.2
 
         # Test with 24 hours filter
         resp_filtered = tc.get("/pipeline/metrics/summary?hours=24")

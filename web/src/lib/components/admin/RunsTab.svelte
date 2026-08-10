@@ -13,6 +13,7 @@
     PipelineApiService,
   } from "$lib/services/pipelineApiService";
   import { analyticsService } from "$lib/services/analyticsService";
+  import { MAX_LOG_ENTRIES } from "$lib/config/constants";
 
   export let runs: RunHistoryItem[] = [];
   export let queueItems: QueueItem[] = [];
@@ -179,7 +180,7 @@
 
         // load logs
         const logRes = await apiService.getRunLogs(runId);
-        drawerLogs = logRes.logs || [];
+        drawerLogs = (logRes.logs || []).slice(-MAX_LOG_ENTRIES);
         lastLogCursor = logRes.next_cursor ?? null;
 
         // If status is running or pending, start polling
@@ -204,7 +205,11 @@
                 );
                 lastLogCursor = newLogsRes.next_cursor ?? lastLogCursor;
                 if (newLogsRes.logs && newLogsRes.logs.length > 0) {
-                  drawerLogs = [...drawerLogs, ...newLogsRes.logs];
+                  // A long run polls every 5s for hours; without a cap the
+                  // drawer grows without bound and the tab eventually stalls.
+                  drawerLogs = [...drawerLogs, ...newLogsRes.logs].slice(
+                    -MAX_LOG_ENTRIES,
+                  );
                 }
 
                 if (

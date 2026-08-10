@@ -490,6 +490,29 @@ def test_add_candidate_blocks_cross_race_contamination():
     assert len(race_json["candidates"]) == 0
 
 
+def test_get_other_state_candidates_reads_gcp_races_collection(monkeypatch):
+    """The GCP lookup uses the configured races collection instead of failing silently."""
+    from unittest.mock import Mock, patch
+
+    from pipeline_client.agent.handlers import _get_other_state_candidates
+    from pipeline_client.backend.settings import settings
+
+    document = Mock()
+    document.id = "ga-senate-2026"
+    document.to_dict.return_value = {"candidates": [{"name": "Jane Doe"}, {"name": "Withdrawn", "withdrawn": True}]}
+    query = Mock()
+    query.where.return_value.stream.return_value = [document]
+    db = Mock()
+    db.collection.return_value = query
+    monkeypatch.setattr(settings, "storage_mode", "gcp")
+    monkeypatch.setattr(settings, "firestore_project", "test-project")
+
+    with patch("google.cloud.firestore.Client", return_value=db):
+        assert _get_other_state_candidates("ga-governor-2026", "Georgia") == {"Jane Doe"}
+
+    db.collection.assert_called_once_with("races")
+
+
 def test_add_candidate_rejects_undated_or_generic_evidence():
     from pipeline_client.agent.agent import _make_editing_handlers
 

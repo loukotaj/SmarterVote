@@ -1,11 +1,10 @@
 """Phase 2b: dedicated donor & voting-record research."""
 
 import time
-from typing import Any, Dict, List
 
 from ..patches import _apply_finance_patch  # noqa: F401 — re-exported for backward compat
 from ..prompts import FINANCE_VOTING_SYSTEM, FINANCE_VOTING_USER, cycle_kwargs
-from ..run_budget import RunBudget, RunBudgetExceeded
+from ..run_budget import RunBudgetExceeded
 from ..selection import _scale_iterations
 from ._common import (
     RunFailureReason,

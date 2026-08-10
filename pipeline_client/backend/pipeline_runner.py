@@ -1,5 +1,4 @@
 import asyncio
-import json
 import logging
 import time
 import traceback
@@ -96,7 +95,7 @@ async def run_step_async(step: str, request: RunRequest, run_id: Optional[str] =
         context_logger.info(f"Getting handler for step '{step}'")
         handler = get_handler(step)
 
-        context_logger.info(f"Executing step handler...")
+        context_logger.info("Executing step handler...")
 
         # Pass run_id through options so the handler can track its own run
         options["run_id"] = run_id

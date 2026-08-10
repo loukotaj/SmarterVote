@@ -44,7 +44,7 @@ def test_new_artifact_id_embeds_step_and_timestamp():
     artifact_id = storage_module.new_artifact_id("issues")
 
     assert "-issues-" in artifact_id
-    prefix, step, suffix = artifact_id.split("-issues-")[0], "issues", artifact_id.split("-issues-")[1]
+    prefix, suffix = artifact_id.split("-issues-")[0], artifact_id.split("-issues-")[1]
     assert len(prefix) == 16  # YYYYMMDDTHHMMSSZ
     assert len(suffix) == 8  # uuid4 hex[:8]
 

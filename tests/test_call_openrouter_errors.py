@@ -4,7 +4,6 @@ bad request / content-policy retry, rate limiting, and 5xx provider errors.
 tests/test_agent_loop.py already covers the connection-error retry path.
 """
 
-import json
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import httpx

@@ -6,7 +6,9 @@ import os
 from dataclasses import dataclass
 from typing import Iterable, Mapping
 
-from shared.model_catalog import MODEL_PROFILES, MODEL_ROLES, normalize_profile_name
+# MODEL_PROFILES looks unused here but is re-exported on purpose: scripts/check_type_sync.py
+# reads it as ``pipeline_config.MODEL_PROFILES``, so dropping it breaks that CI gate.
+from shared.model_catalog import MODEL_PROFILES, MODEL_ROLES, normalize_profile_name  # noqa: F401
 from shared.models import CanonicalIssue
 
 PIPELINE_STEP_ORDER: tuple[str, ...] = (

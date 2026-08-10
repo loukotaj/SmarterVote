@@ -22,7 +22,7 @@ from .cost import (
 from .errors import PermanentProviderError, RetryableProviderError
 from .model_registry import escalation_for, normalize_model_id
 from .roster_adjudicator import collect_roster_adjudications
-from .run_budget import RunBudget, RunBudgetExceeded
+from .run_budget import RunBudget
 from .source_types import normalize_source_type
 from .tools import BALLOTPEDIA_ELECTION_TOOL, BALLOTPEDIA_TOOL, FETCH_TOOL, IMAGE_SEARCH_TOOL, SEARCH_TOOL
 from .utils import _extract_json, make_logger

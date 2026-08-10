@@ -11,7 +11,7 @@ from pipeline_client.backend.storage_backend import GCPStorageBackend, LocalStor
 
 class TestLocalStorageBackend:
     def test_init_creates_expected_directory_tree(self, tmp_path):
-        backend = LocalStorageBackend(tmp_path / "artifacts")
+        LocalStorageBackend(tmp_path / "artifacts")
 
         assert (tmp_path / "artifacts").is_dir()
         assert (tmp_path / "artifacts" / "races").is_dir()

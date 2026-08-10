@@ -32,7 +32,7 @@ from shared.config import FIRESTORE_RUNS_COLLECTION
 from shared.pipeline_config import RetentionConfig
 from shared.run_health import RunHealthVerdict
 
-from .models import RunInfo, RunOptions, RunRequest, RunStatus, RunStep
+from .models import RunInfo, RunRequest, RunStatus, RunStep
 
 logger = logging.getLogger("pipeline")
 

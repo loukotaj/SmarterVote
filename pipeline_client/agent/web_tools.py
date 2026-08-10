@@ -1136,7 +1136,7 @@ async def get_homepage_policy_links(homepage_url: str) -> List[str]:
         resp = await _get_validated(client, homepage_url, headers=headers)
         resp.raise_for_status()
         html_content = resp.text
-    except Exception as exc:
+    except Exception:
         # Fallback to Jina Reader proxy
         proxy_url = text_proxy_url(homepage_url)
         try:

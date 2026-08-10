@@ -672,6 +672,8 @@ def _get_other_state_candidates(race_id: str, state: str | None) -> set[str]:
         try:
             from google.cloud import firestore
 
+            from shared.config import FIRESTORE_RACES_COLLECTION
+
             db = firestore.Client(project=project) if project else firestore.Client()
             races_ref = db.collection(FIRESTORE_RACES_COLLECTION).where("state", "==", state).stream()
             for doc in races_ref:

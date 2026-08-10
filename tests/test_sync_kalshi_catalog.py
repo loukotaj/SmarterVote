@@ -4,8 +4,6 @@ from __future__ import annotations
 
 from unittest.mock import MagicMock, patch
 
-import pytest
-
 from scripts.sync_kalshi_catalog import build_catalog_source_code, fetch_kalshi_election_markets, sync_kalshi_catalog
 from shared.data.kalshi_market_catalog import KalshiMarketMapping
 

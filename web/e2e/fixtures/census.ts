@@ -17,13 +17,6 @@ export const OHIO_DISTRICT_05_CENSUS_RESPONSE = {
   },
 };
 
-/** A response with no address matches, used to exercise the lookup error path. */
-export const NO_MATCH_CENSUS_RESPONSE = {
-  result: {
-    addressMatches: [],
-  },
-};
-
 /**
  * Resolves to a state/district with no fixture races, so my-ballot's
  * "we found your district but nothing published yet" empty state can be

@@ -7,7 +7,6 @@ Firestore stack just to verify the run_health default-filling behavior.
 
 import sys
 from pathlib import Path
-from unittest.mock import MagicMock
 
 import pytest
 
