@@ -460,6 +460,234 @@ async def plan_repairs(race_ids: List[str]) -> Dict[str, Any]:
 
 
 @mcp.tool(structured_output=False)
+async def audit_issue_research_readiness(
+    race_ids: List[str] | None = None,
+    include_rows: bool = True,
+    include_schedule: bool = False,
+    traffic_hours: int = 720,
+    batch_size: int = 50,
+) -> Dict[str, Any]:
+    """Summarize stored roster evidence and issue gaps before post-primary work.
+
+    This is a compact, read-only view over the deterministic repair planner. It
+    does not decide that a primary result is final: operators must still verify
+    the result from an official election source before queueing nominee-level
+    research. Use the returned workstream to distinguish races that need roster
+    verification first from races whose stored roster evidence is complete.
+    With include_schedule, issue_queue is ordered by rating and recent demand,
+    and refresh_groups provides deterministic groups of at most five current
+    tossup/tilt and lean races. Analytics are optional and never block the
+    underlying repair audit.
+    """
+    traffic_hours = max(1, min(int(traffic_hours), 720))
+    catalog_response, traffic, api_analytics = await asyncio.gather(
+        list_admin_races(),
+        _optional_api_get("/analytics/traffic", params={"hours": traffic_hours}),
+        _optional_api_get("/analytics/races", params={"hours": traffic_hours}),
+    )
+    catalog_rows = catalog_response.get("races", []) if isinstance(catalog_response, dict) else []
+    catalog_by_id = {
+        str(row.get("race_id") or row.get("id")): row
+        for row in catalog_rows
+        if isinstance(row, dict) and (row.get("race_id") or row.get("id"))
+    }
+    pageviews_by_race = _race_pageviews(traffic)
+    requests_by_race = {
+        str(item.get("race_id")): int(item.get("requests_24h") or 0)
+        for item in api_analytics.get("races", [])
+        if isinstance(item, dict) and item.get("race_id")
+    }
+    if race_ids:
+        requested_ids = list(dict.fromkeys(str(race_id).strip() for race_id in race_ids if str(race_id).strip()))
+    else:
+        requested_ids = sorted(race_id for race_id in catalog_by_id if race_id != "chamber_forecasts")
+
+    batch_size = max(1, min(int(batch_size), 100))
+    plans: List[Dict[str, Any]] = []
+    missing_race_ids: List[str] = []
+    client = _client()
+    for start in range(0, len(requested_ids), batch_size):
+        response = await client.post(
+            "/api/races/repair-plan",
+            json={"race_ids": requested_ids[start : start + batch_size]},
+        )
+        if not isinstance(response, dict):
+            continue
+        plans.extend(plan for plan in response.get("plans", []) if isinstance(plan, dict))
+        missing_race_ids.extend(str(race_id) for race_id in response.get("missing_race_ids") or [])
+
+    rows: List[Dict[str, Any]] = []
+    competitive_ratings = {"tossup", "tilt_d", "tilt_r", "lean_d", "lean_r"}
+    likely_ratings = {"likely_d", "likely_r"}
+    safe_ratings = {"safe_d", "safe_r"}
+
+    for plan in plans:
+        if not isinstance(plan, dict):
+            continue
+        health = plan.get("health") if isinstance(plan.get("health"), dict) else {}
+        candidate_count = int(health.get("candidate_count") or 0)
+        strong_roster_count = int(health.get("roster_strong_evidence_candidates") or 0)
+        missing_issue_count = int(health.get("missing_issue_count") or 0)
+        issue_slot_count = int(health.get("issue_slot_count") or 0)
+        terminal_issue_count = int(health.get("terminal_issue_count") or 0)
+        stored_roster_evidence_complete = candidate_count > 0 and strong_roster_count == candidate_count
+        race_id = str(plan.get("race_id") or "")
+        catalog = catalog_by_id.get(race_id, {})
+        forecast = catalog.get("forecast") if isinstance(catalog.get("forecast"), dict) else {}
+        forecast_rating = str(forecast.get("rating") or "").strip().lower()
+        if forecast_rating in competitive_ratings:
+            competitiveness_band = "competitive"
+        elif forecast_rating in likely_ratings:
+            competitiveness_band = "likely"
+        elif forecast_rating in safe_ratings:
+            competitiveness_band = "safe"
+        else:
+            competitiveness_band = "unrated"
+        issue_candidate_names = [
+            str(name)
+            for group in plan.get("repair_groups") or []
+            if isinstance(group, dict) and group.get("stage") == "candidate" and "issues" in (group.get("enabled_steps") or [])
+            for name in (group.get("candidate_names") or [])
+            if name
+        ]
+
+        if missing_issue_count and not stored_roster_evidence_complete:
+            workstream = "roster_then_issue_research"
+        elif missing_issue_count:
+            workstream = "issue_research_after_result_check"
+        elif plan.get("needs_repair") and not stored_roster_evidence_complete:
+            workstream = "roster_then_non_issue_repair"
+        elif plan.get("needs_repair"):
+            workstream = "non_issue_repair_or_review"
+        else:
+            workstream = "no_repair"
+
+        rows.append(
+            {
+                "race_id": race_id,
+                "research_tier": plan.get("research_tier"),
+                "forecast_rating": forecast_rating or None,
+                "competitiveness_band": competitiveness_band,
+                "freshness": catalog.get("freshness"),
+                "updated_utc": catalog.get("updated_utc"),
+                "published": bool(catalog.get("published_exists")),
+                "has_unpublished_changes": bool(catalog.get("has_unpublished_changes")),
+                "last_run_status": catalog.get("last_run_status"),
+                "pageviews": pageviews_by_race.get(race_id, 0),
+                "api_requests": requests_by_race.get(race_id, 0),
+                "traffic_hours": traffic_hours,
+                "candidate_count": candidate_count,
+                "stored_strong_roster_evidence_candidates": strong_roster_count,
+                "stored_roster_evidence_complete": stored_roster_evidence_complete,
+                "issue_slot_count": issue_slot_count,
+                "terminal_issue_count": terminal_issue_count,
+                "missing_issue_count": missing_issue_count,
+                "issue_coverage_percent": (
+                    round(100 * terminal_issue_count / issue_slot_count, 1) if issue_slot_count else 0.0
+                ),
+                "issue_research_required": missing_issue_count > 0,
+                "issue_candidate_names": list(dict.fromkeys(issue_candidate_names)),
+                "validation_passed": health.get("validation_passed") is True,
+                "workstream": workstream,
+                "estimated_max_cost_usd": float(plan.get("estimated_max_cost_usd") or 0),
+                "estimated_max_search_calls": int(plan.get("estimated_max_search_calls") or 0),
+                "budget_warnings": plan.get("budget_warnings") or [],
+            }
+        )
+
+    workstream_counts: Dict[str, int] = {}
+    competitiveness_counts: Dict[str, int] = {}
+    issue_research_by_competitiveness: Dict[str, int] = {}
+    for row in rows:
+        workstream = str(row["workstream"])
+        workstream_counts[workstream] = workstream_counts.get(workstream, 0) + 1
+        band = str(row["competitiveness_band"])
+        competitiveness_counts[band] = competitiveness_counts.get(band, 0) + 1
+        if row["issue_research_required"]:
+            issue_research_by_competitiveness[band] = issue_research_by_competitiveness.get(band, 0) + 1
+
+    rating_order = {
+        "tossup": 0,
+        "tilt_d": 1,
+        "tilt_r": 1,
+        "lean_d": 2,
+        "lean_r": 2,
+        "likely_d": 3,
+        "likely_r": 3,
+        "safe_d": 4,
+        "safe_r": 4,
+    }
+    scheduled_issue_rows = sorted(
+        (row for row in rows if row["issue_research_required"]),
+        key=lambda row: (
+            rating_order.get(str(row.get("forecast_rating") or ""), 5),
+            -max(int(row.get("pageviews") or 0), int(row.get("api_requests") or 0)),
+            str(row.get("race_id") or ""),
+        ),
+    )
+    issue_queue = [
+        {
+            "position": position,
+            "race_id": row["race_id"],
+            "forecast_rating": row["forecast_rating"],
+            "competitiveness_band": row["competitiveness_band"],
+            "missing_issue_count": row["missing_issue_count"],
+            "stored_roster_evidence_complete": row["stored_roster_evidence_complete"],
+            "pageviews": row["pageviews"],
+            "api_requests": row["api_requests"],
+            "estimated_max_cost_usd": row["estimated_max_cost_usd"],
+        }
+        for position, row in enumerate(scheduled_issue_rows, start=1)
+    ]
+    refresh_groups: List[Dict[str, Any]] = []
+    refresh_bands = [
+        ("tossup_tilt", {"tossup", "tilt_d", "tilt_r"}),
+        ("lean", {"lean_d", "lean_r"}),
+    ]
+    for band_name, ratings in refresh_bands:
+        race_ids_for_band = sorted(str(row["race_id"]) for row in rows if str(row.get("forecast_rating") or "") in ratings)
+        for start in range(0, len(race_ids_for_band), 5):
+            refresh_groups.append(
+                {
+                    "band": band_name,
+                    "group": start // 5 + 1,
+                    "race_ids": race_ids_for_band[start : start + 5],
+                }
+            )
+
+    return {
+        "rows": rows if include_rows else [],
+        "issue_queue": issue_queue if include_schedule else [],
+        "refresh_groups": refresh_groups if include_schedule else [],
+        "summary": {
+            "requested_race_count": len(requested_ids),
+            "planned_race_count": len(rows),
+            "missing_race_count": len(missing_race_ids),
+            "candidate_count": sum(int(row["candidate_count"]) for row in rows),
+            "issue_slot_count": sum(int(row["issue_slot_count"]) for row in rows),
+            "terminal_issue_count": sum(int(row["terminal_issue_count"]) for row in rows),
+            "missing_issue_count": sum(int(row["missing_issue_count"]) for row in rows),
+            "issue_research_race_count": sum(bool(row["issue_research_required"]) for row in rows),
+            "stored_roster_evidence_incomplete_race_count": sum(
+                not bool(row["stored_roster_evidence_complete"]) for row in rows
+            ),
+            "validation_passed_race_count": sum(bool(row["validation_passed"]) for row in rows),
+            "estimated_max_cost_usd": round(sum(float(row["estimated_max_cost_usd"]) for row in rows), 2),
+            "estimated_max_search_calls": sum(int(row["estimated_max_search_calls"]) for row in rows),
+            "workstreams": workstream_counts,
+            "competitiveness": competitiveness_counts,
+            "issue_research_by_competitiveness": issue_research_by_competitiveness,
+        },
+        "missing_race_ids": list(dict.fromkeys(missing_race_ids)),
+        "primary_result_verified": False,
+        "primary_result_note": (
+            "This audit measures stored data only. Verify official primary results and the complete advancing roster "
+            "before queueing post-primary research."
+        ),
+    }
+
+
+@mcp.tool(structured_output=False)
 async def audit_race_assets(
     race_ids: List[str],
     persist: bool = False,

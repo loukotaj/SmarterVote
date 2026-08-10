@@ -1206,9 +1206,10 @@ When you have made all necessary corrections (or confirmed no changes are needed
 call finalize_roster once with the entire final `candidates` array,
 `source_candidate_names` extracted from the authoritative list, and
 `completeness_sources` quoting the full qualified, certified, or official-ballot
-list for this exact contest. This is an atomic replacement: use it to apply all
-remaining additions and removals in one response instead of spending one turn
-per candidate.
+list for this exact contest. This is an atomic replacement for additions and
+retained candidates. It cannot silently omit an active candidate already in the
+profile. Use remove_candidate first for each deletion so the removal evidence is
+explicit and auditable.
 
 @@COMPLETENESS_EVIDENCE_RULES@@
 

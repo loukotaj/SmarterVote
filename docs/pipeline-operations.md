@@ -165,6 +165,10 @@ Common tools:
   traffic, freshness, and persisted asset-audit findings
 - `plan_repairs`: non-mutating, independently queueable race/candidate repair
   groups with calibrated-or-static cost and search ceilings
+- `audit_issue_research_readiness`: compact read-only issue/roster workstreams
+  for selected races or the entire catalog; batches repair-plan reads and can
+  return summary-only output or a rating/demand-ordered issue queue and
+  five-race competitive refresh groups for routine planning
 - `audit_race_assets`: bounded source/photo URL and image-quality checks;
   `persist=true` stores the evidence on the catalog record
 - `refresh_race_core`: canonical low-cost roster/summary, image, polling,

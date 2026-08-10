@@ -300,7 +300,14 @@ page cannot be distinguished from a truncated one.
 - Accepted classes: {_class_list(COMPLETENESS_SOURCE_CLASSES)}.
 - The sources must TOGETHER name every candidate on your proposed roster, or
   identify themselves as qualified, certified, official-ballot, or otherwise
-  complete candidate lists. No single source has to name everyone.
+  complete candidate lists. No single source has to name everyone. A full field
+  list may include additional minor or write-in candidates beyond the bounded
+  product roster; those extra names do not invalidate evidence for the selected
+  active nominees and notable candidates.
+- An exact-contest general-election page that explicitly states the total field
+  size is also usable completeness evidence even when its summary does not
+  enumerate every name. Candidate membership is still checked separately and
+  every proposed candidate must have current-cycle exact-contest evidence.
 - Many states publish one qualified-candidate list PER PARTY. Supply each
   party's list and they compose into the whole field. An entry reading "No
   Nominations", "none", or an explicitly empty district on such a list is

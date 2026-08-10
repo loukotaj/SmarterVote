@@ -58,6 +58,14 @@ def _roster_source_text(source: Dict[str, Any]) -> str:
     return unquote(" ".join(str(source.get(key) or "") for key in ("title", "evidence", "url"))).casefold()
 
 
+def _source_states_field_size(source: Dict[str, Any]) -> bool:
+    """Return whether exact-contest evidence explicitly reports a candidate count."""
+    text = _roster_source_text(source)
+    return bool(
+        re.search(r"\b\d{1,3}\s+(?:qualified\s+)?candidates?\b", text) or re.search(r"\bcandidates?\s*[:=-]\s*\d{1,3}\b", text)
+    )
+
+
 _ONES_ORDINALS = (
     "",
     "first",
@@ -1187,6 +1195,29 @@ def _make_editing_handlers(
                     "roster extracted from the completeness evidence (middle initials and suffixes may differ)."
                 )
 
+            # Atomic finalization may add newly verified candidates, but it must
+            # never silently erase an active candidate already carried by the
+            # profile. That is exactly how TX-SENATE lost Libertarian Ted Brown:
+            # a major-party-only sentence was accepted as complete and the
+            # replacement array omitted him. Removal has its own evidence and
+            # adjudication contract; require the agent to use it first so every
+            # deletion is explicit and auditable.
+            proposed_name_set = set(normalized_names)
+            silently_removed = [
+                str(candidate.get("name") or "").strip()
+                for candidate in race_json.get("candidates", [])
+                if isinstance(candidate, dict)
+                and candidate.get("name")
+                and candidate.get("withdrawn") is not True
+                and _canonical_roster_name(candidate.get("name")) not in proposed_name_set
+            ]
+            if silently_removed:
+                return (
+                    "ERROR: roster finalization blocked. The proposed roster silently drops active candidate(s): "
+                    f"{', '.join(silently_removed)}. Keep them in the proposed roster, or call remove_candidate "
+                    "first with evidence satisfying the withdrawal, wrong-contest, or roster-omission contract."
+                )
+
             existing_by_name = {
                 str(candidate.get("name") or "").strip().casefold(): candidate
                 for candidate in race_json.get("candidates", [])
@@ -1271,7 +1302,15 @@ def _make_editing_handlers(
             name_words = re.findall(r"[a-z0-9]+", name.casefold())
             if not name_words or not all(word in combined_evidence for word in name_words):
                 uncovered_names.append(name)
-        if uncovered_names:
+        # A retrieved exact-contest page that explicitly reports the field size
+        # establishes that it is describing the field even when its compact
+        # summary does not repeat every name. The adjudicator has already
+        # confirmed that semantic claim, and candidate membership is separately
+        # enforced above from current-cycle exact-contest sources. Requiring the
+        # count source itself to name everyone recreated the Texas failure after
+        # the adjudicator correctly accepted "General Election · 6 candidates".
+        has_explicit_field_size = any(_source_states_field_size(source) for source in qualifying_completeness)
+        if uncovered_names and not has_explicit_field_size:
             return (
                 "ERROR: roster finalization blocked. Completeness evidence does not name every active candidate: "
                 f"{', '.join(uncovered_names)}. Quote the full authoritative list, not candidate-only excerpts."
