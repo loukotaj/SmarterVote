@@ -69,7 +69,6 @@ test("forecast and trust surfaces expose their primary content", async ({
   await expect(
     page.getByRole("heading", { name: "2026 Election Forecast" }),
   ).toBeVisible();
-  await expect(page.getByText("Model status: Live")).toBeVisible();
 
   await page.goto("/about/");
   await expect(
@@ -84,7 +83,7 @@ test("forecast and trust surfaces expose their primary content", async ({
     page.getByRole("heading", { name: "Support Smarter.Vote" }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Contribution terms" }),
+    page.getByRole("heading", { name: "Support terms" }),
   ).toBeVisible();
 });
 
@@ -116,7 +115,7 @@ test("admin entry point is explicitly excluded from indexing", async ({
   page,
 }) => {
   await page.goto("/admin/");
-  await expect(page).toHaveTitle("Admin Sign In - SmarterVote");
+  await expect(page).toHaveTitle("Admin Sign In | Smarter.Vote");
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
     "noindex,nofollow",

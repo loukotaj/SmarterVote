@@ -269,10 +269,10 @@
     </div>
   {:else if error}
     <div class="error-box">
-      <h2 class="error-title">Error Loading Race</h2>
+      <h2 class="error-title">Error loading race</h2>
       <p class="text-red-600">{error}</p>
       <button class="error-button" on:click={() => window.location.reload()}>
-        Try Again
+        Try again
       </button>
     </div>
   {:else if race}
@@ -839,7 +839,7 @@
         {/if}
 
         <div class="forecast-meta">
-          <span>Confidence: {forecast.confidence}</span>
+          <span>Forecast confidence: {forecast.confidence}</span>
           {#if forecast.model}
             <span>Model: {formatModelName(forecast.model)}</span>
           {/if}
@@ -942,9 +942,7 @@
     <!-- Data Note -->
     <div class="data-note">
       <p class="data-note-title">
-        {usingFallbackData
-          ? "Sample Data Information"
-          : "Data Analysis Information"}
+        {usingFallbackData ? "Sample Data Information" : "About this research"}
       </p>
       <p class="data-note-text">
         {#if usingFallbackData}
@@ -959,7 +957,7 @@
       </p>
     </div>
 
-    <!-- AI Review Status (bottom) -->
+    <!-- Automated review details (bottom) -->
     <ReviewPanel reviews={race.reviews ?? []} />
 
     <!-- Models used to generate this race -->
@@ -1004,7 +1002,7 @@
             d="M5 10l7-7m0 0l7 7m-7-7v18"
           />
         </svg>
-        Back to Top
+        Back to top
       </button>
     </div>
 

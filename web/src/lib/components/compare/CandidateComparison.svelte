@@ -153,7 +153,7 @@
       <div class="min-w-0 text-sm leading-6 text-content-muted">
         <span
           class="mr-1.5 text-[10px] font-bold uppercase tracking-wider text-content-subtle"
-          >Research review</span
+          >Automated Research Score</span
         >
         <strong class="text-content">{race.validation_grade.score}/100</strong
         ><ReviewScoreInfo panelId={`desktop-review-score-info-${race.id}`} />
@@ -177,7 +177,7 @@
           <div
             class="sticky left-0 z-40 flex self-stretch items-center border-r border-stroke bg-surface px-5 text-xs font-bold uppercase tracking-wider text-content-subtle"
           >
-            {compact ? "Compare" : "Compare Directory"}
+            {compact ? "Compare" : "Candidate comparison"}
           </div>
           {#each candidates as candidate}
             <div
@@ -246,7 +246,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     class="text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
-                    >Visit Campaign Website ↗</a
+                    >Visit campaign website ↗</a
                   >
                 </div>{/if}
             </div>

@@ -62,7 +62,7 @@
 </script>
 
 <svelte:head>
-  <title>Admin Sign In - SmarterVote</title>
+  <title>Admin Sign In | Smarter.Vote</title>
   <meta name="robots" content="noindex,nofollow" />
 </svelte:head>
 

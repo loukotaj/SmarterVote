@@ -32,14 +32,14 @@
       imply complete state or local ballot coverage.
     </p>
   </PolicySection>
-  <PolicySection title="Contribution terms">
+  <PolicySection title="Support terms">
     <p>
       Support is accepted by Smarter.Vote LLC. It is not tax-deductible. Any
       geographic or program preference is a nonbinding request, not a legally
       restricted fund, unless a written agreement explicitly says otherwise.
     </p>
     <p>
-      No contribution buys favorable coverage, editorial review, access to
+      No support payment buys favorable coverage, editorial review, access to
       unpublished findings, or control of research.
     </p>
   </PolicySection>

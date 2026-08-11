@@ -55,7 +55,7 @@
         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
       />
     </svg>
-    AI Review Status
+    Automated Review Details
     {#if displayReviews && displayReviews.length > 0}
       <span class="review-count"
         >{displayReviews.length} review{displayReviews.length !== 1
@@ -81,7 +81,9 @@
 
   {#if !collapsed}
     {#if !displayReviews || displayReviews.length === 0}
-      <p class="review-empty">No AI review has been run for this race yet.</p>
+      <p class="review-empty">
+        No automated review has been run for this race yet.
+      </p>
     {:else}
       <div class="review-cards">
         {#each displayReviews as review}
@@ -127,9 +129,7 @@
                 </ul>
               </details>
             {:else}
-              <p class="review-all-clear">
-                No issues found — profile looks good.
-              </p>
+              <p class="review-all-clear">No issues flagged in this review.</p>
             {/if}
             <span class="review-date">
               Reviewed: {(() => {

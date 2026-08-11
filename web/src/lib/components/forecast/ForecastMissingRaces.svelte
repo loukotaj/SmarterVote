@@ -56,7 +56,7 @@
                 <span
                   class="inline-flex border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-content-subtle rounded-full px-2 py-0.5 text-xs font-semibold leading-none"
                 >
-                  Pending Model Run
+                  Forecast not available yet
                 </span>
               </td>
               <td class="px-5 py-3">

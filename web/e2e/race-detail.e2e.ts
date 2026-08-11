@@ -31,7 +31,7 @@ test.describe("race detail page", () => {
 
     // Validation grade badge
     await expect(
-      page.getByRole("button", { name: "Validation Grade: A" }),
+      page.getByRole("button", { name: "Automated Research Score: A" }),
     ).toBeVisible();
 
     // Forecast section (rating is "tossup" -> renders as "Toss-up" heading)
@@ -49,7 +49,7 @@ test.describe("race detail page", () => {
 
     // AI review panel starts collapsed; expand it and check both reviews
     const reviewToggle = page.getByRole("button", {
-      name: /AI Review Status/,
+      name: /Automated Review Details/,
     });
     await expect(reviewToggle).toContainText("2 reviews");
     await reviewToggle.click();
@@ -123,8 +123,8 @@ test.describe("race detail page", () => {
     await page.goto("/races/e2e-does-not-exist/");
 
     await expect(
-      page.getByRole("heading", { name: "Error Loading Race" }),
+      page.getByRole("heading", { name: "Error loading race" }),
     ).toBeVisible();
-    await expect(page.getByRole("button", { name: "Try Again" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Try again" })).toBeVisible();
   });
 });

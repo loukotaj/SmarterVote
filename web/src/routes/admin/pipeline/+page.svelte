@@ -219,7 +219,7 @@
 </script>
 
 <svelte:head>
-  <title>Admin Console - SmarterVote</title>
+  <title>Admin Console | Smarter.Vote</title>
   <meta name="robots" content="noindex,nofollow" />
 </svelte:head>
 

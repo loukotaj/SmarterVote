@@ -76,7 +76,7 @@
     {/if}
   </div>
   <p class="text-content-muted">
-    If you have any questions about your contribution, <a
+    If you have any questions about your support payment, <a
       href="/support/"
       class="text-primary-600 underline hover:text-primary-700 dark:text-primary-400"
       >contact us</a

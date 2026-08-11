@@ -159,29 +159,29 @@
 </script>
 
 <svelte:head>
-  <title>2026 Election Forecasts — Smarter.vote</title>
+  <title>2026 Election Forecasts — Smarter.Vote</title>
   <meta
     name="description"
-    content="AI-powered forecasts and interactive maps for 2026 House, Senate, and Governor races. See win probabilities, polling data, and prediction market signals."
+    content="Explore 2026 House, Senate, and governor forecasts with win probabilities, chamber-control projections, polling, and prediction-market signals."
   />
   <link rel="canonical" href="https://smarter.vote/forecast/" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://smarter.vote/forecast/" />
-  <meta property="og:title" content="2026 Election Forecasts — Smarter.vote" />
+  <meta property="og:title" content="2026 Election Forecasts — Smarter.Vote" />
   <meta
     property="og:description"
-    content="AI-powered forecasts and interactive maps for 2026 House, Senate, and Governor races. See win probabilities, polling data, and prediction market signals."
+    content="Explore 2026 House, Senate, and governor forecasts with win probabilities, chamber-control projections, polling, and prediction-market signals."
   />
   <meta property="og:image" content="https://smarter.vote/og-image.png" />
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://smarter.vote/forecast/" />
   <meta
     property="twitter:title"
-    content="2026 Election Forecasts — Smarter.vote"
+    content="2026 Election Forecasts — Smarter.Vote"
   />
   <meta
     property="twitter:description"
-    content="AI-powered forecasts and interactive maps for 2026 House, Senate, and Governor races. See win probabilities, polling data, and prediction market signals."
+    content="Explore 2026 House, Senate, and governor forecasts with win probabilities, chamber-control projections, polling, and prediction-market signals."
   />
   <meta property="twitter:image" content="https://smarter.vote/og-image.png" />
 </svelte:head>
@@ -198,21 +198,36 @@
           2026 Election Forecast
         </h1>
         <p class="mt-2 text-base text-content-muted max-w-3xl">
-          Nonpartisan model projections, interactive maps, and structured
-          analysis for the 2026 House, Senate, and Governor races.
+          See who’s favored, what could decide control, and where the model sees
+          the most uncertainty across the 2026 House, Senate, and governor
+          races.
         </p>
-      </div>
-      <div
-        class="text-xs text-content-subtle border border-stroke/80 bg-surface-alt/40 backdrop-blur-md px-3 py-2 rounded-xl flex items-center gap-1.5 self-start md:self-auto"
-      >
-        <span class="relative flex h-2 w-2">
+        <div
+          class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold text-content-subtle"
+        >
           <span
-            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
-          ></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
-          ></span>
-        </span>
-        Model status: Live
+            >{aggregate.races.length}
+            {activeTab === "house"
+              ? "House"
+              : activeTab === "senate"
+                ? "Senate"
+                : "governor"} race{aggregate.races.length === 1 ? "" : "s"} modeled</span
+          >
+          {#if chamberForecasts?.updated_at}
+            <span aria-hidden="true">·</span>
+            <span
+              >Updated {new Date(
+                chamberForecasts.updated_at,
+              ).toLocaleDateString()}</span
+            >
+          {/if}
+          <span aria-hidden="true">·</span>
+          <a
+            href="/about/#forecast-methodology"
+            class="text-blue-600 hover:underline dark:text-blue-400"
+            >How the forecast works →</a
+          >
+        </div>
       </div>
     </div>
   </header>

@@ -168,12 +168,9 @@
       </svg>
       Redirecting…
     {:else if effectiveAmountCents !== null}
-      {mode === "subscription" ? "Support" : "Give"} ${(
-        effectiveAmountCents / 100
-      ).toFixed(effectiveAmountCents % 100 === 0 ? 0 : 2)}{mode ===
-      "subscription"
-        ? "/mo"
-        : ""} →
+      Support with ${(effectiveAmountCents / 100).toFixed(
+        effectiveAmountCents % 100 === 0 ? 0 : 2,
+      )}{mode === "subscription" ? " per month" : ""} →
     {:else}
       Enter an amount to continue
     {/if}

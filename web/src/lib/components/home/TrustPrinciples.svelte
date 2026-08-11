@@ -24,7 +24,7 @@
         >
       </div>
       <div class="divide-y divide-blue-800 border-y border-blue-800">
-        {#each [["01", "Every claim links to a source", "Follow the research back to candidate statements, public records, and reputable reporting."], ["02", "Uncertainty stays visible", "Sparse evidence, conflicting accounts, and confidence levels are part of the record—not hidden in fine print."], ["03", "No endorsements. Ever.", "We organize evidence consistently across parties. The judgment about what matters remains yours."]] as principle}
+        {#each [["01", "See the sources behind the research", "Follow the evidence back to candidate statements, public records, and reputable reporting."], ["02", "Uncertainty stays visible", "Sparse evidence, conflicting accounts, and confidence levels are part of the record—not hidden in fine print."], ["03", "No endorsements. Ever.", "We organize evidence consistently across parties. The judgment about what matters remains yours."]] as principle}
           <article
             class="grid grid-cols-[3rem_1fr] gap-4 py-7 sm:grid-cols-[4rem_1fr]"
           >

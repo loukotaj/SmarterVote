@@ -34,7 +34,7 @@
     class="grade-badge {gradeColor(grade.grade)}"
     on:click={() => (showPopover = !showPopover)}
     on:keydown={(e) => e.key === "Escape" && (showPopover = false)}
-    aria-label="Validation Grade: {grade.grade}"
+    aria-label="Automated Research Score: {grade.grade}"
   >
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path
@@ -45,7 +45,7 @@
       />
     </svg>
     <span class="grade-letter">{grade.grade}</span>
-    <span class="grade-label">Validation</span>
+    <span class="grade-label">Research score</span>
   </button>
 
   {#if showPopover}
@@ -54,7 +54,7 @@
     <div class="popover-backdrop" on:click={() => (showPopover = false)}></div>
     <div class="popover" role="tooltip">
       <div class="popover-header">
-        <span class="popover-title">AI Validation Grade</span>
+        <span class="popover-title">Automated Research Score</span>
         <span class="popover-grade {gradeColor(grade.grade)}"
           >{grade.grade}</span
         >
@@ -62,12 +62,12 @@
       <p class="popover-score">Score: {grade.score}/100</p>
       <p class="popover-summary">{grade.summary}</p>
       <p class="popover-explain">
-        Multiple AI models independently review each race profile for factual
-        accuracy, source quality, completeness, and neutrality. The grade
-        reflects the average score across all reviewers.
+        Separate AI models review source quality, completeness, consistency, and
+        neutrality. The score summarizes those research checks; it is not a
+        guarantee that every claim is correct.
       </p>
       <button class="popover-link" on:click={scrollToReview}>
-        View Full Review
+        View review details
         <svg
           class="w-3.5 h-3.5"
           fill="none"

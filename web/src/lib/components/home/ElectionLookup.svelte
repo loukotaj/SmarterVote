@@ -300,7 +300,7 @@
           type="submit"
           disabled={loading || !address.trim()}
           class="mt-4 inline-flex min-h-[56px] w-full items-center justify-center rounded-xl bg-blue-700 px-6 font-bold text-white shadow-lg shadow-blue-900/10 transition hover:-translate-y-0.5 hover:bg-blue-800 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
-          >{loading ? "Finding your districts…" : "Show my elections"}</button
+          >{loading ? "Finding your district…" : "Show my elections"}</button
         >
       </form>
 
@@ -385,8 +385,8 @@
         <div
           class="mt-5 rounded-xl bg-surface-alt p-4 text-sm text-content-muted"
         >
-          We identified your district, but no matching published national guide
-          is available yet. This does not mean you have no elections.
+          We identified your district, but no matching Smarter.Vote guide is
+          available yet. This does not mean you have no elections.
         </div>
       {/if}
     </section>

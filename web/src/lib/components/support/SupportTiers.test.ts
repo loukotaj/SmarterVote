@@ -31,7 +31,7 @@ describe("SupportTiers", () => {
 
     await fireEvent.click(screen.getByRole("button", { name: "$25" }));
     expect(
-      screen.getByRole("button", { name: "Support $25/mo →" }),
+      screen.getByRole("button", { name: "Support with $25 per month →" }),
     ).toBeTruthy();
   });
 
@@ -41,13 +41,17 @@ describe("SupportTiers", () => {
     );
     render(SupportTiers);
 
-    await fireEvent.click(screen.getByRole("button", { name: "Give $10 →" }));
+    await fireEvent.click(
+      screen.getByRole("button", { name: "Support with $10 →" }),
+    );
     await waitFor(() =>
       expect(screen.getByRole("alert").textContent).toContain(
         "Payments are not yet available",
       ),
     );
     expect(createSupportCheckout).toHaveBeenCalledWith(1000, "payment");
-    expect(screen.getByRole("button", { name: "Give $10 →" })).toBeTruthy();
+    expect(
+      screen.getByRole("button", { name: "Support with $10 →" }),
+    ).toBeTruthy();
   });
 });

@@ -27,7 +27,7 @@ function createSource(sourceString: string): Source {
     website: {
       type: "website",
       baseUrl: "https://example.com/candidate",
-      title: "Official Website",
+      title: "Campaign website",
     },
     committee: {
       type: "government",

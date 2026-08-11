@@ -144,7 +144,7 @@
           rel="noopener noreferrer"
           class="website-link"
         >
-          Official Website
+          Campaign website
           <svg
             class="w-4 h-4"
             fill="none"
@@ -173,7 +173,7 @@
           : "Expand candidate details"}
       >
         <span class="expand-text">
-          {expanded ? "Show Less" : "Show More"}
+          {expanded ? "Show less" : "Show more"}
         </span>
         <svg
           class="expand-icon"

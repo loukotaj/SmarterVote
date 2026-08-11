@@ -67,7 +67,7 @@ test.describe("my-ballot address lookup", () => {
     ).toBeVisible();
     await expect(
       page.getByText(
-        "We identified your district, but no matching published national guide is available yet.",
+        "We identified your district, but no matching Smarter.Vote guide is available yet.",
       ),
     ).toBeVisible();
   });

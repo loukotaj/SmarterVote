@@ -136,8 +136,8 @@ export function raceDisplayTitle(race: TitleRace): string {
 }
 
 export function racePageTitle(race: TitleRace | null | undefined): string {
-  if (!race) return "Loading... | Smarter.vote";
-  return `${raceDisplayTitle(race)} | Smarter.vote`;
+  if (!race) return "Loading... | Smarter.Vote";
+  return `${raceDisplayTitle(race)} | Smarter.Vote`;
 }
 
 export function raceMetaDescription(
