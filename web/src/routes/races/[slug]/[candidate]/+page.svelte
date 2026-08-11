@@ -108,7 +108,7 @@
   <title
     >{candidate?.name ?? "Candidate"} — {race
       ? raceDisplayTitle(race)
-      : "Loading..."} | Smarter.vote</title
+      : "Loading..."} | Smarter.Vote</title
   >
   <meta
     name="description"
@@ -129,7 +129,7 @@
     property="og:title"
     content="{candidate?.name ?? 'Candidate'} — {race
       ? raceDisplayTitle(race)
-      : 'Election'} | Smarter.vote"
+      : 'Election'} | Smarter.Vote"
   />
   <meta
     property="og:description"
@@ -150,7 +150,7 @@
     property="twitter:title"
     content="{candidate?.name ?? 'Candidate'} — {race
       ? raceDisplayTitle(race)
-      : 'Election'} | Smarter.vote"
+      : 'Election'} | Smarter.Vote"
   />
   <meta
     property="twitter:description"
@@ -505,7 +505,7 @@
                 d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"
               />
             </svg>
-            Campaign Website
+            Campaign website
           </a>
         {/if}
         {#each socialLinks as [platform, url]}
@@ -667,7 +667,7 @@
 
     <!-- Data Note -->
     <div class="data-note">
-      <p class="data-note-title">Data Analysis Information</p>
+      <p class="data-note-title">About this research</p>
       <p class="data-note-text">
         Data compiled from public sources and analyzed using AI. Last updated
         {new Date(race.updated_utc).toLocaleDateString()}. Visit candidate

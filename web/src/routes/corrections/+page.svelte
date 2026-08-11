@@ -31,8 +31,8 @@
     <p>
       Smarter.Vote LLC reviews the cited evidence and retains editorial control
       over the outcome. We may correct, clarify, add context, update sources, or
-      determine that no change is warranted. Material updates should be
-      reflected on the relevant page.
+      determine that no change is warranted. When we make a material correction,
+      we update the relevant page and its revision date.
     </p>
     <p>
       We are a small early-stage organization and do not yet promise a response

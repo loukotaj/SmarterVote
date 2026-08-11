@@ -33,15 +33,15 @@
     <p>
       Funding may help prioritize a geography or coverage category only through
       published quality standards; it cannot change what the research says.
-      Individual recognition will be private by default and opt-in.
-      Institutional relationships should be disclosed at the program level with
-      the sponsor, purpose, and an amount band once those bands receive
+      Individual recognition will be private by default and opt-in. We disclose
+      institutional relationships at the program level, including the sponsor
+      and purpose. We will publish amount bands after those bands receive
       appropriate professional review.
     </p>
     <p>
-      Until disclosure bands and exceptions are approved, Smarter.Vote LLC
-      should use specific written agreements and avoid promising anonymity or
-      public recognition.
+      Until disclosure bands and exceptions are approved, Smarter.Vote LLC uses
+      specific written agreements and does not promise anonymity or public
+      recognition.
     </p>
   </PolicySection>
   <PolicySection title="Support is not a charitable donation">

@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-  <title>Smarter.Vote | Understand Every Race on Your Ballot</title>
+  <title>Smarter.Vote | Know your candidates</title>
   <meta
     name="description"
     content="Explore sourced, nonpartisan research for national elections. Compare candidates, inspect original sources, and understand the federal races on your ballot."
@@ -16,7 +16,7 @@
   <link rel="canonical" href="https://smarter.vote/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://smarter.vote/" />
-  <meta property="og:title" content="Smarter.Vote | Understand your ballot" />
+  <meta property="og:title" content="Smarter.Vote | Know your candidates" />
   <meta
     property="og:description"
     content="Sourced, nonpartisan candidate research with uncertainty and original evidence kept visible."

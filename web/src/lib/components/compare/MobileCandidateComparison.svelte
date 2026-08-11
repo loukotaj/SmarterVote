@@ -69,7 +69,7 @@
         >{race.validation_grade.grade}</span
       >
       <div class="text-xs leading-5 text-content-muted">
-        <strong class="text-content">Research review:</strong>
+        <strong class="text-content">Automated Research Score:</strong>
         {race.validation_grade.score}/100<ReviewScoreInfo
           panelId={`mobile-review-score-info-${race.id}`}
         />

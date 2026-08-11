@@ -139,7 +139,9 @@
                   </button>
                 {/if}
               {:else}
-                <span class="text-content-faint text-sm">No sources</span>
+                <span class="text-content-faint text-sm"
+                  >No supporting sources</span
+                >
               {/if}
             </td>
           </tr>
@@ -224,7 +226,9 @@
             {/if}
           </div>
         {:else}
-          <p class="text-content-faint text-sm">No sources available</p>
+          <p class="text-content-faint text-sm">
+            No supporting sources available
+          </p>
         {/if}
       </div>
     {/each}

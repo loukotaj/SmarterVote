@@ -24,7 +24,8 @@
         <span
           class="text-xs text-content-subtle font-semibold hidden sm:inline"
         >
-          Key battlegrounds driving chamber control
+          Competitive races with the greatest modeled implications for chamber
+          control
         </span>
         <button
           on:click={() => scrollKeyRaces(-1)}

@@ -94,7 +94,7 @@
   <title
     >Compare Candidates | {race
       ? raceDisplayTitle(race)
-      : "Smarter.vote"}</title
+      : "Smarter.Vote"}</title
   >
   <meta
     name="description"
@@ -112,7 +112,7 @@
     property="og:title"
     content="Compare Candidates | {race
       ? raceDisplayTitle(race)
-      : 'Smarter.vote'}"
+      : 'Smarter.Vote'}"
   />
   <meta
     property="og:description"
@@ -130,7 +130,7 @@
     property="twitter:title"
     content="Compare Candidates | {race
       ? raceDisplayTitle(race)
-      : 'Smarter.vote'}"
+      : 'Smarter.Vote'}"
   />
   <meta
     property="twitter:description"

@@ -96,7 +96,7 @@ describe("raceDisplayTitle", () => {
       state: "Georgia",
     };
     expect(racePageTitle(race)).toBe(
-      "2026 Georgia U.S. Senate Election | Smarter.vote",
+      "2026 Georgia U.S. Senate Election | Smarter.Vote",
     );
     expect(raceMetaDescription(race)).toContain(
       "Compare candidates in the 2026 Georgia U.S. Senate Election",

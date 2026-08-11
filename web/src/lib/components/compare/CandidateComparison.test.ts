@@ -112,12 +112,12 @@ describe("CandidateComparison", () => {
       "[data-desktop-candidate-comparison]",
     )!;
 
-    const label = within(desktop).getByText("Research review");
+    const label = within(desktop).getByText("Automated Research Score");
     expect(label.closest(".overflow-x-auto")).toBeNull();
     expect(within(desktop).getByText("95/100")).toBeTruthy();
   });
 
-  it("explains the limits of the AI review score", async () => {
+  it("explains the automated research score", async () => {
     const reviewedRace: Race = {
       ...race,
       validation_grade: {
@@ -138,13 +138,13 @@ describe("CandidateComparison", () => {
     );
 
     await fireEvent.click(
-      desktop.getByRole("button", { name: "About this AI review score" }),
+      desktop.getByRole("button", {
+        name: "About this automated research score",
+      }),
     );
 
     const note = desktop.getByRole("note").textContent?.replace(/\s+/g, " ");
-    expect(note).toContain("It is not independent fact-checking");
-    expect(note).toContain(
-      "does not validate that the underlying information is correct",
-    );
+    expect(note).toContain("Separate AI models review sourcing");
+    expect(note).toContain("not a guarantee that every claim is correct");
   });
 });

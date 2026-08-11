@@ -33,11 +33,21 @@
   };
 
   $: style = themes[confidence] ?? themes.unknown;
+  $: description =
+    (
+      {
+        high: "High evidence confidence: multiple corroborating sources or an official candidate position.",
+        medium: "Medium evidence confidence: at least one credible source.",
+        low: "Low evidence confidence: inferred, unverified, or unsupported by a source.",
+        unknown: "Evidence confidence has not been assessed.",
+      } satisfies Record<ConfidenceLevel, string>
+    )[confidence] ?? "Evidence confidence has not been assessed.";
 </script>
 
 <span
   class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-semibold select-none transition-all duration-300 {style.bg} {style.border} {style.text}"
-  title="Confidence: {confidence}"
+  title={description}
+  aria-label={description}
 >
   <span class="w-1.5 h-1.5 rounded-full {style.dot} transition-all duration-300"
   ></span>

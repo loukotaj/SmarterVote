@@ -247,8 +247,8 @@
       />
     </svg>
     <span
-      ><strong>Alpha:</strong> AI-generated content can be wrong or outdated. Always
-      follow the source links and apply your own judgment.</span
+      ><strong>Early access:</strong> AI-generated research can be wrong or outdated.
+      Check the linked sources and use your own judgment.</span
     >
   </div>
 

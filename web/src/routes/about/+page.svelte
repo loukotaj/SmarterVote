@@ -48,9 +48,9 @@
   <PolicySection title="What is available today">
     <p>
       Smarter.Vote is an early-stage service operated by Smarter.Vote LLC.
-      Current research focuses on national and federal elections. It is not a
-      complete ballot guide and does not yet provide dependable state, local,
-      judicial, or ballot-measure coverage.
+      Current research focuses on national races. It is not a complete ballot
+      guide and does not yet provide dependable coverage of state legislatures,
+      local offices, judicial races, or ballot measures.
     </p>
     <p>
       Automated tools assist with research and review, but they can miss context
@@ -71,37 +71,93 @@
       </p>
     </div>
 
-    <PolicySection title="Research">
+    <PolicySection title="How the research is made">
       <p>
-        We gather public material such as candidate statements, campaign
-        websites, official records, and reputable reporting. Automated tools
-        help discover and organize evidence; they do not make endorsements.
+        Automated research agents search public sources—including candidate
+        statements, campaign websites, official records, voting databases, and
+        reputable reporting—and organize the evidence into candidate summaries,
+        issue positions, background, and race analysis. They are instructed to
+        describe what candidates say and do without endorsing them.
+      </p>
+      <p>
+        Source links remain attached to the research so readers can inspect the
+        evidence directly. A source is not treated as neutral merely because it
+        is linked: campaign material represents the candidate's own account,
+        while records and reporting provide additional context.
       </p>
     </PolicySection>
 
-    <PolicySection title="Review and publication">
+    <PolicySection title="Evidence and confidence">
       <p>
-        We compare claims with their sources, flag conflicts, run consistency
-        and quality checks, and publish citations and update dates. Confidence
-        labels describe the available evidence, not the value of a candidate or
-        policy.
+        Confidence labels describe the strength of the available evidence—not
+        the value of a candidate or policy. High confidence requires multiple
+        corroborating sources or an official candidate position. Medium
+        confidence requires at least one credible source. Low confidence marks
+        information that is inferred, unverified, or unsupported by a source.
+      </p>
+      <p>
+        “No public position found” means the research process looked for an
+        attributable position and did not find one. It does not mean the
+        candidate has no view, and it is different from an issue that has not
+        yet been researched.
       </p>
     </PolicySection>
 
-    <PolicySection title="Limits">
+    <PolicySection title="Automated review and publication">
+      <p>
+        Separate AI models review the full race side by side for the correct
+        candidate roster, internal consistency, source quality, completeness,
+        background accuracy, and neutral treatment across candidates. Automated
+        checks also look for broken sources, malformed polling, placeholders,
+        and missing required research.
+      </p>
+      <p>
+        The Automated Research Score combines the review models' scores and
+        accounts for unresolved warnings. A failing score or an unresolved error
+        blocks publication. This is automated editorial quality control, not a
+        promise that every statement has been independently fact-checked by a
+        human.
+      </p>
+    </PolicySection>
+
+    <div id="forecast-methodology" class="scroll-mt-24">
+      <PolicySection title="How forecasts work">
+        <p>
+          Race forecasts start with the published race record. They prefer
+          candidate-level polling when it is available and otherwise weigh
+          incumbency, party context, candidate strength, the documented race
+          environment, and other evidence already gathered for the contest.
+          Prediction-market signals may provide additional context, but they are
+          never treated as ground truth.
+        </p>
+        <p>
+          Each race forecast includes a rating, modeled win probability, key
+          drivers, uncertainty, and supporting sources where the analysis relies
+          on a specific external claim. Chamber forecasts combine those race
+          probabilities with known holdover seats to calculate projected seats,
+          seat-outcome distributions, and the chance of party control. For the
+          2026 Senate forecast, a 50–50 result is counted as Republican control
+          under the vice president tie-break assumption.
+        </p>
+      </PolicySection>
+    </div>
+
+    <PolicySection title="Limits and updates">
       <p>
         Sources can be incomplete, positions can change, and automated analysis
-        can misunderstand nuance. Current coverage focuses on national and
-        federal races and is not a complete ballot. Forecasts are estimates—not
-        election results, voting advice, or guarantees.
+        can misunderstand nuance. Polls capture a period in time, and forecasts
+        change as new evidence arrives. Forecasts are estimates—not election
+        results, voting advice, or guarantees.
       </p>
     </PolicySection>
 
-    <PolicySection title="Verify and correct">
+    <PolicySection title="Verification and corrections">
       <p>
-        Use the linked evidence and official election resources to verify
-        important information. Funding never determines findings,
-        classifications, forecasts, or publication decisions.
+        Use the linked evidence to check research claims, and rely on state and
+        local election officials for registration, deadlines, voting methods,
+        and official results. Report errors through our corrections process.
+        Funding never determines findings, classifications, forecasts, or
+        publication decisions.
       </p>
     </PolicySection>
   </div>

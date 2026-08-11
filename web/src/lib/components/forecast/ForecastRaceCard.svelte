@@ -291,7 +291,7 @@
           <div class="pt-2 border-t border-stroke/20">
             <span
               class="font-bold text-content uppercase tracking-wider text-[9px] block mb-1"
-              >Source Documentation</span
+              >Forecast sources</span
             >
             <div class="flex flex-wrap gap-1.5">
               {#each race.forecast.source_urls as url}
