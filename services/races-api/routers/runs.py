@@ -36,6 +36,7 @@ _RETENTION = RetentionConfig.from_env()
 
 def _latest_activity_at(data: Dict[str, Any]) -> datetime | None:
     for key in (
+        "activity_at",
         "completed_at",
         "lease_renewed_at",
         "progress_updated_at",
@@ -177,14 +178,12 @@ def _current_run_is_terminal_or_missing(db: Any, run_id: str) -> bool:
     return run_data.get("status") in _TERMINAL_STATUSES
 
 
-def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[str, Any] | None:
-    """Self-heal stale/superseded active run docs before returning /runs/active."""
+def _project_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[str, Any] | None:
+    """Project active state for a GET response without mutating Firestore."""
     run_id = run.get("run_id")
     if not run_id or run.get("status") not in _ACTIVE_STATUSES:
         return run
 
-    runs_ref = db.collection(FIRESTORE_RUNS_COLLECTION)
-    queue_ref = db.collection(FIRESTORE_QUEUE_COLLECTION)
     race_id = run.get("race_id") or (run.get("payload") or {}).get("race_id")
 
     if race_id:
@@ -199,50 +198,48 @@ def _normalize_active_run(db: Any, run: Dict[str, Any], now: datetime) -> Dict[s
             current_run_id = race_data.get("current_run_id")
             if race_status in _INACTIVE_RACE_STATUSES and current_run_id and current_run_id != run_id:
                 if _current_run_is_terminal_or_missing(db, str(current_run_id)):
-                    firestore_helpers._fs_update_race(str(race_id), {"current_run_id": None})
                     return run
-                update = {"status": "cancelled", "error": f"Superseded by race current_run_id {current_run_id}"}
-                queue_update = {**update, "ttl_at": _queue_ttl_at()}
-                try:
-                    runs_ref.document(str(run_id)).update(update)
-                except Exception:
-                    logger.exception("Unable to mark superseded run %s cancelled", run_id)
-                for queue_doc in queue_ref.where("run_id", "==", run_id).limit(20).stream():
-                    queue_data = queue_doc.to_dict() or {}
-                    if queue_data.get("status") in _ACTIVE_STATUSES:
-                        try:
-                            queue_doc.reference.update(queue_update)
-                        except Exception:
-                            logger.exception("Unable to cancel queue item for superseded run %s", run_id)
                 return None
 
     if _is_stale_active_run(run, now) and not _has_live_queue_lease(db, str(run_id), now):
-        update = {
-            "status": "failed",
-            "error": f"Marked stale by active run listing after {_STALE_ACTIVE_RUN_SECONDS} seconds without activity",
-            "completed_at": now.isoformat(),
-        }
-        try:
-            runs_ref.document(str(run_id)).update(update)
-        except Exception:
-            logger.exception("Unable to mark stale run %s failed", run_id)
-        for queue_doc in queue_ref.where("run_id", "==", run_id).limit(20).stream():
-            queue_data = queue_doc.to_dict() or {}
-            if queue_data.get("status") in _ACTIVE_STATUSES:
-                try:
-                    queue_doc.reference.update(
-                        {
-                            "status": "failed",
-                            "error": "Marked stale by active run listing",
-                            "completed_at": now.isoformat(),
-                            "ttl_at": _queue_ttl_at(),
-                        }
-                    )
-                except Exception:
-                    logger.exception("Unable to mark queue item failed for stale run %s", run_id)
         return None
 
     return run
+
+
+def _reconcile_active_run(db: Any, run: Dict[str, Any], now: datetime) -> str | None:
+    """Persist stale/superseded state from an explicit mutation endpoint."""
+    run_id = str(run.get("run_id") or "")
+    if not run_id or run.get("status") not in _ACTIVE_STATUSES:
+        return None
+    race_id = run.get("race_id") or (run.get("payload") or {}).get("race_id")
+    status: str | None = None
+    error: str | None = None
+    if race_id:
+        race_doc = db.collection(FIRESTORE_RACES_COLLECTION).document(str(race_id)).get()
+        race_data = firestore_helpers._doc_to_plain(race_doc) or {}
+        current_run_id = race_data.get("current_run_id")
+        if (
+            race_data.get("status") in _INACTIVE_RACE_STATUSES
+            and current_run_id
+            and current_run_id != run_id
+            and not _current_run_is_terminal_or_missing(db, str(current_run_id))
+        ):
+            status = "cancelled"
+            error = f"Superseded by race current_run_id {current_run_id}"
+    if status is None and _is_stale_active_run(run, now) and not _has_live_queue_lease(db, run_id, now):
+        status = "failed"
+        error = f"Reconciled stale run after {_STALE_ACTIVE_RUN_SECONDS} seconds without activity"
+    if status is None:
+        return None
+
+    update = {"status": status, "error": error, "completed_at": now.isoformat(), "activity_at": now}
+    db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id).update(update)
+    queue_update = {**update, "ttl_at": _queue_ttl_at()}
+    for queue_doc in db.collection(FIRESTORE_QUEUE_COLLECTION).where("run_id", "==", run_id).limit(20).stream():
+        if (queue_doc.to_dict() or {}).get("status") in _ACTIVE_STATUSES:
+            queue_doc.reference.update(queue_update)
+    return status
 
 
 def _log_sort_key(entry: Dict[str, Any]) -> tuple[float, str]:
@@ -263,33 +260,35 @@ def _log_sort_key(entry: Dict[str, Any]) -> tuple[float, str]:
 
 
 @router.get("/runs", dependencies=[Depends(verify_token)])
-async def list_runs(limit: int = 50) -> Dict[str, Any]:
+def list_runs(limit: int = 50) -> Dict[str, Any]:
     """List recent pipeline runs from Firestore, newest first.
 
-    Firestore ordering can miss active continuation docs when `started_at` has
-    mixed legacy string and server timestamp values. Merge in the active query so
-    dashboards always show the true active count and current parallel work.
+    New run documents carry one canonical ``activity_at`` timestamp. A single
+    legacy fallback query remains while older retained documents age out.
     """
 
     limit = max(1, min(limit, 500))
 
-    def _ordered_runs(field: str) -> list[Dict[str, Any]]:
-        try:
-            docs = db.collection(FIRESTORE_RUNS_COLLECTION).order_by(field, direction="DESCENDING").limit(limit).stream()
-            return [r for r in (firestore_helpers._doc_to_plain(d) for d in docs) if r is not None]
-        except Exception:
-            return []
-
     db = firestore_helpers._get_fs()
-    runs: list[Dict[str, Any]] = []
-    for field in ("progress_updated_at", "completed_at", "updated_at", "started_at"):
-        runs.extend(_ordered_runs(field))
+    runs_ref = db.collection(FIRESTORE_RUNS_COLLECTION)
+    try:
+        docs = runs_ref.order_by("activity_at", direction="DESCENDING").limit(limit).stream()
+        runs = [r for r in (firestore_helpers._doc_to_plain(d) for d in docs) if r is not None]
+    except Exception:
+        logger.exception("Unable to query canonical run activity timestamps")
+        runs = []
+    if len(runs) < limit:
+        try:
+            legacy_docs = runs_ref.order_by("started_at", direction="DESCENDING").limit(limit).stream()
+            runs.extend(r for r in (firestore_helpers._doc_to_plain(d) for d in legacy_docs) if r is not None)
+        except Exception:
+            logger.exception("Unable to query legacy run timestamps")
 
     active_docs = db.collection(FIRESTORE_RUNS_COLLECTION).where("status", "in", ["pending", "running"]).limit(500).stream()
     active_runs = [firestore_helpers._doc_to_plain(d) for d in active_docs]
     active_runs = [r for r in active_runs if r is not None]
     now = datetime.now(timezone.utc)
-    active_runs = [r for r in (_normalize_active_run(db, r, now) for r in active_runs) if r is not None]
+    active_runs = [r for r in (_project_active_run(db, r, now) for r in active_runs) if r is not None]
 
     merged: Dict[str, Dict[str, Any]] = {}
     for run in runs + active_runs:
@@ -304,20 +303,35 @@ async def list_runs(limit: int = 50) -> Dict[str, Any]:
 
 
 @router.get("/runs/active", dependencies=[Depends(verify_token)])
-async def list_active_runs() -> Dict[str, Any]:
+def list_active_runs() -> Dict[str, Any]:
     """List currently running or pending pipeline runs."""
     db = firestore_helpers._get_fs()
     docs = db.collection(FIRESTORE_RUNS_COLLECTION).where("status", "in", ["pending", "running"]).limit(500).stream()
     runs = [firestore_helpers._doc_to_plain(d) for d in docs]
     runs = [r for r in runs if r is not None]
     now = datetime.now(timezone.utc)
-    runs = [r for r in (_normalize_active_run(db, r, now) for r in runs) if r is not None]
+    runs = [r for r in (_project_active_run(db, r, now) for r in runs) if r is not None]
     runs = [_ensure_run_health_default(r) for r in runs]
     return {"runs": runs, "count": len(runs)}
 
 
+@router.post("/runs/reconcile", dependencies=[Depends(verify_token)])
+def reconcile_active_runs() -> Dict[str, Any]:
+    """Explicitly reconcile stale/superseded active runs."""
+    db = firestore_helpers._get_fs()
+    docs = db.collection(FIRESTORE_RUNS_COLLECTION).where("status", "in", ["pending", "running"]).limit(500).stream()
+    runs = [r for r in (firestore_helpers._doc_to_plain(doc) for doc in docs) if r is not None]
+    now = datetime.now(timezone.utc)
+    outcomes = [_reconcile_active_run(db, run, now) for run in runs]
+    return {
+        "checked": len(runs),
+        "failed": outcomes.count("failed"),
+        "cancelled": outcomes.count("cancelled"),
+    }
+
+
 @router.get("/runs/{run_id}", dependencies=[Depends(verify_token)])
-async def get_run(run_id: str) -> Dict[str, Any]:
+def get_run(run_id: str) -> Dict[str, Any]:
     """Get details of a specific run from Firestore."""
     db = firestore_helpers._get_fs()
     doc = db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id).get()
@@ -328,7 +342,7 @@ async def get_run(run_id: str) -> Dict[str, Any]:
 
 
 @router.get("/runs/{run_id}/diagnostics", dependencies=[Depends(verify_token)])
-async def get_run_diagnostics(run_id: str) -> Dict[str, Any]:
+def get_run_diagnostics(run_id: str) -> Dict[str, Any]:
     """Export a sanitized bundle suitable for offline pipeline diagnosis."""
     db = firestore_helpers._get_fs()
     bundle = build_diagnostics_bundle(run_id, db)
@@ -338,7 +352,7 @@ async def get_run_diagnostics(run_id: str) -> Dict[str, Any]:
 
 
 @router.get("/runs/{run_id}/logs", dependencies=[Depends(verify_token)])
-async def get_run_logs(
+def get_run_logs(
     run_id: str,
     since: int = 0,
     limit: int = 1000,
@@ -384,7 +398,7 @@ async def get_run_logs(
 
 
 @router.delete("/runs", dependencies=[Depends(verify_token)])
-async def prune_runs() -> Dict[str, Any]:
+def prune_runs() -> Dict[str, Any]:
     """Prune all terminal runs (completed, failed, cancelled, continued) from Firestore."""
     db = firestore_helpers._get_fs()
     terminal_statuses = ["completed", "failed", "cancelled", "continued"]
@@ -423,7 +437,7 @@ async def prune_runs() -> Dict[str, Any]:
 
 
 @router.delete("/runs/{run_id}", dependencies=[Depends(verify_token)])
-async def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
+def cancel_or_delete_run(run_id: str) -> Dict[str, Any]:
     """Cancel an active run or delete a finished one from Firestore."""
     db = firestore_helpers._get_fs()
     doc_ref = db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id)

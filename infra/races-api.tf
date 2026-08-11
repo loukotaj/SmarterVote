@@ -88,6 +88,13 @@ resource "google_cloud_run_v2_service" "races_api" {
         value = "local"
       }
 
+      # Firestore-backed counters make quotas consistent across Cloud Run
+      # instances. Local development defaults to in-memory counters.
+      env {
+        name  = "RATE_LIMIT_STORAGE_URI"
+        value = "firestore://"
+      }
+
       env {
         name = "OPENROUTER_API_KEY"
         value_source {

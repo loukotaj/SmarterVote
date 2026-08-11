@@ -39,7 +39,7 @@ class GenerateForecastsRequest(BaseModel):
 
 
 @router.get("/api/races/chamber_forecasts/draft", dependencies=[Depends(verify_token)])
-async def get_chamber_forecasts_draft_endpoint() -> Dict[str, Any]:
+def get_chamber_forecasts_draft_endpoint() -> Dict[str, Any]:
     """Retrieve overall chamber-level forecasts draft from GCS or local file."""
     data = gcs_helpers.load_chamber_forecasts(draft=True)
     if not data:
@@ -94,7 +94,7 @@ async def generate_chamber_forecasts_endpoint(
 
 
 @router.post("/api/races/chamber_forecasts/publish", dependencies=[Depends(verify_token)])
-async def publish_chamber_forecasts_endpoint(request: Request) -> Dict[str, Any]:
+def publish_chamber_forecasts_endpoint(request: Request) -> Dict[str, Any]:
     """Publish the draft chamber-level forecasts (copy draft -> published in GCS)."""
     data = gcs_helpers.load_chamber_forecasts(draft=True)
     if not data:

@@ -30,3 +30,12 @@ force_grid_wrap = 0
 use_parentheses = true
 ensure_newline_before_comments = true
 extend_skip_glob = ["web/*"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+no_implicit_optional = true
+check_untyped_defs = true
+follow_imports = "silent"

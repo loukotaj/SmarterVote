@@ -115,7 +115,7 @@ describe("PipelineApiService production admin API contract", () => {
     await api.listRaces();
 
     expect(fetchWithAuth).toHaveBeenCalledWith(
-      "https://api.example.test/api/races?reconcile_active=true",
+      "https://api.example.test/api/races",
       {},
       expect.any(Number),
     );

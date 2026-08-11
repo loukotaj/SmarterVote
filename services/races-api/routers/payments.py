@@ -85,7 +85,7 @@ def _validate_session_id(session_id: str) -> None:
 
 @router.post("/checkout")
 @limiter.limit("10/minute")
-async def create_checkout_session(body: CheckoutRequest, request: Request):
+def create_checkout_session(body: CheckoutRequest, request: Request):
     """Create a Stripe Checkout session and return the hosted session URL."""
     if not _STRIPE_SECRET_KEY:
         raise HTTPException(status_code=503, detail="Payments are not yet available.")
@@ -126,7 +126,7 @@ async def create_checkout_session(body: CheckoutRequest, request: Request):
 
 @router.get("/session/{session_id}")
 @limiter.limit("30/minute")
-async def checkout_session_status(session_id: str, request: Request, response: Response):
+def checkout_session_status(session_id: str, request: Request, response: Response):
     """Confirm a checkout result with Stripe; never infer success from a redirect alone."""
     if not _STRIPE_SECRET_KEY:
         raise HTTPException(status_code=503, detail="Payments are not yet available.")

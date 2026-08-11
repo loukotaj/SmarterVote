@@ -32,7 +32,7 @@ def _assert_publishable_race(data: Dict[str, Any]) -> None:
 
 
 @router.delete("/api/races/{race_id}/draft", dependencies=[Depends(verify_token)])
-async def delete_draft_race(race_id: str) -> Dict[str, Any]:
+def delete_draft_race(race_id: str) -> Dict[str, Any]:
     """Delete a draft race from GCS and update Firestore record."""
     validate_race_id(race_id)
     deleted = gcs_helpers._gcs_delete_race_json(race_id, "drafts")
@@ -56,7 +56,7 @@ async def delete_draft_race(race_id: str) -> Dict[str, Any]:
 
 
 @router.post("/api/races/{race_id}/publish", dependencies=[Depends(verify_token)])
-async def publish_race(request: Request, race_id: str) -> Dict[str, Any]:
+def publish_race(request: Request, race_id: str) -> Dict[str, Any]:
     """Publish a race (copy draft -> published in GCS)."""
     validate_race_id(race_id)
     data = gcs_helpers._gcs_get_race_json(race_id, "drafts")
@@ -81,7 +81,7 @@ async def publish_race(request: Request, race_id: str) -> Dict[str, Any]:
 
 
 @router.post("/api/races/{race_id}/unpublish", dependencies=[Depends(verify_token)])
-async def unpublish_race(request: Request, race_id: str) -> Dict[str, Any]:
+def unpublish_race(request: Request, race_id: str) -> Dict[str, Any]:
     """Remove a race from published (keeps draft)."""
     validate_race_id(race_id)
     has_draft = gcs_helpers._gcs_get_race_json(race_id, "drafts") is not None
@@ -108,7 +108,7 @@ async def unpublish_race(request: Request, race_id: str) -> Dict[str, Any]:
 
 
 @router.post("/api/races/publish", dependencies=[Depends(verify_token)])
-async def batch_publish_races(request: Request, payload: BatchPublishRequest) -> Dict[str, Any]:
+def batch_publish_races(request: Request, payload: BatchPublishRequest) -> Dict[str, Any]:
     """Publish multiple races at once (draft -> published)."""
     published = []
     errors = []

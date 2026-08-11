@@ -37,7 +37,7 @@ router = APIRouter()
 
 
 @router.get("/api/races", dependencies=[Depends(verify_token)])
-async def list_all_races(reconcile_active: bool = False) -> Dict[str, Any]:
+def list_all_races() -> Dict[str, Any]:
     """List all race records from Firestore (admin view with catalog metadata)."""
     db = firestore_helpers._get_fs()
     docs = db.collection(FIRESTORE_RACES_COLLECTION).limit(10000).stream()
@@ -48,20 +48,6 @@ async def list_all_races(reconcile_active: bool = False) -> Dict[str, Any]:
             if not plain.get("race_id"):
                 plain["race_id"] = d.id
             races.append(plain)
-
-    if reconcile_active:
-        reconciled: list[Dict[str, Any]] = []
-        for race in races:
-            race_id = race.get("race_id") or race.get("id")
-            if not race_id:
-                reconciled.append(race)
-                continue
-            if race.get("status") in ("queued", "running") or race.get("current_run_id"):
-                latest, _changed = _recheck_race_status(db, str(race_id), race)
-                reconciled.append(latest or race)
-            else:
-                reconciled.append(race)
-        races = reconciled
 
     run_stats = _pipeline_run_stats(db)
     for race in races:
@@ -79,7 +65,7 @@ async def list_all_races(reconcile_active: bool = False) -> Dict[str, Any]:
 
 
 @router.get("/api/races/drafts", dependencies=[Depends(verify_token)])
-async def list_draft_races() -> Dict[str, Any]:
+def list_draft_races() -> Dict[str, Any]:
     """List all draft race summaries from the Firestore race catalog."""
     db = firestore_helpers._get_fs()
     docs = db.collection(FIRESTORE_RACES_COLLECTION).limit(1000).stream()
@@ -95,7 +81,7 @@ async def list_draft_races() -> Dict[str, Any]:
 
 
 @router.post("/api/races/recheck", dependencies=[Depends(verify_token)])
-async def recheck_all_race_statuses(cursor: str | None = None, limit: int = 50) -> Dict[str, Any]:
+def recheck_all_race_statuses(cursor: str | None = None, limit: int = 50) -> Dict[str, Any]:
     """Reconcile one bounded catalog page and return an opaque continuation cursor."""
     db = firestore_helpers._get_fs()
     docs = db.collection(FIRESTORE_RACES_COLLECTION).limit(10000).stream()
@@ -145,7 +131,7 @@ async def recheck_all_race_statuses(cursor: str | None = None, limit: int = 50) 
 
 
 @router.post("/api/races/repair-plan", dependencies=[Depends(verify_token)])
-async def plan_race_repairs(request: RepairPlanRequest) -> Dict[str, Any]:
+def plan_race_repairs(request: RepairPlanRequest) -> Dict[str, Any]:
     """Build bounded repair plans from the latest draft-or-published RaceJSON."""
     db = firestore_helpers._get_fs()
     plans = []
@@ -291,7 +277,7 @@ async def audit_race_assets(request: AssetAuditRequest) -> Dict[str, Any]:
 
 
 @router.get("/api/races/{race_id}", dependencies=[Depends(verify_token)])
-async def get_race_record(race_id: str, reconcile: bool = True) -> Dict[str, Any]:
+def get_race_record(race_id: str) -> Dict[str, Any]:
     """Get a single race record from Firestore."""
     validate_race_id(race_id)
     db = firestore_helpers._get_fs()
@@ -301,18 +287,12 @@ async def get_race_record(race_id: str, reconcile: bool = True) -> Dict[str, Any
         raise HTTPException(status_code=404, detail="Race not found")
     if not data.get("race_id"):
         data["race_id"] = race_id
-    if reconcile:
-        latest, _changed = _recheck_race_status(db, race_id, data)
-        if latest is not None:
-            data = latest
-            if not data.get("race_id"):
-                data["race_id"] = race_id
     _apply_catalog_view(data)
     return data
 
 
 @router.delete("/api/races/{race_id}", dependencies=[Depends(verify_token)])
-async def delete_race_record(request: Request, race_id: str) -> Dict[str, Any]:
+def delete_race_record(request: Request, race_id: str) -> Dict[str, Any]:
     """Delete a race record and all associated GCS blobs."""
     validate_race_id(race_id)
     gcs_helpers._gcs_delete_race_json(race_id, "races")
@@ -327,7 +307,7 @@ async def delete_race_record(request: Request, race_id: str) -> Dict[str, Any]:
 
 
 @router.post("/api/races/{race_id}/cancel", dependencies=[Depends(verify_token)])
-async def cancel_race(race_id: str) -> Dict[str, Any]:
+def cancel_race(race_id: str) -> Dict[str, Any]:
     """Cancel a queued or running race by updating Firestore state."""
     validate_race_id(race_id)
     db = firestore_helpers._get_fs()
@@ -354,7 +334,7 @@ async def cancel_race(race_id: str) -> Dict[str, Any]:
 
 
 @router.post("/api/races/{race_id}/recheck", dependencies=[Depends(verify_token)])
-async def recheck_race_status(race_id: str) -> Dict[str, Any]:
+def recheck_race_status(race_id: str) -> Dict[str, Any]:
     """Re-derive race status from GCS storage state and backfill missing race docs."""
     validate_race_id(race_id)
     db = firestore_helpers._get_fs()
@@ -370,7 +350,7 @@ async def recheck_race_status(race_id: str) -> Dict[str, Any]:
 
 
 @router.post("/api/races/{race_id}/run", dependencies=[Depends(verify_token)])
-async def run_race_pipeline(race_id: str, options: RunOptions | None = None) -> Dict[str, Any]:
+def run_race_pipeline(race_id: str, options: RunOptions | None = None) -> Dict[str, Any]:
     """Trigger the pipeline for a race by writing to the Firestore queue."""
     validate_race_id(race_id)
     opts = options.model_dump(exclude_none=True) if options else {}

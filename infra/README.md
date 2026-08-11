@@ -65,7 +65,7 @@ Queue a race through the admin UI or `races-api`; the queue document should rece
 | -------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | races-api                  | enabled  | Public race API and admin queue/draft/publish API                                                                                                                            |
 | Pipeline Cloud Run Job     | enabled  | One isolated, scale-to-zero execution per queued race                                                                                                                        |
-| Firestore                  | enabled  | Queue items, run records, logs, race metadata                                                                                                                                |
+| Firestore                  | enabled  | Queue items, run records, logs, race metadata, and shared API rate-limit counters                                                                                            |
 | GCS bucket                 | enabled  | Private drafts, published build inputs, checkpoints, and retired versions; the web deployment copies published JSON into Cloudflare Pages                            |
 | Secret Manager             | enabled  | API keys and admin secrets                                                                                                                                                   |
 | Local Docker worker        | manual   | Permanent workstation runner for queue items tagged `runner=local`                                                                                                           |
@@ -103,6 +103,15 @@ infra/
 ## Concurrency And Recovery
 
 Each queue request starts one single-task job execution. Every task atomically claims its queue item, renews a Firestore lease, and writes terminal state through the shared queue processor. Separate executions can run in parallel; provider quotas and spend remain the practical concurrency limits.
+
+The races API also uses transactional Firestore counters for rate limiting so
+limits are consistent across Cloud Run instances. The `rate_limits` collection
+has TTL cleanup on `expires_at`.
+
+Terraform protects the remote-state bucket, production data bucket, Cloud Run
+API service, and Firestore database with lifecycle deletion safeguards. Remove
+those safeguards only as an explicit, separately reviewed decommissioning
+change.
 
 ## Cleanup
 

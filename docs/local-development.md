@@ -189,11 +189,14 @@ Examples:
 $env:PYTHONPATH = "."
 python -m pytest
 
+# Ratcheted Python typing scope
+python -m mypy shared/pipeline_options.py shared/race_titles.py shared/kalshi_markets.py
+
 cd web
 npm ci
 npm run check
 npm run build
-npm run test:unit -- --run
+npm run test:coverage -- --run
 npx playwright install chromium # first run only
 npm run test:e2e
 ```

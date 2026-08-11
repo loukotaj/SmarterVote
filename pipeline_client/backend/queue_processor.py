@@ -262,6 +262,7 @@ async def process_claimed_item(
                 "progress": 0,
                 "current_step": None,
                 "started_at": SERVER_TIMESTAMP,
+                "activity_at": SERVER_TIMESTAMP,
                 "queue_item_id": item_id,
                 "is_continuation": is_continuation,
                 "options": options,
@@ -271,7 +272,7 @@ async def process_claimed_item(
             }
         )
     else:
-        run_ref.update({"status": "running", "queue_item_id": item_id})
+        run_ref.update({"status": "running", "queue_item_id": item_id, "activity_at": SERVER_TIMESTAMP})
 
     db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).set(
         {"status": "running", "current_run_id": run_id, "race_id": race_id}, merge=True
@@ -397,6 +398,7 @@ async def process_claimed_item(
             {
                 "status": "cancelled",
                 "completed_at": SERVER_TIMESTAMP,
+                "activity_at": SERVER_TIMESTAMP,
                 "run_health": {
                     "status": RunHealthStatus.FAILED.value,
                     "reasons": [RunFailureReason.CANCELLED.value],
@@ -473,7 +475,12 @@ async def process_claimed_item(
                 "ttl_at": _queue_ttl_at(),
             }
         )
-        run_update: Dict[str, Any] = {"status": "completed", "progress": 100, "completed_at": SERVER_TIMESTAMP}
+        run_update: Dict[str, Any] = {
+            "status": "completed",
+            "progress": 100,
+            "completed_at": SERVER_TIMESTAMP,
+            "activity_at": SERVER_TIMESTAMP,
+        }
         if run_health is not None:
             run_update["run_health"] = run_health
         run_ref.update(run_update)
@@ -517,6 +524,7 @@ async def process_claimed_item(
                 "status": "failed",
                 "error": error_msg or "Unknown error",
                 "completed_at": SERVER_TIMESTAMP,
+                "activity_at": SERVER_TIMESTAMP,
                 "run_health": run_health,
             }
         )

@@ -1,8 +1,15 @@
 """
 FastAPI service for accessing published race data.
 
-This service exposes public read endpoints for race data, analytics, and
-admin management endpoints for the SmarterVote pipeline.
+This service exposes race-data reads, analytics, and admin management endpoints
+for the SmarterVote pipeline.
+
+Note that the ``/races*`` read endpoints are *not* anonymous despite serving
+published data: they carry ``Depends(verify_token)`` and require an Auth0 bearer
+token or ``X-Admin-Key``. The genuinely public read path is the published JSON
+bundled into the Cloudflare Pages build; an optional ``VITE_PUBLIC_DATA_URL``
+can point at a dedicated static origin in the future. These endpoints exist for
+the admin UI, the MCP tools, and operators.
 
 Admin endpoints are split into routers:
     routers/queue.py         - queue management
@@ -16,6 +23,7 @@ Admin endpoints are split into routers:
 
 import logging
 import os
+import re
 import secrets
 from contextlib import asynccontextmanager
 from typing import List
@@ -54,6 +62,7 @@ from routers import runs as runs_router_module
 from simple_publish_service import SimplePublishService
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
+from starlette.concurrency import run_in_threadpool
 
 # Initialize simple publish service
 publish_service = SimplePublishService(data_directory=DATA_DIR)
@@ -98,7 +107,7 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 # Analytics middleware - runs before CORS, records every tracked request
 app.add_middleware(AnalyticsMiddleware)
 
-# Enable CORS - public read API + authenticated admin writes
+# Enable CORS - token-authenticated reads + authenticated admin writes
 origins = [
     "https://smarter.vote",
     "https://www.smarter.vote",
@@ -106,13 +115,30 @@ origins = [
     "http://localhost:5173",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5173",
-    "http://sveltekit-prerender",
 ]
+
+# Cloudflare Pages preview deployments for *this* project only.
+#
+# This used to be `https://.*\.pages\.dev|https://.*\.workers\.dev`, which
+# allowed every origin on two shared hosting platforms — anyone can deploy a
+# site to pages.dev and get a matching origin. Paired with
+# allow_credentials=True that is a standing invitation to make authenticated
+# cross-origin calls against the admin API from an attacker-controlled page.
+# Neither `workers.dev` nor any pages.dev host other than this project's is
+# referenced anywhere in the repo, so the wildcard was never load-bearing.
+#
+# Pages serves previews at both `<project>.pages.dev` and
+# `<branch-or-hash>.<project>.pages.dev`, so the optional leading label is
+# required. The project name mirrors the deploy workflow's
+# `vars.CLOUDFLARE_PROJECT_NAME || 'smartervote-web'` default and is overridable
+# by env so renaming the Pages project does not need a code change.
+_PAGES_PROJECT = os.getenv("CLOUDFLARE_PAGES_PROJECT", "smartervote-web").strip() or "smartervote-web"
+_PAGES_PREVIEW_ORIGIN_REGEX = rf"https://([a-z0-9-]+\.)?{re.escape(_PAGES_PROJECT)}\.pages\.dev"
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_origin_regex=r"https://.*\.pages\.dev|https://.*\.workers\.dev",
+    allow_origin_regex=_PAGES_PREVIEW_ORIGIN_REGEX,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -199,7 +225,7 @@ def get_race(request: Request, response: Response, race_id: str):
 
 @app.post("/cache/clear")
 @limiter.limit("10/minute")
-async def clear_cache(request: Request, _auth: None = Depends(_require_admin_access)):
+def clear_cache(request: Request, _auth: None = Depends(_require_admin_access)):
     """Clear the in-memory GCS response cache so the next request re-fetches fresh data.
 
     Call this after pushing new race data to GCS so the API reflects the update
@@ -241,7 +267,7 @@ async def analytics_races(
     """Per-race request counts for the last *hours* hours."""
     stats = await request.app.state.analytics.get_race_stats(hours=hours)
     # Batch-load summaries once to avoid N+1 per-race lookups
-    summaries = publish_service.get_race_summaries()
+    summaries = await run_in_threadpool(publish_service.get_race_summaries)
     summary_by_id = {s["id"]: s for s in summaries}
     for item in stats:
         summary = summary_by_id.get(item["race_id"])

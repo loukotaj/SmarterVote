@@ -18,6 +18,7 @@ GCS_CHECKPOINTS_PREFIX = "checkpoints"
 # the whole vocabulary and a rename lands in one place.
 FIRESTORE_QUEUE_COLLECTION = "pipeline_queue"
 FIRESTORE_RUNS_COLLECTION = "pipeline_runs"
+FIRESTORE_RATE_LIMITS_COLLECTION = "rate_limits"
 FIRESTORE_RACES_COLLECTION = "races"
 FIRESTORE_SEARCH_CACHE_COLLECTION = "search_cache"
 FIRESTORE_PAGE_CACHE_COLLECTION = "page_cache"

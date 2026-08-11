@@ -22,8 +22,9 @@ If any are listed, they must be removed from tracking.
 ```bash
 PYTHONPATH=. python -m pytest tests -v \
   --ignore=tests/test_races_api_admin.py \
-  --cov=pipeline_client --cov=shared --cov=functions --cov=smartervote_mcp \
-  --cov-report=term-missing --cov-fail-under=60
+  --cov=pipeline_client --cov=shared --cov=smartervote_mcp \
+  --cov-report=term-missing --cov-report=json:coverage.json --cov-fail-under=70
+PYTHONPATH=. python scripts/check_coverage_thresholds.py coverage.json
 ```
 
 ## Step 3 — Python formatting check
@@ -36,14 +37,18 @@ python -m isort --check-only shared smartervote_mcp services/races-api tests pip
 ## Step 4 — Races API tests
 
 ```bash
-cd services/races-api && PYTHONPATH=../.. python -m pytest . -v
-cd services/races-api && PYTHONPATH=../.. python -m pytest ../../tests/test_races_api_admin.py -v
+(cd services/races-api && PYTHONPATH=../.. python -m pytest . ../../tests/test_races_api_admin.py -v \
+  --cov=. --cov-report=term-missing --cov-fail-under=65)
+
+# Incrementally typed Python modules
+PYTHONPATH=. python -m mypy shared/pipeline_options.py shared/race_titles.py shared/kalshi_markets.py
 ```
 
 ## Step 5 — Frontend (TypeScript check, lint, build, browser and unit tests)
 
 ```bash
-cd web && npm ci && npm run check && npm run lint && npm run build && npm run test:e2e && npm run test:unit -- --run
+(cd web && npm ci && npm run check && npm run lint && npm run build && npm run test:e2e && npm run test:coverage -- --run)
+(cd design-system && npm ci && npm run typecheck && npm run build)
 ```
 
 ## Step 6 — Terraform validate
