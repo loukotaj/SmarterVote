@@ -394,6 +394,36 @@ def test_get_queue_empty(client):
     assert body["running"] is False
 
 
+def test_reconcile_queue_persists_projected_terminal_state():
+    """The explicit queue mutation opts into persistence and reports changes."""
+    from routers import queue
+
+    queue_doc = _make_existing_doc({"id": "item-1", "run_id": "run-1", "status": "running"})
+    query = MagicMock()
+    query.where.return_value = query
+    query.limit.return_value = query
+    query.stream.return_value = iter([queue_doc])
+    db = MagicMock()
+    db.collection.return_value = query
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch.object(
+            queue,
+            "_normalize_terminal_run_items",
+            return_value=[{"id": "item-1", "run_id": "run-1", "status": "completed"}],
+        ) as normalize,
+    ):
+        result = queue.reconcile_queue()
+
+    assert result == {"checked": 1, "changed": 1}
+    normalize.assert_called_once_with(
+        db,
+        [{"id": "item-1", "run_id": "run-1", "status": "running"}],
+        persist=True,
+    )
+
+
 def test_get_queue_caps_large_queue_listing_to_500_records():
     """Queue listing stays bounded even when Firestore has more than 1,000 records."""
     os.environ["SKIP_AUTH"] = "true"
@@ -494,7 +524,7 @@ def test_get_queue_does_not_count_continuation_parent_as_running():
 
 
 def test_get_queue_hides_active_item_when_run_is_terminal():
-    """Queue listing should self-heal stale active queue items from the run record."""
+    """Queue listing projects terminal state without mutating Firestore."""
     os.environ["SKIP_AUTH"] = "true"
     os.environ["ADMIN_API_KEY"] = "test-key"
 
@@ -547,11 +577,7 @@ def test_get_queue_hides_active_item_when_run_is_terminal():
     body = resp.json()
     assert body["items"] == []
     assert body["running"] is False
-    stale_ref.update.assert_called_once()
-    update = stale_ref.update.call_args.args[0]
-    assert update["status"] == "completed"
-    assert update["completed_at"] == "2026-05-15T00:48:00+00:00"
-    assert update["ttl_at"] > datetime.now(timezone.utc)
+    stale_ref.update.assert_not_called()
 
 
 def test_get_queue_hides_superseded_active_item_when_race_is_inactive():
@@ -627,15 +653,11 @@ def test_get_queue_hides_superseded_active_item_when_race_is_inactive():
     body = resp.json()
     assert body["items"] == []
     assert body["running"] is False
-    stale_ref.update.assert_called_once()
-    update = stale_ref.update.call_args.args[0]
-    assert update["status"] == "cancelled"
-    assert update["error"] == "Superseded by race current_run_id run-completed"
-    assert update["ttl_at"] > datetime.now(timezone.utc)
+    stale_ref.update.assert_not_called()
 
 
 def test_get_queue_keeps_active_item_when_race_current_run_is_stale_terminal():
-    """A stale terminal current_run_id should be cleared without cancelling a newer active queue item."""
+    """A GET keeps the active item without clearing a stale race pointer."""
     os.environ["SKIP_AUTH"] = "true"
     os.environ["ADMIN_API_KEY"] = "test-key"
 
@@ -702,11 +724,11 @@ def test_get_queue_keeps_active_item_when_race_current_run_is_stale_terminal():
     body = resp.json()
     assert [item["run_id"] for item in body["items"]] == ["run-new"]
     queue_ref.update.assert_not_called()
-    mock_update_race.assert_called_once_with("ga-senate-2026", {"current_run_id": None})
+    mock_update_race.assert_not_called()
 
 
-def test_active_runs_hides_stale_run_and_marks_queue_failed():
-    """Global active run listing should self-heal old crashed runs."""
+def test_active_runs_hides_stale_run_without_writing():
+    """Global active run listing projects old crashed runs without writes."""
     os.environ["SKIP_AUTH"] = "true"
     os.environ["ADMIN_API_KEY"] = "test-key"
 
@@ -763,13 +785,34 @@ def test_active_runs_hides_stale_run_and_marks_queue_failed():
 
     assert resp.status_code == 200
     assert resp.json() == {"runs": [], "count": 0}
-    run_update = run_ref.update.call_args.args[0]
-    assert run_update["status"] == "failed"
-    assert "Marked stale by active run listing" in run_update["error"]
-    queue_doc.reference.update.assert_called_once()
-    queue_update = queue_doc.reference.update.call_args.args[0]
-    assert queue_update["status"] == "failed"
-    assert queue_update["ttl_at"] > datetime.now(timezone.utc)
+    run_ref.update.assert_not_called()
+    queue_doc.reference.update.assert_not_called()
+
+
+def test_reconcile_runs_persists_explicit_outcomes():
+    """The explicit run mutation reports each reconciled terminal outcome."""
+    from routers import runs
+
+    docs = [
+        _make_existing_doc({"run_id": "run-failed", "status": "running"}),
+        _make_existing_doc({"run_id": "run-cancelled", "status": "pending"}),
+        _make_existing_doc({"run_id": "run-live", "status": "running"}),
+    ]
+    query = MagicMock()
+    query.where.return_value = query
+    query.limit.return_value = query
+    query.stream.return_value = iter(docs)
+    db = MagicMock()
+    db.collection.return_value = query
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch.object(runs, "_reconcile_active_run", side_effect=["failed", "cancelled", None]) as reconcile,
+    ):
+        result = runs.reconcile_active_runs()
+
+    assert result == {"checked": 3, "failed": 1, "cancelled": 1}
+    assert reconcile.call_count == 3
 
 
 def test_live_queue_lease_protects_quiet_run_from_stale_reconciliation():
@@ -866,13 +909,8 @@ def test_active_runs_hides_superseded_inactive_race_run():
 
     assert resp.status_code == 200
     assert resp.json() == {"runs": [], "count": 0}
-    update = {"status": "cancelled", "error": "Superseded by race current_run_id run-completed"}
-    run_ref.update.assert_called_once_with(update)
-    queue_doc.reference.update.assert_called_once()
-    queue_update = queue_doc.reference.update.call_args.args[0]
-    assert queue_update["status"] == update["status"]
-    assert queue_update["error"] == update["error"]
-    assert queue_update["ttl_at"] > datetime.now(timezone.utc)
+    run_ref.update.assert_not_called()
+    queue_doc.reference.update.assert_not_called()
 
 
 def test_active_runs_keeps_run_when_race_current_run_is_stale_terminal():
@@ -940,7 +978,7 @@ def test_active_runs_keeps_run_when_race_current_run_is_stale_terminal():
     assert body["count"] == 1
     assert body["runs"][0]["run_id"] == "run-new"
     new_run_ref.update.assert_not_called()
-    mock_update_race.assert_called_once_with("ga-senate-2026", {"current_run_id": None})
+    mock_update_race.assert_not_called()
 
 
 def test_list_runs_merges_active_runs_missing_from_recent_query():
@@ -1016,8 +1054,8 @@ def test_list_runs_merges_active_runs_missing_from_recent_query():
     assert [run["run_id"] for run in body["runs"]] == ["run-active", "run-old"]
 
 
-def test_list_runs_uses_completed_and_progress_timestamps_for_recent_updates():
-    """Runs tab should surface recently completed/progressed runs even when started_at is old."""
+def test_list_runs_uses_canonical_activity_timestamp_for_recent_updates():
+    """Runs tab should use one canonical activity query plus a legacy fallback."""
     os.environ["SKIP_AUTH"] = "true"
     os.environ["ADMIN_API_KEY"] = "test-key"
 
@@ -1037,6 +1075,7 @@ def test_list_runs_uses_completed_and_progress_timestamps_for_recent_updates():
             "status": "completed",
             "started_at": "2026-04-01T00:00:00+00:00",
             "completed_at": "2026-05-18T12:00:00+00:00",
+            "activity_at": "2026-05-18T12:00:00+00:00",
         }
     )
     recently_progressed_doc = _make_existing_doc(
@@ -1046,18 +1085,17 @@ def test_list_runs_uses_completed_and_progress_timestamps_for_recent_updates():
             "status": "running",
             "started_at": "2026-04-01T00:00:00+00:00",
             "progress_updated_at": "2026-05-18T12:01:00+00:00",
+            "activity_at": "2026-05-18T12:01:00+00:00",
         }
     )
 
     def _query_for_order(field, **_kwargs):
         query = MagicMock()
         query.limit.return_value = query
-        if field == "started_at":
+        if field == "activity_at":
+            query.stream.return_value = iter([recently_progressed_doc, recently_completed_doc])
+        elif field == "started_at":
             query.stream.return_value = iter([old_started_doc])
-        elif field == "completed_at":
-            query.stream.return_value = iter([recently_completed_doc])
-        elif field == "progress_updated_at":
-            query.stream.return_value = iter([recently_progressed_doc])
         else:
             query.stream.return_value = iter([])
         return query
@@ -1934,8 +1972,8 @@ def test_list_races_derives_run_counts_from_pipeline_runs():
     assert race["last_run_status"] == "completed"
 
 
-def test_list_races_auto_reconciles_stale_running_metadata():
-    """List endpoint should self-heal stale running metadata so admin UI stays accurate."""
+def test_explicit_recheck_reconciles_stale_running_metadata():
+    """The mutation endpoint should reconcile stale running metadata."""
     os.environ["SKIP_AUTH"] = "true"
     os.environ["ADMIN_API_KEY"] = "test-key"
 
@@ -2000,7 +2038,7 @@ def test_list_races_auto_reconciles_stale_running_metadata():
         patch("firestore_helpers._fs_update_race") as mock_update,
     ):
         tc = TestClient(app_module.app)
-        resp = tc.get("/api/races?reconcile_active=true")
+        resp = tc.post("/api/races/recheck?limit=50")
 
     assert resp.status_code == 200
     race = resp.json()["races"][0]
@@ -2009,8 +2047,8 @@ def test_list_races_auto_reconciles_stale_running_metadata():
     assert mock_update.called
 
 
-def test_get_race_record_auto_reconciles_by_default():
-    """Single race fetch should reconcile stale running metadata by default."""
+def test_get_race_record_does_not_reconcile_by_default():
+    """Single race fetch must not mutate stale running metadata."""
     os.environ["SKIP_AUTH"] = "true"
     os.environ["ADMIN_API_KEY"] = "test-key"
 
@@ -2075,9 +2113,9 @@ def test_get_race_record_auto_reconciles_by_default():
 
     assert resp.status_code == 200
     body = resp.json()
-    assert body["status"] == "draft"
-    assert body["current_run_id"] is None
-    assert mock_update.called
+    assert body["status"] == "running"
+    assert body["current_run_id"] == "run-old"
+    assert not mock_update.called
 
 
 def test_recheck_marks_stale_running_race_failed():

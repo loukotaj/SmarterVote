@@ -485,6 +485,7 @@ class RunManager:
             # order they were submitted — no stale write can overwrite a newer one.
             data = run_info.model_dump(mode="json")
             data.pop("logs", None)  # logs are ephemeral; not stored in Firestore
+            data["activity_at"] = datetime.now(timezone.utc)
             self._write_executor.submit(self._write_firestore_data, run_info.run_id, data)
 
     def _persist_background(self, run_info: RunInfo) -> None:
@@ -499,6 +500,7 @@ class RunManager:
         if self._db is not None:
             data = run_info.model_dump(mode="json")
             data.pop("logs", None)  # logs are ephemeral; not stored in Firestore
+            data["activity_at"] = run_info.completed_at or datetime.now(timezone.utc)
             self._write_executor.submit(self._write_firestore_data, run_info.run_id, data)
 
     def _write_firestore_data(self, run_id: str, data: dict) -> None:

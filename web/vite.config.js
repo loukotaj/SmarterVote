@@ -14,5 +14,23 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
+    coverage: {
+      provider: "v8",
+      include: ["src/lib/**/*.{ts,svelte}"],
+      exclude: [
+        "src/lib/**/*.test.ts",
+        "src/lib/**/*.d.ts",
+        "src/lib/types.ts",
+        "src/lib/sampleData.ts",
+        "src/lib/config/modelCatalog.ts",
+      ],
+      thresholds: {
+        statements: 35,
+        branches: 25,
+        functions: 35,
+        lines: 40,
+      },
+      reporter: ["text", "json-summary"],
+    },
   },
 });

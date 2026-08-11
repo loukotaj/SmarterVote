@@ -33,3 +33,12 @@ resource "google_firestore_field" "page_cache_ttl" {
 
   ttl_config {}
 }
+
+resource "google_firestore_field" "rate_limits_ttl" {
+  project    = var.project_id
+  database   = "(default)"
+  collection = "rate_limits"
+  field      = "expires_at"
+
+  ttl_config {}
+}

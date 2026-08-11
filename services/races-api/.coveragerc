@@ -1,0 +1,10 @@
+[run]
+branch = True
+source = .
+
+[report]
+omit =
+    test_*.py
+    */test_*.py
+show_missing = True
+fail_under = 65

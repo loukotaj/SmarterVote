@@ -4,7 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "smartervote-schema"
-version = "0.2.0"
+# Keep in step with ``shared/__init__.py``'s ``__version__``. This is the value
+# `pip install -e shared/` records as distribution metadata; there is no
+# setup.py any more, so this and ``__init__`` are the only two places.
+version = "0.4.0"
 description = "Shared Pydantic models for SmarterVote project"
 authors = [{name = "SmarterVote Team"}]
 dependencies = [
@@ -19,6 +22,9 @@ dev = [
     "isort",
 ]
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["shared*"]
+[tool.setuptools]
+packages = ["shared", "shared.data"]
+
+[tool.setuptools.package-dir]
+shared = "."
+"shared.data" = "data"

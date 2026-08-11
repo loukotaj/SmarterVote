@@ -18,10 +18,35 @@ resource "google_storage_bucket_iam_member" "pipeline_job_storage" {
   member = "serviceAccount:${google_service_account.pipeline_job.email}"
 }
 
-resource "google_project_iam_member" "pipeline_job_secrets" {
-  project = var.project_id
-  role    = "roles/secretmanager.secretAccessor"
-  member  = "serviceAccount:${google_service_account.pipeline_job.email}"
+# Secret access is granted per secret, not project-wide.
+#
+# This was a single project-level `roles/secretmanager.secretAccessor` binding,
+# which let the pipeline job read every secret in the project — including
+# `admin-api-key`, `stripe-secret-key`, `stripe-webhook-secret`, and the
+# Cloudflare analytics token, none of which it has any reason to touch. The
+# races-api service account already had the per-secret treatment; the job was
+# missed in that pass.
+#
+# The four below are exactly the secrets the job's container declares as
+# `secret_key_ref` env vars. Adding a fifth env secret means adding a binding
+# here — the deploy fails loudly on a missing one, which is the intended
+# tradeoff against a blanket grant that can never fail.
+locals {
+  pipeline_job_secret_ids = {
+    openrouter = google_secret_manager_secret.openrouter_key.secret_id
+    serper     = google_secret_manager_secret.serper_key.secret_id
+    searlo     = google_secret_manager_secret.searlo_key.secret_id
+    jina       = google_secret_manager_secret.jina_key.secret_id
+  }
+}
+
+resource "google_secret_manager_secret_iam_member" "pipeline_job_secrets" {
+  for_each = local.pipeline_job_secret_ids
+
+  project   = var.project_id
+  secret_id = each.value
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.pipeline_job.email}"
 }
 
 resource "google_cloud_run_v2_job" "pipeline" {
@@ -122,7 +147,7 @@ resource "google_cloud_run_v2_job" "pipeline" {
     google_project_service.apis,
     google_project_iam_member.pipeline_job_firestore,
     google_storage_bucket_iam_member.pipeline_job_storage,
-    google_project_iam_member.pipeline_job_secrets,
+    google_secret_manager_secret_iam_member.pipeline_job_secrets,
   ]
 }
 

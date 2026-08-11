@@ -58,7 +58,9 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: web/package-lock.json
+          cache-dependency-path: |
+            web/package-lock.json
+            design-system/package-lock.json
       - name: Audit Python dependencies
         run: |
           python -m pip install --upgrade pip
@@ -68,6 +70,9 @@ jobs:
       - name: Audit frontend dependencies
         working-directory: web
         run: npm audit --omit=dev --audit-level=high
+      - name: Audit design-system dependencies
+        working-directory: design-system
+        run: npm audit --audit-level=high
 
   test-pipeline:
     name: Test Pipeline
@@ -87,14 +92,23 @@ jobs:
           python -m pip install --upgrade pip
           pip install -c requirements-constraints.txt -r pipeline_client/backend/requirements.txt
           pip install -c requirements-constraints.txt -r services/races-api/requirements.txt
-          pip install -c requirements-constraints.txt pytest pytest-asyncio pytest-cov httpx
+          pip install -c requirements-constraints.txt -r requirements-mcp.txt
+          pip install -c requirements-constraints.txt pytest pytest-asyncio pytest-cov httpx "mypy==1.15.0"
 
       - name: Run pipeline tests
         run: |
           PYTHONPATH=. python -m pytest tests -v \
             --ignore=tests/test_races_api_admin.py \
             --cov=pipeline_client --cov=shared --cov=smartervote_mcp \
-            --cov-report=term-missing --cov-fail-under=65
+            --cov-report=term-missing --cov-report=json:coverage.json --cov-fail-under=70
+          PYTHONPATH=. python scripts/check_coverage_thresholds.py coverage.json
+
+      - name: Check incrementally typed Python modules
+        run: >-
+          PYTHONPATH=. python -m mypy
+          shared/pipeline_options.py
+          shared/race_titles.py
+          shared/kalshi_markets.py
 
       - name: Check Python formatting
         run: |
@@ -146,12 +160,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -c ../../requirements-constraints.txt -r requirements.txt
           pip install -c ../../requirements-constraints.txt -r test-requirements.txt
-          PYTHONPATH=../.. python -m pytest . -v
-
-      - name: Test Races API admin endpoints
-        run: |
-          cd services/races-api
-          PYTHONPATH=../.. python -m pytest ../../tests/test_races_api_admin.py -v
+          PYTHONPATH=../.. python -m pytest . ../../tests/test_races_api_admin.py -v \
+            --cov=. --cov-report=term-missing --cov-fail-under=65
 
   test-web:
     name: Test Web Frontend
@@ -200,7 +210,36 @@ jobs:
 
       - name: Run unit tests
         run: |
-          cd web && npm run test:unit -- --run
+          cd web && npm run test:coverage -- --run
+
+  # design-system/ is a standalone React library published for import into
+  # claude.ai/design; the production SvelteKit app does not consume it. That
+  # made it easy to leave ungated — 51 source files with a `typecheck` script
+  # nothing ever ran, while Dependabot kept bumping its dependencies. A break
+  # would only have surfaced the next time someone opened the library by hand.
+  design-system:
+    name: Typecheck Design System
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: design-system/package-lock.json
+
+      - name: Install dependencies
+        run: cd design-system && npm ci
+
+      - name: Type check
+        run: cd design-system && npm run typecheck
+
+      - name: Build
+        run: cd design-system && npm run build
 
   terraform-validate:
     name: Validate Terraform
@@ -288,6 +327,7 @@ jobs:
         type-sync,
         test-apis,
         test-web,
+        design-system,
         terraform-validate,
         codeql,
         release-artifacts,
@@ -303,6 +343,7 @@ jobs:
           TYPE_SYNC_RESULT: ${{ needs.type-sync.result }}
           APIS_RESULT: ${{ needs.test-apis.result }}
           WEB_RESULT: ${{ needs.test-web.result }}
+          DESIGN_SYSTEM_RESULT: ${{ needs.design-system.result }}
           TERRAFORM_RESULT: ${{ needs.terraform-validate.result }}
           CODEQL_RESULT: ${{ needs.codeql.result }}
           ARTIFACT_RESULT: ${{ needs.release-artifacts.result }}
@@ -313,10 +354,11 @@ jobs:
           echo "type-sync:           $TYPE_SYNC_RESULT"
           echo "test-apis:           $APIS_RESULT"
           echo "test-web:            $WEB_RESULT"
+          echo "design-system:       $DESIGN_SYSTEM_RESULT"
           echo "terraform-validate:  $TERRAFORM_RESULT"
           echo "codeql:              $CODEQL_RESULT"
           echo "release-artifacts:   $ARTIFACT_RESULT"
-          if [[ "$SECURITY_RESULT" != "success" || "$DEPENDENCY_RESULT" != "success" || "$PIPELINE_RESULT" != "success" || "$TYPE_SYNC_RESULT" != "success" || "$APIS_RESULT" != "success" || "$WEB_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" || "$CODEQL_RESULT" != "success" || "$ARTIFACT_RESULT" != "success" ]]; then
+          if [[ "$SECURITY_RESULT" != "success" || "$DEPENDENCY_RESULT" != "success" || "$PIPELINE_RESULT" != "success" || "$TYPE_SYNC_RESULT" != "success" || "$APIS_RESULT" != "success" || "$WEB_RESULT" != "success" || "$DESIGN_SYSTEM_RESULT" != "success" || "$TERRAFORM_RESULT" != "success" || "$CODEQL_RESULT" != "success" || "$ARTIFACT_RESULT" != "success" ]]; then
             echo "❌ One or more CI gates failed"
             exit 1
           fi

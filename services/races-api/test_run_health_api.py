@@ -102,8 +102,7 @@ class _FakeDb:
         return _FakeCollection(self._docs_by_id)
 
 
-@pytest.mark.asyncio
-async def test_get_run_endpoint_defaults_run_health_for_legacy_doc(monkeypatch):
+def test_get_run_endpoint_defaults_run_health_for_legacy_doc(monkeypatch):
     """A legacy run doc predating run_health tracking still serializes cleanly."""
     fake_db = _FakeDb(
         {
@@ -118,7 +117,7 @@ async def test_get_run_endpoint_defaults_run_health_for_legacy_doc(monkeypatch):
     )
     monkeypatch.setattr(runs_router.firestore_helpers, "_get_fs", lambda: fake_db)
 
-    result = await runs_router.get_run("run-legacy")
+    result = runs_router.get_run("run-legacy")
 
     assert result["run_health"] == {
         "status": "unknown",
@@ -130,8 +129,7 @@ async def test_get_run_endpoint_defaults_run_health_for_legacy_doc(monkeypatch):
     assert result["status"] == "completed"
 
 
-@pytest.mark.asyncio
-async def test_get_run_endpoint_surfaces_real_run_health(monkeypatch):
+def test_get_run_endpoint_surfaces_real_run_health(monkeypatch):
     """A run with a computed run_health verdict surfaces it unchanged through the API."""
     fake_db = _FakeDb(
         {
@@ -157,7 +155,7 @@ async def test_get_run_endpoint_surfaces_real_run_health(monkeypatch):
     )
     monkeypatch.setattr(runs_router.firestore_helpers, "_get_fs", lambda: fake_db)
 
-    result = await runs_router.get_run("run-new")
+    result = runs_router.get_run("run-new")
 
     assert result["run_health"]["status"] == "degraded"
     assert result["run_health"]["reasons"] == ["step_no_data"]

@@ -8,6 +8,7 @@ import firestore_helpers
 import gcp_costs
 from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException
+from starlette.concurrency import run_in_threadpool
 
 from shared.config import FIRESTORE_METRICS_COLLECTION, FIRESTORE_RUNS_COLLECTION
 
@@ -46,7 +47,7 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
     race_id = raw.get("race_id") or payload.get("race_id") or ""
     run_id = raw.get("run_id") or fallback_run_id
     status = raw.get("status") or "unknown"
-    timestamp = raw.get("timestamp") or raw.get("started_at") or raw.get("completed_at")
+    timestamp = raw.get("activity_at") or raw.get("timestamp") or raw.get("completed_at") or raw.get("started_at")
 
     cheap_mode = raw.get("cheap_mode")
     if cheap_mode is None:
@@ -241,6 +242,70 @@ def _compute_metrics_summary(records: list[Dict[str, Any]]) -> Dict[str, Any]:
     }
 
 
+def _load_recent_firestore_records(
+    db: Any, limit: int
+) -> tuple[Dict[str, Dict[str, Any]], Dict[str, Dict[str, Any]], bool, bool]:
+    """Load recent metric/run records on a worker thread."""
+    metric_records: Dict[str, Dict[str, Any]] = {}
+    run_records: Dict[str, Dict[str, Any]] = {}
+    metric_query_ok = False
+    run_query_ok = False
+    try:
+        docs = db.collection(FIRESTORE_METRICS_COLLECTION).order_by("timestamp", direction="DESCENDING").limit(limit).stream()
+        for doc in docs:
+            plain = firestore_helpers._doc_to_plain(doc)
+            if plain is not None:
+                record = _normalize_pipeline_run(plain, doc.id)
+                metric_records[str(record["run_id"])] = record
+        metric_query_ok = True
+    except Exception as exc:
+        logging.warning("Failed to load pipeline_metrics: %s", exc)
+
+    try:
+        docs = db.collection(FIRESTORE_RUNS_COLLECTION).order_by("activity_at", direction="DESCENDING").limit(limit).stream()
+        for doc in docs:
+            plain = firestore_helpers._doc_to_plain(doc)
+            if plain is not None:
+                record = _normalize_pipeline_run(plain, doc.id)
+                run_records[str(record["run_id"])] = record
+        run_query_ok = True
+    except Exception as exc:
+        logging.warning("Failed to load pipeline_runs for metrics merge: %s", exc)
+    return metric_records, run_records, metric_query_ok, run_query_ok
+
+
+def _load_summary_firestore_records(
+    db: Any,
+) -> tuple[Dict[str, Dict[str, Any]], Dict[str, Dict[str, Any]], bool, bool]:
+    """Load aggregate metric/run records on a worker thread."""
+    metric_records: Dict[str, Dict[str, Any]] = {}
+    run_records: Dict[str, Dict[str, Any]] = {}
+    metric_query_ok = False
+    run_query_ok = False
+    try:
+        docs = db.collection(FIRESTORE_METRICS_COLLECTION).order_by("timestamp", direction="DESCENDING").limit(5000).stream()
+        for doc in docs:
+            plain = firestore_helpers._doc_to_plain(doc)
+            if plain is not None:
+                record = _normalize_pipeline_run(plain, doc.id)
+                metric_records[str(record["run_id"])] = record
+        metric_query_ok = True
+    except Exception as exc:
+        logging.warning("Failed to summarize pipeline_metrics: %s", exc)
+
+    try:
+        docs = db.collection(FIRESTORE_RUNS_COLLECTION).limit(5000).stream()
+        for doc in docs:
+            plain = firestore_helpers._doc_to_plain(doc)
+            if plain is not None and _has_pipeline_cost_data(plain):
+                record = _normalize_pipeline_run(plain, doc.id)
+                run_records[str(record["run_id"])] = record
+        run_query_ok = True
+    except Exception as exc:
+        logging.warning("Failed to summarize pipeline_runs: %s", exc)
+    return metric_records, run_records, metric_query_ok, run_query_ok
+
+
 # ---------------------------------------------------------------------------
 # Pipeline metrics (token usage / cost)
 # ---------------------------------------------------------------------------
@@ -251,7 +316,7 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
     """Return recent pipeline run records with token usage and cost data."""
     limit = max(1, min(limit, 500))
     try:
-        db = firestore_helpers._get_fs()
+        db = await run_in_threadpool(firestore_helpers._get_fs)
     except Exception as exc:
         logging.warning("Firestore unavailable for pipeline metrics: %s", exc)
         from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
@@ -261,43 +326,9 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
             records = await store.get_recent(limit=limit)
             return {"records": records, "count": len(records)}
         raise HTTPException(status_code=503, detail="Pipeline metrics storage is temporarily unavailable") from exc
-    metric_records: Dict[str, Dict[str, Any]] = {}
-    run_records: Dict[str, Dict[str, Any]] = {}
-    metric_query_ok = False
-    run_query_ok = False
-
-    # Primary source: pipeline_metrics (includes tokens/cost/model fields).
-    try:
-        docs = db.collection(FIRESTORE_METRICS_COLLECTION).order_by("timestamp", direction="DESCENDING").limit(limit).stream()
-        for doc in docs:
-            plain = firestore_helpers._doc_to_plain(doc)
-            if plain is None:
-                continue
-            record = _normalize_pipeline_run(plain, doc.id)
-            metric_records[str(record["run_id"])] = record
-        metric_query_ok = True
-    except Exception as exc:
-        logging.warning("Failed to load pipeline_metrics: %s", exc)
-
-    # Recent runs are the dashboard row source; merge in metrics by run_id so a
-    # populated but stale metrics collection does not make current rows look free.
-    try:
-        for timestamp_field in ("progress_updated_at", "completed_at", "updated_at", "started_at"):
-            docs = (
-                db.collection(FIRESTORE_RUNS_COLLECTION)
-                .order_by(timestamp_field, direction="DESCENDING")
-                .limit(limit)
-                .stream()
-            )
-            for doc in docs:
-                plain = firestore_helpers._doc_to_plain(doc)
-                if plain is None:
-                    continue
-                record = _normalize_pipeline_run(plain, doc.id)
-                run_records[str(record["run_id"])] = record
-        run_query_ok = True
-    except Exception as exc:
-        logging.warning("Failed to load pipeline_runs for metrics merge: %s", exc)
+    metric_records, run_records, metric_query_ok, run_query_ok = await run_in_threadpool(
+        _load_recent_firestore_records, db, limit
+    )
 
     if not metric_query_ok and not run_query_ok:
         from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
@@ -344,7 +375,7 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
 async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str, Any]:
     """Return aggregate pipeline cost stats."""
     try:
-        db = firestore_helpers._get_fs()
+        db = await run_in_threadpool(firestore_helpers._get_fs)
     except Exception as exc:
         logging.warning("Firestore unavailable for pipeline metrics summary: %s", exc)
         from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
@@ -353,33 +384,7 @@ async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str,
         if store._client is None:
             return await store.get_summary()
         raise HTTPException(status_code=503, detail="Pipeline metrics storage is temporarily unavailable") from exc
-    metric_records: Dict[str, Dict[str, Any]] = {}
-    run_records: Dict[str, Dict[str, Any]] = {}
-    metric_query_ok = False
-    run_query_ok = False
-    try:
-        docs = db.collection(FIRESTORE_METRICS_COLLECTION).order_by("timestamp", direction="DESCENDING").limit(5000).stream()
-        for doc in docs:
-            plain = firestore_helpers._doc_to_plain(doc)
-            if plain is None:
-                continue
-            record = _normalize_pipeline_run(plain, doc.id)
-            metric_records[str(record["run_id"])] = record
-        metric_query_ok = True
-    except Exception as exc:
-        logging.warning("Failed to summarize pipeline_metrics: %s", exc)
-
-    try:
-        docs = db.collection(FIRESTORE_RUNS_COLLECTION).limit(5000).stream()
-        for doc in docs:
-            plain = firestore_helpers._doc_to_plain(doc)
-            if plain is None or not _has_pipeline_cost_data(plain):
-                continue
-            record = _normalize_pipeline_run(plain, doc.id)
-            run_records[str(record["run_id"])] = record
-        run_query_ok = True
-    except Exception as exc:
-        logging.warning("Failed to summarize pipeline_runs: %s", exc)
+    metric_records, run_records, metric_query_ok, run_query_ok = await run_in_threadpool(_load_summary_firestore_records, db)
 
     if not metric_query_ok and not run_query_ok:
         from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
@@ -414,4 +419,4 @@ async def get_gcp_costs(days: int = 30) -> Dict[str, Any]:
     Degrades gracefully to ``{"configured": false, ...}`` when the billing
     export is not yet set up or has produced no data.
     """
-    return gcp_costs.get_gcp_costs(days)
+    return await run_in_threadpool(gcp_costs.get_gcp_costs, days)

@@ -21,6 +21,7 @@
     "lint": "prettier --plugin=prettier-plugin-svelte --check . && eslint .",
     "format": "prettier --plugin=prettier-plugin-svelte --write .",
     "test:unit": "svelte-kit sync && vitest run",
+    "test:coverage": "svelte-kit sync && vitest run --coverage",
     "test:e2e": "playwright test"
   },
   "devDependencies": {
@@ -35,6 +36,7 @@
     "@types/topojson-specification": "^1.0.5",
     "@typescript-eslint/eslint-plugin": "8.65.0",
     "@typescript-eslint/parser": "8.65.0",
+    "@vitest/coverage-v8": "^4.1.10",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-svelte": "2.46.1",

@@ -19,7 +19,7 @@ router = APIRouter()
 
 
 @router.get("/api/races/{race_id}/runs", dependencies=[Depends(verify_token)])
-async def list_race_runs(race_id: str, limit: int = 20) -> Dict[str, Any]:
+def list_race_runs(race_id: str, limit: int = 20) -> Dict[str, Any]:
     """List archived and canonical runs for a specific race from Firestore."""
     validate_race_id(race_id)
     db = firestore_helpers._get_fs()
@@ -56,7 +56,7 @@ async def list_race_runs(race_id: str, limit: int = 20) -> Dict[str, Any]:
 
 
 @router.get("/api/races/{race_id}/runs/{run_id}", dependencies=[Depends(verify_token)])
-async def get_race_run(race_id: str, run_id: str) -> Dict[str, Any]:
+def get_race_run(race_id: str, run_id: str) -> Dict[str, Any]:
     """Get details of a specific run for a race."""
     validate_race_id(race_id)
     db = firestore_helpers._get_fs()
@@ -78,7 +78,7 @@ async def get_race_run(race_id: str, run_id: str) -> Dict[str, Any]:
 
 
 @router.delete("/api/races/{race_id}/runs/{run_id}", dependencies=[Depends(verify_token)])
-async def delete_race_run(race_id: str, run_id: str) -> Dict[str, Any]:
+def delete_race_run(race_id: str, run_id: str) -> Dict[str, Any]:
     """Cancel or delete a run for a race."""
     validate_race_id(race_id)
     db = firestore_helpers._get_fs()

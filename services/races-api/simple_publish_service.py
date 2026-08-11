@@ -51,6 +51,9 @@ class SimplePublishService:
         self._race_data_cache: Dict[str, Tuple[Dict, float]] = {}
         self._race_summaries_cache: Optional[Tuple[List[Dict], float]] = None
         self._cache_lock = threading.Lock()
+        self._cache_generation: int = 0
+        self._summaries_in_flight: bool = False
+        self._summaries_condition = threading.Condition(self._cache_lock)
 
         logger.info(
             "Initialized SimplePublishService: local=%s, cloud_configured=%s, " "gcs_client_ok=%s, cache_ttl=%ds",
@@ -114,13 +117,20 @@ class SimplePublishService:
 
     def clear_cache(self) -> None:
         """Discard all in-memory cached race data; next request re-fetches from GCS."""
+        self._ensure_singleflight_fields()
         with self._cache_lock:
+            self._cache_generation = getattr(self, "_cache_generation", 0) + 1
             self._race_list_cache = None
             self._race_data_cache.clear()
             self._race_summaries_cache = None
-        logger.info("In-memory cache cleared")
+            self._in_flight_result = None
+            self._in_flight_error = None
+            if hasattr(self, "_summaries_condition"):
+                self._summaries_condition.notify_all()
+        logger.info("In-memory cache cleared (generation=%d)", getattr(self, "_cache_generation", 0))
 
     def _cache_get_race_list(self) -> Optional[List[str]]:
+        self._ensure_singleflight_fields()
         with self._cache_lock:
             if self._race_list_cache is None:
                 return None
@@ -133,10 +143,12 @@ class SimplePublishService:
     def _cache_set_race_list(self, data: List[str]) -> None:
         if self.cache_ttl <= 0:
             return
+        self._ensure_singleflight_fields()
         with self._cache_lock:
             self._race_list_cache = (data, time.monotonic() + self.cache_ttl)
 
     def _cache_get_race(self, race_id: str) -> Optional[Dict]:
+        self._ensure_singleflight_fields()
         with self._cache_lock:
             entry = self._race_data_cache.get(race_id)
             if entry is None:
@@ -150,10 +162,12 @@ class SimplePublishService:
     def _cache_set_race(self, race_id: str, data: Dict) -> None:
         if self.cache_ttl <= 0:
             return
+        self._ensure_singleflight_fields()
         with self._cache_lock:
             self._race_data_cache[race_id] = (data, time.monotonic() + self.cache_ttl)
 
     def _cache_get_race_summaries(self) -> Optional[List[Dict]]:
+        self._ensure_singleflight_fields()
         with self._cache_lock:
             if self._race_summaries_cache is None:
                 return None
@@ -166,6 +180,7 @@ class SimplePublishService:
     def _cache_set_race_summaries(self, data: List[Dict]) -> None:
         if self.cache_ttl <= 0:
             return
+        self._ensure_singleflight_fields()
         with self._cache_lock:
             self._race_summaries_cache = (data, time.monotonic() + self.cache_ttl)
 
@@ -254,92 +269,36 @@ class SimplePublishService:
             logger.warning("Failed to parse local summaries index %s", index_path, exc_info=True)
             return None
 
-    def get_published_races(self) -> List[str]:
-        """List available race IDs.
+    def _ensure_singleflight_fields(self) -> None:
+        if not hasattr(self, "_cache_lock"):
+            self._cache_lock = threading.Lock()
+        if not hasattr(self, "_cache_generation"):
+            self._cache_generation = 0
+        if not hasattr(self, "_summaries_in_flight"):
+            self._summaries_in_flight = False
+        if not hasattr(self, "_summaries_condition"):
+            self._summaries_condition = threading.Condition(self._cache_lock)
+        if not hasattr(self, "_in_flight_result"):
+            self._in_flight_result = None
+        if not hasattr(self, "_in_flight_error"):
+            self._in_flight_error = None
 
-        In cloud mode, the central summaries index is the source of truth.
-        In local mode, the local summaries index is preferred and file scans are a
-        development-only fallback.
-        """
-        cached = self._cache_get_race_list()
-        if cached is not None:
-            return cached
-
-        cached_summaries = self._cache_get_race_summaries()
-        if cached_summaries is not None:
-            race_ids = sorted(str(summary["id"]) for summary in cached_summaries if summary.get("id"))
-            self._cache_set_race_list(race_ids)
-            return race_ids
-
-        race_ids = set()
+    def _fetch_summaries_unlocked(self) -> List[Dict]:
         client = self._get_gcs_client()
-
         if client:
-            summaries = self._load_cloud_summaries_index(client)
-            if summaries is not None:
-                self._cache_set_race_summaries(summaries)
-                result = sorted(str(summary["id"]) for summary in summaries if summary.get("id"))
-                self._cache_set_race_list(result)
-                return result
+            indexed = self._load_cloud_summaries_index(client)
+            if indexed is not None:
+                return indexed
             logger.warning(
                 "Cloud summaries index %s is unavailable; not scanning GCS blobs for published races", _SUMMARIES_BLOB
             )
             return []
 
-        local_summaries = self._load_local_summaries_index()
-        if local_summaries is not None:
-            self._cache_set_race_summaries(local_summaries)
-            result = sorted(str(summary["id"]) for summary in local_summaries if summary.get("id"))
-            self._cache_set_race_list(result)
-            return result
-
-        # Local mode (or GCS list failed)
-        if self.data_directory.exists():
-            for file_path in self.data_directory.glob("*.json"):
-                if file_path.name == "summaries.json":
-                    continue
-                try:
-                    with open(file_path, "r", encoding="utf-8") as f:
-                        data = json.load(f)
-                    if isinstance(data, dict) and "race_json" in data and "race_id" in data:
-                        race_ids.add(data["race_id"])
-                    else:
-                        race_ids.add(file_path.stem)
-                except (json.JSONDecodeError, IOError):
-                    race_ids.add(file_path.stem)
-
-        return sorted(race_ids)
-
-    def get_race_summaries(self) -> List[Dict]:
-        """Return cached race summaries.
-
-        Cloud mode serves the central summaries index only. Local mode prefers the
-        local summaries index and only scans files as a development fallback.
-        """
-        cached = self._cache_get_race_summaries()
-        if cached is not None:
-            return cached
-
-        summaries: List[Dict] = []
-        client = self._get_gcs_client()
-
-        if client:
-            indexed = self._load_cloud_summaries_index(client)
-            if indexed is not None:
-                self._cache_set_race_summaries(indexed)
-                self._cache_set_race_list(sorted(str(summary["id"]) for summary in indexed if summary.get("id")))
-                return indexed
-            logger.warning(
-                "Cloud summaries index %s is unavailable; not rebuilding summaries from all race blobs", _SUMMARIES_BLOB
-            )
-            return []
-
         local_indexed = self._load_local_summaries_index()
         if local_indexed is not None:
-            self._cache_set_race_summaries(local_indexed)
-            self._cache_set_race_list(sorted(str(summary["id"]) for summary in local_indexed if summary.get("id")))
             return local_indexed
 
+        summaries: List[Dict] = []
         if self.data_directory.exists():
             for file_path in sorted(self.data_directory.glob("*.json")):
                 if file_path.name == "summaries.json":
@@ -354,9 +313,93 @@ class SimplePublishService:
                     summaries.append(self._summary_from_race_data(file_path.stem, race_data))
                 except (json.JSONDecodeError, IOError, ValueError):
                     logger.warning("Failed to parse local race summary file %s", file_path, exc_info=True)
-
-        self._cache_set_race_summaries(summaries)
         return summaries
+
+    def _get_or_fetch_summaries(self) -> List[Dict]:
+        """Single-flight fetch of the published summaries index.
+
+        Coalesces concurrent misses across get_published_races and get_race_summaries
+        so only a single GCS fetch runs at a time. Wakes all waiting threads on completion
+        or exception, and discards stale fetched data if clear_cache() was called during
+        the in-flight fetch.
+        """
+        self._ensure_singleflight_fields()
+        with self._summaries_condition:
+            if self._race_summaries_cache is not None:
+                data, expiry = self._race_summaries_cache
+                if time.monotonic() < expiry:
+                    return data
+                self._race_summaries_cache = None
+
+            while self._summaries_in_flight:
+                wait_gen = self._cache_generation
+                self._summaries_condition.wait()
+                if self._race_summaries_cache is not None:
+                    data, expiry = self._race_summaries_cache
+                    if time.monotonic() < expiry:
+                        return data
+                if getattr(self, "_in_flight_result", None) is not None and self._cache_generation == wait_gen:
+                    return self._in_flight_result
+                if getattr(self, "_in_flight_error", None) is not None and self._cache_generation == wait_gen:
+                    raise self._in_flight_error
+
+            self._summaries_in_flight = True
+            self._in_flight_result = None
+            self._in_flight_error = None
+            fetch_generation = self._cache_generation
+
+        fetched_summaries: Optional[List[Dict]] = None
+        fetch_error: Optional[Exception] = None
+        try:
+            fetched_summaries = self._fetch_summaries_unlocked()
+            return fetched_summaries
+        except Exception as exc:
+            fetch_error = exc
+            raise
+        finally:
+            with self._summaries_condition:
+                self._summaries_in_flight = False
+                if self._cache_generation == fetch_generation:
+                    if fetch_error is not None:
+                        self._in_flight_error = fetch_error
+                    elif fetched_summaries is not None:
+                        self._in_flight_result = fetched_summaries
+                        if self.cache_ttl > 0:
+                            now = time.monotonic()
+                            self._race_summaries_cache = (fetched_summaries, now + self.cache_ttl)
+                            race_ids = sorted(
+                                str(summary["id"])
+                                for summary in fetched_summaries
+                                if isinstance(summary, dict) and summary.get("id")
+                            )
+                            self._race_list_cache = (race_ids, now + self.cache_ttl)
+                self._summaries_condition.notify_all()
+
+    def get_published_races(self) -> List[str]:
+        """List available race IDs.
+
+        In cloud mode, the central summaries index is the source of truth.
+        In local mode, the local summaries index is preferred and file scans are a
+        development-only fallback.
+        """
+        cached = self._cache_get_race_list()
+        if cached is not None:
+            return cached
+
+        summaries = self._get_or_fetch_summaries()
+        return sorted(str(summary["id"]) for summary in summaries if isinstance(summary, dict) and summary.get("id"))
+
+    def get_race_summaries(self) -> List[Dict]:
+        """Return cached race summaries.
+
+        Cloud mode serves the central summaries index only. Local mode prefers the
+        local summaries index and only scans files as a development fallback.
+        """
+        cached = self._cache_get_race_summaries()
+        if cached is not None:
+            return cached
+
+        return self._get_or_fetch_summaries()
 
     def get_race_data(self, race_id: str) -> Optional[Dict]:
         """Retrieve race data by ID from local files or cloud storage.

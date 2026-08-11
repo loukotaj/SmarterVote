@@ -2,5 +2,7 @@
 .venv/
 build/
 web/build/
+web/coverage/
+coverage/
 web/.svelte-kit/
 .svelte-kit/

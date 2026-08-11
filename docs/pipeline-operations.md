@@ -398,6 +398,12 @@ Do not leave required command sessions or runs unobserved. A queue dispatch can
 fail before job start; a worker can lose its lease; a job can complete without a
 publishable draft.
 
+Run and queue reads never repair stored state. If an admin view reveals stale
+or superseded active records, call `POST /runs/reconcile` and
+`POST /api/queue/reconcile`; both mutations are explicit and auditable. New
+writers maintain `activity_at`, which is the canonical timestamp for active-run
+queries and sorting.
+
 For diagnostics, download
 `GET /runs/{run_id}/diagnostics` or use **Export diagnostics** in the admin UI.
 The sanitized `smartervote.pipeline-diagnostics.v1` bundle includes run, queue,

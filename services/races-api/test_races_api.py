@@ -13,6 +13,7 @@ import os
 import sys
 import tempfile
 import threading
+import time
 from typing import Any
 from unittest.mock import MagicMock
 
@@ -298,15 +299,18 @@ def test_rate_limit_exceeded(client):
     assert resp.status_code == 429
 
 
-def test_rate_limit_bypass_prerender(client):
-    """Requests with Origin: http://sveltekit-prerender bypass the rate limit."""
+def test_prerender_origin_cannot_bypass_rate_limit(client):
+    """A caller-controlled Origin header must not disable rate limiting."""
     import main as main_mod
 
     main_mod.limiter.reset()
 
-    for _ in range(70):
+    for _ in range(60):
         resp = client.get("/races", headers={"Origin": "http://sveltekit-prerender"})
         assert resp.status_code == 200
+
+    resp = client.get("/races", headers={"Origin": "http://sveltekit-prerender"})
+    assert resp.status_code == 429
 
 
 # ---------------------------------------------------------------------------
@@ -680,3 +684,146 @@ async def test_review_chamber_analysis_returns_the_draft_when_the_pass_fails(mon
 
     assert result == draft
     assert corrections == []
+
+
+def test_singleflight_coalesces_concurrent_summaries_fetches(tmp_path):
+    service = SimplePublishService.__new__(SimplePublishService)
+    service.data_directory = tmp_path
+    service.gcs_bucket_name = "test-bucket"
+    service.cloud_configured = True
+    service.cache_ttl = 300
+    service._race_list_cache = None
+    service._race_data_cache = {}
+    service._race_summaries_cache = None
+
+    fetch_count = 0
+    fetch_lock = threading.Lock()
+
+    def mock_load_cloud_index(client):
+        nonlocal fetch_count
+        with fetch_lock:
+            fetch_count += 1
+        time.sleep(0.05)
+        return [{"id": "ga-senate-2026", "title": "Georgia Senate"}]
+
+    service._load_cloud_summaries_index = mock_load_cloud_index
+    service.gcs_client = MagicMock()
+
+    results = []
+
+    def worker(call_type):
+        if call_type == "races":
+            results.append(service.get_published_races())
+        else:
+            results.append(service.get_race_summaries())
+
+    threads = [threading.Thread(target=worker, args=("races" if i % 2 == 0 else "summaries",)) for i in range(10)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+
+    assert fetch_count == 1
+    assert len(results) == 10
+    for res in results:
+        if isinstance(res[0], str):
+            assert res == ["ga-senate-2026"]
+        else:
+            assert res[0]["id"] == "ga-senate-2026"
+
+
+def test_singleflight_discards_stale_data_if_cleared_during_fetch(tmp_path):
+    service = SimplePublishService.__new__(SimplePublishService)
+    service.data_directory = tmp_path
+    service.gcs_bucket_name = "test-bucket"
+    service.cloud_configured = True
+    service.cache_ttl = 300
+    service._race_list_cache = None
+    service._race_data_cache = {}
+    service._race_summaries_cache = None
+
+    def mock_fetch():
+        service.clear_cache()
+        return [{"id": "stale-race"}]
+
+    service._fetch_summaries_unlocked = mock_fetch
+
+    res = service.get_race_summaries()
+    assert res == [{"id": "stale-race"}]
+    # Because clear_cache incremented generation during fetch, cache must NOT be populated
+    assert service._race_summaries_cache is None
+
+
+def test_singleflight_wakes_waiters_on_exception(tmp_path):
+    service = SimplePublishService.__new__(SimplePublishService)
+    service.data_directory = tmp_path
+    service.gcs_bucket_name = "test-bucket"
+    service.cloud_configured = True
+    service.cache_ttl = 300
+    service._race_list_cache = None
+    service._race_data_cache = {}
+    service._race_summaries_cache = None
+
+    def mock_failing_fetch():
+        time.sleep(0.02)
+        raise RuntimeError("GCS network failure")
+
+    service._fetch_summaries_unlocked = mock_failing_fetch
+
+    waiter_failed = False
+
+    def leader_worker():
+        try:
+            service.get_race_summaries()
+        except RuntimeError:
+            pass
+
+    def follower_worker():
+        nonlocal waiter_failed
+        try:
+            time.sleep(0.005)
+            service.get_race_summaries()
+        except RuntimeError:
+            waiter_failed = True
+
+    t1 = threading.Thread(target=leader_worker)
+    t2 = threading.Thread(target=follower_worker)
+    t1.start()
+    t2.start()
+    t1.join(timeout=2)
+    t2.join(timeout=2)
+
+    assert not t1.is_alive()
+    assert not t2.is_alive()
+    assert waiter_failed is True
+
+
+def test_singleflight_cache_ttl_zero_coalesces_without_retaining(tmp_path):
+    service = SimplePublishService.__new__(SimplePublishService)
+    service.data_directory = tmp_path
+    service.gcs_bucket_name = "test-bucket"
+    service.cloud_configured = True
+    service.cache_ttl = 0
+    service._race_list_cache = None
+    service._race_data_cache = {}
+    service._race_summaries_cache = None
+
+    fetch_count = 0
+
+    def mock_fetch():
+        nonlocal fetch_count
+        fetch_count += 1
+        time.sleep(0.03)
+        return [{"id": "race-1"}]
+
+    service._fetch_summaries_unlocked = mock_fetch
+
+    threads = [threading.Thread(target=service.get_race_summaries) for _ in range(5)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+
+    assert fetch_count == 1
+    # cache_ttl=0 means results are not stored long-term
+    assert service._race_summaries_cache is None

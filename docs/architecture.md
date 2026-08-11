@@ -71,12 +71,14 @@ The admin dashboard should target `services/races-api`.
 | POST   | `/api/races/{race_id}/recheck`                              | Reconcile status from Firestore/GCS              |
 | GET    | `/runs`                                                     | List recent pipeline runs                        |
 | GET    | `/runs/active`                                              | List currently pending/running runs              |
+| POST   | `/runs/reconcile`                                           | Persist stale/superseded run reconciliation      |
 | GET    | `/runs/{run_id}`                                            | Get run details                                  |
 | GET    | `/runs/{run_id}/logs`                                       | Get run logs                                     |
 | GET    | `/runs/{run_id}/diagnostics`                                | Export sanitized run diagnostics                  |
 | DELETE | `/runs`                                                     | Prune terminal pipeline runs                     |
 | DELETE | `/runs/{run_id}`                                            | Cancel or delete a run                           |
 | GET    | `/api/queue`                                                | List queue items                                 |
+| POST   | `/api/queue/reconcile`                                      | Persist queue state from authoritative runs      |
 | DELETE | `/api/queue/{item_id}`                                      | Cancel/remove a queue item                       |
 | DELETE | `/api/queue/finished`                                       | Clear completed/failed/cancelled queue items     |
 | DELETE | `/api/queue/pending`                                        | Cancel pending queue items                       |
@@ -108,6 +110,12 @@ The admin dashboard should target `services/races-api`.
 
 Legacy admin aliases were removed; frontend code should use the routes above.
 
+Run, queue, and race-catalog GET endpoints are read-only projections. Stale run
+and queue state is persisted only through the explicit `/runs/reconcile` and
+`/api/queue/reconcile` POST endpoints. Run writers maintain a canonical
+`activity_at` timestamp so recent views use one indexed Firestore query; the
+API retains a bounded legacy fallback for older records.
+
 The admin race list is intentionally Firestore-catalog-first. It should not enumerate GCS blobs or fetch per-race
 JSON on the hot path; draft/published filter state, candidate counts, grades, and freshness all come from the
 `races/{race_id}` catalog document.
@@ -116,7 +124,7 @@ Initial population is handled by the existing admin recheck flow. After deploy, 
 existing Firestore race docs plus known GCS draft/published race IDs, hydrates catalog metadata from storage, and
 creates missing `races/{race_id}` documents when a race already exists in GCS.
 
-## Public API Surface
+## Published-data API Surface
 
 | Method | Path                       | Purpose                                                   |
 | ------ | -------------------------- | --------------------------------------------------------- |
@@ -134,7 +142,9 @@ The production Cloudflare workflow copies the current published files from GCS i
 Public SvelteKit pages therefore load the bundled `/{race_id}.json`, `/summaries.json`, and
 `/chamber_forecasts.json` assets from Cloudflare Pages. `VITE_PUBLIC_DATA_URL` remains an optional mode for a future
 dedicated public bucket or another public static origin; it is deliberately unset while drafts and published data
-share one private bucket. FastAPI public read routes remain available as API fallbacks and operational interfaces.
+share one private bucket. The FastAPI published-data routes are authenticated
+fallback and operational interfaces; they are not the browser's public static
+data path.
 
 Public page traffic is therefore measured with the Cloudflare Web Analytics browser beacon, not inferred from
 `races-api` reads. The authenticated `/analytics/traffic` endpoint queries Cloudflare's GraphQL API and caches the
@@ -161,6 +171,11 @@ The `/my-ballot/` route provides a no-server-storage election lookup. When `VITE
 
 Support checkout sends only an amount and one-time/monthly mode to `races-api`; card and billing details go directly to Stripe Checkout and never enter Smarter.Vote's frontend or API. The API derives success and cancellation routes from an exact allowlist of public/local origins, applies checkout rate limits, and keeps Stripe credentials server-side in Secret Manager. The return page verifies the opaque Checkout session ID with Stripe before displaying a confirmed state; the signed webhook endpoint handles lifecycle notifications separately. If Stripe secrets are absent, checkout fails closed with a service-unavailable response.
 
+Checkout throttling uses transactional Firestore counters keyed by the remote
+client address. It is shared across Cloud Run instances and does not trust an
+attacker-controlled `Origin` header. Counter documents expire through the
+Firestore `rate_limits.expires_at` TTL policy.
+
 ## Agent Phases
 
 ```text
@@ -178,6 +193,7 @@ Update/rerun mode adds roster and metadata synchronization before re-researching
 | GCS `retired/`                        | Archived previous versions                                                   |
 | Firestore `pipeline_queue`            | Durable work routing, leases, dispatch state, and terminal status            |
 | Firestore `pipeline_runs`             | Run status, progress, and logs                                               |
+| Firestore `rate_limits`               | Shared transactional API throttling counters with TTL cleanup                |
 | Firestore `races`                     | Race catalog metadata for admin listing/filtering, plus status and history   |
 | Secret Manager                        | API keys and admin secrets                                                   |
 

@@ -30,7 +30,7 @@ def _version_bucket() -> Any:
 
 
 @router.get("/api/races/{race_id}/versions", dependencies=[Depends(verify_token)])
-async def list_race_versions(race_id: str) -> Dict[str, Any]:
+def list_race_versions(race_id: str) -> Dict[str, Any]:
     """List retired versions for a race, newest first."""
     validate_race_id(race_id)
     versions = gcs_helpers._gcs_list_versions(race_id)
@@ -39,7 +39,7 @@ async def list_race_versions(race_id: str) -> Dict[str, Any]:
 
 
 @router.get("/api/races/{race_id}/versions/{filename}", dependencies=[Depends(verify_token)])
-async def get_race_version(race_id: str, filename: str) -> Dict[str, Any]:
+def get_race_version(race_id: str, filename: str) -> Dict[str, Any]:
     """Return one retired version without exposing provider errors to clients."""
     validate_race_id(race_id)
     _validate_version_filename(filename)
@@ -59,7 +59,7 @@ async def get_race_version(race_id: str, filename: str) -> Dict[str, Any]:
 
 
 @router.post("/api/races/{race_id}/versions/{filename}/restore", dependencies=[Depends(verify_token)])
-async def restore_version_as_draft(race_id: str, filename: str) -> Dict[str, Any]:
+def restore_version_as_draft(race_id: str, filename: str) -> Dict[str, Any]:
     """Restore one retired version as the active draft."""
     validate_race_id(race_id)
     _validate_version_filename(filename)

@@ -181,9 +181,11 @@ class FirestoreLogger:
         if db is None:
             return
         try:
+            activity_at = datetime.now(timezone.utc)
             update: Dict[str, Any] = {
                 "progress": pct,
-                "progress_updated_at": datetime.now(timezone.utc).isoformat(),
+                "progress_updated_at": activity_at.isoformat(),
+                "activity_at": activity_at,
             }
             if current_step is not None:
                 update["current_step"] = current_step
@@ -218,10 +220,12 @@ class FirestoreLogger:
         if db is None:
             return
         try:
+            activity_at = datetime.now(timezone.utc)
             update: Dict[str, Any] = {
                 "status": "completed",
                 "progress": 100,
-                "completed_at": datetime.now(timezone.utc).isoformat(),
+                "completed_at": activity_at.isoformat(),
+                "activity_at": activity_at,
             }
             if duration_ms is not None:
                 update["duration_ms"] = duration_ms
@@ -253,10 +257,12 @@ class FirestoreLogger:
         if db is None:
             return
         try:
+            activity_at = datetime.now(timezone.utc)
             update: Dict[str, Any] = {
                 "status": "failed",
                 "error": sanitize_log_message(error),
-                "failed_at": datetime.now(timezone.utc).isoformat(),
+                "failed_at": activity_at.isoformat(),
+                "activity_at": activity_at,
             }
             if duration_ms is not None:
                 update["duration_ms"] = duration_ms
@@ -284,11 +290,13 @@ class FirestoreLogger:
         try:
             from google.cloud.firestore_v1 import Increment  # type: ignore
 
+            activity_at = datetime.now(timezone.utc)
             update = {
                 "status": "running",
                 "continuation_item_id": continuation_item_id,
                 "continuation_count": Increment(1),
-                "handoff_at": datetime.now(timezone.utc).isoformat(),
+                "handoff_at": activity_at.isoformat(),
+                "activity_at": activity_at,
             }
             if duration_ms is not None:
                 update["logical_duration_ms"] = Increment(duration_ms)

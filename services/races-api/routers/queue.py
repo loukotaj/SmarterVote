@@ -118,8 +118,8 @@ def _normalize_continuation_ancestors(items: list[Dict[str, Any]]) -> list[Dict[
     return normalized
 
 
-def _normalize_terminal_run_items(db: Any, items: list[Dict[str, Any]]) -> list[Dict[str, Any]]:
-    """Mirror authoritative run/race state onto stale active queue items."""
+def _normalize_terminal_run_items(db: Any, items: list[Dict[str, Any]], *, persist: bool = False) -> list[Dict[str, Any]]:
+    """Project authoritative run/race state, optionally persisting reconciliation."""
     runs_ref = db.collection(FIRESTORE_RUNS_COLLECTION)
     queue_ref = db.collection(FIRESTORE_QUEUE_COLLECTION)
     races_ref = db.collection(FIRESTORE_RACES_COLLECTION)
@@ -149,7 +149,8 @@ def _normalize_terminal_run_items(db: Any, items: list[Dict[str, Any]]) -> list[
                 current_run_id = (race_data or {}).get("current_run_id")
                 if race_status in _INACTIVE_RACE_STATUSES and current_run_id and current_run_id != next_item.get("run_id"):
                     if _current_run_is_terminal_or_missing(db, str(current_run_id)):
-                        firestore_helpers._fs_update_race(str(next_item["race_id"]), {"current_run_id": None})
+                        if persist:
+                            firestore_helpers._fs_update_race(str(next_item["race_id"]), {"current_run_id": None})
                     else:
                         updates = {
                             "status": "cancelled",
@@ -159,7 +160,7 @@ def _normalize_terminal_run_items(db: Any, items: list[Dict[str, Any]]) -> list[
             if updates:
                 next_item.update(updates)
                 item_id = next_item.get("id")
-                if item_id:
+                if persist and item_id:
                     try:
                         queue_ref.document(str(item_id)).update(updates)
                     except Exception:
@@ -175,7 +176,7 @@ async def list_steps() -> Dict[str, Any]:
 
 
 @router.get("/api/queue", dependencies=[Depends(verify_token)])
-async def get_queue(active_only: bool = False, limit: int = 200) -> Dict[str, Any]:
+def get_queue(active_only: bool = False, limit: int = 200) -> Dict[str, Any]:
     """List queue items from Firestore.
 
     When ``active_only=true``, only pending/running items are returned.
@@ -203,8 +204,19 @@ async def get_queue(active_only: bool = False, limit: int = 200) -> Dict[str, An
     return {"items": items, "running": running > 0, "pending": pending}
 
 
+@router.post("/api/queue/reconcile", dependencies=[Depends(verify_token)])
+def reconcile_queue() -> Dict[str, Any]:
+    """Explicitly persist queue state derived from authoritative run records."""
+    db = firestore_helpers._get_fs()
+    query = db.collection(FIRESTORE_QUEUE_COLLECTION).where("status", "in", sorted(_ACTIVE_STATUSES)).limit(500)
+    items = [item for item in (firestore_helpers._doc_to_plain(doc) for doc in query.stream()) if item is not None]
+    reconciled = _normalize_terminal_run_items(db, items, persist=True)
+    changed = sum(1 for before, after in zip(items, reconciled) if before.get("status") != after.get("status"))
+    return {"checked": len(items), "changed": changed}
+
+
 @router.post("/api/races/queue", dependencies=[Depends(verify_token)])
-async def queue_races(request: RaceQueueRequest) -> Dict[str, Any]:
+def queue_races(request: RaceQueueRequest) -> Dict[str, Any]:
     """Queue races for local Docker, Cloud Run Jobs, or the temporary CF fallback."""
     db = firestore_helpers._get_fs()
     options = request.options.model_dump(exclude_none=True) if request.options else {}
@@ -268,7 +280,7 @@ async def queue_races(request: RaceQueueRequest) -> Dict[str, Any]:
 
 
 @router.delete("/api/queue/finished", dependencies=[Depends(verify_token)])
-async def clear_finished_queue() -> Dict[str, Any]:
+def clear_finished_queue() -> Dict[str, Any]:
     """Delete completed/failed/cancelled queue items."""
     db = firestore_helpers._get_fs()
     finished_statuses = {"completed", "failed", "cancelled", "continued"}
@@ -281,7 +293,7 @@ async def clear_finished_queue() -> Dict[str, Any]:
 
 
 @router.delete("/api/queue/pending", dependencies=[Depends(verify_token)])
-async def clear_pending_queue() -> Dict[str, Any]:
+def clear_pending_queue() -> Dict[str, Any]:
     """Cancel all pending (not yet started) queue items."""
     db = firestore_helpers._get_fs()
     removed = 0
@@ -297,7 +309,7 @@ async def clear_pending_queue() -> Dict[str, Any]:
 
 
 @router.delete("/api/queue/{item_id}", dependencies=[Depends(verify_token)])
-async def remove_queue_item(item_id: str, force: bool = False) -> Dict[str, Any]:
+def remove_queue_item(item_id: str, force: bool = False) -> Dict[str, Any]:
     """Cancel or remove a specific queue item.
 
     When ``force=true`` this endpoint always deletes the queue document, even

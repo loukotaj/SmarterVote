@@ -26,13 +26,29 @@ $repoRoot = Split-Path -Parent $PSScriptRoot
 Push-Location $repoRoot
 
 try {
-    $python = "python"
-    # Respect an activated virtual environment. The Windows `py` launcher bypasses
-    # it and can leak incompatible optional packages into otherwise clean CI checks.
-    if (-not $env:VIRTUAL_ENV -and (Get-Command py -ErrorAction SilentlyContinue)) {
-        $python = "py -3.11"
+    $pythonExe = "python"
+    $pythonPrefixArgs = @()
+    # Respect an activated virtual environment even when its Scripts directory
+    # was not prepended to PATH (a common Windows shell configuration).
+    if ($env:VIRTUAL_ENV) {
+        $venvPython = Join-Path $env:VIRTUAL_ENV "Scripts\python.exe"
+        if (Test-Path -LiteralPath $venvPython) {
+            $pythonExe = $venvPython
+        }
     }
-    $pythonVersion = Invoke-Expression "$python -c \"import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')\""
+    elseif (Get-Command py -ErrorAction SilentlyContinue) {
+        $pythonExe = "py"
+        $pythonPrefixArgs = @("-3.11")
+    }
+
+    function Invoke-Python {
+        & $pythonExe @pythonPrefixArgs @args
+        if ($LASTEXITCODE -ne 0) {
+            throw "Python command failed with exit code $LASTEXITCODE"
+        }
+    }
+
+    $pythonVersion = Invoke-Python -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')"
     if ($pythonVersion -ne "3.11") {
         throw "Local CI requires Python 3.11; selected interpreter reports $pythonVersion. Recreate .venv with 'py -3.11 -m venv .venv'."
     }
@@ -54,20 +70,21 @@ try {
 
     if (-not $SkipInstall) {
         Invoke-Step "Install pipeline test dependencies" {
-            Invoke-Expression "$python -m pip install --upgrade pip"
-            Invoke-Expression "$python -m pip install -c requirements-constraints.txt -r pipeline_client/backend/requirements.txt"
-            Invoke-Expression "$python -m pip install -c requirements-constraints.txt -r services/races-api/requirements.txt"
-            Invoke-Expression "$python -m pip install -c requirements-constraints.txt pytest pytest-asyncio pytest-cov httpx"
-            Invoke-Expression "$python -m pip install pip-audit==2.10.0"
-            Invoke-Expression "$python -m pip install black==23.11.0 isort==5.12.0"
+            Invoke-Python -m pip install --upgrade pip
+            Invoke-Python -m pip install -c requirements-constraints.txt -r pipeline_client/backend/requirements.txt
+            Invoke-Python -m pip install -c requirements-constraints.txt -r services/races-api/requirements.txt
+            Invoke-Python -m pip install -c requirements-constraints.txt -r requirements-mcp.txt
+            Invoke-Python -m pip install -c requirements-constraints.txt pytest pytest-asyncio pytest-cov httpx
+            Invoke-Python -m pip install pip-audit==2.10.0
+            Invoke-Python -m pip install black==23.11.0 isort==5.12.0 mypy==1.15.0
         }
 
         Invoke-Step "Install races-api test dependencies" {
             Push-Location "services/races-api"
             try {
-                Invoke-Expression "$python -m pip install --upgrade pip"
-                Invoke-Expression "$python -m pip install -c ../../requirements-constraints.txt -r requirements.txt"
-                Invoke-Expression "$python -m pip install -c ../../requirements-constraints.txt -r test-requirements.txt"
+                Invoke-Python -m pip install --upgrade pip
+                Invoke-Python -m pip install -c ../../requirements-constraints.txt -r requirements.txt
+                Invoke-Python -m pip install -c ../../requirements-constraints.txt -r test-requirements.txt
             }
             finally {
                 Pop-Location
@@ -77,10 +94,8 @@ try {
         Invoke-Step "Install web dependencies" {
             Push-Location "web"
             try {
-                try {
-                    npm ci
-                }
-                catch {
+                npm ci
+                if ($LASTEXITCODE -ne 0) {
                     Write-Host "npm ci encountered an error (e.g. locked node_modules files). Falling back to npm install..." -ForegroundColor Yellow
                     npm install
                 }
@@ -89,14 +104,34 @@ try {
                 Pop-Location
             }
         }
+
+        Invoke-Step "Install design-system dependencies" {
+            Push-Location "design-system"
+            try {
+                npm ci
+            }
+            finally {
+                Pop-Location
+            }
+        }
     }
 
     Invoke-Step "Dependency audit" {
-        Invoke-Expression "$python -m pip_audit -r pipeline_client/backend/requirements.txt"
-        Invoke-Expression "$python -m pip_audit -r services/races-api/requirements.txt"
+        Invoke-Python -m pip_audit -r pipeline_client/backend/requirements.txt
+        Invoke-Python -m pip_audit -r services/races-api/requirements.txt
         Push-Location "web"
         try {
             npm audit --omit=dev --audit-level=high
+            if ($LASTEXITCODE -ne 0) {
+                throw "Web dependency audit failed"
+            }
+        }
+        finally {
+            Pop-Location
+        }
+        Push-Location "design-system"
+        try {
+            npm audit --audit-level=high
         }
         finally {
             Pop-Location
@@ -109,41 +144,32 @@ try {
         # The floor is ratcheted upward over time, and a lower one here makes this
         # script pass a branch that CI then rejects — which is the one thing a
         # local mirror of CI must never do.
-        Invoke-Expression "$python -m pytest tests -v --ignore=tests/test_races_api_admin.py --cov=pipeline_client --cov=shared --cov=smartervote_mcp --cov-report=term-missing --cov-fail-under=65"
+        Invoke-Python -m pytest tests -v --ignore=tests/test_races_api_admin.py --cov=pipeline_client --cov=shared --cov=smartervote_mcp --cov-report=term-missing --cov-report=json:coverage.json --cov-fail-under=70
+        Invoke-Python scripts/check_coverage_thresholds.py coverage.json
     }
 
     Invoke-Step "Frontend/backend type sync" {
         $env:PYTHONPATH = "."
-        Invoke-Expression "$python scripts/check_type_sync.py"
+        Invoke-Python scripts/check_type_sync.py
     }
 
     Invoke-Step "Python formatting" {
-        Invoke-Expression "$python -m black --check shared smartervote_mcp services/races-api tests pipeline_client scripts"
-        Invoke-Expression "$python -m isort --check-only shared smartervote_mcp services/races-api tests pipeline_client scripts"
+        Invoke-Python -m black --check shared smartervote_mcp services/races-api tests pipeline_client scripts
+        Invoke-Python -m isort --check-only shared smartervote_mcp services/races-api tests pipeline_client scripts
     }
 
     Invoke-Step "Generated type and model catalog sync" {
         $env:PYTHONPATH = "."
-        Invoke-Expression "$python scripts/check_type_sync.py"
-        Invoke-Expression "$python scripts/generate_model_catalog_ts.py --check"
+        Invoke-Python scripts/check_type_sync.py
+        Invoke-Python scripts/generate_model_catalog_ts.py --check
+        Invoke-Python -m mypy shared/pipeline_options.py shared/race_titles.py shared/kalshi_markets.py
     }
 
-    Invoke-Step "Races API tests" {
+    Invoke-Step "Races API tests and coverage" {
         Push-Location "services/races-api"
         try {
             $env:PYTHONPATH = "../.."
-            Invoke-Expression "$python -m pytest . -v"
-        }
-        finally {
-            Pop-Location
-        }
-    }
-
-    Invoke-Step "Races API admin tests" {
-        Push-Location "services/races-api"
-        try {
-            $env:PYTHONPATH = "../.."
-            Invoke-Expression "$python -m pytest ../../tests/test_races_api_admin.py -v"
+            Invoke-Python -m pytest . ../../tests/test_races_api_admin.py -v --cov=. --cov-report=term-missing --cov-fail-under=65
         }
         finally {
             Pop-Location
@@ -188,10 +214,10 @@ try {
         }
     }
 
-    Invoke-Step "Web unit tests" {
+    Invoke-Step "Web unit tests and coverage" {
         Push-Location "web"
         try {
-            npm run test:unit -- --run
+            npm run test:coverage -- --run
         }
         finally {
             Pop-Location
@@ -202,6 +228,20 @@ try {
         Push-Location "web"
         try {
             npm run test:e2e
+        }
+        finally {
+            Pop-Location
+        }
+    }
+
+    Invoke-Step "Design-system type check and build" {
+        Push-Location "design-system"
+        try {
+            npm run typecheck
+            if ($LASTEXITCODE -ne 0) {
+                throw "Design-system type check failed"
+            }
+            npm run build
         }
         finally {
             Pop-Location

@@ -20,7 +20,7 @@ resource "google_firestore_database" "analytics" {
   depends_on = [google_project_service.firestore]
 
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = true
   }
 }
 
