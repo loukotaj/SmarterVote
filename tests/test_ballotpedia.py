@@ -288,6 +288,41 @@ def test_candidate_parser_keeps_only_winners_from_completed_primary_sections():
     assert _parse_candidate_list_from_html(html) == [{"name": "Winner Candidate", "party": "Democratic", "incumbent": False}]
 
 
+def test_candidate_parser_prefers_general_field_over_primary_tables():
+    """A published general table must not be combined with losing primary candidates."""
+    html = """
+    <h4>Special general election</h4>
+    <div class="votebox">
+      <tr class="results_row"><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/Shomari_Figures">Shomari Figures</a> (D)
+      </td></tr>
+      <tr class="results_row"><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/Rhett_Marques">Rhett Marques</a> (R)
+      </td></tr>
+    </div>
+    <h4>Special Republican primary election</h4>
+    <div class="votebox">
+      <tr class="results_row winner"><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/Rhett_Marques">Rhett Marques</a> (R)
+      </td></tr>
+      <tr class="results_row"><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/Hampton_Harris">Hampton Harris</a> (R)
+      </td></tr>
+    </div>
+    <h4>General election</h4>
+    <div class="votebox">
+      <tr class="results_row"><td class="votebox-results-cell--text">
+        <a href="https://ballotpedia.org/Caroleene_Dobson">Caroleene Dobson</a> (R)
+      </td></tr>
+    </div>
+    """
+
+    assert _parse_candidate_list_from_html(html) == [
+        {"name": "Shomari Figures", "party": "Democratic", "incumbent": False},
+        {"name": "Rhett Marques", "party": "Republican", "incumbent": False},
+    ]
+
+
 class _FakeBallotpediaClient:
     def __init__(self, *args, **kwargs):
         self.calls = []
