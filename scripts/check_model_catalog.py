@@ -28,7 +28,8 @@ What is checked (these fail)
 ----------------------------
 1. Every catalog entry is still served by OpenRouter.
 2. Catalog input, output and cached-input prices match live prices exactly.
-3. Context windows match live, where OpenRouter reports one.
+3. Context windows and maximum completion lengths match live, where OpenRouter
+   reports them.
 4. Every model named by a profile role or the escalation map is catalogued.
 5. Every escalation edge climbs the **intelligence index**. A lateral or
    downward edge means a stalled model "escalates" into something no better.
@@ -91,6 +92,7 @@ _HARDCODE_EXEMPT = (
 _HARDCODE_EXEMPT_PATTERNS = ("test_", "_test.", ".test.", ".spec.", "conftest.py")
 _HARDCODE_SEARCH_DIRS = ("shared", "pipeline_client", "services", "smartervote_mcp", "web/src", "infra")
 _HARDCODE_SUFFIXES = {".py", ".ts", ".svelte", ".tf", ".yaml", ".yml"}
+_HARDCODE_IGNORED_PARTS = frozenset({"build", "dist", "node_modules", ".svelte-kit", "__pycache__"})
 # `provider/model-name` inside a string literal. Deliberately anchored on the
 # providers we actually use rather than any slash-separated pair, so ordinary
 # paths and URLs do not trip it.
@@ -167,6 +169,9 @@ def _check_catalog(live: Dict[str, Dict[str, Any]]) -> List[str]:
         live_ctx = record.get("context_length")
         if live_ctx and spec.context_window_tokens and int(live_ctx) != int(spec.context_window_tokens):
             errors.append(f"{model_id}: context window is {live_ctx} live, catalog says {spec.context_window_tokens}")
+        live_max = (record.get("top_provider") or {}).get("max_completion_tokens")
+        if live_max and spec.max_completion_tokens and int(live_max) != int(spec.max_completion_tokens):
+            errors.append(f"{model_id}: max completion is {live_max} live, catalog says {spec.max_completion_tokens}")
         if spec.intelligence is None:
             errors.append(f"{model_id}: no intelligence score recorded")
     return errors
@@ -286,7 +291,7 @@ def _check_no_hardcoded_models() -> List[str]:
         for path in sorted(root.rglob("*")):
             if path.suffix not in _HARDCODE_SUFFIXES or not path.is_file():
                 continue
-            if path.resolve() in exempt or "node_modules" in path.parts or ".svelte-kit" in path.parts:
+            if path.resolve() in exempt or _HARDCODE_IGNORED_PARTS.intersection(path.parts):
                 continue
             if any(marker in path.name for marker in _HARDCODE_EXEMPT_PATTERNS):
                 continue

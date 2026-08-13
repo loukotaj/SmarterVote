@@ -215,6 +215,46 @@ async def test_call_openrouter_client_error_status_raises_permanent_error():
 
 
 @pytest.mark.asyncio
+async def test_call_openrouter_catalog_model_404_retries_then_succeeds():
+    client = MagicMock()
+    success = _mock_success_response()
+    client.chat.completions.create = AsyncMock(
+        side_effect=[APIStatusError("no endpoints", response=_response(404), body=None), success]
+    )
+
+    with (
+        patch("pipeline_client.agent.llm._get_openrouter_client", return_value=client),
+        patch("pipeline_client.agent.llm.random.uniform", return_value=1.0),
+        patch("pipeline_client.agent.llm.asyncio.sleep", new_callable=AsyncMock) as mock_sleep,
+    ):
+        result = await _call_openrouter(
+            [{"role": "user", "content": "hi"}],
+            model="openai/gpt-5.6-sol",
+            max_retries=3,
+        )
+
+    assert result is success
+    assert client.chat.completions.create.call_count == 2
+    mock_sleep.assert_awaited_once_with(2.0)
+
+
+@pytest.mark.asyncio
+async def test_call_openrouter_catalog_model_404_exhaustion_is_retryable():
+    client = MagicMock()
+    client.chat.completions.create = AsyncMock(side_effect=APIStatusError("no endpoints", response=_response(404), body=None))
+
+    with patch("pipeline_client.agent.llm._get_openrouter_client", return_value=client):
+        with pytest.raises(RetryableProviderError) as raised:
+            await _call_openrouter(
+                [{"role": "user", "content": "hi"}],
+                model="openai/gpt-5.6-sol",
+                max_retries=1,
+            )
+
+    assert raised.value.code == "provider_unavailable"
+
+
+@pytest.mark.asyncio
 async def test_call_openrouter_server_error_exhausted_raises_retryable_error():
     client = MagicMock()
     client.chat.completions.create = AsyncMock(side_effect=APIStatusError("server error", response=_response(503), body=None))

@@ -86,7 +86,8 @@ class ModelSpec:
 # Prompt caching — measured, 2026-08-07
 # ---------------------------------------------------------------------------
 #
-# Our workload is 41:1 input:output, so cache behaviour matters more than any
+# The latest 250 production metric records are 31.4:1 input:output
+# (170.4M:5.4M, measured 2026-08-13), so cache behaviour matters more than any
 # other price on this page. It is also entirely provider-specific and not
 # something you can read off the OpenRouter price list, so it was measured
 # directly: identical 5.7k-token prefix, sent twice, with and without an
@@ -124,7 +125,8 @@ class ModelSpec:
 # that are the best answer to some question we actually ask. Every entry is
 # reachable through a profile role or an explicit `model_overrides` request.
 #
-# Prices verified against OpenRouter live 2026-08-07.
+# Prices, context windows, and completion limits verified against OpenRouter
+# live 2026-08-13.
 
 MODEL_CATALOG: Dict[str, ModelSpec] = {
     # --- OpenAI: GPT-5.6 family (2026-07-09) -------------------------------
@@ -142,12 +144,12 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     # Pinned to the dated snapshot; the floating `deepseek-v4-flash` alias is
     # a different, older, dearer model.
     "deepseek/deepseek-v4-flash-0731": ModelSpec(
-        "deepseek/deepseek-v4-flash-0731", "DeepSeek V4 Flash (07-31)", 0.09, 0.18, 0.018, 1_048_576, 49.9, 65_536
+        "deepseek/deepseek-v4-flash-0731", "DeepSeek V4 Flash (07-31)", 0.08, 0.18, 0.016, 1_048_576, 49.9, 384_000
     ),
     # Confusingly, "Pro" scores *below* the newer Flash (44.3 against 49.9).
     # Kept only so an explicit override resolves to a real price.
     "deepseek/deepseek-v4-pro": ModelSpec(
-        "deepseek/deepseek-v4-pro", "DeepSeek V4 Pro", 0.435, 0.87, 0.003625, 1_048_576, 44.3, 384_000
+        "deepseek/deepseek-v4-pro", "DeepSeek V4 Pro", 1.168, 2.336, 0.09855, 1_048_576, 44.3, 393_216
     ),
     # --- Google ------------------------------------------------------------
     "google/gemini-3.1-flash-lite": ModelSpec(
@@ -188,8 +190,9 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
 # ---------------------------------------------------------------------------
 
 #: Research and roster work for the default profile. Huge prompts, small
-#: completions — measured at 41:1 input:output across production runs — so the
-#: input price is what matters and DeepSeek's is the lowest above 45 index.
+#: completions — measured at 31.4:1 input:output across the latest 250
+#: production metric records — so the input price is what matters and
+#: DeepSeek's is the lowest above 45 index.
 DEFAULT_RESEARCH_MODEL = "deepseek/deepseek-v4-flash-0731"
 
 #: Same jobs under ``premium``. Terra is the cheapest model that genuinely beats
