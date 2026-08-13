@@ -639,11 +639,26 @@ def _parse_candidate_list_from_html(html: str) -> List[Dict[str, Any]]:
 
     # Ballotpedia pages include many unrelated/historical tables. Only parse the
     # current election's votebox sections headed "... election" or "... convention".
-    for section_m in re.finditer(
-        r"<h4>(?P<label>[^<]*(?:election|convention)[^<]*)</h4>(?P<body>.*?)(?=<h4>|<h3>|<h2>|$)",
-        current_html,
-        re.DOTALL | re.IGNORECASE,
-    ):
+    sections = list(
+        re.finditer(
+            r"<h4>(?P<label>[^<]*(?:election|convention)[^<]*)</h4>(?P<body>.*?)(?=<h4>|<h3>|<h2>|$)",
+            current_html,
+            re.DOTALL | re.IGNORECASE,
+        )
+    )
+    # Once Ballotpedia publishes an exact general-election table, that is the
+    # current field. Mixing it with completed primary tables reintroduced every
+    # losing primary candidate (AL-02 produced seven names instead of the two
+    # nominees). Prefer the general section wholesale; an empty/general markup
+    # mismatch safely returns no names and triggers model-backed verification.
+    general_sections = [section for section in sections if "general" in unescape(section.group("label")).casefold()]
+    if general_sections:
+        # Election pages are newest-first. Parsing every "General election"
+        # block also mixes prior-cycle fields that appear before Ballotpedia's
+        # inconsistent history anchor. The first exact general block is current;
+        # if it is empty, fail closed instead of falling through to an older one.
+        sections = general_sections[:1]
+    for section_m in sections:
         label = unescape(section_m.group("label"))
         body = section_m.group("body")
 
