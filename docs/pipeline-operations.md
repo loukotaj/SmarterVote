@@ -282,6 +282,8 @@ source-class, retrieved-content, exact-contest, and current-cycle gates; a
 negative, unavailable, or unparseable second review remains fail-closed. This
 fallback applies only to whole-roster completeness, never candidate membership
 or removal.
+If the stronger reviewer emits no parseable JSON, it gets one bounded
+JSON-only retry; a second malformed or unavailable response remains fail-closed.
 The lookup has a short, best-effort timeout: when ample invocation time remains,
 a timeout is logged and model-backed roster research continues. It triggers a
 durable handoff only when the invocation is genuinely near its checkpoint

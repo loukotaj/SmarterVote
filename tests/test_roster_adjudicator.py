@@ -330,6 +330,32 @@ def test_completeness_fallback_stays_closed_when_stronger_review_rejects(monkeyp
     assert verdicts[_source()["url"]]["model"] == adj.ADJUDICATOR_MODEL
 
 
+def test_completeness_reviewer_retries_one_unparseable_response(monkeypatch):
+    responses = iter(
+        [
+            _reply('{"supports": false, "reason": "single source insufficient"}'),
+            _reply(""),
+            _reply('{"supports": true, "reason": "combined packet establishes the field"}'),
+        ]
+    )
+
+    async def _respond(messages, **kwargs):
+        return next(responses)
+
+    monkeypatch.setattr("pipeline_client.agent.llm._call_openrouter", _respond)
+    verdicts = _run(
+        adj.adjudicate_sources(
+            claim=adj.Claim.COMPLETENESS,
+            subject="Jane Roe, John Doe",
+            contest="ne-house-02-2026",
+            sources=[_source()],
+        )
+    )
+
+    assert verdicts[_source()["url"]]["supports"] is True
+    assert verdicts[_source()["url"]]["review_scope"] == "combined_sources"
+
+
 def test_membership_rejection_does_not_use_completeness_fallback(monkeypatch):
     models = []
 

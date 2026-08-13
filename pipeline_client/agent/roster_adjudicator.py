@@ -328,6 +328,31 @@ async def adjudicate(
         return _unavailable(f"{type(exc).__name__}", model=model)
 
     verdict = _parse_verdict(content)
+    if verdict is None and model == ROSTER_COMPLETENESS_REVIEW_MODEL:
+        # Reasoning models can occasionally spend the first response without
+        # emitting the tiny JSON payload. Retry once with an even tighter
+        # instruction; a second malformed response still fails closed.
+        try:
+            response = await asyncio.wait_for(
+                _call_openrouter(
+                    [
+                        {"role": "system", "content": _SYSTEM},
+                        {
+                            "role": "user",
+                            "content": _build_user_prompt(claim=claim, subject=subject, contest=contest, source=source)
+                            + "\n\nReturn exactly one JSON object. Do not include analysis or markdown.",
+                        },
+                    ],
+                    model=model,
+                    max_tokens=max_tokens,
+                    temperature=ADJUDICATOR_TEMPERATURE,
+                    run_budget=run_budget,
+                ),
+                timeout=ADJUDICATOR_TIMEOUT_SECONDS,
+            )
+            verdict = _parse_verdict(response.choices[0].message.content or "")
+        except Exception as exc:
+            logger.warning("Roster completeness reviewer retry failed: %s", exc)
     if verdict is None:
         logger.warning("Roster adjudicator returned unparseable content for claim=%s", claim)
         return _unavailable("adjudicator returned an unparseable verdict", model=model)
