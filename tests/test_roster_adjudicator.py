@@ -287,6 +287,69 @@ def test_adjudicate_sources_skips_urlless_sources(monkeypatch):
     assert verdicts == {}
 
 
+def test_completeness_rejection_gets_one_combined_stronger_review(monkeypatch):
+    models = []
+
+    async def _judge(messages, **kwargs):
+        models.append(kwargs["model"])
+        if kwargs["model"] == adj.ROSTER_COMPLETENESS_REVIEW_MODEL:
+            assert "SOURCE 1" in messages[1]["content"]
+            return _reply('{"supports": true, "reason": "the combined packet establishes the field"}')
+        return _reply('{"supports": false, "reason": "one excerpt is insufficient"}')
+
+    monkeypatch.setattr("pipeline_client.agent.llm._call_openrouter", _judge)
+    verdicts = _run(
+        adj.adjudicate_sources(
+            claim=adj.Claim.COMPLETENESS,
+            subject="Jane Roe, John Doe",
+            contest="ne-house-02-2026",
+            sources=[_source()],
+        )
+    )
+    record = verdicts[_source()["url"]]
+    assert models == [adj.ADJUDICATOR_MODEL, adj.ROSTER_COMPLETENESS_REVIEW_MODEL]
+    assert record["supports"] is True
+    assert record["model"] == adj.ROSTER_COMPLETENESS_REVIEW_MODEL
+    assert record["review_scope"] == "combined_sources"
+
+
+def test_completeness_fallback_stays_closed_when_stronger_review_rejects(monkeypatch):
+    async def _reject(messages, **kwargs):
+        return _reply('{"supports": false, "reason": "still incomplete"}')
+
+    monkeypatch.setattr("pipeline_client.agent.llm._call_openrouter", _reject)
+    verdicts = _run(
+        adj.adjudicate_sources(
+            claim=adj.Claim.COMPLETENESS,
+            subject="Jane Roe, John Doe",
+            contest="ne-house-02-2026",
+            sources=[_source()],
+        )
+    )
+    assert verdicts[_source()["url"]]["supports"] is False
+    assert verdicts[_source()["url"]]["model"] == adj.ADJUDICATOR_MODEL
+
+
+def test_membership_rejection_does_not_use_completeness_fallback(monkeypatch):
+    models = []
+
+    async def _reject(messages, **kwargs):
+        models.append(kwargs["model"])
+        return _reply('{"supports": false, "reason": "wrong contest"}')
+
+    monkeypatch.setattr("pipeline_client.agent.llm._call_openrouter", _reject)
+    verdicts = _run(
+        adj.adjudicate_sources(
+            claim=adj.Claim.MEMBERSHIP,
+            subject="Jane Roe",
+            contest="ne-house-02-2026",
+            sources=[_source()],
+        )
+    )
+    assert verdicts[_source()["url"]]["supports"] is False
+    assert models == [adj.ADJUDICATOR_MODEL]
+
+
 def test_verdict_record_is_persistable():
     """The record is written onto the source, so it must be plain JSON-safe data."""
     import json

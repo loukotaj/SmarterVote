@@ -47,6 +47,7 @@ from dataclasses import dataclass
 from typing import Any, Dict, Iterable, Mapping
 
 from shared.model_catalog import ADJUDICATOR_MODEL as _ADJUDICATOR_MODEL
+from shared.model_catalog import ROSTER_COMPLETENESS_REVIEW_MODEL
 
 logger = logging.getLogger("pipeline")
 
@@ -127,9 +128,11 @@ _CLAIM_QUESTIONS: Dict[str, str] = {
         "The same person is routinely written differently across sources: 'Andrew Harris' and "
         "'Andy Harris', 'James P. McGovern' and 'Jim McGovern', 'Incumbent Harris', initials, "
         "maiden or married names, or a surname alone once introduced. Treat those as the same "
-        "person. A sentence naming only the Democratic and Republican nominees, or saying they are "
+        "person. A sentence merely naming the Democratic and Republican nominees, or saying they are "
         "the nominees for their respective parties, is NOT a whole-field listing and cannot establish "
-        "that no third-party nominee exists. Answer false if the source contradicts the roster or covers "
+        "that no third-party nominee exists. By contrast, a reference page's election section that "
+        "explicitly says 'A and B are running in the general election' and presents them as its candidate "
+        "field is a full-field listing, even when there are only two candidates. Answer false if the source contradicts the roster or covers "
         "a different contest — not merely because it contains additional low-profile candidates or a "
         "name is spelled or shortened differently. "
         "Answer false if it is a page about a single candidate, an evidently partial or truncated "
@@ -277,6 +280,7 @@ async def adjudicate(
     contest: str,
     source: Mapping[str, Any],
     run_budget: Any = None,
+    model: str = ADJUDICATOR_MODEL,
 ) -> Verdict:
     """Judge one bounded question about one piece of evidence.
 
@@ -288,7 +292,7 @@ async def adjudicate(
         return _unavailable(f"unknown claim {claim!r}")
 
     evidence = str(source.get("evidence") or source.get("text") or "")
-    key = _cache_key(claim, subject, contest, evidence + str(source.get("url") or ""))
+    key = _cache_key(claim, subject, contest, evidence + str(source.get("url") or "") + model)
     cached = _VERDICT_CACHE.get(key)
     if cached is not None:
         return cached
@@ -305,7 +309,7 @@ async def adjudicate(
                         "content": _build_user_prompt(claim=claim, subject=subject, contest=contest, source=source),
                     },
                 ],
-                model=ADJUDICATOR_MODEL,
+                model=model,
                 max_tokens=ADJUDICATOR_MAX_TOKENS,
                 temperature=ADJUDICATOR_TEMPERATURE,
                 run_budget=run_budget,
@@ -325,6 +329,7 @@ async def adjudicate(
         logger.warning("Roster adjudicator returned unparseable content for claim=%s", claim)
         return _unavailable("adjudicator returned an unparseable verdict")
 
+    verdict = Verdict(supports=verdict.supports, reason=verdict.reason, model=model)
     _VERDICT_CACHE[key] = verdict
     return verdict
 
@@ -434,4 +439,34 @@ async def adjudicate_sources(
             for source in targets
         )
     )
-    return {str(source["url"]).strip(): verdict.to_record() for source, verdict in zip(targets, verdicts)}
+    result = {str(source["url"]).strip(): verdict.to_record() for source, verdict in zip(targets, verdicts)}
+    if claim != Claim.COMPLETENESS or any(verdict.supports for verdict in verdicts):
+        return result
+
+    # A field can be established by several sources together even when no one
+    # excerpt is sufficient. On that narrow failure, ask a stronger independent
+    # reviewer about the combined packet. The synchronous handler still applies
+    # source-class, retrieval, exact-contest, and current-cycle gates afterward.
+    evidence_parts = []
+    for index, source in enumerate(targets, start=1):
+        evidence_parts.append(
+            f"SOURCE {index}\nTITLE: {source.get('title', '')}\nURL: {source.get('url', '')}\n"
+            f"EVIDENCE: {source.get('evidence') or source.get('text') or ''}"
+        )
+    bundle = await adjudicate(
+        claim=Claim.COMPLETENESS,
+        subject=subject,
+        contest=contest,
+        source={
+            "title": "Combined exact-contest roster evidence",
+            "url": "bundle://roster-completeness",
+            "evidence": "\n\n".join(evidence_parts),
+        },
+        run_budget=run_budget,
+        model=ROSTER_COMPLETENESS_REVIEW_MODEL,
+    )
+    if bundle.supports:
+        record = bundle.to_record()
+        record["review_scope"] = "combined_sources"
+        return {str(source["url"]).strip(): dict(record) for source in targets}
+    return result
