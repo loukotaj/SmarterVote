@@ -625,15 +625,18 @@ def _roster_completeness_source_rejection_reason(
     if "special" in primary_status.casefold():
         if "special" not in text:
             return "race identity is a special election, but the source does not identify the special contest"
-        # The profile election_date is normally the November general election,
-        # while a roster source may certify an earlier special primary. Prefer
-        # the explicit date embedded in primary_status for this gate.
+        # Match the date for the stage whose roster is being finalized. Before
+        # the primary, primary_status supplies the special-primary date even if
+        # the profile stores November. After it, the active field is the general
+        # election and evidence must identify race_identity.election_date.
         parsed_date = None
-        iso_match = re.search(r"\b((?:19|20)\d{2}-\d{2}-\d{2})\b", primary_status)
+        contest_stage = str(identity.get("contest_stage") or "").casefold()
+        date_text = primary_status if contest_stage == "pre_primary" else str(identity.get("election_date") or "")
+        iso_match = re.search(r"\b((?:19|20)\d{2}-\d{2}-\d{2})\b", date_text)
         named_match = re.search(
             r"\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+"
             r"(\d{1,2})(?:st|nd|rd|th)?[,]?\s+((?:19|20)\d{2})\b",
-            primary_status,
+            date_text,
             re.IGNORECASE,
         )
         try:

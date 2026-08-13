@@ -1050,6 +1050,54 @@ def test_special_primary_uses_primary_status_date_not_general_election_date():
     assert result == "Roster finalized with 1 evidence-backed active candidate(s)."
 
 
+def test_post_primary_special_general_uses_general_election_date():
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    source = {
+        "url": "https://ballotpedia.org/Alabama's_2nd_Congressional_District",
+        "type": "ballotpedia",
+        "title": "Alabama's 2nd Congressional District",
+        "evidence": (
+            "Incumbent Shomari Figures (D) and Rhett Marques (R) are running in the special general election "
+            "for U.S. House Alabama District 2 on November 3, 2026."
+        ),
+        "race_id": "al-house-02-2026",
+        "published_at": "2026-08-12",
+        "evidence_tier": 2,
+        "retrieval_status": "content",
+    }
+    race_json = {
+        "id": "al-house-02-2026",
+        "pipeline_state": {
+            "race_identity": {
+                "office": "U.S. House Alabama District 2",
+                "contest_stage": "post_primary_general",
+                "primary_status": "Special Primary Election held August 11, 2026",
+                "election_date": "2026-11-03",
+            }
+        },
+        "candidates": [
+            {"name": "Shomari Figures", "party": "Democratic", "roster_sources": [source]},
+            {"name": "Rhett Marques", "party": "Republican", "roster_sources": [source]},
+        ],
+    }
+    handlers = _make_editing_handlers(race_json, lambda *_: None)
+
+    result = handlers["finalize_roster"](
+        {
+            "summary": "Exact special-general field",
+            "candidates": [
+                {"name": "Shomari Figures", "party": "Democratic"},
+                {"name": "Rhett Marques", "party": "Republican"},
+            ],
+            "source_candidate_names": ["Shomari Figures", "Rhett Marques"],
+            "completeness_sources": [source],
+        }
+    )
+
+    assert result == "Roster finalized with 2 evidence-backed active candidate(s)."
+
+
 def test_finalize_roster_atomically_applies_complete_proposed_roster():
     from pipeline_client.agent.agent import _make_editing_handlers
 
