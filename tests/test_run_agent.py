@@ -575,6 +575,171 @@ async def test_unproven_roster_completeness_keeps_going_and_says_so():
 
 
 @pytest.mark.asyncio
+async def test_roster_verify_can_recover_completeness_after_removing_primary_losers():
+    existing = {
+        "id": "al-house-02-2026",
+        "election_date": "2026-11-03",
+        "candidates": [
+            {"name": "Shomari Figures", "party": "Democratic", "roster_sources": []},
+            {"name": "Rhett Marques", "party": "Republican", "roster_sources": []},
+            {"name": "Primary Loser", "party": "Republican", "roster_sources": []},
+        ],
+        "updated_utc": "2026-08-01T00:00:00Z",
+    }
+
+    async def recover_in_verify(*args, **kwargs):
+        if kwargs.get("phase_name") == "roster-sync":
+            return {"_tool_trace": {"required_final_tool_succeeded": False}}
+        if kwargs.get("phase_name") == "roster-verify":
+            assert kwargs["required_final_tool_name"] == "finalize_roster"
+            assert any(tool["function"]["name"] == "finalize_roster" for tool in kwargs["extra_tools"])
+            assert "Any candidates added during the sync that were NOT in the original list:\n(none)" in args[1]
+            kwargs["extra_tool_handlers"]["remove_candidate"](
+                {"name": "Primary Loser", "reason": "Lost the completed special primary."}
+            )
+            return {"_tool_trace": {"required_final_tool_succeeded": True}}
+        return {}
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.phases._sync_ballotpedia_roster", new_callable=AsyncMock),
+    ):
+        mock_loop.side_effect = recover_in_verify
+        result = await run_agent(
+            "al-house-02-2026",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["discovery"],
+            candidate_names=["Shomari Figures"],
+        )
+
+    assert [candidate["name"] for candidate in result["candidates"]] == ["Shomari Figures", "Rhett Marques"]
+    assert "roster_completeness_unproven" not in result["run_health"]["reasons"]
+    assert (result["pipeline_state"].get("roster_research") or {}).get("completeness_status") != "unproven"
+    assert result["pipeline_state"]["complete"] is True
+
+
+@pytest.mark.asyncio
+async def test_roster_completeness_recovery_survives_continuation_checkpoint():
+    existing = {
+        "id": "al-house-02-2026",
+        "election_date": "2026-11-03",
+        "candidates": [
+            {"name": "Shomari Figures", "party": "Democratic", "roster_sources": []},
+            {"name": "Rhett Marques", "party": "Republican", "roster_sources": []},
+        ],
+        "pipeline_state": {
+            "complete": True,
+            "remaining_candidates": [],
+            "remaining_steps": [],
+            "completed_units": ["discovery.roster_sync"],
+            "roster_finalization_pending": True,
+            "roster_sync_original_names": ["Shomari Figures"],
+        },
+        "updated_utc": "2026-08-12T00:00:00Z",
+    }
+
+    async def finish_recovery(*_args, **kwargs):
+        if kwargs.get("phase_name") == "roster-verify":
+            assert kwargs["required_final_tool_name"] == "finalize_roster"
+            assert "Any candidates added during the sync that were NOT in the original list:\nRhett Marques" in _args[1]
+            return {"_tool_trace": {"required_final_tool_succeeded": True}}
+        return {}
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.phases._sync_ballotpedia_roster", new_callable=AsyncMock),
+    ):
+        mock_loop.side_effect = finish_recovery
+        result = await run_agent(
+            "al-house-02-2026",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["discovery"],
+            resume_partial=True,
+        )
+
+    assert [call.kwargs["phase_name"] for call in mock_loop.call_args_list] == ["roster-verify", "update-meta"]
+    assert "roster_finalization_pending" not in result["pipeline_state"]
+    assert "roster_sync_original_names" not in result["pipeline_state"]
+    assert "roster_completeness_unproven" not in result["run_health"]["reasons"]
+    assert result["pipeline_state"]["complete"] is True
+
+
+@pytest.mark.asyncio
+async def test_failed_roster_sync_writes_recovery_state_before_checkpoint():
+    existing = {
+        "id": "al-house-02-2026",
+        "election_date": "2026-11-03",
+        "candidates": [
+            {"name": "Shomari Figures", "party": "Democratic", "roster_sources": []},
+            {"name": "Rhett Marques", "party": "Republican", "roster_sources": []},
+        ],
+        "updated_utc": "2026-08-12T00:00:00Z",
+    }
+    checkpoint = {}
+
+    def capture_checkpoint(step, **kwargs):
+        race_json = kwargs.get("race_json") or {}
+        state = race_json.get("pipeline_state") or {}
+        if step == "discovery" and state.get("roster_finalization_pending") is True:
+            checkpoint.update(copy.deepcopy(state))
+            raise HandoffTriggered("continuation-item", ["discovery"], "continuation-run")
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.phases._sync_ballotpedia_roster", new_callable=AsyncMock),
+    ):
+        mock_loop.return_value = {"_tool_trace": {"required_final_tool_succeeded": False}}
+        with pytest.raises(HandoffTriggered):
+            await run_agent(
+                "al-house-02-2026",
+                cheap_mode=True,
+                existing_data=existing,
+                enabled_steps=["discovery"],
+                step_tracker={"progress": capture_checkpoint},
+            )
+
+    assert checkpoint["roster_finalization_pending"] is True
+    assert checkpoint["roster_sync_original_names"] == ["Shomari Figures", "Rhett Marques"]
+
+
+@pytest.mark.asyncio
+async def test_successful_roster_recovery_clears_initial_sync_error():
+    existing = {
+        "id": "ar-supreme-court-2026",
+        "election_date": "2026-03-03",
+        "candidates": [
+            {"name": "Nicholas Bronni", "party": "Nonpartisan", "roster_sources": []},
+            {"name": "John Adams", "party": "Nonpartisan", "roster_sources": []},
+        ],
+        "updated_utc": "2026-01-01T00:00:00Z",
+    }
+
+    async def recover_after_error(*_args, **kwargs):
+        if kwargs.get("phase_name") == "roster-sync":
+            raise RuntimeError("temporary provider error")
+        if kwargs.get("phase_name") == "roster-verify":
+            return {"_tool_trace": {"required_final_tool_succeeded": True}}
+        return {}
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.phases._sync_ballotpedia_roster", new_callable=AsyncMock),
+    ):
+        mock_loop.side_effect = recover_after_error
+        result = await run_agent(
+            "ar-supreme-court-2026",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["discovery"],
+        )
+
+    assert result["run_health"]["status"] == "healthy"
+    assert result["pipeline_state"]["step_failures"] == []
+
+
+@pytest.mark.asyncio
 async def test_run_agent_defaults_existing_profile_to_low_cost_update_steps():
     existing = {
         "id": "maintenance-2026",

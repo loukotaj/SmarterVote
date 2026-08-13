@@ -26,6 +26,10 @@ services:
       - .env
     environment:
       PIPELINE_MODE: gcp
+      # Agent drafts already use GCS directly. The generic run-artifact backend
+      # must also be explicit or Settings defaults it to ephemeral container
+      # storage even though this worker has a cloud bucket configured.
+      STORAGE_MODE: gcp
       GOOGLE_APPLICATION_CREDENTIALS: /gcloud-config/application_default_credentials.json
       # Four concurrent races uses the workstation's available CPU while the
       # 16 GB Docker allocation remains the practical memory ceiling.

@@ -115,6 +115,52 @@ def _draft_catalog_update(race_id: str, draft_data: Dict[str, Any]) -> Dict[str,
     return fields
 
 
+def _save_completed_artifact(
+    *,
+    run_id: str,
+    race_id: str,
+    options: Dict[str, Any],
+    output: Optional[Dict[str, Any]],
+    duration_ms: int,
+    run_started_utc: str,
+    save_requested: bool,
+) -> Optional[str]:
+    """Persist the same audit artifact for queued runs as the direct runner.
+
+    Queue workers invoke ``AgentHandler`` directly, so they otherwise bypass
+    ``pipeline_runner``'s ``save_artifact`` handling even when callers request
+    it. Keep artifact failure non-fatal: the canonical draft has already been
+    saved by the handler and remains the source of truth.
+    """
+    if not save_requested:
+        return None
+    try:
+        from pipeline_client.backend.storage import new_artifact_id, save_artifact
+
+        artifact_id = new_artifact_id("agent")
+        artifact_output = json.loads(json.dumps(output, default=str))
+        if isinstance(artifact_output, dict) and isinstance(artifact_output.get("agent_logs"), list):
+            artifact_output["agent_log_count"] = len(artifact_output["agent_logs"])
+            artifact_output.pop("agent_logs", None)
+        save_artifact(
+            artifact_id,
+            {
+                "step": "agent",
+                "input": {"race_id": race_id},
+                "options": {key: value for key, value in options.items() if key != "deadline_at"},
+                "output": artifact_output,
+                "run_started_utc": run_started_utc,
+                "duration_ms": duration_ms,
+                "run_id": run_id,
+            },
+        )
+        logger.info("Saved queue-run artifact %s for run %s", artifact_id, run_id)
+        return artifact_id
+    except Exception:
+        logger.warning("Queue-run artifact save failed; run will still complete", exc_info=True)
+        return None
+
+
 def claim_item(db: Any, item_ref: Any, lease_owner: str, expected_runner: str) -> Optional[Dict[str, Any]]:
     """Atomically claim an item for the expected runner (pending → running).
 
@@ -286,6 +332,8 @@ async def process_claimed_item(
     options["queue_item_id"] = item_id
     import time as _time
 
+    save_artifact_requested = bool(options.get("save_artifact", True))
+    run_started_utc = _now().isoformat()
     started_at = _time.perf_counter()
     lease_stop, lease_thread = _start_lease_heartbeat(db, item_ref, lease_owner)
     success = False
@@ -466,9 +514,21 @@ async def process_claimed_item(
         # run_health.status is "failed"/"degraded" (e.g. review didn't pass,
         # or a step like finance silently produced no data for anyone).
         run_health = last_result.get("run_health") if isinstance(last_result, dict) else None
+        duration_ms = int((_time.perf_counter() - started_at) * 1000)
+        artifact_id = _save_completed_artifact(
+            run_id=run_id,
+            race_id=race_id,
+            options=options,
+            output=last_result,
+            duration_ms=duration_ms,
+            run_started_utc=run_started_utc,
+            save_requested=save_artifact_requested,
+        )
         item_ref.update(
             {
                 "status": "completed",
+                "artifact_id": artifact_id,
+                "duration_ms": duration_ms,
                 "completed_at": _now().isoformat(),
                 "lease_owner": None,
                 "lease_expires_at": None,
@@ -478,6 +538,8 @@ async def process_claimed_item(
         run_update: Dict[str, Any] = {
             "status": "completed",
             "progress": 100,
+            "artifact_id": artifact_id,
+            "duration_ms": duration_ms,
             "completed_at": SERVER_TIMESTAMP,
             "activity_at": SERVER_TIMESTAMP,
         }
