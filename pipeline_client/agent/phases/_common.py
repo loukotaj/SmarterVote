@@ -56,6 +56,30 @@ async def _await_with_run_budget(
         raise RunBudgetExceeded(f"{operation} exceeded the remaining run budget") from exc
 
 
+async def _await_advisory_with_run_budget(
+    awaitable: Any,
+    *,
+    run_budget: RunBudget | None,
+    requested_timeout: float,
+    operation: str,
+    log: Any,
+    continuation: str,
+) -> Any | None:
+    """Run best-effort enrichment without treating its own timeout as deadline exhaustion."""
+    try:
+        return await _await_with_run_budget(
+            awaitable,
+            run_budget=run_budget,
+            requested_timeout=requested_timeout,
+            operation=operation,
+        )
+    except RunBudgetExceeded:
+        if run_budget is None or run_budget.usable_seconds() < 30.0:
+            raise
+        log("warning", f"  {operation} timed out; {continuation}")
+        return None
+
+
 def _candidate_name(candidate: Any) -> str:
     return roster.candidate_name(candidate)
 

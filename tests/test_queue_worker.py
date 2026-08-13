@@ -166,6 +166,38 @@ async def test_process_marks_failed_on_agent_error():
 
 
 @pytest.mark.asyncio
+async def test_process_records_attached_provider_cost_when_post_agent_save_fails():
+    from pipeline_client.backend import queue_processor as qp
+
+    item = {"race_id": "ca-house-01-2026", "run_id": "run-save-failed", "options": {"cheap_mode": True}}
+    db, _item_ref, _run_ref, _race_ref = _fs_mock(item)
+    metrics_store = MagicMock()
+    metrics_store.record_run = AsyncMock()
+    error = ValueError("draft save rejected")
+    error.pipeline_agent_metrics = {
+        "prompt_tokens": 1200,
+        "completion_tokens": 300,
+        "total_tokens": 1500,
+        "cost_usd": 0.014,
+        "cost_source": "provider",
+        "serper_calls": 2,
+        "search_calls": 2,
+    }
+
+    with (
+        patch.object(qp, "_run_agent", new_callable=AsyncMock, side_effect=error),
+        patch("pipeline_client.backend.pipeline_metrics.get_pipeline_metrics_store", return_value=metrics_store),
+    ):
+        await qp.process_claimed_item(db, MagicMock(), "bucket", "item-save-failed", item, "owner-save-failed")
+
+    metrics_store.record_run.assert_awaited_once()
+    args = metrics_store.record_run.await_args.args
+    assert args[:2] == ("run-save-failed", "ca-house-01-2026")
+    assert args[2] == error.pipeline_agent_metrics
+    assert args[3] == "failed"
+
+
+@pytest.mark.asyncio
 async def test_process_persists_run_health_from_successful_agent_result():
     """A run can finish without raising while still carrying a degraded/failed
     run_health verdict (e.g. review didn't pass) — that verdict must survive

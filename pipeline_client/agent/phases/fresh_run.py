@@ -11,7 +11,7 @@ from ..prompts import DISCOVERY_SYSTEM, DISCOVERY_USER, cycle_kwargs
 from ..run_budget import RunBudget
 from ..selection import _scale_iterations, _select_target_candidates
 from ..utils import make_logger
-from ._common import _await_with_run_budget, _candidate_name
+from ._common import _await_advisory_with_run_budget, _candidate_name
 from .context import PhaseContext
 from .discovery import _sanitize_roster
 from .shared_runner import _run_shared_phases
@@ -70,11 +70,13 @@ async def _run_fresh(
     )
     _sanitize_roster(race_json, log)
     apply_canonical_race_title(race_json, race_id)
-    await _await_with_run_budget(
+    await _await_advisory_with_run_budget(
         _sync_ballotpedia_roster(race_json, race_id, log),
         run_budget=run_budget,
         requested_timeout=20.0,
-        operation="Ballotpedia roster sync",
+        operation="Ballotpedia advisory roster lookup",
+        log=log,
+        continuation="continuing with discovered roster",
     )
     _sanitize_roster(race_json, log)
 

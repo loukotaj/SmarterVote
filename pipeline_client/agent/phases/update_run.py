@@ -1,6 +1,5 @@
 """Update run (existing race): roster sync -> meta update -> shared phases."""
 
-import copy
 import time
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
@@ -33,7 +32,7 @@ from ..tools import (
 from ..utils import make_logger
 from ._common import (
     RunFailureReason,
-    _await_with_run_budget,
+    _await_advisory_with_run_budget,
     _candidate_name,
     _mark_pipeline_unit_complete,
     _pipeline_completed_units,
@@ -92,14 +91,20 @@ async def _run_update(
     if track is None:
         track = lambda a, s, **kw: None
 
-    race_json: Dict[str, Any] = copy.deepcopy(existing)
+    # Keep the handler's checkpoint holder on this same object. A deepcopy here
+    # meant a timeout before the first progress callback checkpointed the
+    # untouched baseline; its old completed-unit markers then made the
+    # continuation skip discovery and report a false zero-cost success.
+    race_json: Dict[str, Any] = existing
     _backfill_source_timestamps(race_json)
     _sanitize_roster(race_json, log)
-    await _await_with_run_budget(
+    await _await_advisory_with_run_budget(
         _sync_ballotpedia_roster(race_json, race_id, log),
         run_budget=run_budget,
         requested_timeout=20.0,
-        operation="Ballotpedia roster sync",
+        operation="Ballotpedia advisory roster lookup",
+        log=log,
+        continuation="continuing with roster research",
     )
     _sanitize_roster(race_json, log)
 
@@ -215,11 +220,13 @@ async def _run_update(
                 race_json["pipeline_state"].pop("roster_finalization_pending", None)
             else:
                 race_json["pipeline_state"]["roster_finalization_pending"] = True
-            await _await_with_run_budget(
+            await _await_advisory_with_run_budget(
                 _sync_ballotpedia_roster(race_json, race_id, log),
                 run_budget=run_budget,
                 requested_timeout=20.0,
-                operation="Ballotpedia roster sync",
+                operation="Ballotpedia advisory roster lookup",
+                log=log,
+                continuation="continuing with roster verification",
             )
             _sanitize_roster(race_json, log)
             if not roster_sync_succeeded:
