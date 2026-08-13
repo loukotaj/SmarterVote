@@ -76,6 +76,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
     text_changes = 0
     source_duplicates_removed = 0
     forecast_sources_added = 0
+    invalid_social_links_removed = 0
 
     for field in ("title", "description", "polling_note"):
         before = race_data.get(field)
@@ -113,6 +114,13 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
             before_count = len(links)
             candidate["links"] = _dedupe_sources(links)
             source_duplicates_removed += before_count - len(candidate["links"])
+        social_media = candidate.get("social_media")
+        if isinstance(social_media, dict):
+            cleaned_social_media = {
+                str(platform): url.strip() for platform, url in social_media.items() if isinstance(url, str) and url.strip()
+            }
+            invalid_social_links_removed += len(social_media) - len(cleaned_social_media)
+            candidate["social_media"] = cleaned_social_media
         issues = candidate.get("issues")
         if isinstance(issues, dict):
             for issue in issues.values():
@@ -183,6 +191,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
         "text_changes": text_changes,
         "source_duplicates_removed": source_duplicates_removed,
         "forecast_sources_added": forecast_sources_added,
+        "invalid_social_links_removed": invalid_social_links_removed,
     }
 
 
