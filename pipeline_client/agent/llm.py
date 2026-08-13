@@ -785,6 +785,15 @@ async def _agent_loop(
                     )
                     n_found = len(election_data.get("candidates", []))
                     log("debug", f"    🗳️  found={election_data.get('found')} candidates={n_found}")
+                    # The election lookup fetched and parsed this exact page;
+                    # preserve that provenance just like fetch_page. This does
+                    # not make its names authoritative by itself: roster edits
+                    # still pass source-class, exact-contest, current-cycle, and
+                    # independent completeness adjudication in the handler.
+                    election_url = str(election_data.get("page_url") or "").strip()
+                    if election_data.get("found") is True and n_found > 0 and election_url.startswith(("http://", "https://")):
+                        fetched_urls.add(election_url)
+                        researched_urls.add(election_url)
                     messages.append(
                         {
                             "role": "tool",

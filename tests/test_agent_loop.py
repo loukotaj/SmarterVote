@@ -815,6 +815,59 @@ async def test_agent_loop_injects_actual_search_and_fetch_urls_into_editing_call
 
 
 @pytest.mark.asyncio
+async def test_agent_loop_records_successful_election_lookup_as_fetched_provenance():
+    source_url = "https://ballotpedia.org/Alabama%27s_2nd_Congressional_District_election,_2026"
+    looked_up = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "lookup",
+                "function": {
+                    "name": "ballotpedia_election_lookup",
+                    "arguments": json.dumps({"race_id": "al-house-02-2026"}),
+                },
+            }
+        ]
+    )
+    edited = _mock_openai_response(
+        tool_calls=[{"id": "edit", "function": {"name": "set_sources", "arguments": json.dumps({"name": "Alice"})}}]
+    )
+    stopped = _mock_openai_response(content="Done")
+    handler = MagicMock(return_value="OK")
+    edit_tool = {
+        "type": "function",
+        "function": {"name": "set_sources", "description": "Set", "parameters": {"type": "object"}},
+    }
+
+    with (
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as call,
+        patch(
+            "pipeline_client.agent.llm._ballotpedia_election_lookup",
+            new_callable=AsyncMock,
+            return_value={
+                "found": True,
+                "page_url": source_url,
+                "candidates": [{"name": "Shomari Figures"}, {"name": "Rhett Marques"}],
+            },
+        ),
+    ):
+        call.side_effect = [looked_up, edited, stopped]
+        await _agent_loop(
+            "system",
+            "user",
+            model=DEFAULT_RESEARCH_MODEL,
+            phase_name="roster-lookup-provenance",
+            max_iterations=4,
+            tools_mode=True,
+            extra_tools=[edit_tool],
+            extra_tool_handlers={"set_sources": handler},
+        )
+
+    trace = handler.call_args.args[0]["_research_trace"]
+    assert trace["researched_urls"] == [source_url]
+    assert trace["fetched_urls"] == [source_url]
+
+
+@pytest.mark.asyncio
 async def test_agent_loop_escalates_after_repeated_blocked_edits():
     blocked_calls = _mock_openai_response(
         tool_calls=[

@@ -264,7 +264,11 @@ qualification; FEC corroboration for federal candidates; then a current
 exact-race Ballotpedia page and reputable news/campaign sources. The
 `ballotpedia_election_lookup` extraction is advisory only because a page can
 contain stale-cycle, primary, or unrelated navigation tables. Its names must
-never drive an add/removal alone or override a current official source.
+never drive an add/removal alone or override a current official source. A
+successful lookup does record its exact parsed page as fetched provenance, so
+the normal source-class, exact-contest, current-cycle, and independent roster
+adjudication gates can evaluate a Ballotpedia completeness citation without a
+second fetch of the same bot-protected page.
 The lookup has a short, best-effort timeout: when ample invocation time remains,
 a timeout is logged and model-backed roster research continues. It triggers a
 durable handoff only when the invocation is genuinely near its checkpoint
