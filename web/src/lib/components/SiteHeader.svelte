@@ -350,7 +350,7 @@
         {#if open && totalMatches > 0}
           <div
             id={resultsId}
-            class="absolute left-0 right-0 top-full mt-2 max-h-96 overflow-y-auto rounded-xl border border-stroke bg-surface py-2 shadow-xl"
+            class="absolute left-0 right-0 top-full z-50 mt-2 max-h-96 overflow-y-auto rounded-xl border border-stroke bg-surface py-2 shadow-2xl"
             role="listbox"
           >
             {#if raceMatches.length}
@@ -410,21 +410,21 @@
           </div>
         {:else if open && searchLoading}
           <div
-            class="absolute left-0 right-0 top-full mt-2 rounded-xl border border-stroke bg-surface px-4 py-3 text-xs text-content-subtle shadow-xl"
+            class="absolute left-0 right-0 top-full z-50 mt-2 rounded-xl border border-stroke bg-surface px-4 py-3 text-xs text-content-subtle shadow-2xl"
             role="status"
           >
             Loading search results&hellip;
           </div>
         {:else if open && searchLoaded && query.trim()}
           <div
-            class="absolute left-0 right-0 top-full mt-2 rounded-xl border border-stroke bg-surface px-4 py-3 text-xs text-content-subtle shadow-xl"
+            class="absolute left-0 right-0 top-full z-50 mt-2 rounded-xl border border-stroke bg-surface px-4 py-3 text-xs text-content-subtle shadow-2xl"
             role="status"
           >
             No matching elections or candidates.
           </div>
         {:else if open && searchLoadError}
           <div
-            class="absolute left-0 right-0 top-full mt-2 rounded-xl border border-stroke bg-surface px-4 py-3 text-xs text-red-700 shadow-xl dark:text-red-300"
+            class="absolute left-0 right-0 top-full z-50 mt-2 rounded-xl border border-stroke bg-surface px-4 py-3 text-xs text-red-700 shadow-2xl dark:text-red-300"
             role="alert"
           >
             Search is temporarily unavailable. Press Enter to browse elections.
