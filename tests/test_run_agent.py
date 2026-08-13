@@ -7,6 +7,7 @@ import copy
 import json
 import os
 import re
+import time
 from unittest.mock import AsyncMock, patch
 
 import pytest
@@ -20,6 +21,7 @@ from pipeline_client.agent.phases import (
     _sanitize_roster,
 )
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
+from pipeline_client.agent.run_budget import RunBudget, RunBudgetExceeded
 from pipeline_client.backend.handlers.agent import HandoffTriggered
 from shared.models import RaceJSON
 from shared.pipeline_config import PIPELINE_STEP_IDS
@@ -702,6 +704,75 @@ async def test_failed_roster_sync_writes_recovery_state_before_checkpoint():
 
     assert checkpoint["roster_finalization_pending"] is True
     assert checkpoint["roster_sync_original_names"] == ["Shomari Figures", "Rhett Marques"]
+
+
+@pytest.mark.asyncio
+async def test_advisory_roster_timeout_does_not_checkpoint_stale_completed_units():
+    existing = {
+        "id": "ak-governor-2026",
+        "election_date": "2026-11-03",
+        "candidates": [{"name": "Candidate One", "party": "Independent", "roster_sources": []}],
+        "pipeline_state": {
+            "complete": True,
+            "remaining_candidates": [],
+            "remaining_steps": [],
+            "completed_units": ["discovery.roster_sync", "discovery.roster_verify", "discovery.metadata"],
+        },
+        "updated_utc": "2026-08-12T00:00:00Z",
+    }
+
+    async def advisory_timeout(*_args, **_kwargs):
+        raise RunBudgetExceeded("Ballotpedia roster sync exceeded the remaining run budget")
+
+    async def inspect_cleared_checkpoint(*_args, **kwargs):
+        if kwargs.get("phase_name") == "roster-sync":
+            units = set((existing.get("pipeline_state") or {}).get("completed_units") or [])
+            assert not units.intersection({"discovery.roster_sync", "discovery.roster_verify", "discovery.metadata"})
+            return {"_tool_trace": {"required_final_tool_succeeded": True}}
+        return {}
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.phases._sync_ballotpedia_roster", side_effect=advisory_timeout),
+    ):
+        mock_loop.side_effect = inspect_cleared_checkpoint
+        result = await run_agent(
+            "ak-governor-2026",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["discovery"],
+            run_budget=RunBudget(deadline_at=time.time() + 3600),
+        )
+
+    assert any(call.kwargs.get("phase_name") == "roster-sync" for call in mock_loop.call_args_list)
+    assert result["run_health"]["status"] == "healthy"
+
+
+@pytest.mark.asyncio
+async def test_fresh_run_continues_after_advisory_roster_timeout():
+    discovered = {
+        "id": "ak-governor-2026",
+        "election_date": "2026-11-03",
+        "candidates": [{"name": "Candidate One", "party": "Independent", "roster_sources": []}],
+    }
+
+    async def advisory_timeout(*_args, **_kwargs):
+        raise RunBudgetExceeded("Ballotpedia roster sync exceeded the remaining run budget")
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock, return_value=discovered),
+        patch("pipeline_client.agent.phases._sync_ballotpedia_roster", side_effect=advisory_timeout),
+    ):
+        result = await run_agent(
+            "ak-governor-2026",
+            cheap_mode=True,
+            existing_data={},
+            enabled_steps=["discovery"],
+            run_budget=RunBudget(deadline_at=time.time() + 3600),
+        )
+
+    assert [candidate["name"] for candidate in result["candidates"]] == ["Candidate One"]
+    assert result["run_health"]["status"] == "healthy"
 
 
 @pytest.mark.asyncio

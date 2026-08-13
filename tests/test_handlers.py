@@ -64,6 +64,26 @@ async def test_v2_handler_raises_on_missing_race_id():
 
 
 @pytest.mark.asyncio
+async def test_v2_handler_preserves_agent_metrics_when_draft_save_fails():
+    """A post-agent save guard must not erase the provider spend it incurred."""
+    handler = AgentHandler()
+    fake_result = {
+        "id": "test-race",
+        "candidates": [{"name": "Candidate"}],
+        "agent_metrics": {"cost_usd": 0.123, "cost_source": "provider", "serper_calls": 2},
+    }
+
+    with (
+        patch("pipeline_client.agent.agent.run_agent", new_callable=AsyncMock, return_value=fake_result),
+        patch.object(handler, "_save_draft", new_callable=AsyncMock, side_effect=ValueError("save rejected")),
+    ):
+        with pytest.raises(ValueError, match="save rejected") as caught:
+            await handler.handle({"race_id": "test-race"}, {"enabled_steps": ["discovery"]})
+
+    assert caught.value.pipeline_agent_metrics == fake_result["agent_metrics"]
+
+
+@pytest.mark.asyncio
 async def test_v2_handler_runs_agent_and_publishes():
     """AgentHandler calls run_agent and saves draft."""
     handler = AgentHandler()

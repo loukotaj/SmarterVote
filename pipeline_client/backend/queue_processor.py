@@ -465,6 +465,7 @@ async def process_claimed_item(
             from pipeline_client.agent.cost import _cost_ctx, estimate_cost
             from pipeline_client.backend.pipeline_metrics import get_pipeline_metrics_store
 
+            provided_metrics = getattr(exc, "pipeline_agent_metrics", None)
             acc = _cost_ctx.get() or {}
             breakdown = acc.get("model_breakdown", {})
             estimated_usd = sum(
@@ -474,25 +475,30 @@ async def process_claimed_item(
             search_cost_usd = int(acc.get("serper_calls", 0) or 0) * 0.001
             llm_cost_usd = float(acc.get("provider_cost_usd", 0.0) or 0.0)
             has_exact_cost = int(acc.get("priced_calls", 0) or 0) > 0 and int(acc.get("unpriced_calls", 0) or 0) == 0
-            failed_metrics = {
-                "model": options.get("research_model", ""),
-                "model_profile": options.get("model_profile"),
-                "prompt_tokens": int(acc.get("prompt_tokens", 0) or 0),
-                "completion_tokens": int(acc.get("completion_tokens", 0) or 0),
-                "total_tokens": int(acc.get("prompt_tokens", 0) or 0) + int(acc.get("completion_tokens", 0) or 0),
-                "llm_cost_usd": llm_cost_usd if has_exact_cost else None,
-                "search_cost_usd": search_cost_usd,
-                "cost_usd": llm_cost_usd + search_cost_usd if has_exact_cost else None,
-                "cost_source": "provider" if has_exact_cost else "estimated",
-                "estimated_usd": estimated_usd + search_cost_usd,
-                "model_breakdown": breakdown,
-                "phase_breakdown": acc.get("phase_breakdown", {}),
-                "page_fetches": int(acc.get("page_fetches", 0) or 0),
-                "fetched_chars": int(acc.get("fetched_chars", 0) or 0),
-                "page_budget_blocked": int(acc.get("page_budget_blocked", 0) or 0),
-                "duration_s": round(_time.perf_counter() - started_at, 1),
-                "serper_calls": int(acc.get("serper_calls", 0) or 0),
-            }
+            failed_metrics = (
+                dict(provided_metrics)
+                if isinstance(provided_metrics, dict)
+                else {
+                    "model": options.get("research_model", ""),
+                    "model_profile": options.get("model_profile"),
+                    "prompt_tokens": int(acc.get("prompt_tokens", 0) or 0),
+                    "completion_tokens": int(acc.get("completion_tokens", 0) or 0),
+                    "total_tokens": int(acc.get("prompt_tokens", 0) or 0) + int(acc.get("completion_tokens", 0) or 0),
+                    "llm_cost_usd": llm_cost_usd if has_exact_cost else None,
+                    "search_cost_usd": search_cost_usd,
+                    "cost_usd": llm_cost_usd + search_cost_usd if has_exact_cost else None,
+                    "cost_source": "provider" if has_exact_cost else "estimated",
+                    "estimated_usd": estimated_usd + search_cost_usd,
+                    "model_breakdown": breakdown,
+                    "phase_breakdown": acc.get("phase_breakdown", {}),
+                    "page_fetches": int(acc.get("page_fetches", 0) or 0),
+                    "fetched_chars": int(acc.get("fetched_chars", 0) or 0),
+                    "page_budget_blocked": int(acc.get("page_budget_blocked", 0) or 0),
+                    "duration_s": round(_time.perf_counter() - started_at, 1),
+                    "serper_calls": int(acc.get("serper_calls", 0) or 0),
+                }
+            )
+            failed_metrics.setdefault("serper_calls", int(failed_metrics.get("search_calls", 0) or 0))
             await get_pipeline_metrics_store().record_run(
                 run_id,
                 race_id,

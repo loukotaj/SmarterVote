@@ -732,11 +732,21 @@ class AgentHandler:
         race_json_holder[0] = race_json
 
         # Save as draft (not published) — admin must explicitly publish
-        draft_path = await self._save_draft(
-            race_id,
-            race_json,
-            verified_baseline_candidate_names=verified_baseline_candidate_names,
-        )
+        try:
+            draft_path = await self._save_draft(
+                race_id,
+                race_json,
+                verified_baseline_candidate_names=verified_baseline_candidate_names,
+            )
+        except Exception as exc:
+            # ``run_agent`` has already finalized and detached its cost context at
+            # this point. Preserve those provider-backed metrics on the exception
+            # so the queue processor can attribute spend even when the draft save
+            # guard (or storage) rejects the completed result.
+            agent_metrics = race_json.get("agent_metrics")
+            if isinstance(agent_metrics, dict):
+                exc.pipeline_agent_metrics = dict(agent_metrics)
+            raise
 
         # Update race record metadata from the new draft data
         if not queue_item_id:

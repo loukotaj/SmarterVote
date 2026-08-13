@@ -265,6 +265,11 @@ exact-race Ballotpedia page and reputable news/campaign sources. The
 `ballotpedia_election_lookup` extraction is advisory only because a page can
 contain stale-cycle, primary, or unrelated navigation tables. Its names must
 never drive an add/removal alone or override a current official source.
+The lookup has a short, best-effort timeout: when ample invocation time remains,
+a timeout is logged and model-backed roster research continues. It triggers a
+durable handoff only when the invocation is genuinely near its checkpoint
+deadline. Update runs mutate the handler's checkpoint object directly so a
+handoff cannot persist stale completed-unit markers from the baseline.
 
 Removals have three paths, chosen by what the evidence actually supports:
 
