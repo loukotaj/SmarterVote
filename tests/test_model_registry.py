@@ -131,6 +131,16 @@ def test_adjudicator_never_judges_evidence_it_produced():
         assert ADJUDICATOR_MODEL != roles["roster"], f"{profile}: adjudicator == roster"
 
 
+def test_completeness_fallback_is_independent_from_research_models():
+    from shared.model_catalog import ROSTER_COMPLETENESS_REVIEW_MODEL
+
+    assert ROSTER_COMPLETENESS_REVIEW_MODEL == "anthropic/claude-opus-5"
+    assert ROSTER_COMPLETENESS_REVIEW_MODEL in MODEL_CATALOG
+    for profile, roles in PROFILE_DEFAULTS.items():
+        assert ROSTER_COMPLETENESS_REVIEW_MODEL != roles["primary"], f"{profile}: fallback == primary"
+        assert ROSTER_COMPLETENESS_REVIEW_MODEL != roles["roster"], f"{profile}: fallback == roster"
+
+
 def test_model_overrides_win_over_profile_defaults():
     models = resolve_run_models({"model_overrides": {"roster": SMALL_MODEL}}, cheap_mode=True)
     assert models["roster"] == SMALL_MODEL
