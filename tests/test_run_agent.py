@@ -1046,6 +1046,30 @@ async def test_run_agent_respects_review_provider_selection():
 
 
 @pytest.mark.asyncio
+async def test_run_agent_cleans_legacy_optional_values_before_review():
+    discovery_result = {
+        "id": "cleanup-before-review-2026",
+        "candidates": [{"name": "Alice", "issues": {}, "social_media": {"linkedin": None}}],
+    }
+    reviews = [{"model": "claude", "verdict": "approved", "score": 95, "flags": []}]
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock, return_value=discovery_result),
+        patch("pipeline_client.agent.agent._load_existing", return_value=None),
+        patch("pipeline_client.agent.agent.run_reviews", new_callable=AsyncMock, return_value=reviews) as mock_reviews,
+    ):
+        result = await run_agent(
+            "cleanup-before-review-2026",
+            existing_data={},
+            enabled_steps=["discovery", "review"],
+            review_providers=["claude"],
+        )
+
+    assert mock_reviews.call_args.args[1]["candidates"][0]["social_media"] == {}
+    assert result["pipeline_state"]["deterministic_cleanup"]["invalid_social_links_removed"] == 1
+
+
+@pytest.mark.asyncio
 async def test_run_agent_default_iteration_rereviews_full_profile_once():
     discovery_result = {
         "id": "review-cycle-2026",
