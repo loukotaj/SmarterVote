@@ -1,6 +1,26 @@
 from shared.race_cleanup import cleanup_race_data, forecast_evidence_gaps, validate_forecast_evidence
 
 
+def test_cleanup_removes_null_and_blank_social_media_values():
+    race = {
+        "candidates": [
+            {
+                "name": "Candidate",
+                "social_media": {
+                    "linkedin": None,
+                    "facebook": "  ",
+                    "website": " https://example.com/candidate ",
+                },
+            }
+        ]
+    }
+
+    report = cleanup_race_data(race)
+
+    assert race["candidates"][0]["social_media"] == {"website": "https://example.com/candidate"}
+    assert report["invalid_social_links_removed"] == 2
+
+
 def test_cleanup_fixes_known_text_artifact_deduplicates_sources_and_seeds_forecast_evidence():
     race = {
         "description": "Candidate advanced after advanced from the primary.  Updated.",
