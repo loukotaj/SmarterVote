@@ -226,6 +226,10 @@ PREMIUM_REVIEW_GROK = "x-ai/grok-4.5"
 #: the live API. ``scripts/check_model_catalog.py`` enforces the separation.
 ADJUDICATOR_MODEL = SMALL_MODEL
 
+#: Strong, independent second look used only when every ordinary completeness
+#: judgment rejects a structurally valid roster-evidence bundle.
+ROSTER_COMPLETENESS_REVIEW_MODEL = FRONTIER_MODEL
+
 #: Chamber-forecast narratives: a handful of long-context calls over every
 #: published race summary, run by hand from the admin UI rather than per race.
 #: Volume is negligible, so this takes the strong Gemini rather than the cheap

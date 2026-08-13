@@ -269,6 +269,13 @@ successful lookup does record its exact parsed page as fetched provenance, so
 the normal source-class, exact-contest, current-cycle, and independent roster
 adjudication gates can evaluate a Ballotpedia completeness citation without a
 second fetch of the same bot-protected page.
+Completeness is judged per source first. If every ordinary judgment rejects,
+the pipeline sends the combined, bounded evidence packet to one stronger
+independent reviewer. Approval still passes through the same deterministic
+source-class, retrieved-content, exact-contest, and current-cycle gates; a
+negative, unavailable, or unparseable second review remains fail-closed. This
+fallback applies only to whole-roster completeness, never candidate membership
+or removal.
 The lookup has a short, best-effort timeout: when ample invocation time remains,
 a timeout is logged and model-backed roster research continues. It triggers a
 durable handoff only when the invocation is genuinely near its checkpoint
