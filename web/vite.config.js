@@ -24,11 +24,18 @@ export default defineConfig({
         "src/lib/sampleData.ts",
         "src/lib/config/modelCatalog.ts",
       ],
+      // Ratchet floors: set a couple of points under measured coverage so a real
+      // regression fails the build while ordinary variance does not. They were
+      // 35/25/35/40, which measured coverage had outgrown by ~20 points — a
+      // floor that far below actual stops being a guard and just reports a
+      // number. Raise these whenever coverage climbs; never lower them to make
+      // a red build green.
+      // Measured at the time of writing: 81.32 / 67.97 / 81.24 / 82.35.
       thresholds: {
-        statements: 35,
-        branches: 25,
-        functions: 35,
-        lines: 40,
+        statements: 80,
+        branches: 66,
+        functions: 79,
+        lines: 81,
       },
       reporter: ["text", "json-summary"],
     },

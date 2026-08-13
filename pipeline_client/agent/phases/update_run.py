@@ -24,6 +24,7 @@ from ..tools import (
     CANDIDATE_TOOLS,
     DESCRIPTION_TOOLS,
     FINALIZE_METADATA_TOOL,
+    FINALIZE_ROSTER_TOOL,
     READ_PROFILE_TOOL,
     RECORD_TOOLS,
     REMOVE_CANDIDATE_TOOL,
@@ -42,6 +43,25 @@ from .context import PhaseContext
 from .discovery import _backfill_source_timestamps, _record_provisional_roster, _sanitize_roster
 from .fresh_run import _run_fresh
 from .shared_runner import _run_shared_phases
+
+
+def _clear_recovered_roster_verification_failure(race_json: Dict[str, Any]) -> None:
+    """Remove an initial roster-sync error after strict recovery succeeds."""
+    pipeline_state = race_json.get("pipeline_state")
+    if not isinstance(pipeline_state, dict):
+        return
+    failures = pipeline_state.get("step_failures")
+    if not isinstance(failures, list):
+        return
+    pipeline_state["step_failures"] = [
+        failure
+        for failure in failures
+        if not (
+            isinstance(failure, dict)
+            and failure.get("step") == "discovery"
+            and failure.get("reason") == RunFailureReason.ROSTER_VERIFICATION_FAILED.value
+        )
+    ]
 
 
 async def _run_update(
@@ -84,7 +104,8 @@ async def _run_update(
     _sanitize_roster(race_json, log)
 
     existing_candidates = race_json.get("candidates", [])
-    candidate_names = [_candidate_name(c) for c in existing_candidates if _candidate_name(c)]
+    all_candidate_names = [_candidate_name(c) for c in existing_candidates if _candidate_name(c)]
+    candidate_names = list(all_candidate_names)
     candidate_names = _select_target_candidates(candidate_names, target_candidate_names, log)
     selected_name_set = set(candidate_names)
     n = len(candidate_names)
@@ -122,9 +143,24 @@ async def _run_update(
         if not resume_partial:
             completed_units.difference_update({"discovery.roster_sync", "discovery.roster_verify", "discovery.metadata"})
             race_json["pipeline_state"]["completed_units"] = sorted(completed_units)
+            race_json["pipeline_state"].pop("roster_finalization_pending", None)
+            race_json["pipeline_state"].pop("roster_sync_original_names", None)
 
-        pre_sync_names = list(candidate_names)
-        roster_sync_succeeded: bool | None = None
+        stored_original_names = race_json["pipeline_state"].get("roster_sync_original_names")
+        pre_sync_names = (
+            [str(name) for name in stored_original_names if str(name).strip()]
+            if isinstance(stored_original_names, list)
+            else list(all_candidate_names)
+        )
+        if "discovery.roster_verify" not in completed_units:
+            race_json["pipeline_state"]["roster_sync_original_names"] = list(pre_sync_names)
+        else:
+            race_json["pipeline_state"].pop("roster_sync_original_names", None)
+        # This survives a continuation between roster-sync and roster-verify.
+        # The recovery decision is pipeline state, never wording in a queue goal.
+        roster_sync_succeeded: bool | None = (
+            False if race_json["pipeline_state"].get("roster_finalization_pending") is True else None
+        )
         if "discovery.roster_sync" not in completed_units:
             log("info", "Update Phase 0: Verifying candidate roster...")
             roster_sync_succeeded = False
@@ -175,6 +211,10 @@ async def _run_update(
                 _record_step_failure(race_json, "discovery", RunFailureReason.ROSTER_VERIFICATION_FAILED, str(exc))
 
             _sanitize_roster(race_json, log)
+            if roster_sync_succeeded:
+                race_json["pipeline_state"].pop("roster_finalization_pending", None)
+            else:
+                race_json["pipeline_state"]["roster_finalization_pending"] = True
             await _await_with_run_budget(
                 _sync_ballotpedia_roster(race_json, race_id, log),
                 run_budget=run_budget,
@@ -199,8 +239,6 @@ async def _run_update(
                 # by bookkeeping rather than by any doubt about its data. The
                 # provisional status is recorded below on roster_research and as a
                 # step failure, and every refresh re-runs discovery anyway.
-                pipeline_state = race_json.setdefault("pipeline_state", {})
-                pipeline_state["complete"] = False
                 track(
                     "progress",
                     "discovery",
@@ -226,7 +264,19 @@ async def _run_update(
         if "discovery.roster_verify" not in completed_units:
             log("info", f"  Roster verify: checking {len(post_sync_names)} candidate(s)")
             try:
-                await _agent_loop(
+                recover_completeness = roster_sync_succeeded is False
+                pre_sync_keys = {name.casefold() for name in pre_sync_names}
+                added_names = [name for name in post_sync_names if name.casefold() not in pre_sync_keys]
+                finalization_instruction = (
+                    "The earlier roster-sync phase did not prove completeness. After removing any verified "
+                    "inactive candidates, fetch an authoritative exact-contest source or the exact Ballotpedia "
+                    "race page that names the entire current field. Then you MUST call finalize_roster with the "
+                    "remaining complete candidates array, matching source_candidate_names, and the retrieved "
+                    "completeness source. Do not finalize from search snippets or candidate-by-candidate sources."
+                    if recover_completeness
+                    else "Roster completeness was already finalized. Do not call finalize_roster again."
+                )
+                verify_result = await _agent_loop(
                     ROSTER_VERIFY_SYSTEM.format(**cycle_kwargs(race_id)),
                     ROSTER_VERIFY_USER.format(
                         **cycle_kwargs(race_id),
@@ -234,20 +284,30 @@ async def _run_update(
                         current_date=as_of_date,
                         candidate_names=", ".join(post_sync_names),
                         original_names=", ".join(pre_sync_names),
-                        added_names=", ".join(post_sync_names),
+                        added_names=", ".join(added_names) or "(none)",
+                        finalization_instruction=finalization_instruction,
                     ),
                     model=roster_model or model,
                     on_log=on_log,
                     race_id=race_id,
                     contest_label=format_contest_label(race_json, race_id),
-                    max_iterations=8,
+                    max_iterations=(min(max_iterations, max(10, 6 + len(post_sync_names))) if recover_completeness else 8),
                     phase_name="roster-verify",
                     max_tokens=4096,
-                    extra_tools=[REMOVE_CANDIDATE_TOOL, READ_PROFILE_TOOL],
+                    extra_tools=[REMOVE_CANDIDATE_TOOL, READ_PROFILE_TOOL]
+                    + ([FINALIZE_ROSTER_TOOL] if recover_completeness else []),
                     extra_tool_handlers=handlers,
                     tools_mode=True,
                     run_budget=run_budget,
+                    required_final_tool_name="finalize_roster" if recover_completeness else None,
+                    required_final_instruction=finalization_instruction if recover_completeness else None,
+                    return_tool_trace=recover_completeness,
                 )
+                if recover_completeness:
+                    roster_sync_succeeded = bool((verify_result.get("_tool_trace") or {}).get("required_final_tool_succeeded"))
+                    if roster_sync_succeeded:
+                        race_json["pipeline_state"].pop("roster_finalization_pending", None)
+                        _clear_recovered_roster_verification_failure(race_json)
                 _sanitize_roster(race_json, log)
             except RunBudgetExceeded:
                 raise
@@ -256,6 +316,7 @@ async def _run_update(
                 _record_step_failure(race_json, "discovery", RunFailureReason.ROSTER_VERIFICATION_FAILED, str(exc))
             _mark_pipeline_unit_complete(race_json, "discovery.roster_verify")
             completed_units.add("discovery.roster_verify")
+            race_json["pipeline_state"].pop("roster_sync_original_names", None)
             track(
                 "progress",
                 "discovery",
@@ -270,6 +331,8 @@ async def _run_update(
             # Roster verification can remove stale or ineligible candidates, so
             # finalize the provisional audit only after that phase has settled
             # the active roster and its count.
+            race_json.setdefault("pipeline_state", {})["complete"] = False
+            race_json["pipeline_state"].pop("roster_finalization_pending", None)
             _record_provisional_roster(race_json, log)
 
         candidate_names = [_candidate_name(c) for c in race_json.get("candidates", []) if _candidate_name(c)]

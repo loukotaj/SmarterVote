@@ -229,8 +229,13 @@ atomically applies the submitted complete roster (preserving matching candidate
 profiles), so a final synthesis turn can add or remove the whole field without
 one tool turn per name. It persists the audit under
 `pipeline_state.roster_research`. If the gate does not
-pass, the run stops before images, polling, and forecast work and keeps `discovery`
-visibly incomplete for a retry.
+pass, update mode persists `roster_finalization_pending` across any continuation.
+The roster verifier may first remove candidates with qualifying exit evidence
+and then gets one recovery attempt through the same strict `finalize_roster`
+contract. A successful recovery clears the pending marker. If recovery still
+cannot prove the whole field, the run records an explicit provisional-roster
+health reason and continues any requested downstream maintenance; it never
+turns candidate-by-candidate evidence into completeness by weakening the gate.
 
 Update discovery applies race metadata with the same end-of-phase discipline.
 Its last turn is reserved for a stronger synthesis model and forced to call
@@ -379,6 +384,14 @@ Example fresh cloud run:
 Use `debug_mode` for a small diagnostic run when investigating cost, retries,
 handoffs, or context behavior. Debug mode increases observability, not quality,
 and does not reduce cost.
+
+When `save_artifact` is enabled, both direct and queued worker runs persist a
+sanitized run artifact and attach its ID to the terminal run and queue records.
+The artifact omits the duplicated in-memory agent log list; use the bounded
+diagnostics export for the chronological log timeline. The supported local
+worker compose file sets `STORAGE_MODE=gcp`, so these artifacts survive a
+container rebuild in the configured GCS bucket rather than its ephemeral
+filesystem.
 
 ## Monitoring
 

@@ -83,7 +83,11 @@ async def test_process_follows_handoff_in_process_instead_of_failing():
     from pipeline_client.backend import queue_processor as qp
     from pipeline_client.backend.handlers.agent import HandoffTriggered
 
-    item = {"race_id": "ca-house-01-2026", "run_id": "run-3", "options": {"cheap_mode": True}}
+    item = {
+        "race_id": "ca-house-01-2026",
+        "run_id": "run-3",
+        "options": {"cheap_mode": True, "save_artifact": False},
+    }
     db, item_ref, run_ref, race_ref = _fs_mock(item)
 
     cont_doc = MagicMock()
@@ -118,12 +122,16 @@ async def test_process_follows_handoff_in_process_instead_of_failing():
         if len(calls) == 1:
             raise HandoffTriggered("cont-1", ["issues"], run_id)
 
-    with patch.object(qp, "_run_agent", side_effect=fake_run):
+    with (
+        patch.object(qp, "_run_agent", side_effect=fake_run),
+        patch("pipeline_client.backend.storage.save_artifact") as save_artifact,
+    ):
         await qp.process_claimed_item(db, MagicMock(), "bucket", "item-1", item, "owner-1")
 
     assert len(calls) == 2, "must retry in-process after the handoff instead of giving up"
     assert calls[1]["enabled_steps"] == ["issues"], "must resume with the continuation's own options"
     cont_ref.delete.assert_called_once()
+    save_artifact.assert_not_called(), "a continuation must not override the caller's artifact preference"
 
     item_updates = [c.args[0] for c in item_ref.update.call_args_list]
     assert any(u.get("status") == "completed" for u in item_updates)
@@ -187,6 +195,82 @@ async def test_process_persists_run_health_from_successful_agent_result():
     completed_run_updates = [u for u in run_updates if u.get("status") == "completed"]
     assert completed_run_updates
     assert completed_run_updates[-1]["run_health"] == run_health_payload
+
+
+@pytest.mark.asyncio
+async def test_process_saves_requested_artifact_and_persists_id():
+    from pipeline_client.backend import queue_processor as qp
+
+    item = {
+        "race_id": "ca-house-01-2026",
+        "run_id": "run-artifact",
+        "options": {"cheap_mode": True, "save_artifact": True},
+    }
+    db, item_ref, run_ref, _race_ref = _fs_mock(item)
+    result = {"race_id": item["race_id"], "status": "draft", "agent_logs": [{"message": "large"}]}
+
+    with (
+        patch.object(qp, "_run_agent", AsyncMock(return_value=result)),
+        patch("pipeline_client.backend.storage.new_artifact_id", return_value="artifact-queue"),
+        patch("pipeline_client.backend.storage.save_artifact") as save_artifact,
+    ):
+        await qp.process_claimed_item(db, MagicMock(), "bucket", "item-artifact", item, "owner-artifact")
+
+    artifact_payload = save_artifact.call_args.args[1]
+    assert artifact_payload["run_id"] == "run-artifact"
+    assert artifact_payload["run_started_utc"]
+    assert artifact_payload["output"]["agent_log_count"] == 1
+    assert "agent_logs" not in artifact_payload["output"]
+    assert "deadline_at" not in artifact_payload["options"]
+    assert any(update.get("artifact_id") == "artifact-queue" for update in (c.args[0] for c in item_ref.update.call_args_list))
+    assert any(update.get("artifact_id") == "artifact-queue" for update in (c.args[0] for c in run_ref.update.call_args_list))
+
+
+@pytest.mark.asyncio
+async def test_process_can_disable_artifact_save():
+    from pipeline_client.backend import queue_processor as qp
+
+    item = {
+        "race_id": "ca-house-01-2026",
+        "run_id": "run-no-artifact",
+        "options": {"cheap_mode": True, "save_artifact": False},
+    }
+    db, _item_ref, run_ref, _race_ref = _fs_mock(item)
+
+    with (
+        patch.object(qp, "_run_agent", AsyncMock(return_value={"status": "draft"})),
+        patch("pipeline_client.backend.storage.save_artifact") as save_artifact,
+    ):
+        await qp.process_claimed_item(db, MagicMock(), "bucket", "item-no-artifact", item, "owner-no-artifact")
+
+    save_artifact.assert_not_called()
+    completed = [c.args[0] for c in run_ref.update.call_args_list if c.args[0].get("status") == "completed"]
+    assert completed[-1]["artifact_id"] is None
+
+
+@pytest.mark.asyncio
+async def test_process_artifact_save_failure_is_non_fatal():
+    from pipeline_client.backend import queue_processor as qp
+
+    item = {
+        "race_id": "ca-house-01-2026",
+        "run_id": "run-artifact-failure",
+        "options": {"cheap_mode": True, "save_artifact": True},
+    }
+    db, item_ref, run_ref, _race_ref = _fs_mock(item)
+
+    with (
+        patch.object(qp, "_run_agent", AsyncMock(return_value={"status": "draft"})),
+        patch("pipeline_client.backend.storage.save_artifact", side_effect=RuntimeError("gcs unavailable")),
+    ):
+        await qp.process_claimed_item(db, MagicMock(), "bucket", "item-artifact-failure", item, "owner-artifact-failure")
+
+    run_updates = [call.args[0] for call in run_ref.update.call_args_list]
+    completed = [update for update in run_updates if update.get("status") == "completed"]
+    assert completed[-1]["artifact_id"] is None
+    assert not any(update.get("status") == "failed" for update in run_updates)
+    item_updates = [call.args[0] for call in item_ref.update.call_args_list]
+    assert any(update.get("status") == "completed" for update in item_updates)
 
 
 @pytest.mark.asyncio
