@@ -29,6 +29,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from shared.pipeline_config import DEFAULT_UPDATE_PIPELINE_STEPS, PIPELINE_STEP_IDS, REVIEW_PROVIDERS, PipelineRuntimeConfig
+from shared.race_cleanup import cleanup_race_data, validate_forecast_evidence
 from shared.run_health import clear_step_failures
 
 from .ballotpedia import default_ballotpedia_race_url
@@ -897,6 +898,11 @@ async def run_agent(
         )
 
     if should_review:
+        # Review the canonical object that will be saved. Legacy drafts can
+        # carry schema-invalid optional values (for example a null social URL),
+        # and judging before deterministic cleanup creates a stale error that
+        # cleanup fixes only after the grade has already failed.
+        pre_review_cleanup = cleanup_race_data(race_json)
         prior_review_metrics = (race_json.get("agent_metrics") or {}).get("review", {})
         review_metrics: Dict[str, Any] = copy.deepcopy(prior_review_metrics) if resume_review_iteration else {}
         review_cache: Dict[str, Any] = {}
@@ -1038,9 +1044,12 @@ async def run_agent(
     # Apply safe mechanical cleanup after all model-authored changes. This pass
     # also carries explicit polling/market/finance evidence URLs into forecasts
     # before enforcing the forecast evidence gate.
-    from shared.race_cleanup import cleanup_race_data, validate_forecast_evidence
-
     cleanup_report = cleanup_race_data(race_json)
+    if should_review:
+        cleanup_report = {
+            key: int(pre_review_cleanup.get(key, 0)) + int(cleanup_report.get(key, 0))
+            for key in set(pre_review_cleanup) | set(cleanup_report)
+        }
     pipeline_state = race_json.setdefault("pipeline_state", pipeline_state)
     pipeline_state["deterministic_cleanup"] = cleanup_report
     if any(cleanup_report.values()):

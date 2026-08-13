@@ -211,8 +211,9 @@ reuse an exact URL's already-persisted tier-1/2 content evidence; it reuses the
 stored source object, never the model's new claims about an unfetched page. A
 trusted persisted source is considered automatically during finalization, so a
 low-cost refresh does not depend on the synthesis model repeating its URL.
-The final deterministic cleanup also drops null or blank candidate social-link
-values before schema validation, preventing legacy optional fields from turning
+Deterministic cleanup runs immediately before review and again after any review
+iteration. It drops null or blank candidate social-link values before schema
+validation, preventing legacy optional fields from turning
 an otherwise valid review into a schema error.
 For a special primary, completeness matching uses the primary date stated in
 `primary_status`, not the later general-election date stored on the profile. A
