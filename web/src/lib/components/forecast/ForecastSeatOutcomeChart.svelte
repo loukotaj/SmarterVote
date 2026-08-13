@@ -124,7 +124,7 @@
           <div class="flex items-center gap-3 text-xs">
             <!-- Label e.g. "52D - 48R" -->
             <span
-              class="w-18 font-mono font-bold text-[10px] text-content-subtle shrink-0"
+              class="w-20 font-mono font-bold text-[10px] text-content-subtle shrink-0"
             >
               {outcome.dSeats}D - {outcome.rSeats}R
             </span>
