@@ -51,22 +51,22 @@ export const MODEL_CATALOG: Record<string, ModelSpec> = {
   "deepseek/deepseek-v4-flash-0731": {
     "id": "deepseek/deepseek-v4-flash-0731",
     "label": "DeepSeek V4 Flash (07-31)",
-    "inputPerM": 0.09,
+    "inputPerM": 0.08,
     "outputPerM": 0.18,
-    "cachedInputPerM": 0.018,
+    "cachedInputPerM": 0.016,
     "contextWindowTokens": 1048576,
     "intelligence": 49.9,
-    "maxCompletionTokens": 65536
+    "maxCompletionTokens": 384000
   },
   "deepseek/deepseek-v4-pro": {
     "id": "deepseek/deepseek-v4-pro",
     "label": "DeepSeek V4 Pro",
-    "inputPerM": 0.435,
-    "outputPerM": 0.87,
-    "cachedInputPerM": 0.003625,
+    "inputPerM": 1.168,
+    "outputPerM": 2.336,
+    "cachedInputPerM": 0.09855,
     "contextWindowTokens": 1048576,
     "intelligence": 44.3,
-    "maxCompletionTokens": 384000
+    "maxCompletionTokens": 393216
   },
   "google/gemini-3.1-flash-lite": {
     "id": "google/gemini-3.1-flash-lite",

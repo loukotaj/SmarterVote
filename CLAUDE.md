@@ -82,8 +82,8 @@ python scripts/check_model_catalog.py
 ```
 
 Every model choice lives in `shared/model_catalog.py` and nowhere else. The
-guard verifies prices, cache prices and context windows against OpenRouter's
-live list; that every profile role and escalation target is still served; that
+guard verifies prices, cache prices, context windows, and maximum completion
+lengths against OpenRouter's live list; that every profile role and escalation target is still served; that
 each escalation climbs the **intelligence index** (not the price — an escalation
 to a cheaper-but-weaker model once read as healthy for months); that `premium`
 is never worse than `default`; that the roster adjudicator differs from every
@@ -94,6 +94,12 @@ predates `grok-4.3`), so trust release dates, not names.
 
 The frontend's copy is generated: after changing the catalog, run
 `python scripts/generate_model_catalog_ts.py` and commit the result.
+
+OpenRouter chat HTTP 404 is ambiguous: it can mean an unknown slug or that no
+eligible endpoint is currently available. A 404 for a model in the checked
+catalog is retried as `provider_unavailable`; unknown model IDs remain permanent
+request errors. This prevents a transient frontier-model routing gap from
+silently aborting an escalation.
 
 ## Python Conventions
 

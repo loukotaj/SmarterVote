@@ -20,7 +20,7 @@ from .cost import (
     total_token_budget_reached,
 )
 from .errors import PermanentProviderError, RetryableProviderError
-from .model_registry import escalation_for, normalize_model_id
+from .model_registry import MODEL_CATALOG, escalation_for, normalize_model_id
 from .roster_adjudicator import collect_roster_adjudications
 from .run_budget import RunBudget
 from .source_types import normalize_source_type
@@ -290,6 +290,32 @@ async def _call_openrouter(
             logger.warning(f"OpenRouter 429, retrying in {wait}s (attempt {attempt + 1}/{rate_limit_max_retries + 1})")
             await asyncio.sleep(wait)
         except APIStatusError as exc:
+            # OpenRouter uses 404 for two materially different conditions: an
+            # unknown model slug and a known model with no currently eligible
+            # provider endpoints. Catalog models have already passed our slug
+            # validation, so retry their 404s as routing failures. This matters
+            # most for frontier escalation models, which can have only a few
+            # endpoints during rollout.
+            if exc.status_code == 404 and model in MODEL_CATALOG:
+                if attempt >= max_retries - 1:
+                    raise RetryableProviderError(
+                        "OpenRouter had no available endpoint for a catalog model",
+                        provider="openrouter",
+                        code="provider_unavailable",
+                    ) from exc
+                backoff = min(60.0 - transient_wait, (2 ** (attempt + 1)) * random.uniform(0.8, 1.2))
+                if backoff <= 0:
+                    raise
+                if run_budget:
+                    backoff = run_budget.bounded_sleep(backoff, operation="OpenRouter endpoint retry")
+                transient_wait += backoff
+                record_retry_metric("provider_failures")
+                logger.warning(
+                    f"OpenRouter has no available endpoint for {model}; retrying in {backoff}s "
+                    f"(attempt {attempt + 1}/{max_retries})"
+                )
+                await asyncio.sleep(backoff)
+                continue
             if exc.status_code < 500:
                 # 401/403 are almost always an exhausted or invalid API key, not a
                 # malformed request — classify them distinctly so run-health
