@@ -62,6 +62,7 @@ ADJUDICATOR_MODEL = _ADJUDICATOR_MODEL
 
 ADJUDICATOR_TEMPERATURE = 0.0
 ADJUDICATOR_MAX_TOKENS = 400
+COMPLETENESS_REVIEW_MAX_TOKENS = 1200
 ADJUDICATOR_TIMEOUT_SECONDS = 30.0
 
 
@@ -185,11 +186,12 @@ class Verdict:
         return record
 
 
-def _unavailable(detail: str) -> Verdict:
+def _unavailable(detail: str, *, model: str = ADJUDICATOR_MODEL) -> Verdict:
     """Fail closed. An unreachable judge must not become an open door."""
     return Verdict(
         supports=False,
         reason=f"evidence could not be adjudicated ({detail}); the roster gate fails closed",
+        model=model,
         unavailable=True,
     )
 
@@ -281,6 +283,7 @@ async def adjudicate(
     source: Mapping[str, Any],
     run_budget: Any = None,
     model: str = ADJUDICATOR_MODEL,
+    max_tokens: int = ADJUDICATOR_MAX_TOKENS,
 ) -> Verdict:
     """Judge one bounded question about one piece of evidence.
 
@@ -289,10 +292,10 @@ async def adjudicate(
     phase.
     """
     if claim not in _CLAIM_QUESTIONS:
-        return _unavailable(f"unknown claim {claim!r}")
+        return _unavailable(f"unknown claim {claim!r}", model=model)
 
     evidence = str(source.get("evidence") or source.get("text") or "")
-    key = _cache_key(claim, subject, contest, evidence + str(source.get("url") or "") + model)
+    key = _cache_key(claim, subject, contest, evidence + str(source.get("url") or "") + model + str(max_tokens))
     cached = _VERDICT_CACHE.get(key)
     if cached is not None:
         return cached
@@ -310,7 +313,7 @@ async def adjudicate(
                     },
                 ],
                 model=model,
-                max_tokens=ADJUDICATOR_MAX_TOKENS,
+                max_tokens=max_tokens,
                 temperature=ADJUDICATOR_TEMPERATURE,
                 run_budget=run_budget,
             ),
@@ -319,15 +322,15 @@ async def adjudicate(
         content = response.choices[0].message.content or ""
     except asyncio.TimeoutError:
         logger.warning("Roster adjudicator timed out for claim=%s subject=%s", claim, subject)
-        return _unavailable("adjudicator timed out")
+        return _unavailable("adjudicator timed out", model=model)
     except Exception as exc:  # provider down, quota exhausted, auth failure
         logger.warning("Roster adjudicator unavailable for claim=%s: %s", claim, exc)
-        return _unavailable(f"{type(exc).__name__}")
+        return _unavailable(f"{type(exc).__name__}", model=model)
 
     verdict = _parse_verdict(content)
     if verdict is None:
         logger.warning("Roster adjudicator returned unparseable content for claim=%s", claim)
-        return _unavailable("adjudicator returned an unparseable verdict")
+        return _unavailable("adjudicator returned an unparseable verdict", model=model)
 
     verdict = Verdict(supports=verdict.supports, reason=verdict.reason, model=model)
     _VERDICT_CACHE[key] = verdict
@@ -464,6 +467,7 @@ async def adjudicate_sources(
         },
         run_budget=run_budget,
         model=ROSTER_COMPLETENESS_REVIEW_MODEL,
+        max_tokens=COMPLETENESS_REVIEW_MAX_TOKENS,
     )
     if bundle.supports:
         record = bundle.to_record()

@@ -228,7 +228,7 @@ ADJUDICATOR_MODEL = SMALL_MODEL
 
 #: Strong, independent second look used only when every ordinary completeness
 #: judgment rejects a structurally valid roster-evidence bundle.
-ROSTER_COMPLETENESS_REVIEW_MODEL = FRONTIER_MODEL
+ROSTER_COMPLETENESS_REVIEW_MODEL = "anthropic/claude-opus-5"
 
 #: Chamber-forecast narratives: a handful of long-context calls over every
 #: published race summary, run by hand from the admin UI rather than per race.
