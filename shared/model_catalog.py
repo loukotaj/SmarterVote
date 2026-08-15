@@ -275,8 +275,9 @@ PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
 }
 
 
-#: Where a model goes when it stalls: repeated JSON-parse failures, blocked tool
-#: edits, or the final-synthesis turns of a long agent loop.
+#: Where a model goes when it stalls: repeated JSON-parse failures or blocked
+#: tool edits. Merely reaching a long loop's final-synthesis turn is not a
+#: quality failure and must not trigger an upgrade on the largest prompt.
 #:
 #: Every edge must climb the intelligence index. That sounds obvious and was not
 #: true: the previous map sent deepseek-v4-flash-0731 (49.9) to

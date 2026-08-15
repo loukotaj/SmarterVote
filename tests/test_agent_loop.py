@@ -635,7 +635,7 @@ async def test_agent_loop_nudges_model_toward_final_answer_in_json_mode():
 
 
 @pytest.mark.asyncio
-async def test_agent_loop_forces_required_tool_with_stronger_model_at_token_ceiling():
+async def test_agent_loop_forces_required_tool_without_escalating_a_healthy_loop():
     final_response = _mock_openai_response(
         tool_calls=[
             {
@@ -671,7 +671,9 @@ async def test_agent_loop_forces_required_tool_with_stronger_model_at_token_ceil
         )
 
     assert handler.call_count == 1
-    assert call.call_args.kwargs["model"] == escalation_for(SMALL_MODEL)
+    # Hitting the token ceiling forces finalization but is not a stall, so the
+    # closing turn — the largest prompt in the run — stays on the loop's own model.
+    assert call.call_args.kwargs["model"] == SMALL_MODEL
     assert call.call_args.kwargs["tool_choice"] == {
         "type": "function",
         "function": {"name": "set_issue_stance"},
@@ -717,7 +719,7 @@ async def test_agent_loop_does_not_accept_early_stop_before_required_final_tool(
 
 
 @pytest.mark.asyncio
-async def test_agent_loop_reserves_strong_edit_turn_before_forced_finalization():
+async def test_agent_loop_reserves_edit_turn_before_forced_finalization():
     searched = _mock_openai_response(
         tool_calls=[
             {"id": "search", "function": {"name": "web_search", "arguments": json.dumps({"query": "official roster"})}}
@@ -763,7 +765,9 @@ async def test_agent_loop_reserves_strong_edit_turn_before_forced_finalization()
         )
 
     assert result["_tool_trace"]["required_final_tool_succeeded"] is True
-    assert call.call_args_list[1].kwargs["model"] == escalation_for(DEFAULT_RESEARCH_MODEL)
+    # The reserved edit turn is about which *tools* are offered, not about buying a
+    # stronger model: this loop made progress every iteration, so it never escalates.
+    assert call.call_args_list[1].kwargs["model"] == DEFAULT_RESEARCH_MODEL
     prep_tool_names = {tool["function"]["name"] for tool in call.call_args_list[1].kwargs["tools"]}
     assert prep_tool_names == {"set_sources", "finalize_roster"}
     assert call.call_args_list[2].kwargs["tool_choice"]["function"]["name"] == "finalize_roster"
@@ -897,6 +901,51 @@ async def test_agent_loop_escalates_after_repeated_blocked_edits():
     assert [entry.kwargs["model"] for entry in call.call_args_list] == [SMALL_MODEL, escalation_for(SMALL_MODEL)]
     second_messages = call.call_args_list[1].args[0]
     assert any("pivot to higher-priority official evidence" in (message.get("content") or "") for message in second_messages)
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_never_escalates_a_long_but_healthy_loop():
+    """A loop that runs to its ceiling is thorough, not stalled.
+
+    Escalating on loop position billed 46 upgrades against zero distress signals
+    in one 90-minute window, at frontier rates on the run's largest prompts —
+    roughly 65% of discovery's per-race cost. Once the token budget trips,
+    ``force_final_tool`` is true on *every* remaining iteration, so an unlatched
+    escalation re-fires each turn.
+    """
+    searching = _mock_openai_response(
+        tool_calls=[{"id": "s", "function": {"name": "web_search", "arguments": json.dumps({"query": "roster"})}}]
+    )
+    finalized = _mock_openai_response(
+        tool_calls=[{"id": "f", "function": {"name": "finalize_roster", "arguments": json.dumps({"summary": "ok"})}}]
+    )
+    final_tool = {
+        "type": "function",
+        "function": {"name": "finalize_roster", "description": "Finalize", "parameters": {"type": "object"}},
+    }
+
+    with (
+        patch("pipeline_client.agent.llm.total_token_budget_reached", return_value=True),
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as call,
+        patch("pipeline_client.agent.llm._serper_search", new_callable=AsyncMock, return_value=[]),
+    ):
+        call.side_effect = [searching, searching, finalized]
+        await _agent_loop(
+            "system",
+            "user",
+            model=DEFAULT_RESEARCH_MODEL,
+            phase_name="roster-healthy",
+            max_iterations=6,
+            tools_mode=True,
+            extra_tools=[final_tool],
+            extra_tool_handlers={"finalize_roster": lambda _args: "OK"},
+            required_final_tool_name="finalize_roster",
+            escalate_on_tool_errors=True,
+        )
+
+    models = [entry.kwargs["model"] for entry in call.call_args_list]
+    assert models == [DEFAULT_RESEARCH_MODEL] * len(models)
+    assert escalation_for(DEFAULT_RESEARCH_MODEL) not in models
 
 
 def test_tool_result_error_detection_handles_handler_blocking_conventions():
