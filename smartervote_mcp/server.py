@@ -117,6 +117,14 @@ def _race_pageviews(traffic: Dict[str, Any]) -> Dict[str, int]:
     return totals
 
 
+def _race_request_count(item: Dict[str, Any]) -> int:
+    """Read the selected-window count, accepting the legacy API field."""
+    try:
+        return max(0, int(item.get("requests", item.get("requests_24h", 0)) or 0))
+    except (TypeError, ValueError):
+        return 0
+
+
 @mcp.tool(structured_output=False)
 async def scan_catalog(
     state: str | None = None,
@@ -152,7 +160,7 @@ async def scan_catalog(
     races = response.get("races", []) if isinstance(response, dict) else []
     pageviews_by_race = _race_pageviews(traffic)
     requests_by_race = {
-        str(item.get("race_id")): int(item.get("requests_24h") or 0)
+        str(item.get("race_id")): _race_request_count(item)
         for item in api_analytics.get("races", [])
         if isinstance(item, dict) and item.get("race_id")
     }
@@ -493,7 +501,7 @@ async def audit_issue_research_readiness(
     }
     pageviews_by_race = _race_pageviews(traffic)
     requests_by_race = {
-        str(item.get("race_id")): int(item.get("requests_24h") or 0)
+        str(item.get("race_id")): _race_request_count(item)
         for item in api_analytics.get("races", [])
         if isinstance(item, dict) and item.get("race_id")
     }
@@ -506,11 +514,11 @@ async def audit_issue_research_readiness(
     plans: List[Dict[str, Any]] = []
     missing_race_ids: List[str] = []
     client = _client()
-    for start in range(0, len(requested_ids), batch_size):
-        response = await client.post(
-            "/api/races/repair-plan",
-            json={"race_ids": requested_ids[start : start + batch_size]},
-        )
+    batches = [requested_ids[start : start + batch_size] for start in range(0, len(requested_ids), batch_size)]
+    # The repair planner is read-only. Fetch independent bounded batches in
+    # parallel so a whole-catalog tracker remains usable at catalog scale.
+    responses = await asyncio.gather(*(client.post("/api/races/repair-plan", json={"race_ids": batch}) for batch in batches))
+    for response in responses:
         if not isinstance(response, dict):
             continue
         plans.extend(plan for plan in response.get("plans", []) if isinstance(plan, dict))
@@ -679,6 +687,8 @@ async def audit_issue_research_readiness(
             "issue_research_by_competitiveness": issue_research_by_competitiveness,
         },
         "missing_race_ids": list(dict.fromkeys(missing_race_ids)),
+        "traffic_hours": traffic_hours,
+        "traffic_configured": traffic.get("configured") is True,
         "primary_result_verified": False,
         "primary_result_note": (
             "This audit measures stored data only. Verify official primary results and the complete advancing roster "
@@ -810,13 +820,35 @@ async def assess_publish_readiness(race_ids: List[str]) -> Dict[str, Any]:
             warnings.append("first_publication")
         elif sorted(names) != sorted(published_names):
             warnings.append("candidate_roster_changes")
-            # Dropping a published candidate asserts they are not in this contest.
-            # A run that reported it could not establish the complete field has
-            # disclaimed exactly the knowledge that assertion needs, so let it add
-            # candidates but never quietly delete one. fl-house-11-2026 halved its
-            # roster to a single candidate on an unproven field and still read ready.
+            # Dropping a published candidate asserts they are not in this contest,
+            # and a run that could not establish the complete field has disclaimed
+            # exactly the knowledge that assertion needs.
+            #
+            # Softened 2026-08-15: this was a hard blocker, which made every
+            # post-primary narrowing need either a manual verification pass or a
+            # repeat discovery run to clear. That cost more than it caught — a
+            # 12-race audit against published primary results found *every* removal
+            # correct, including two pre-primary drops that turned out to be a
+            # failed ballot-signature bid and a suspended campaign. So an unproven
+            # field now warns rather than blocks.
+            #
+            # Collapsing to a *single* candidate — the fl-house-11-2026 shape — was
+            # briefly kept as a hard stop on the theory that a one-candidate page
+            # asserts an uncontested seat. That theory does not survive contact with
+            # the ballot: seats genuinely go uncontested all the time when a party
+            # fields nobody, so one candidate is an ordinary result rather than a
+            # suspicious one. Nor is blocking the safe default it looks like — it
+            # leaves the *previous* roster live, so a seat that really did go
+            # uncontested keeps showing a candidate who is not running. Both
+            # outcomes can be wrong; only one of them is fresh.
+            #
+            # So this path no longer blocks at all. A roster that empties completely
+            # is still caught above by `candidate_roster_empty`, which is the case
+            # where there is nothing to show rather than something surprising.
             if set(published_names) - set(names) and _roster_completeness_unproven(draft):
-                blockers.append("roster_removal_on_unproven_field")
+                warnings.append("roster_removal_on_unproven_field")
+                if len(names) < 2:
+                    warnings.append("roster_removal_leaves_single_candidate")
         rows.append(
             {
                 "race_id": race_id,

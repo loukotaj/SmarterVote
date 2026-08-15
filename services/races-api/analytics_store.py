@@ -232,7 +232,7 @@ class AnalyticsStore:
                 "GROUP BY race_id ORDER BY cnt DESC",
                 (cutoff,),
             ).fetchall()
-        return [{"race_id": r[0], "requests_24h": r[1], "last_accessed": r[2]} for r in rows]
+        return [{"race_id": r[0], "requests": r[1], "last_accessed": r[2]} for r in rows]
 
     # ------------------------------------------------------------------
     # Read — timeseries
@@ -311,7 +311,7 @@ def _compute_race_stats(docs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             if ts > last_seen.get(rid, ""):
                 last_seen[rid] = ts
     return [
-        {"race_id": rid, "requests_24h": counts[rid], "last_accessed": last_seen.get(rid)}
+        {"race_id": rid, "requests": counts[rid], "last_accessed": last_seen.get(rid)}
         for rid in sorted(counts, key=lambda x: -counts[x])
     ]
 

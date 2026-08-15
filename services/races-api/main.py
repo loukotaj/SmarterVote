@@ -270,6 +270,9 @@ async def analytics_races(
     summaries = await run_in_threadpool(publish_service.get_race_summaries)
     summary_by_id = {s["id"]: s for s in summaries}
     for item in stats:
+        # ``requests`` is the count for the caller-selected window. Keep the
+        # legacy name for dashboard clients that still use the default 24h view.
+        item["requests_24h"] = item["requests"]
         summary = summary_by_id.get(item["race_id"])
         item["updated_utc"] = summary.get("updated_utc") if summary else None
         item["title"] = summary.get("title") if summary else None
