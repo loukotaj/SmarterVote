@@ -15,7 +15,7 @@ Use this page to decide which documents describe current behavior. Code, deploye
 | Infrastructure | [../infra/README.md](../infra/README.md) | Terraform components and defaults |
 | Pipeline modes | [../PIPELINE_MODES.md](../PIPELINE_MODES.md) | Local/GCP execution and storage modes |
 | Pipeline operations | [pipeline-operations.md](pipeline-operations.md) | Queueing, monitoring, quality review, publication, cost accounting, and recovery |
-| 2026 race research schedule | [2026-race-research-plan.md](2026-race-research-plan.md) | Active primary calendar, catalog audit, budget priorities, and refresh cadence |
+| 2026 race research operations | [2026-race-research-plan.md](2026-race-research-plan.md) | Live tracker, post-primary discovery, September issue-research workflow, and MCP data boundaries |
 | Search indexing | [indexnow.md](indexnow.md) | IndexNow setup and deployment integration |
 | Marketing design system | [../design-system/README.md](../design-system/README.md) | React export used by Claude to create branded marketing material; not production frontend code |
 

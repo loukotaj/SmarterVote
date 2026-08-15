@@ -524,6 +524,48 @@ async def test_audit_issue_research_readiness_orders_equal_ratings_by_observed_d
     assert [row["race_id"] for row in result["issue_queue"]] == ["high-demand", "low-demand"]
     assert result["issue_queue"][0]["pageviews"] == 40
     assert result["issue_queue"][1]["api_requests"] == 5
+    assert result["traffic_hours"] == 48
+    assert result["traffic_configured"] is False
+
+
+@pytest.mark.asyncio
+async def test_audit_issue_research_readiness_uses_selected_window_request_field(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    client = type(
+        "Client",
+        (),
+        {
+            "get": AsyncMock(
+                side_effect=lambda path, *, params: {
+                    "/analytics/traffic": {"top_pages": []},
+                    "/analytics/races": {"races": [{"race_id": "race-a", "requests": 9}]},
+                }[path]
+            ),
+            "post": AsyncMock(
+                return_value={
+                    "plans": [
+                        {
+                            "race_id": "race-a",
+                            "needs_repair": True,
+                            "health": {"candidate_count": 2, "issue_slot_count": 24, "missing_issue_count": 12},
+                            "repair_groups": [],
+                            "estimated_max_cost_usd": 1,
+                        }
+                    ]
+                }
+            ),
+        },
+    )()
+    monkeypatch.setattr(server, "_client", lambda: client)
+    monkeypatch.setattr(server, "list_admin_races", AsyncMock(return_value={"races": [{"race_id": "race-a"}]}))
+
+    result = await server.audit_issue_research_readiness(["race-a"], traffic_hours=48)
+
+    assert result["rows"][0]["api_requests"] == 9
 
 
 @pytest.mark.asyncio
@@ -647,12 +689,14 @@ async def test_assess_publish_readiness_blocks_failed_or_placeholder_drafts(monk
 
 
 @pytest.mark.asyncio
-async def test_assess_publish_readiness_blocks_roster_removal_on_unproven_field(monkeypatch):
-    """A run that could not confirm the field must not be trusted to shrink it.
+async def test_assess_publish_readiness_warns_on_roster_removal_without_blocking(monkeypatch):
+    """An unproven field is reported, never blocked — including down to one name.
 
-    fl-house-11-2026 refreshed from two published candidates down to one, on a run
-    whose own ``run_health`` said no authoritative ballot list was retrievable — and
-    still reported ready, because a roster change was only ever a warning.
+    fl-house-11-2026 refreshed from two published candidates down to one on a run
+    whose ``run_health`` said no authoritative ballot list was retrievable. That is
+    surfaced as a warning: seats do go uncontested when a party fields nobody, and
+    refusing to publish just leaves the previous roster live, which is equally wrong
+    when the seat really is uncontested.
     """
     if find_spec("mcp") is None:
         pytest.skip("MCP SDK is optional outside the local MCP environment")
@@ -690,9 +734,82 @@ async def test_assess_publish_readiness_blocks_roster_removal_on_unproven_field(
 
     result = await server.assess_publish_readiness(["fl-house-11-2026", "fl-house-12-2026", "il-house-04-2026"])
 
+    assert result["blocked_race_ids"] == []
+    assert result["rows"][0]["blockers"] == []
+    assert "roster_removal_on_unproven_field" in result["rows"][0]["warnings"]
+    assert "roster_removal_leaves_single_candidate" in result["rows"][0]["warnings"]
+    assert result["ready_race_ids"] == ["fl-house-11-2026", "fl-house-12-2026", "il-house-04-2026"]
+
+
+@pytest.mark.asyncio
+async def test_assess_publish_readiness_blocks_a_roster_emptied_to_nothing(monkeypatch):
+    """An empty roster is the one removal shape that still blocks.
+
+    Now that an unproven field only warns, this is the sole hard stop left on the
+    removal path, so it carries the whole load: a race page with no candidates has
+    nothing to say, as distinct from a one-candidate page describing a seat that
+    genuinely went uncontested.
+    """
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    responses = {
+        "/api/races/fl-house-11-2026/data": {
+            "candidates": [],
+            "validation_grade": None,
+            "run_health": {"status": "degraded", "reasons": ["roster_completeness_unproven"]},
+            "pipeline_state": {"complete": False, "remaining_steps": ["review"]},
+        },
+        "/races/fl-house-11-2026": {"candidates": [{"name": "Carey Baker"}, {"name": "Shawn Bettis"}]},
+    }
+    monkeypatch.setattr(server, "_client", lambda: _StubRacesClient(responses))
+
+    result = await server.assess_publish_readiness(["fl-house-11-2026"])
+
     assert result["blocked_race_ids"] == ["fl-house-11-2026"]
-    assert "roster_removal_on_unproven_field" in result["rows"][0]["blockers"]
-    assert result["ready_race_ids"] == ["fl-house-12-2026", "il-house-04-2026"]
+    assert "candidate_roster_empty" in result["rows"][0]["blockers"]
+
+
+@pytest.mark.asyncio
+async def test_assess_publish_readiness_warns_but_allows_unproven_field_removal(monkeypatch):
+    """An unproven field that still leaves a real contest is a warning, not a block.
+
+    va-house-10-2026 dropped Julie Perry and Anthony Suttles — both verified losers
+    of the GOP primary Dave Beckwith won with 72.5% — and was blocked anyway,
+    because the run could not evidence the removal itself. Blocking these cost a
+    repeat discovery run per race and caught nothing in a 12-race audit.
+    """
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    responses = {
+        "/api/races/va-house-10-2026/data": {
+            "candidates": [{"name": "Suhas Subramanyam"}, {"name": "Dave Beckwith"}, {"name": "Steven Goforth"}],
+            "validation_grade": None,
+            "run_health": {"status": "degraded", "reasons": ["roster_completeness_unproven"]},
+            "pipeline_state": {"complete": False, "remaining_steps": ["review"]},
+        },
+        "/races/va-house-10-2026": {
+            "candidates": [
+                {"name": "Suhas Subramanyam"},
+                {"name": "Dave Beckwith"},
+                {"name": "Julie Perry"},
+                {"name": "Anthony Suttles"},
+                {"name": "Steven Goforth"},
+            ]
+        },
+    }
+    monkeypatch.setattr(server, "_client", lambda: _StubRacesClient(responses))
+
+    result = await server.assess_publish_readiness(["va-house-10-2026"])
+
+    assert result["ready_race_ids"] == ["va-house-10-2026"]
+    assert result["rows"][0]["blockers"] == []
+    assert "roster_removal_on_unproven_field" in result["rows"][0]["warnings"]
 
 
 @pytest.mark.asyncio
@@ -719,7 +836,8 @@ async def test_assess_publish_readiness_reads_unproven_field_from_roster_researc
 
     result = await server.assess_publish_readiness(["fl-house-11-2026"])
 
-    assert "roster_removal_on_unproven_field" in result["rows"][0]["blockers"]
+    assert result["rows"][0]["blockers"] == []
+    assert "roster_removal_on_unproven_field" in result["rows"][0]["warnings"]
 
 
 @pytest.mark.asyncio

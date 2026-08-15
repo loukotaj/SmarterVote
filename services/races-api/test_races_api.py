@@ -382,7 +382,11 @@ def test_analytics_races_correct_key(client):
     try:
         resp = client.get("/analytics/races", headers={"X-Admin-Key": "secret"})
         assert resp.status_code == 200
-        assert "races" in resp.json()
+        payload = resp.json()
+        assert "races" in payload
+        assert payload["hours"] == 24
+        if payload["races"]:
+            assert "requests" in payload["races"][0]
     finally:
         main_mod._ADMIN_API_KEY = original
 
