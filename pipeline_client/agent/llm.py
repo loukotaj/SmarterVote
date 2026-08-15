@@ -508,6 +508,7 @@ async def _agent_loop(
     # Resolved once from the loop's own model, so every escalation path in this
     # function agrees on where "stronger" points.
     tool_error_escalation_model = escalation_for(model) if escalate_on_tool_errors else None
+
     researched_urls: set[str] = set()
     fetched_urls: set[str] = set()
     tool_trace = {
@@ -550,10 +551,6 @@ async def _agent_loop(
         prepare_final_tool = bool(required_final_tool_name and not token_budget_reached and iteration == max_iterations - 2)
         force_final_tool = bool(required_final_tool_name and (token_budget_reached or iteration == max_iterations - 1))
         if prepare_final_tool:
-            fallback_model = escalation_for(active_model) or tool_error_escalation_model
-            if fallback_model:
-                log("info", f"  [{phase_name}] escalating evidence application to {fallback_model}")
-                active_model = fallback_model
             messages.append(
                 {
                     "role": "user",
@@ -565,10 +562,6 @@ async def _agent_loop(
                 }
             )
         if force_final_tool:
-            fallback_model = escalation_for(active_model) or tool_error_escalation_model
-            if fallback_model:
-                log("info", f"  [{phase_name}] escalating final evidence synthesis to {fallback_model}")
-                active_model = fallback_model
             messages.append(
                 {
                     "role": "user",
