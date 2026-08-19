@@ -23,6 +23,7 @@ SENATE_CLASS_III_URL = "https://www.senate.gov/senators/Class_III.htm"
 UTAH_FILINGS_URL = "https://vote.utah.gov/2026-candidate-filings/"
 
 EXCLUDED = {
+    "ar-supreme-court-2026": "Judicial contests are outside the national federal and gubernatorial product scope",
     "nd-senate-2026": "North Dakota regular Senate seat is Class III",
     "vt-senate-2026": "Vermont regular Senate seat is Class III",
     "ut-governor-2026": "Utah has no regular 2026 governor election",
@@ -141,8 +142,6 @@ STATE_BY_ABBR = {
 def _office_kind(summary: dict[str, Any]) -> str:
     race_id = str(summary.get("id") or "")
     office = str(summary.get("office") or "").casefold()
-    if race_id == "ar-supreme-court-2026":
-        return "state_supreme_court"
     if "governor" in office or "governor" in race_id:
         return "governor"
     if "senate" in office or "senate" in race_id:
@@ -155,8 +154,6 @@ def _office_kind(summary: dict[str, Any]) -> str:
 def _event(summary: dict[str, Any], office_kind: str) -> tuple[str, str | None, str | None]:
     race_id = str(summary["id"])
     state = STATE_BY_ABBR.get(race_id[:2].upper(), "")
-    if race_id == "ar-supreme-court-2026":
-        return "nonpartisan_general", None, None
     try:
         primary_date, runoff_date = STATE_EVENTS[state]
     except KeyError as exc:
@@ -182,9 +179,7 @@ def build_manifest() -> dict[str, Any]:
         state = STATE_BY_ABBR.get(race_id[:2].upper())
         if not state:
             raise ValueError(f"No state mapping for {race_id}")
-        election_date = (
-            "2026-03-03" if race_id == "ar-supreme-court-2026" else str(summary.get("election_date") or "2026-11-03")
-        )
+        election_date = str(summary.get("election_date") or "2026-11-03")
         if state == "Louisiana" and office_kind == "us_house":
             election_date = "2026-12-12"
         entries.append(
@@ -201,8 +196,8 @@ def build_manifest() -> dict[str, Any]:
         )
     entries.sort(key=lambda row: row["race_id"])
     ids = [row["race_id"] for row in entries]
-    if len(ids) != 507 or len(set(ids)) != len(ids):
-        raise ValueError(f"Expected 507 unique races, found {len(ids)} rows / {len(set(ids))} unique")
+    if len(ids) != 506 or len(set(ids)) != len(ids):
+        raise ValueError(f"Expected 506 unique races, found {len(ids)} rows / {len(set(ids))} unique")
     return {
         "schema_version": 1,
         "cycle": 2026,

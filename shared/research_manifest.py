@@ -9,7 +9,7 @@ from typing import Any, Dict
 
 MANIFEST_PATH = Path(__file__).with_name("data") / "research_manifest_2026.json"
 EXPECTED_CYCLE = 2026
-EXPECTED_COVERAGE_COUNT = 507
+EXPECTED_COVERAGE_COUNT = 506
 
 
 class ResearchManifestError(RuntimeError):

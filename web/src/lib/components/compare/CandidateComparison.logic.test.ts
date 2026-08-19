@@ -73,6 +73,23 @@ function checkboxes(container: HTMLElement) {
 afterEach(cleanup);
 
 describe("CandidateComparison candidate picker", () => {
+  it("renders every selected candidate when a race has more than two", () => {
+    const jane = candidate("Jane Doe");
+    const john = candidate("John Roe");
+    const alex = candidate("Alex Smith");
+    const { container } = render(CandidateComparison, {
+      race: race({ candidates: [jane, john, alex] }),
+      candidates: [jane, john, alex],
+    });
+    const desktop = container.querySelector(
+      "[data-desktop-candidate-comparison]",
+    );
+
+    expect(desktop?.textContent).toContain("Jane Doe");
+    expect(desktop?.textContent).toContain("John Roe");
+    expect(desktop?.textContent).toContain("Alex Smith");
+  });
+
   it("is absent unless a toggle handler is supplied", () => {
     const jane = candidate("Jane Doe");
     const { container } = render(CandidateComparison, {

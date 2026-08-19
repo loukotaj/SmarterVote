@@ -10,9 +10,15 @@ from shared.research_manifest import (
 def test_manifest_is_exact_and_excludes_verified_phantoms():
     manifest = load_research_manifest()
     entries = list_research_manifest_entries()
-    assert manifest["coverage_count"] == EXPECTED_COVERAGE_COUNT == 507
-    assert len(entries) == len({entry["race_id"] for entry in entries}) == 507
-    for race_id in ("nd-senate-2026", "vt-senate-2026", "ut-governor-2026", "ut-senate-2026"):
+    assert manifest["coverage_count"] == EXPECTED_COVERAGE_COUNT == 506
+    assert len(entries) == len({entry["race_id"] for entry in entries}) == 506
+    for race_id in (
+        "ar-supreme-court-2026",
+        "nd-senate-2026",
+        "vt-senate-2026",
+        "ut-governor-2026",
+        "ut-senate-2026",
+    ):
         assert get_research_manifest_entry(race_id) is None
         assert excluded_race_reason(race_id)
 

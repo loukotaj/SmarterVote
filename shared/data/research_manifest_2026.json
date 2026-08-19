@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "cycle": 2026,
-  "coverage_count": 507,
+  "coverage_count": 506,
   "sources": {
     "congressional_schedule": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf",
     "state_schedule": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates",
@@ -9,6 +9,7 @@
     "utah_filings_audit": "https://vote.utah.gov/2026-candidate-filings/"
   },
   "excluded_races": {
+    "ar-supreme-court-2026": "Judicial contests are outside the national federal and gubernatorial product scope",
     "nd-senate-2026": "North Dakota regular Senate seat is Class III",
     "vt-senate-2026": "Vermont regular Senate seat is Class III",
     "ut-governor-2026": "Utah has no regular 2026 governor election",
@@ -194,16 +195,6 @@
       "runoff_date": "2026-03-31",
       "general_election_date": "2026-11-03",
       "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
-    },
-    {
-      "race_id": "ar-supreme-court-2026",
-      "state": "Arkansas",
-      "office": "state_supreme_court",
-      "event_type": "nonpartisan_general",
-      "primary_date": null,
-      "runoff_date": null,
-      "general_election_date": "2026-03-03",
-      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
     },
     {
       "race_id": "az-01-house-2026",
