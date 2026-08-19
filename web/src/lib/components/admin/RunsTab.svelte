@@ -357,9 +357,12 @@
     const total = record
       ? record.total_tokens
       : stepSum.total || runMetrics.total_tokens || 0;
-    const serper = (record ? record.serper_calls : run.serper_calls) ?? 0;
+    const searches = record
+      ? (record.search_calls ??
+        (record.serper_calls ?? 0) + (record.searlo_calls ?? 0))
+      : (run.search_calls ?? (run.serper_calls ?? 0) + (run.searlo_calls ?? 0));
 
-    return { cost, prompt, completion, total, serper };
+    return { cost, prompt, completion, total, searches };
   }
 
   function timeAgo(iso: string): string {
@@ -543,7 +546,7 @@
       const m = getRunMetrics(r, metricsByRunId);
       totalCost += m.cost;
       totalTokens += m.total;
-      totalSearches += m.serper;
+      totalSearches += m.searches;
       if (r.duration_ms) {
         totalDurationMs += r.duration_ms;
         durationCount++;
@@ -1199,9 +1202,9 @@
                   >· {formatUsd(metrics.cost)}</span
                 >
               {/if}
-              {#if metrics.serper > 0}
+              {#if metrics.searches > 0}
                 <span
-                  >· {metrics.serper} search{metrics.serper === 1
+                  >· {metrics.searches} search{metrics.searches === 1
                     ? ""
                     : "es"}</span
                 >
@@ -1424,7 +1427,7 @@
           </div>
           <div>
             <span class="text-content-faint">Searches:</span>
-            <span class="ml-1 text-content font-mono">{m.serper}</span>
+            <span class="ml-1 text-content font-mono">{m.searches}</span>
           </div>
           <div class="col-span-2">
             <span class="text-content-faint">Time:</span>

@@ -20,6 +20,9 @@ const records: PipelineRunRecord[] = [
     estimated_usd: 0.012,
     cost_usd: 0.011234,
     cost_source: "provider",
+    serper_calls: 2,
+    searlo_calls: 3,
+    search_calls: 5,
     model_breakdown: {},
     duration_s: 42,
     candidate_count: 3,
@@ -123,6 +126,7 @@ describe("RunsTab", () => {
     expect(getByText("mn-governor-2026")).toBeTruthy();
     expect(container.textContent).toContain("$0.0112");
     expect(container.textContent).toContain("150");
+    expect(container.textContent).toMatch(/Total Searches:\s*5/);
   });
 
   it("shows a retryable run-history error", async () => {

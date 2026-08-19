@@ -562,6 +562,8 @@ export interface RunInfo {
   steps?: RunStep[];
   logs?: LogEntry[];
   serper_calls?: number;
+  searlo_calls?: number;
+  search_calls?: number;
   run_health?: RunHealthVerdict;
 }
 
@@ -657,6 +659,8 @@ export interface AgentMetrics {
   cost_usd?: number | null;
   cost_source?: "provider" | "estimated";
   serper_calls?: number;
+  searlo_calls?: number;
+  search_calls?: number;
   model_breakdown: Record<
     string,
     { prompt_tokens: number; completion_tokens: number }
@@ -677,6 +681,8 @@ export interface PipelineRunRecord {
   cost_usd?: number | null;
   cost_source?: "provider" | "estimated";
   serper_calls?: number;
+  searlo_calls?: number;
+  search_calls?: number;
   model_breakdown: Record<
     string,
     { prompt_tokens: number; completion_tokens: number }
