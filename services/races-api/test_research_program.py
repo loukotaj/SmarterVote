@@ -228,3 +228,17 @@ def test_status_exposes_published_stage_with_provenance():
     assert row["latest_source"] == "published"
     assert row["cost"]["by_workflow"] == {"discovery": 0.09, "issues": 0.22}
     assert result["summary"]["workflow_spend_usd"] == {"discovery": 0.09, "issues": 0.22}
+
+
+def test_status_does_not_classify_chamber_forecasts_as_an_orphaned_race():
+    aggregate = _Doc("chamber_forecasts", {"race_id": "chamber_forecasts", "status": "published"})
+    db = _Db(races={aggregate.id: aggregate})
+
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("routers.research_program._cost_by_race", return_value=({}, {})),
+    ):
+        result = get_research_program_status(include_rows=False)
+
+    assert result["summary"]["orphaned_catalog_count"] == 0
+    assert result["orphaned_catalog_race_ids"] == []

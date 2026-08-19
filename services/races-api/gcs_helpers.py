@@ -8,6 +8,8 @@ from typing import Any, Dict, List, Optional
 
 from google.api_core.exceptions import NotFound, PreconditionFailed
 
+from shared.config import NON_RACE_CATALOG_IDS
+
 # Resolved once at startup; can be overridden in tests.
 _GCS_BUCKET = os.getenv("GCS_BUCKET", "")
 
@@ -44,9 +46,10 @@ def _gcs_list_race_ids(prefix: str) -> Optional[List[str]]:
             filename = blob.name.split("/")[-1]
             if not filename.endswith(".json"):
                 continue
-            if prefix == "races" and filename == "summaries.json":
+            race_id = filename[:-5]
+            if (prefix == "races" and filename == "summaries.json") or race_id in NON_RACE_CATALOG_IDS:
                 continue
-            ids.append(filename[:-5])
+            ids.append(race_id)
         return ids
     except Exception as exc:
         logging.warning("GCS list %s failed: %s", prefix, exc)

@@ -21,7 +21,12 @@ from request_models import AssetAuditRequest, RepairPlanRequest, RunOptions, val
 from routers.research_program import assert_race_admitted
 from routers.utils import _queue_ttl_at
 
-from shared.config import FIRESTORE_QUEUE_COLLECTION, FIRESTORE_RACES_COLLECTION, FIRESTORE_RUNS_COLLECTION
+from shared.config import (
+    FIRESTORE_QUEUE_COLLECTION,
+    FIRESTORE_RACES_COLLECTION,
+    FIRESTORE_RUNS_COLLECTION,
+    NON_RACE_CATALOG_IDS,
+)
 from shared.repair_planner import build_repair_plan, summarize_repair_plans
 
 from .helpers import (
@@ -46,8 +51,10 @@ def list_all_races() -> Dict[str, Any]:
     for d in docs:
         plain = firestore_helpers._doc_to_plain(d)
         if plain is not None:
-            if not plain.get("race_id"):
-                plain["race_id"] = d.id
+            race_id = str(plain.get("race_id") or d.id)
+            if race_id in NON_RACE_CATALOG_IDS:
+                continue
+            plain["race_id"] = race_id
             races.append(plain)
 
     run_stats = _pipeline_run_stats(db)
@@ -75,9 +82,12 @@ def list_draft_races() -> Dict[str, Any]:
         data = firestore_helpers._doc_to_plain(doc)
         if not data:
             continue
+        race_id = str(data.get("race_id") or data.get("id") or doc.id)
+        if race_id in NON_RACE_CATALOG_IDS:
+            continue
         if not (data.get("draft_updated_at") or data.get("status") == "draft"):
             continue
-        races.append(_race_summary(data, str(data.get("race_id") or data.get("id") or "")))
+        races.append(_race_summary(data, race_id))
     return {"races": races}
 
 
@@ -94,6 +104,8 @@ def recheck_all_race_statuses(cursor: str | None = None, limit: int = 50) -> Dic
         if not race_data:
             continue
         race_id = str(race_data.get("race_id") or race_data.get("id") or doc.id)
+        if race_id in NON_RACE_CATALOG_IDS:
+            continue
         if not race_data.get("race_id"):
             race_data["race_id"] = race_id
         docs_by_race_id[race_id] = race_data

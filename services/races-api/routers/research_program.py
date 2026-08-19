@@ -13,7 +13,7 @@ from auth import verify_token
 from fastapi import APIRouter, Depends, HTTPException
 from request_models import ResearchCheckpointRequest, validate_race_id
 
-from shared.config import FIRESTORE_RACES_COLLECTION, FIRESTORE_RESEARCH_CHECKPOINTS_COLLECTION
+from shared.config import FIRESTORE_RACES_COLLECTION, FIRESTORE_RESEARCH_CHECKPOINTS_COLLECTION, NON_RACE_CATALOG_IDS
 from shared.research_manifest import (
     excluded_race_reason,
     get_research_manifest_entry,
@@ -211,6 +211,8 @@ def get_research_program_status(include_rows: bool = True) -> Dict[str, Any]:
         if plain is None:
             continue
         race_id = str(plain.get("race_id") or plain.get("id") or doc.id)
+        if race_id in NON_RACE_CATALOG_IDS:
+            continue
         plain["race_id"] = race_id
         catalogs[race_id] = _apply_catalog_view(plain)
 
