@@ -26,6 +26,11 @@ FIRESTORE_METRICS_COLLECTION = "pipeline_metrics"
 FIRESTORE_ANALYTICS_EVENTS_COLLECTION = "analytics_events"
 FIRESTORE_RESEARCH_CHECKPOINTS_COLLECTION = "research_checkpoints"
 
+# Non-race aggregate documents that historically shared the race catalog's
+# storage prefixes/collection. They must never be surfaced, admitted, or
+# backfilled as contests.
+NON_RACE_CATALOG_IDS = frozenset({"chamber_forecasts"})
+
 # Subcollections, nested under a document rather than at the root. Named apart
 # because `runs` is a child of a race document and is a different thing from the
 # top-level `pipeline_runs`; the two are easy to confuse at a call site.

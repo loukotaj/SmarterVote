@@ -1758,6 +1758,29 @@ def test_list_races_uses_firestore_catalog_state_for_draft_flags():
     assert by_id["az-senate-2026"]["published_exists"] is True
 
 
+def test_list_races_ignores_non_race_catalog_documents():
+    os.environ["SKIP_AUTH"] = "true"
+
+    import main as app_module
+
+    firestore_helpers._fs_db = None
+    race_doc = _make_existing_doc({"race_id": "ga-senate-2026", "status": "published"})
+    aggregate_doc = _make_existing_doc({"race_id": "chamber_forecasts", "status": "published"})
+    coll_races = MagicMock()
+    coll_races.limit.return_value = coll_races
+    coll_races.stream.return_value = iter([race_doc, aggregate_doc])
+    db = _build_empty_firestore_mock()
+    db.collection.side_effect = lambda name: coll_races if name == "races" else MagicMock()
+
+    from fastapi.testclient import TestClient
+
+    with patch("firestore_helpers._get_fs", return_value=db):
+        response = TestClient(app_module.app).get("/api/races")
+
+    assert response.status_code == 200
+    assert [race["race_id"] for race in response.json()["races"]] == ["ga-senate-2026"]
+
+
 def test_list_races_normalizes_empty_status_when_catalog_shows_draft():
     """Race list should surface draft status when draft metadata exists even if Firestore status is stale."""
     os.environ["SKIP_AUTH"] = "true"
@@ -2884,8 +2907,10 @@ def test_gcs_race_id_listing_ignores_summaries_index():
     race_blob.name = "races/az-senate-2026.json"
     index_blob = MagicMock()
     index_blob.name = "races/summaries.json"
+    forecast_blob = MagicMock()
+    forecast_blob.name = "races/chamber_forecasts.json"
     bucket = MagicMock()
-    bucket.list_blobs.return_value = [race_blob, index_blob]
+    bucket.list_blobs.return_value = [race_blob, index_blob, forecast_blob]
     client = MagicMock()
     client.bucket.return_value = bucket
 
