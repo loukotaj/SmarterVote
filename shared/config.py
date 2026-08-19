@@ -24,6 +24,7 @@ FIRESTORE_SEARCH_CACHE_COLLECTION = "search_cache"
 FIRESTORE_PAGE_CACHE_COLLECTION = "page_cache"
 FIRESTORE_METRICS_COLLECTION = "pipeline_metrics"
 FIRESTORE_ANALYTICS_EVENTS_COLLECTION = "analytics_events"
+FIRESTORE_RESEARCH_CHECKPOINTS_COLLECTION = "research_checkpoints"
 
 # Subcollections, nested under a document rather than at the root. Named apart
 # because `runs` is a child of a race document and is a different thing from the

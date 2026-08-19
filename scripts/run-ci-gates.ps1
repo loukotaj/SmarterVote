@@ -65,7 +65,44 @@ try {
     }
 
     Invoke-Step "Secret scan" {
-        docker run --rm -v "${repoRoot}:/repo" "ghcr.io/gitleaks/gitleaks:v8.29.0@sha256:71d3ee5990f2176f763b438298453fc37e87b119122045e176ca9d44ff00b08b" dir --redact --no-banner /repo
+        # Match a clean CI checkout even when the local worktree contains
+        # ignored .env files, dependency trees, Terraform providers, caches,
+        # or audit exports. Include tracked files plus non-ignored untracked
+        # files so new source is scanned before it is staged.
+        $scanRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("smartervote-gitleaks-" + [guid]::NewGuid().ToString("N"))
+        New-Item -ItemType Directory -Path $scanRoot | Out-Null
+        try {
+            $scanFiles = git ls-files --cached --others --exclude-standard
+            foreach ($relativePath in $scanFiles) {
+                $sourcePath = Join-Path $repoRoot $relativePath
+                if (-not (Test-Path -LiteralPath $sourcePath -PathType Leaf)) {
+                    continue
+                }
+                $destinationPath = Join-Path $scanRoot $relativePath
+                $destinationDirectory = Split-Path -Parent $destinationPath
+                if (-not (Test-Path -LiteralPath $destinationDirectory)) {
+                    New-Item -ItemType Directory -Path $destinationDirectory -Force | Out-Null
+                }
+                Copy-Item -LiteralPath $sourcePath -Destination $destinationPath
+            }
+            docker run --rm -v "${scanRoot}:/repo:ro" "ghcr.io/gitleaks/gitleaks:v8.29.0@sha256:71d3ee5990f2176f763b438298453fc37e87b119122045e176ca9d44ff00b08b" dir --redact --no-banner /repo
+            $secretScanExitCode = $LASTEXITCODE
+            if ($secretScanExitCode -ne 0) {
+                throw "Gitleaks failed with exit code $secretScanExitCode"
+            }
+        }
+        finally {
+            $resolvedScanRoot = [System.IO.Path]::GetFullPath($scanRoot)
+            $resolvedTempRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::GetTempPath())
+            if (-not $resolvedScanRoot.StartsWith($resolvedTempRoot, [System.StringComparison]::OrdinalIgnoreCase) -or
+                -not (Split-Path -Leaf $resolvedScanRoot).StartsWith("smartervote-gitleaks-")) {
+                throw "Refusing to remove unexpected secret-scan path: $resolvedScanRoot"
+            }
+            Remove-Item -LiteralPath $resolvedScanRoot -Recurse -Force
+        }
+        # Native-command exit state survives PowerShell cmdlets in the finally
+        # block. Make the successful outcome explicit for Invoke-Step.
+        $global:LASTEXITCODE = 0
     }
 
     if (-not $SkipInstall) {
@@ -286,7 +323,11 @@ try {
 catch {
     Write-Host ""
     Write-Host "CI gate checks failed." -ForegroundColor Red
-    Write-Host $_.Exception.Message -ForegroundColor Red
+    $failureDetails = $_.Exception.Message
+    if ([string]::IsNullOrWhiteSpace($failureDetails)) {
+        $failureDetails = ($_ | Out-String).Trim()
+    }
+    Write-Host $failureDetails -ForegroundColor Red
     exit 1
 }
 finally {

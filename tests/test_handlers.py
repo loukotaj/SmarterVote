@@ -126,6 +126,7 @@ async def test_v2_handler_passes_enabled_steps():
                 "enabled_steps": ["discovery", "images", "issues"],
                 "candidate_names": ["Jeff Wadlin"],
                 "resume_partial": True,
+                "allow_fast_no_change": True,
             },
         )
 
@@ -134,6 +135,7 @@ async def test_v2_handler_passes_enabled_steps():
     assert call_kwargs.kwargs["enabled_steps"] == ["discovery", "images", "issues"]
     assert call_kwargs.kwargs["candidate_names"] == ["Jeff Wadlin"]
     assert call_kwargs.kwargs["resume_partial"] is True
+    assert call_kwargs.kwargs["allow_fast_no_change"] is True
 
 
 @pytest.mark.asyncio

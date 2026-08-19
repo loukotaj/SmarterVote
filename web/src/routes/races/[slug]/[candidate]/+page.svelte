@@ -10,7 +10,10 @@
   import { getRace, getDraftRace } from "$lib/api";
   import { candidateSlug, formatModelName } from "$lib/utils/format";
   import { isExternalUrl } from "$lib/utils/url";
-  import { raceDisplayTitle } from "$lib/utils/raceTitle";
+  import {
+    candidateMetaDescription,
+    raceDisplayTitle,
+  } from "$lib/utils/raceTitle";
 
   export let data: { prerenderedRace?: Race };
 
@@ -102,6 +105,7 @@
   $: socialLinks = Object.entries(candidate?.social_media ?? {}).filter(
     (entry): entry is [string, string] => isExternalUrl(entry[1]),
   );
+  $: metaDescription = candidateMetaDescription(candidate, race);
 </script>
 
 <svelte:head>
@@ -110,12 +114,7 @@
       ? raceDisplayTitle(race)
       : "Loading..."} | Smarter.Vote</title
   >
-  <meta
-    name="description"
-    content="Detailed profile for {candidate?.name ?? 'candidate'} in {race
-      ? raceDisplayTitle(race)
-      : 'this election'}."
-  />
+  <meta name="description" content={metaDescription} />
   <link
     rel="canonical"
     href="https://smarter.vote/races/{slug}/{candidateParam}/"
@@ -131,12 +130,7 @@
       ? raceDisplayTitle(race)
       : 'Election'} | Smarter.Vote"
   />
-  <meta
-    property="og:description"
-    content="Detailed profile for {candidate?.name ?? 'candidate'} in {race
-      ? raceDisplayTitle(race)
-      : 'this election'}."
-  />
+  <meta property="og:description" content={metaDescription} />
   <meta
     property="og:image"
     content={candidate?.image_url || "https://smarter.vote/og-image.png"}
@@ -152,12 +146,7 @@
       ? raceDisplayTitle(race)
       : 'Election'} | Smarter.Vote"
   />
-  <meta
-    property="twitter:description"
-    content="Detailed profile for {candidate?.name ?? 'candidate'} in {race
-      ? raceDisplayTitle(race)
-      : 'this election'}."
-  />
+  <meta property="twitter:description" content={metaDescription} />
   <meta
     property="twitter:image"
     content={candidate?.image_url || "https://smarter.vote/og-image.png"}

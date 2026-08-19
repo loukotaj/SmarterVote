@@ -1,0 +1,5089 @@
+{
+  "schema_version": 1,
+  "cycle": 2026,
+  "coverage_count": 507,
+  "sources": {
+    "congressional_schedule": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf",
+    "state_schedule": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates",
+    "senate_class_audit": "https://www.senate.gov/senators/Class_III.htm",
+    "utah_filings_audit": "https://vote.utah.gov/2026-candidate-filings/"
+  },
+  "excluded_races": {
+    "nd-senate-2026": "North Dakota regular Senate seat is Class III",
+    "vt-senate-2026": "Vermont regular Senate seat is Class III",
+    "ut-governor-2026": "Utah has no regular 2026 governor election",
+    "ut-senate-2026": "Utah regular Senate seat is Class III"
+  },
+  "races": [
+    {
+      "race_id": "ak-governor-2026",
+      "state": "Alaska",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "ak-house-2026",
+      "state": "Alaska",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ak-senate-2026",
+      "state": "Alaska",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "al-governor-2026",
+      "state": "Alabama",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "al-house-01-2026",
+      "state": "Alabama",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "al-house-02-2026",
+      "state": "Alabama",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "al-house-03-2026",
+      "state": "Alabama",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "al-house-04-2026",
+      "state": "Alabama",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "al-house-05-2026",
+      "state": "Alabama",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "al-house-06-2026",
+      "state": "Alabama",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "al-house-07-2026",
+      "state": "Alabama",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "al-senate-2026",
+      "state": "Alabama",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ar-governor-2026",
+      "state": "Arkansas",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-03-31",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "ar-house-01-2026",
+      "state": "Arkansas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-03-31",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ar-house-02-2026",
+      "state": "Arkansas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-03-31",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ar-house-03-2026",
+      "state": "Arkansas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-03-31",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ar-house-04-2026",
+      "state": "Arkansas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-03-31",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ar-senate-2026",
+      "state": "Arkansas",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-03-31",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ar-supreme-court-2026",
+      "state": "Arkansas",
+      "office": "state_supreme_court",
+      "event_type": "nonpartisan_general",
+      "primary_date": null,
+      "runoff_date": null,
+      "general_election_date": "2026-03-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "az-01-house-2026",
+      "state": "Arizona",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-07-21",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "az-06-house-2026",
+      "state": "Arizona",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-07-21",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "az-governor-2026",
+      "state": "Arizona",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-07-21",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "az-house-02-2026",
+      "state": "Arizona",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-07-21",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "az-house-03-2026",
+      "state": "Arizona",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-07-21",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "az-house-04-2026",
+      "state": "Arizona",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-07-21",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "az-house-05-2026",
+      "state": "Arizona",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-07-21",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "az-house-07-2026",
+      "state": "Arizona",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-07-21",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "az-house-08-2026",
+      "state": "Arizona",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-07-21",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "az-house-09-2026",
+      "state": "Arizona",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-07-21",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-13-house-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-45-house-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-governor-2026",
+      "state": "California",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "ca-house-01-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-02-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-03-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-04-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-05-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-06-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-07-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-08-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-09-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-10-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-11-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-12-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-14-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-06-16",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-15-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-16-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-17-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-18-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-19-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-20-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-21-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-22-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-23-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-24-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-25-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-26-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-27-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-28-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-29-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-30-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-31-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-32-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-33-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-34-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-35-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-36-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-37-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-38-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-39-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-40-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-41-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-42-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-43-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-44-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-46-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-47-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-48-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-49-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-50-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-51-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ca-house-52-2026",
+      "state": "California",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "co-governor-2026",
+      "state": "Colorado",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-30",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "co-house-01-2026",
+      "state": "Colorado",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-30",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "co-house-02-2026",
+      "state": "Colorado",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-30",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "co-house-03-2026",
+      "state": "Colorado",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-30",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "co-house-04-2026",
+      "state": "Colorado",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-30",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "co-house-05-2026",
+      "state": "Colorado",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-30",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "co-house-06-2026",
+      "state": "Colorado",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-30",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "co-house-07-2026",
+      "state": "Colorado",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-30",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "co-house-08-2026",
+      "state": "Colorado",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-30",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "co-senate-2026",
+      "state": "Colorado",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-30",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ct-governor-2026",
+      "state": "Connecticut",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "ct-house-01-2026",
+      "state": "Connecticut",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ct-house-02-2026",
+      "state": "Connecticut",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ct-house-03-2026",
+      "state": "Connecticut",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ct-house-04-2026",
+      "state": "Connecticut",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ct-house-05-2026",
+      "state": "Connecticut",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "de-house-2026",
+      "state": "Delaware",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-15",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "de-senate-2026",
+      "state": "Delaware",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-15",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-governor-2026",
+      "state": "Florida",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "fl-house-01-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-02-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-03-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-04-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-05-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-06-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-07-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-08-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-09-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-10-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-11-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-12-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-13-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-14-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-15-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-16-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-17-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-18-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-19-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-20-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-21-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-22-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-23-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-24-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-25-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-26-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-27-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-house-28-2026",
+      "state": "Florida",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "fl-senate-2026-special",
+      "state": "Florida",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-governor-2026",
+      "state": "Georgia",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "ga-house-01-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-house-02-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-house-03-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-house-04-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-house-05-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-house-06-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-house-07-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-house-08-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-house-09-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-house-10-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-house-11-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-house-12-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-house-13-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-house-14-2026",
+      "state": "Georgia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ga-senate-2026",
+      "state": "Georgia",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": "2026-06-16",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "hi-governor-2026",
+      "state": "Hawaii",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-08",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "hi-house-01-2026",
+      "state": "Hawaii",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-08",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "hi-house-02-2026",
+      "state": "Hawaii",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-08",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ia-governor-2026",
+      "state": "Iowa",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "ia-house-01-2026",
+      "state": "Iowa",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ia-house-02-2026",
+      "state": "Iowa",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ia-house-03-2026",
+      "state": "Iowa",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ia-house-04-2026",
+      "state": "Iowa",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ia-senate-2026",
+      "state": "Iowa",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "id-governor-2026",
+      "state": "Idaho",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "id-house-01-2026",
+      "state": "Idaho",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "id-house-02-2026",
+      "state": "Idaho",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "id-senate-2026",
+      "state": "Idaho",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-governor-2026",
+      "state": "Illinois",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "il-house-01-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-02-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-03-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-04-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-05-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-06-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-07-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-08-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-09-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-10-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-11-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-12-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-13-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-14-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-15-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-16-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-house-17-2026",
+      "state": "Illinois",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "il-senate-2026",
+      "state": "Illinois",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-17",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "in-house-01-2026",
+      "state": "Indiana",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "in-house-02-2026",
+      "state": "Indiana",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "in-house-03-2026",
+      "state": "Indiana",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "in-house-04-2026",
+      "state": "Indiana",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "in-house-05-2026",
+      "state": "Indiana",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "in-house-06-2026",
+      "state": "Indiana",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "in-house-07-2026",
+      "state": "Indiana",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "in-house-08-2026",
+      "state": "Indiana",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "in-house-09-2026",
+      "state": "Indiana",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ks-governor-2026",
+      "state": "Kansas",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "ks-house-01-2026",
+      "state": "Kansas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ks-house-02-2026",
+      "state": "Kansas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ks-house-03-2026",
+      "state": "Kansas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ks-house-04-2026",
+      "state": "Kansas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ks-senate-2026",
+      "state": "Kansas",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ky-house-01-2026",
+      "state": "Kentucky",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ky-house-02-2026",
+      "state": "Kentucky",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ky-house-03-2026",
+      "state": "Kentucky",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ky-house-04-2026",
+      "state": "Kentucky",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ky-house-05-2026",
+      "state": "Kentucky",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ky-house-06-2026",
+      "state": "Kentucky",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ky-senate-2026",
+      "state": "Kentucky",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "la-house-01-2026",
+      "state": "Louisiana",
+      "office": "us_house",
+      "event_type": "open_primary",
+      "primary_date": "2026-11-03",
+      "runoff_date": "2026-12-12",
+      "general_election_date": "2026-12-12",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "la-house-02-2026",
+      "state": "Louisiana",
+      "office": "us_house",
+      "event_type": "open_primary",
+      "primary_date": "2026-11-03",
+      "runoff_date": "2026-12-12",
+      "general_election_date": "2026-12-12",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "la-house-03-2026",
+      "state": "Louisiana",
+      "office": "us_house",
+      "event_type": "open_primary",
+      "primary_date": "2026-11-03",
+      "runoff_date": "2026-12-12",
+      "general_election_date": "2026-12-12",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "la-house-04-2026",
+      "state": "Louisiana",
+      "office": "us_house",
+      "event_type": "open_primary",
+      "primary_date": "2026-11-03",
+      "runoff_date": "2026-12-12",
+      "general_election_date": "2026-12-12",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "la-house-05-2026",
+      "state": "Louisiana",
+      "office": "us_house",
+      "event_type": "open_primary",
+      "primary_date": "2026-11-03",
+      "runoff_date": "2026-12-12",
+      "general_election_date": "2026-12-12",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "la-house-06-2026",
+      "state": "Louisiana",
+      "office": "us_house",
+      "event_type": "open_primary",
+      "primary_date": "2026-11-03",
+      "runoff_date": "2026-12-12",
+      "general_election_date": "2026-12-12",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "la-senate-2026",
+      "state": "Louisiana",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-16",
+      "runoff_date": "2026-06-27",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ma-governor-2026",
+      "state": "Massachusetts",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-01",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "ma-house-01-2026",
+      "state": "Massachusetts",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-01",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ma-house-02-2026",
+      "state": "Massachusetts",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-01",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ma-house-03-2026",
+      "state": "Massachusetts",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-01",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ma-house-04-2026",
+      "state": "Massachusetts",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-01",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ma-house-05-2026",
+      "state": "Massachusetts",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-01",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ma-house-06-2026",
+      "state": "Massachusetts",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-01",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ma-house-07-2026",
+      "state": "Massachusetts",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-01",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ma-house-08-2026",
+      "state": "Massachusetts",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-01",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ma-house-09-2026",
+      "state": "Massachusetts",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-01",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ma-senate-2026",
+      "state": "Massachusetts",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-01",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "md-governor-2026",
+      "state": "Maryland",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "md-house-01-2026",
+      "state": "Maryland",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "md-house-02-2026",
+      "state": "Maryland",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "md-house-03-2026",
+      "state": "Maryland",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "md-house-04-2026",
+      "state": "Maryland",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "md-house-05-2026",
+      "state": "Maryland",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "md-house-06-2026",
+      "state": "Maryland",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "md-house-07-2026",
+      "state": "Maryland",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "md-house-08-2026",
+      "state": "Maryland",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "me-governor-2026",
+      "state": "Maine",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "me-house-01-2026",
+      "state": "Maine",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "me-house-02-2026",
+      "state": "Maine",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "me-senate-2026",
+      "state": "Maine",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-07-house-2026",
+      "state": "Michigan",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-governor-2026",
+      "state": "Michigan",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "mi-house-01-2026",
+      "state": "Michigan",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-house-02-2026",
+      "state": "Michigan",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-house-03-2026",
+      "state": "Michigan",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-house-04-2026",
+      "state": "Michigan",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-08-04",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-house-05-2026",
+      "state": "Michigan",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-house-06-2026",
+      "state": "Michigan",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-house-08-2026",
+      "state": "Michigan",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-house-09-2026",
+      "state": "Michigan",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-house-10-2026",
+      "state": "Michigan",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-house-11-2026",
+      "state": "Michigan",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-house-12-2026",
+      "state": "Michigan",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-house-13-2026",
+      "state": "Michigan",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mi-senate-2026",
+      "state": "Michigan",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mn-governor-2026",
+      "state": "Minnesota",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "mn-house-01-2026",
+      "state": "Minnesota",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mn-house-02-2026",
+      "state": "Minnesota",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mn-house-03-2026",
+      "state": "Minnesota",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mn-house-04-2026",
+      "state": "Minnesota",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mn-house-05-2026",
+      "state": "Minnesota",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mn-house-06-2026",
+      "state": "Minnesota",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mn-house-07-2026",
+      "state": "Minnesota",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mn-house-08-2026",
+      "state": "Minnesota",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mn-senate-2026",
+      "state": "Minnesota",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mo-house-01-2026",
+      "state": "Missouri",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mo-house-02-2026",
+      "state": "Missouri",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mo-house-03-2026",
+      "state": "Missouri",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mo-house-04-2026",
+      "state": "Missouri",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mo-house-05-2026",
+      "state": "Missouri",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mo-house-06-2026",
+      "state": "Missouri",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mo-house-07-2026",
+      "state": "Missouri",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mo-house-08-2026",
+      "state": "Missouri",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ms-house-01-2026",
+      "state": "Mississippi",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-10",
+      "runoff_date": "2026-04-07",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ms-house-02-2026",
+      "state": "Mississippi",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-10",
+      "runoff_date": "2026-04-07",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ms-house-03-2026",
+      "state": "Mississippi",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-10",
+      "runoff_date": "2026-04-07",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ms-house-04-2026",
+      "state": "Mississippi",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-10",
+      "runoff_date": "2026-04-07",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ms-senate-2026",
+      "state": "Mississippi",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-10",
+      "runoff_date": "2026-04-07",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mt-house-01-2026",
+      "state": "Montana",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mt-house-02-2026",
+      "state": "Montana",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "mt-senate-2026",
+      "state": "Montana",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-01-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-02-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-03-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-04-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-05-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-06-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-07-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-08-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-09-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-10-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-11-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-12-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-13-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-house-14-2026",
+      "state": "North Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nc-senate-2026",
+      "state": "North Carolina",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-12",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nd-house-2026",
+      "state": "North Dakota",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ne-governor-2026",
+      "state": "Nebraska",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-12",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "ne-house-01-2026",
+      "state": "Nebraska",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-12",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ne-house-02-2026",
+      "state": "Nebraska",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-12",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ne-house-03-2026",
+      "state": "Nebraska",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-12",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ne-senate-2026",
+      "state": "Nebraska",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-12",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nh-governor-2026",
+      "state": "New Hampshire",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-08",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "nh-house-01-2026",
+      "state": "New Hampshire",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-08",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nh-house-02-2026",
+      "state": "New Hampshire",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-08",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nh-senate-2026",
+      "state": "New Hampshire",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-08",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nj-house-01-2026",
+      "state": "New Jersey",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nj-house-02-2026",
+      "state": "New Jersey",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nj-house-03-2026",
+      "state": "New Jersey",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nj-house-04-2026",
+      "state": "New Jersey",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nj-house-05-2026",
+      "state": "New Jersey",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nj-house-06-2026",
+      "state": "New Jersey",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nj-house-07-2026",
+      "state": "New Jersey",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nj-house-08-2026",
+      "state": "New Jersey",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nj-house-09-2026",
+      "state": "New Jersey",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nj-house-10-2026",
+      "state": "New Jersey",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nj-house-11-2026",
+      "state": "New Jersey",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nj-house-12-2026",
+      "state": "New Jersey",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nj-senate-2026",
+      "state": "New Jersey",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nm-governor-2026",
+      "state": "New Mexico",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "nm-house-01-2026",
+      "state": "New Mexico",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nm-house-02-2026",
+      "state": "New Mexico",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nm-house-03-2026",
+      "state": "New Mexico",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nm-senate-2026",
+      "state": "New Mexico",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nv-governor-2026",
+      "state": "Nevada",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "nv-house-01-2026",
+      "state": "Nevada",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nv-house-02-2026",
+      "state": "Nevada",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nv-house-03-2026",
+      "state": "Nevada",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "nv-house-04-2026",
+      "state": "Nevada",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-04-house-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-governor-2026",
+      "state": "New York",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "ny-house-01-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-02-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-03-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-05-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-06-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-07-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-08-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-09-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-10-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-11-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-12-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-13-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-14-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-15-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-16-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-17-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-18-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-19-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-20-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-21-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-22-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-23-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-24-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-25-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ny-house-26-2026",
+      "state": "New York",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-governor-2026",
+      "state": "Ohio",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "oh-house-01-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-02-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-03-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-04-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-05-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-06-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-07-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-08-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-09-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-10-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-11-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-12-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-13-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-14-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-house-15-2026",
+      "state": "Ohio",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "oh-senate-2026-special",
+      "state": "Ohio",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-05",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ok-governor-2026",
+      "state": "Oklahoma",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-16",
+      "runoff_date": "2026-08-25",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "ok-house-01-2026",
+      "state": "Oklahoma",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-16",
+      "runoff_date": "2026-08-25",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ok-house-02-2026",
+      "state": "Oklahoma",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-16",
+      "runoff_date": "2026-08-25",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ok-house-03-2026",
+      "state": "Oklahoma",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-16",
+      "runoff_date": "2026-08-25",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ok-house-04-2026",
+      "state": "Oklahoma",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-16",
+      "runoff_date": "2026-08-25",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ok-house-05-2026",
+      "state": "Oklahoma",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-16",
+      "runoff_date": "2026-08-25",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ok-senate-2026",
+      "state": "Oklahoma",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-16",
+      "runoff_date": "2026-08-25",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "or-05-house-2026",
+      "state": "Oregon",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "or-governor-2026",
+      "state": "Oregon",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "or-house-01-2026",
+      "state": "Oregon",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "or-house-02-2026",
+      "state": "Oregon",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "or-house-03-2026",
+      "state": "Oregon",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "or-house-04-2026",
+      "state": "Oregon",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "or-house-06-2026",
+      "state": "Oregon",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "or-senate-2026",
+      "state": "Oregon",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-governor-2026",
+      "state": "Pennsylvania",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "pa-house-01-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-02-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-03-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-04-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-05-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-06-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-07-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-08-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-09-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-10-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-11-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-12-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-13-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-14-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-15-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-16-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "pa-house-17-2026",
+      "state": "Pennsylvania",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-19",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ri-governor-2026",
+      "state": "Rhode Island",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "ri-house-01-2026",
+      "state": "Rhode Island",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ri-house-02-2026",
+      "state": "Rhode Island",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ri-senate-2026",
+      "state": "Rhode Island",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-09-09",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "sc-governor-2026",
+      "state": "South Carolina",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": "2026-06-23",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "sc-house-01-2026",
+      "state": "South Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": "2026-06-23",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "sc-house-02-2026",
+      "state": "South Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": "2026-06-23",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "sc-house-03-2026",
+      "state": "South Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": "2026-06-23",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "sc-house-04-2026",
+      "state": "South Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": "2026-06-23",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "sc-house-05-2026",
+      "state": "South Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": "2026-06-23",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "sc-house-06-2026",
+      "state": "South Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": "2026-06-23",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "sc-house-07-2026",
+      "state": "South Carolina",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": "2026-06-23",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "sc-senate-2026",
+      "state": "South Carolina",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-09",
+      "runoff_date": "2026-06-23",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "sd-governor-2026",
+      "state": "South Dakota",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": "2026-07-28",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "sd-house-2026",
+      "state": "South Dakota",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": "2026-07-28",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "sd-senate-2026",
+      "state": "South Dakota",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-02",
+      "runoff_date": "2026-07-28",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tn-governor-2026",
+      "state": "Tennessee",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-06",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "tn-house-01-2026",
+      "state": "Tennessee",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-06",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tn-house-02-2026",
+      "state": "Tennessee",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-06",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tn-house-03-2026",
+      "state": "Tennessee",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-06",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tn-house-04-2026",
+      "state": "Tennessee",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-06",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tn-house-05-2026",
+      "state": "Tennessee",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-06",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tn-house-06-2026",
+      "state": "Tennessee",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-06",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tn-house-07-2026",
+      "state": "Tennessee",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-06",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tn-house-08-2026",
+      "state": "Tennessee",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-06",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tn-house-09-2026",
+      "state": "Tennessee",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-06",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tn-senate-2026",
+      "state": "Tennessee",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-06",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-governor-2026",
+      "state": "Texas",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "tx-house-01-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-02-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-03-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-04-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-05-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-06-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-07-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-08-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-09-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-10-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-11-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-12-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-13-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-14-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-15-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-16-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-17-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-18-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-19-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-20-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-21-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-22-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-23-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-24-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-25-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-26-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-27-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-28-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-29-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-30-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-31-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-32-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-33-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-34-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-35-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-36-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-37-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-house-38-2026",
+      "state": "Texas",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "tx-senate-2026",
+      "state": "Texas",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-03-03",
+      "runoff_date": "2026-05-26",
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ut-house-01-2026",
+      "state": "Utah",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ut-house-02-2026",
+      "state": "Utah",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ut-house-03-2026",
+      "state": "Utah",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "ut-house-04-2026",
+      "state": "Utah",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-06-23",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "va-house-01-2026",
+      "state": "Virginia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "va-house-02-2026",
+      "state": "Virginia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "va-house-03-2026",
+      "state": "Virginia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "va-house-04-2026",
+      "state": "Virginia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "va-house-05-2026",
+      "state": "Virginia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "va-house-06-2026",
+      "state": "Virginia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "va-house-07-2026",
+      "state": "Virginia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "va-house-08-2026",
+      "state": "Virginia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "va-house-09-2026",
+      "state": "Virginia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "va-house-10-2026",
+      "state": "Virginia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "va-house-11-2026",
+      "state": "Virginia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "va-senate-2026",
+      "state": "Virginia",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "vt-governor-2026",
+      "state": "Vermont",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "vt-house-2026",
+      "state": "Vermont",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wa-01-house-2026",
+      "state": "Washington",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wa-house-02-2026",
+      "state": "Washington",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wa-house-03-2026",
+      "state": "Washington",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wa-house-04-2026",
+      "state": "Washington",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wa-house-05-2026",
+      "state": "Washington",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-08-04",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wa-house-06-2026",
+      "state": "Washington",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wa-house-07-2026",
+      "state": "Washington",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wa-house-08-2026",
+      "state": "Washington",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wa-house-09-2026",
+      "state": "Washington",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wa-house-10-2026",
+      "state": "Washington",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-04",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wi-governor-2026",
+      "state": "Wisconsin",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "wi-house-01-2026",
+      "state": "Wisconsin",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wi-house-02-2026",
+      "state": "Wisconsin",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wi-house-03-2026",
+      "state": "Wisconsin",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wi-house-04-2026",
+      "state": "Wisconsin",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wi-house-05-2026",
+      "state": "Wisconsin",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wi-house-06-2026",
+      "state": "Wisconsin",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wi-house-07-2026",
+      "state": "Wisconsin",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wi-house-08-2026",
+      "state": "Wisconsin",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-11",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wv-house-01-2026",
+      "state": "West Virginia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-12",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wv-house-02-2026",
+      "state": "West Virginia",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-12",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wv-senate-2026",
+      "state": "West Virginia",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-05-12",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wy-governor-2026",
+      "state": "Wyoming",
+      "office": "governor",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates"
+    },
+    {
+      "race_id": "wy-house-2026",
+      "state": "Wyoming",
+      "office": "us_house",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    },
+    {
+      "race_id": "wy-senate-2026",
+      "state": "Wyoming",
+      "office": "us_senate",
+      "event_type": "regular_primary",
+      "primary_date": "2026-08-18",
+      "runoff_date": null,
+      "general_election_date": "2026-11-03",
+      "schedule_source_url": "https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf"
+    }
+  ]
+}

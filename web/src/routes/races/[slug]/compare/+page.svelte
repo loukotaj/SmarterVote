@@ -160,7 +160,7 @@
         Compare Candidates
       </h1>
       {#if race}<p class="mt-1 text-sm text-content-muted">
-          {race.office}{race.district ? ` (${race.district})` : ""} &bull; {race.jurisdiction}
+          {race.office}{race.district ? ` · ${race.district}` : ""} &bull; {race.jurisdiction}
         </p>{/if}
     </div>
     <a

@@ -4,6 +4,7 @@ import time
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
+from shared.pipeline_config import FreshnessConfig
 from shared.race_titles import apply_canonical_race_title
 
 from ..handlers import _make_editing_handlers
@@ -43,6 +44,98 @@ from .discovery import _backfill_source_timestamps, _record_provisional_roster, 
 from .fresh_run import _run_fresh
 from .shared_runner import _run_shared_phases
 
+_ROSTER_UNITS = {"discovery.roster_sync", "discovery.roster_verify"}
+_DISCOVERY_UNITS = _ROSTER_UNITS | {"discovery.metadata"}
+_FAST_NO_CHANGE_INSTRUCTION = (
+    "\n\nFAST MAINTENANCE PATH: Begin with exactly one broad, current web_search for material changes to this exact "
+    "race. If that search shows the stored roster and facts still look correct, call finish_no_changes with a "
+    "result URL and stop. If it reveals a change, uncertainty, a stage transition, or a missing candidate, do not "
+    "use the fast path; continue the normal evidence and editing workflow."
+)
+
+
+def _audit_age_seconds(value: Any, *, now: datetime | None = None) -> float | None:
+    try:
+        finalized_at = value if isinstance(value, datetime) else datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return None
+    if finalized_at.tzinfo is None:
+        finalized_at = finalized_at.replace(tzinfo=timezone.utc)
+    age_seconds = ((now or datetime.now(timezone.utc)) - finalized_at).total_seconds()
+    return age_seconds if age_seconds >= 0 else None
+
+
+def _fast_probe_baseline_reason(
+    race_json: Dict[str, Any],
+    *,
+    now: datetime | None = None,
+    max_age_days: int | None = None,
+) -> str | None:
+    """Explain why a prior finalized roster is safe input to a fast probe.
+
+    This only permits a current one-search change check; it never skips work
+    from age alone.
+    """
+    stage = str(race_json.get("contest_stage") or "unknown").strip().lower()
+    if stage == "unknown":
+        return None
+    pipeline_state = race_json.get("pipeline_state")
+    if not isinstance(pipeline_state, dict) or pipeline_state.get("roster_finalization_pending") is True:
+        return None
+    audit = pipeline_state.get("roster_research")
+    if not isinstance(audit, dict) or audit.get("completeness_status") == "unproven":
+        return None
+    if str(audit.get("contest_stage") or "unknown").strip().lower() != stage:
+        return None
+    candidates = [candidate for candidate in race_json.get("candidates") or [] if isinstance(candidate, dict)]
+    try:
+        audited_candidate_count = int(audit.get("active_candidate_count") or 0)
+    except (TypeError, ValueError):
+        return None
+    if not candidates or audited_candidate_count != len(candidates):
+        return None
+    current_names = {str(candidate.get("name") or "").strip().casefold() for candidate in candidates}
+    audited_names = {str(name).strip().casefold() for name in audit.get("candidate_names") or []}
+    if not current_names or audited_names != current_names:
+        return None
+    if not any(isinstance(source, dict) and source.get("url") for source in audit.get("completeness_sources") or []):
+        return None
+    run_health = race_json.get("run_health")
+    reasons = run_health.get("reasons") if isinstance(run_health, dict) else []
+    if "roster_completeness_unproven" in {str(reason) for reason in reasons or []}:
+        return None
+    allowed_days = FreshnessConfig.from_env().refresh_probe_max_baseline_days if max_age_days is None else max(1, max_age_days)
+    age_seconds = _audit_age_seconds(audit.get("finalized_at"), now=now)
+    if age_seconds is None or age_seconds > allowed_days * 86400:
+        return None
+    return f"evidence-backed baseline finalized {int(age_seconds // 86400)}d ago at contest_stage={stage}"
+
+
+def _metadata_fast_probe_allowed(
+    race_json: Dict[str, Any],
+    *,
+    now: datetime | None = None,
+    max_age_days: int | None = None,
+) -> bool:
+    """Require a complete prior metadata finalization before probing for no change."""
+    candidates = [candidate for candidate in race_json.get("candidates") or [] if isinstance(candidate, dict)]
+    state = race_json.get("pipeline_state")
+    audit = state.get("metadata_research") if isinstance(state, dict) else None
+    if not candidates or not isinstance(audit, dict):
+        return False
+    try:
+        if int(audit.get("active_candidate_count") or 0) != len(candidates):
+            return False
+    except (TypeError, ValueError):
+        return False
+    allowed_days = FreshnessConfig.from_env().refresh_probe_max_baseline_days if max_age_days is None else max(1, max_age_days)
+    age_seconds = _audit_age_seconds(audit.get("finalized_at"), now=now)
+    if age_seconds is None or age_seconds > allowed_days * 86400:
+        return False
+    source_names = {str(name).strip().casefold() for name in (audit.get("candidate_sources") or {})}
+    candidate_names = {str(candidate.get("name") or "").strip().casefold() for candidate in candidates}
+    return bool(audit.get("description_sources")) and source_names == candidate_names
+
 
 def _clear_recovered_roster_verification_failure(race_json: Dict[str, Any]) -> None:
     """Remove an initial roster-sync error after strict recovery succeeds."""
@@ -78,6 +171,7 @@ async def _run_update(
     target_no_info: bool = False,
     target_candidate_names: Optional[List[str]] = None,
     goal: Optional[str] = None,
+    allow_fast_no_change: bool = False,
     resume_partial: bool = False,
     continue_incomplete_work: bool = False,
     run_budget: RunBudget | None = None,
@@ -98,6 +192,7 @@ async def _run_update(
     race_json: Dict[str, Any] = existing
     _backfill_source_timestamps(race_json)
     _sanitize_roster(race_json, log)
+    fast_probe_reason = _fast_probe_baseline_reason(race_json) if allow_fast_no_change and not resume_partial else None
     await _await_advisory_with_run_budget(
         _sync_ballotpedia_roster(race_json, race_id, log),
         run_budget=run_budget,
@@ -147,7 +242,10 @@ async def _run_update(
         completed_units = _pipeline_completed_units(race_json)
         if not resume_partial:
             completed_units.difference_update({"discovery.roster_sync", "discovery.roster_verify", "discovery.metadata"})
+            skipped_units = set(race_json["pipeline_state"].get("skipped_units") or [])
+            skipped_units.difference_update(_DISCOVERY_UNITS)
             race_json["pipeline_state"]["completed_units"] = sorted(completed_units)
+            race_json["pipeline_state"]["skipped_units"] = sorted(skipped_units)
             race_json["pipeline_state"].pop("roster_finalization_pending", None)
             race_json["pipeline_state"].pop("roster_sync_original_names", None)
 
@@ -166,6 +264,7 @@ async def _run_update(
         roster_sync_succeeded: bool | None = (
             False if race_json["pipeline_state"].get("roster_finalization_pending") is True else None
         )
+        roster_no_change_confirmed = False
         if "discovery.roster_sync" not in completed_units:
             log("info", "Update Phase 0: Verifying candidate roster...")
             roster_sync_succeeded = False
@@ -180,7 +279,8 @@ async def _run_update(
                         current_date=as_of_date,
                         candidate_names=", ".join(candidate_names),
                         race_description=race_json.get("description", ""),
-                    ),
+                    )
+                    + (_FAST_NO_CHANGE_INSTRUCTION if fast_probe_reason else ""),
                     model=roster_model or model,
                     on_log=on_log,
                     race_id=race_id,
@@ -207,8 +307,11 @@ async def _run_update(
                         "source_candidate_names; it atomically applies all remaining roster edits."
                     ),
                     return_tool_trace=True,
+                    allow_no_change_after_search=bool(fast_probe_reason),
                 )
-                roster_sync_succeeded = bool((roster_result.get("_tool_trace") or {}).get("required_final_tool_succeeded"))
+                roster_trace = roster_result.get("_tool_trace") or {}
+                roster_no_change_confirmed = bool(roster_trace.get("no_change_confirmed"))
+                roster_sync_succeeded = bool(roster_trace.get("required_final_tool_succeeded") or roster_no_change_confirmed)
             except RunBudgetExceeded:
                 raise
             except Exception as exc:
@@ -220,15 +323,23 @@ async def _run_update(
                 race_json["pipeline_state"].pop("roster_finalization_pending", None)
             else:
                 race_json["pipeline_state"]["roster_finalization_pending"] = True
-            await _await_advisory_with_run_budget(
-                _sync_ballotpedia_roster(race_json, race_id, log),
-                run_budget=run_budget,
-                requested_timeout=20.0,
-                operation="Ballotpedia advisory roster lookup",
-                log=log,
-                continuation="continuing with roster verification",
-            )
-            _sanitize_roster(race_json, log)
+            if roster_no_change_confirmed:
+                completed_units.add("discovery.roster_verify")
+                _mark_pipeline_unit_complete(race_json, "discovery.roster_verify")
+                skipped_units = set(race_json["pipeline_state"].get("skipped_units") or [])
+                skipped_units.update(_ROSTER_UNITS)
+                race_json["pipeline_state"]["skipped_units"] = sorted(skipped_units)
+                log("info", f"Discovery roster fast path accepted: {fast_probe_reason}")
+            else:
+                await _await_advisory_with_run_budget(
+                    _sync_ballotpedia_roster(race_json, race_id, log),
+                    run_budget=run_budget,
+                    requested_timeout=20.0,
+                    operation="Ballotpedia advisory roster lookup",
+                    log=log,
+                    continuation="continuing with roster verification",
+                )
+                _sanitize_roster(race_json, log)
             if not roster_sync_succeeded:
                 # Completeness could not be proven — routinely because no
                 # qualified-candidate list exists yet for a pre-primary contest.
@@ -368,20 +479,27 @@ async def _run_update(
 
         if "discovery.metadata" not in completed_units:
             track("progress", "discovery", pct=55, message="Discovery: updating race metadata", race_json=race_json)
+            metadata_fast_probe = bool(
+                allow_fast_no_change
+                and not resume_partial
+                and _fast_probe_baseline_reason(race_json)
+                and _metadata_fast_probe_allowed(race_json)
+            )
 
             # Metadata refresh is one broad race task. Candidate count must not
             # multiply its loop budget; candidate-specific work has later phases.
             meta_iters = min(max_iterations, 12)
             log("info", "Update Phase 1: Searching for new summaries, race developments, and voting records...")
             try:
-                await _agent_loop(
+                metadata_result = await _agent_loop(
                     UPDATE_META_SYSTEM,
                     UPDATE_META_USER.format(
                         race_id=race_id,
                         last_updated=last_updated,
                         current_date=as_of_date,
                         candidate_names=", ".join(candidate_names),
-                    ),
+                    )
+                    + (_FAST_NO_CHANGE_INSTRUCTION if metadata_fast_probe else ""),
                     model=model,
                     on_log=on_log,
                     race_id=race_id,
@@ -404,7 +522,12 @@ async def _run_update(
                         "searched or fetched. Do not leave findings only in prose and do not perform more research."
                     ),
                     return_tool_trace=True,
+                    allow_no_change_after_search=metadata_fast_probe,
                 )
+                if (metadata_result.get("_tool_trace") or {}).get("no_change_confirmed"):
+                    skipped_units = set(race_json["pipeline_state"].get("skipped_units") or [])
+                    skipped_units.add("discovery.metadata")
+                    race_json["pipeline_state"]["skipped_units"] = sorted(skipped_units)
             except RunBudgetExceeded:
                 raise
             except Exception as exc:

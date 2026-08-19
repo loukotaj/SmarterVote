@@ -179,7 +179,7 @@ Race IDs should match:
 
 Examples:
 
-- `az-senate-2026`
+- `ga-senate-2026`
 - `ga-governor-2026`
 - `ny-04-house-2026`
 

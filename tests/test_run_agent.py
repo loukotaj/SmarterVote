@@ -8,6 +8,7 @@ import json
 import os
 import re
 import time
+from datetime import datetime, timedelta, timezone
 from unittest.mock import AsyncMock, patch
 
 import pytest
@@ -20,6 +21,7 @@ from pipeline_client.agent.phases import (
     _run_iteration_pass,
     _sanitize_roster,
 )
+from pipeline_client.agent.phases.update_run import _fast_probe_baseline_reason, _metadata_fast_probe_allowed
 from pipeline_client.agent.prompts import CANONICAL_ISSUES
 from pipeline_client.agent.run_budget import RunBudget, RunBudgetExceeded
 from pipeline_client.backend.handlers.agent import HandoffTriggered
@@ -31,6 +33,153 @@ from shared.pipeline_config import PIPELINE_STEP_IDS
 def no_openrouter_key(monkeypatch):
     """Unit tests mock agent phases; never call real OpenRouter reviews."""
     monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
+
+
+def _race_with_finalized_roster(*, stage="post_primary_general", finalized_at=None):
+    finalized_at = finalized_at or datetime.now(timezone.utc).isoformat()
+    source = {
+        "url": "https://elections.example.gov/contest",
+        "type": "official",
+        "title": "Certified candidates",
+        "evidence": "Alice Example and Bob Example are certified candidates.",
+        "last_accessed": finalized_at,
+        "race_id": "xy-house-01-2026",
+        "evidence_tier": 1,
+        "retrieval_status": "content",
+    }
+    return {
+        "id": "xy-house-01-2026",
+        "election_date": "2026-11-03",
+        "updated_utc": finalized_at,
+        "contest_stage": stage,
+        "candidates": [
+            {"name": "Alice Example", "party": "Democratic", "roster_sources": [source]},
+            {"name": "Bob Example", "party": "Republican", "roster_sources": [source]},
+        ],
+        "pipeline_state": {
+            "complete": True,
+            "remaining_candidates": [],
+            "remaining_steps": [],
+            "completed_units": [],
+            "roster_research": {
+                "finalized_at": finalized_at,
+                "contest_stage": stage,
+                "summary": "Certified field",
+                "active_candidate_count": 2,
+                "candidate_names": ["Alice Example", "Bob Example"],
+                "completeness_sources": [source],
+            },
+            "metadata_research": {
+                "finalized_at": finalized_at,
+                "active_candidate_count": 2,
+                "description_sources": [source],
+                "candidate_sources": {"Alice Example": [source], "Bob Example": [source]},
+            },
+        },
+        "run_health": {"status": "healthy", "reasons": []},
+    }
+
+
+def test_recent_finalized_roster_allows_fast_probe_at_same_known_stage():
+    race = _race_with_finalized_roster()
+    assert _fast_probe_baseline_reason(race, max_age_days=90)
+
+    race["contest_stage"] = "pre_primary"
+    assert _fast_probe_baseline_reason(race, max_age_days=90) is None
+
+
+@pytest.mark.parametrize("stage", ["pre_primary", "runoff", "special"])
+def test_known_roster_stages_can_use_current_change_probe(stage):
+    assert _fast_probe_baseline_reason(_race_with_finalized_roster(stage=stage), max_age_days=90)
+
+
+def test_unknown_roster_stage_cannot_use_fast_probe():
+    assert _fast_probe_baseline_reason(_race_with_finalized_roster(stage="unknown"), max_age_days=90) is None
+
+
+def test_stale_unproven_or_stage_mismatched_roster_is_not_reused():
+    stale = _race_with_finalized_roster(finalized_at=(datetime.now(timezone.utc) - timedelta(days=91)).isoformat())
+    assert _fast_probe_baseline_reason(stale, max_age_days=90) is None
+
+    unproven = _race_with_finalized_roster()
+    unproven["pipeline_state"]["roster_research"]["completeness_status"] = "unproven"
+    assert _fast_probe_baseline_reason(unproven, max_age_days=90) is None
+
+    mismatched = _race_with_finalized_roster()
+    mismatched["pipeline_state"]["roster_research"]["contest_stage"] = "pre_primary"
+    assert _fast_probe_baseline_reason(mismatched, max_age_days=90) is None
+
+    changed_names = _race_with_finalized_roster()
+    changed_names["candidates"][1]["name"] = "Different Candidate"
+    assert _fast_probe_baseline_reason(changed_names, max_age_days=90) is None
+
+
+def test_stale_metadata_cannot_use_fast_probe():
+    race = _race_with_finalized_roster()
+    race["pipeline_state"]["metadata_research"]["finalized_at"] = (datetime.now(timezone.utc) - timedelta(days=91)).isoformat()
+    assert _metadata_fast_probe_allowed(race, max_age_days=90) is False
+
+
+@pytest.mark.asyncio
+async def test_update_fast_paths_unchanged_roster_and_metadata():
+    existing = _race_with_finalized_roster()
+
+    async def fast_no_change(*_args, **kwargs):
+        assert kwargs["allow_no_change_after_search"] is True
+        return {"_tool_trace": {"no_change_confirmed": True}}
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop,
+        patch("pipeline_client.agent.phases._sync_ballotpedia_roster", new_callable=AsyncMock) as ballotpedia,
+    ):
+        mock_loop.side_effect = fast_no_change
+        result = await run_agent(
+            "xy-house-01-2026",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["discovery"],
+            allow_fast_no_change=True,
+        )
+
+    ballotpedia.assert_awaited_once()
+    assert [call.kwargs.get("phase_name") for call in mock_loop.call_args_list] == ["roster-sync", "update-meta"]
+    assert set(result["pipeline_state"]["skipped_units"]) == {
+        "discovery.roster_sync",
+        "discovery.roster_verify",
+        "discovery.metadata",
+    }
+
+
+@pytest.mark.asyncio
+async def test_roster_change_disables_metadata_fast_path_and_clears_old_skip_markers():
+    existing = _race_with_finalized_roster()
+    existing["pipeline_state"]["skipped_units"] = [
+        "discovery.roster_sync",
+        "discovery.roster_verify",
+        "discovery.metadata",
+    ]
+
+    async def run_phase(*_args, **kwargs):
+        if kwargs["phase_name"] == "roster-sync":
+            existing["candidates"][1]["name"] = "Carol Replacement"
+            return {"_tool_trace": {"required_final_tool_succeeded": True}}
+        if kwargs["phase_name"] == "update-meta":
+            assert kwargs["allow_no_change_after_search"] is False
+        return {"_tool_trace": {}}
+
+    with (
+        patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock, side_effect=run_phase),
+        patch("pipeline_client.agent.phases._sync_ballotpedia_roster", new_callable=AsyncMock),
+    ):
+        result = await run_agent(
+            "xy-house-01-2026",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["discovery"],
+            allow_fast_no_change=True,
+        )
+
+    assert result["pipeline_state"]["skipped_units"] == []
 
 
 # ---------------------------------------------------------------------------

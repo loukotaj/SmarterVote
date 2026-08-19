@@ -5,6 +5,7 @@
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
   import { browser } from "$app/environment";
+  import { canonicalRaceState } from "$lib/utils/states";
   export let races: RaceSummary[] = [];
   import { debounce } from "$lib/utils/debounce";
 
@@ -82,6 +83,7 @@
             race.title?.toLowerCase().includes(q) ||
             race.office?.toLowerCase().includes(q) ||
             race.jurisdiction?.toLowerCase().includes(q) ||
+            canonicalRaceState(race)?.toLowerCase().includes(q) ||
             race.candidates.some(
               (c) =>
                 c.name.toLowerCase().includes(q) ||
@@ -91,7 +93,7 @@
         }
         return true;
       })
-      .map((r) => r.state ?? r.jurisdiction)
+      .map(canonicalRaceState)
       .filter(Boolean) as string[],
   );
 
@@ -102,7 +104,7 @@
     const q = debouncedSearchQuery.toLowerCase();
 
     races.forEach((race) => {
-      const stateKey = race.state ?? race.jurisdiction;
+      const stateKey = canonicalRaceState(race);
       if (!stateKey) return;
 
       const matchedNames: string[] = [];
@@ -135,6 +137,7 @@
           race.title?.toLowerCase().includes(q) ||
           race.office?.toLowerCase().includes(q) ||
           race.jurisdiction?.toLowerCase().includes(q) ||
+          canonicalRaceState(race)?.toLowerCase().includes(q) ||
           race.candidates.some(
             (c) =>
               c.name.toLowerCase().includes(q) ||
@@ -145,7 +148,7 @@
       return true;
     })
     .reduce<Record<string, number>>((acc, r) => {
-      const stateKey = r.state ?? r.jurisdiction;
+      const stateKey = canonicalRaceState(r);
       if (stateKey) acc[stateKey] = (acc[stateKey] ?? 0) + 1;
       return acc;
     }, {});
@@ -174,7 +177,7 @@
 
   // filtering chain: state > office > text
   $: filteredRaces = races.filter((race) => {
-    const raceState = race.state ?? race.jurisdiction;
+    const raceState = canonicalRaceState(race);
     if (selectedState && raceState !== selectedState) return false;
     if (selectedOffice && officeShort(race.office) !== selectedOffice)
       return false;
@@ -184,6 +187,7 @@
         race.title?.toLowerCase().includes(q) ||
         race.office?.toLowerCase().includes(q) ||
         race.jurisdiction?.toLowerCase().includes(q) ||
+        canonicalRaceState(race)?.toLowerCase().includes(q) ||
         race.candidates.some(
           (c) =>
             c.name.toLowerCase().includes(q) ||
@@ -268,6 +272,9 @@
     <div
       class="relative w-full max-w-lg shadow-sm hover:shadow-md transition-shadow duration-300 rounded-full"
     >
+      <label for="election-directory-search" class="sr-only">
+        Search elections and candidates
+      </label>
       <div
         class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
       >
@@ -286,6 +293,7 @@
         </svg>
       </div>
       <input
+        id="election-directory-search"
         type="text"
         bind:value={searchQuery}
         on:input={handleHeroSearchInput}

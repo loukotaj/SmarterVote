@@ -161,6 +161,15 @@ changes baseline loading but does not silently change an explicit step list.
 
 Common tools:
 
+- `get_research_manifest`: complete expected 2026 coverage and official event
+  schedule; a sourced override admits a newly scheduled contest without waiting
+  for a code deployment
+- `get_research_program_status`: all 507 expected races with separate
+  published/draft provenance, result/discovery/issue states, orphaned catalog
+  records, and actual spend grouped by workflow
+- `get_research_result_checkpoint`, `record_research_result_checkpoint`:
+  read or record operator-attributed official result evidence without queuing
+  pipeline work; `stable` requires two checks at least six hours apart
 - `scan_catalog`: compact prioritized inventory with research tiers, coverage,
   traffic, freshness, and persisted asset-audit findings
 - `plan_repairs`: non-mutating, independently queueable race/candidate repair
@@ -174,6 +183,9 @@ Common tools:
 - `refresh_race_core`: canonical low-cost roster/summary, image, polling,
   forecast, and voter-resource refresh. Discovery must establish exact-contest
   roster evidence before downstream work; debug evidence is enabled by default.
+  With an evidence-backed baseline, roster and metadata agents may each perform
+  one current search and explicitly exit when nothing material changed. Use
+  `force_fresh=true` to bypass this maintenance fast path.
 - `queue_races`: one or more races with full options
 - `run_race`: one race
 - `list_active_runs`, `get_queue`: queue/worker state
@@ -182,6 +194,23 @@ Common tools:
 - `publish_race`, `publish_races`: publish only after approval
 - `get_run_diagnostics`, `summarize_run_costs`: run health and exact cost
 - `get_pipeline_metrics`, `get_pipeline_metrics_summary`: cost reporting
+
+The admin console's **2026 Research** tab is the operator view of the same
+canonical status. It includes manifest-only races, primary/runoff timing,
+checkpoint state, discovery and issue readiness, 30-day Cloudflare page demand,
+and per-race workflow spend. Use demand to order September issue work, but do
+not infer result stability from traffic or from an artifact's
+`contest_stage`; record the official checkpoint first.
+
+Known invalid races are blocked from queue, direct run, and publish. Unknown
+special or newly scheduled elections require an active coverage override with
+an official source URL, reason, and approver. Reads, deletion, cancellation,
+and reconciliation remain available even when a race is outside the manifest.
+
+Race deletion archives every active published and draft artifact into retired
+version storage before removing active blobs and the catalog record. If any
+required archive copy fails, deletion fails before removing data. Retired
+versions remain available through the version list/read/restore APIs.
 
 Local-worker cancellation snapshots the live token, provider-cost, search, and
 phase accumulators before clearing the run, so `summarize_run_costs` reports
@@ -564,24 +593,28 @@ Firestore cost is bounded independently of model/search cost:
 Do not poll from the beginning with numeric `since`, repeatedly stream full
 collections, or enable debug capture for broad batches.
 
-## Known Update-Run Optimization Opportunities
+## Update-Run Cost Optimization
 
-The low-cost step default removes the largest avoidable phases, but update
-discovery can still spend multiple model iterations proving that a recent
-baseline has not changed. Improvements should be implemented in this order:
+The low-cost step default removes the largest avoidable phases. For
+`refresh_race_core`, an evidence-backed baseline up to 90 days old enables a
+one-search no-change exit in roster and metadata work. The age threshold is
+only probe eligibility—not a blind cache—and is configurable with
+`PIPELINE_REFRESH_PROBE_MAX_BASELINE_DAYS` (1–365). The agent must search, cite
+a returned URL, make no edits, and explicitly call the no-change tool. Accepted
+exits are logged and stored in `pipeline_state.skipped_units`; uncertainty or a
+detected change continues through normal research.
+
+Remaining improvements should be implemented in this order:
 
 1. Add deterministic staleness gates per field so a recent image, voter link,
    finance snapshot, or forecast can be skipped without an LLM call.
-2. Check official roster/results feeds before invoking open-ended discovery;
-   stop roster work early when the verified names and contest stage are
-   unchanged.
-3. Use source-specific deterministic adapters for FEC/state finance and polling
+2. Use source-specific deterministic adapters for FEC/state finance and polling
    catalogs, then ask the model only to interpret changed records.
-4. Build a compact baseline delta packet instead of repeatedly sending the
+3. Build a compact baseline delta packet instead of repeatedly sending the
    whole profile to metadata/refinement agents.
-5. Persist per-step fingerprints, source access times, and no-change outcomes
+4. Persist per-step fingerprints, source access times, and no-change outcomes
    so subsequent runs can make explainable skip decisions.
-6. Run review only for changed sections and only when a publication-quality
+5. Run review only for changed sections and only when a publication-quality
    decision needs it; retain the deterministic quality gate for all drafts.
 
 Measure each improvement with debug diagnostics: wall time, iterations, model

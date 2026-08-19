@@ -17,6 +17,22 @@
       institutional payment or inquiry portal.
     </p>
   </PolicySection>
+  <PolicySection title="Use and cite our research">
+    <p>
+      Newsrooms, libraries, educators, researchers, and civic organizations may
+      link directly to a race, candidate, or comparison page. Please credit
+      Smarter.Vote and link to the exact page so readers can inspect its cited
+      evidence and update date.
+    </p>
+    <p>
+      A machine-readable <a
+        class="text-primary-600 underline dark:text-primary-500"
+        href="/summaries.json">public race index</a
+      > is available for coverage discovery. Contact us before bulk republication
+      or embedding so we can agree on attribution, update expectations, and any source-specific
+      limitations.
+    </p>
+  </PolicySection>
   <PolicySection title="Before you contact us">
     <p>
       Briefly identify your organization, proposed collaboration, timing,

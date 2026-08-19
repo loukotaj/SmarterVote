@@ -719,6 +719,116 @@ async def test_agent_loop_does_not_accept_early_stop_before_required_final_tool(
 
 
 @pytest.mark.asyncio
+async def test_agent_loop_accepts_evidenced_no_change_after_one_search():
+    source_url = "https://elections.example.gov/current-race"
+    search = _mock_openai_response(
+        tool_calls=[{"id": "search", "function": {"name": "web_search", "arguments": json.dumps({"query": "race update"})}}]
+    )
+    finish = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "finish",
+                "function": {
+                    "name": "finish_no_changes",
+                    "arguments": json.dumps({"reason": "Current results match the profile", "evidence_url": source_url}),
+                },
+            }
+        ]
+    )
+
+    with (
+        patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock, side_effect=[search, finish]),
+        patch(
+            "pipeline_client.agent.llm._serper_search",
+            new_callable=AsyncMock,
+            return_value=[{"title": "Current race", "url": source_url}],
+        ),
+    ):
+        result = await _agent_loop(
+            "system",
+            "user",
+            model=SMALL_MODEL,
+            tools_mode=True,
+            max_iterations=4,
+            required_final_tool_name="finalize_roster",
+            extra_tools=[
+                {
+                    "type": "function",
+                    "function": {"name": "finalize_roster", "parameters": {"type": "object", "properties": {}}},
+                }
+            ],
+            extra_tool_handlers={"finalize_roster": lambda _args: "ok"},
+            allow_no_change_after_search=True,
+            return_tool_trace=True,
+        )
+
+    assert result["_tool_trace"]["no_change_confirmed"] is True
+    assert result["_tool_trace"]["search_calls"] == 1
+    assert result["_tool_trace"]["required_final_tool_succeeded"] is False
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_continues_normally_after_second_search():
+    source_urls = ["https://example.gov/result-1", "https://example.gov/result-2"]
+    searches = [
+        _mock_openai_response(
+            tool_calls=[
+                {"id": f"search-{index}", "function": {"name": "web_search", "arguments": json.dumps({"query": query})}}
+            ]
+        )
+        for index, query in enumerate(("race update", "candidate filing"), start=1)
+    ]
+    rejected_shortcut = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "finish",
+                "function": {
+                    "name": "finish_no_changes",
+                    "arguments": json.dumps({"reason": "No change", "evidence_url": source_urls[1]}),
+                },
+            }
+        ]
+    )
+    finalized = _mock_openai_response(
+        tool_calls=[{"id": "finalize", "function": {"name": "finalize_roster", "arguments": "{}"}}]
+    )
+
+    with (
+        patch(
+            "pipeline_client.agent.llm._call_openrouter",
+            new_callable=AsyncMock,
+            side_effect=[*searches, rejected_shortcut, finalized],
+        ),
+        patch(
+            "pipeline_client.agent.llm._serper_search",
+            new_callable=AsyncMock,
+            side_effect=[[{"url": url}] for url in source_urls],
+        ),
+    ):
+        result = await _agent_loop(
+            "system",
+            "user",
+            model=SMALL_MODEL,
+            tools_mode=True,
+            max_iterations=5,
+            required_final_tool_name="finalize_roster",
+            extra_tools=[
+                {
+                    "type": "function",
+                    "function": {"name": "finalize_roster", "parameters": {"type": "object", "properties": {}}},
+                }
+            ],
+            extra_tool_handlers={"finalize_roster": lambda _args: "ok"},
+            allow_no_change_after_search=True,
+            return_tool_trace=True,
+        )
+
+    assert result["_tool_trace"]["search_calls"] == 2
+    assert result["_tool_trace"]["no_change_confirmed"] is False
+    assert result["_tool_trace"]["required_final_tool_succeeded"] is True
+
+
+@pytest.mark.asyncio
 async def test_agent_loop_reserves_edit_turn_before_forced_finalization():
     searched = _mock_openai_response(
         tool_calls=[
@@ -998,3 +1108,88 @@ async def test_agent_loop_elevates_model_on_bad_json():
     assert mock_call.call_count == 2
     assert mock_call.call_args_list[0].kwargs["model"] == DEFAULT_RESEARCH_MODEL
     assert mock_call.call_args_list[1].kwargs["model"] == escalation_for(DEFAULT_RESEARCH_MODEL)
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_recovers_from_truncated_tool_arguments():
+    """Malformed tool-call arguments return a tool error instead of killing the phase."""
+
+    truncated = '{"winner": "Jane Doe", "rationale": "Leads every published poll'
+    bad_call = _mock_openai_response(
+        tool_calls=[{"id": "call_1", "function": {"name": "set_forecast", "arguments": truncated}}],
+    )
+    good_call = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "call_2",
+                "function": {"name": "set_forecast", "arguments": json.dumps({"winner": "Jane Doe"})},
+            }
+        ],
+    )
+    done = _mock_openai_response(content="Done.")
+
+    handler_calls = []
+
+    def fake_handler(args):
+        handler_calls.append(args)
+        return "OK"
+
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock:
+        mock.side_effect = [bad_call, good_call, done]
+        result = await _agent_loop(
+            "system",
+            "user",
+            model="gpt-5.4-mini",
+            phase_name="test-forecast",
+            tools_mode=True,
+            extra_tools=[{"type": "function", "function": {"name": "set_forecast", "parameters": {}}}],
+            extra_tool_handlers={"set_forecast": fake_handler},
+        )
+
+    assert result == {}
+    # The truncated call never reached the handler; the retried call did.
+    assert len(handler_calls) == 1
+    assert handler_calls[0]["winner"] == "Jane Doe"
+
+    sent_messages = mock.call_args_list[1].args[0]
+    tool_replies = [m for m in sent_messages if m.get("role") == "tool"]
+    assert tool_replies, "the malformed call must be answered so the conversation stays valid"
+    assert "not valid JSON" in tool_replies[-1]["content"]
+
+
+@pytest.mark.asyncio
+async def test_agent_loop_treats_blank_tool_arguments_as_empty_object():
+    """Models emit "" for no-argument tools; that is not a parse failure."""
+
+    call = _mock_openai_response(
+        tool_calls=[{"id": "call_1", "function": {"name": "read_profile", "arguments": ""}}],
+    )
+    done = _mock_openai_response(content="Done.")
+
+    seen = []
+
+    with patch("pipeline_client.agent.llm._call_openrouter", new_callable=AsyncMock) as mock:
+        mock.side_effect = [call, done]
+        await _agent_loop(
+            "system",
+            "user",
+            model="gpt-5.4-mini",
+            phase_name="test-blank-args",
+            tools_mode=True,
+            extra_tools=[{"type": "function", "function": {"name": "read_profile", "parameters": {}}}],
+            extra_tool_handlers={"read_profile": lambda args: seen.append(args) or "profile"},
+        )
+
+    assert len(seen) == 1
+
+
+def test_parse_tool_arguments_rejects_non_object_payloads():
+    from pipeline_client.agent.llm import _parse_tool_arguments
+
+    assert _parse_tool_arguments(None) == {}
+    assert _parse_tool_arguments("   ") == {}
+    assert _parse_tool_arguments('{"a": 1}') == {"a": 1}
+    with pytest.raises(ValueError):
+        _parse_tool_arguments("[1, 2]")
+    with pytest.raises(ValueError):
+        _parse_tool_arguments('{"a": ')

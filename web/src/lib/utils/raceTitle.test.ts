@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  candidateMetaDescription,
   raceDisplayTitle,
   raceMetaDescription,
   racePageTitle,
@@ -94,12 +95,79 @@ describe("raceDisplayTitle", () => {
       title: "old",
       office: "U.S. Senate",
       state: "Georgia",
+      election_date: "2026-11-03",
+      candidates: [
+        { name: "Jane Doe" },
+        { name: "John Smith" },
+        { name: "Alex Taylor" },
+      ],
     };
     expect(racePageTitle(race)).toBe(
       "2026 Georgia U.S. Senate Election | Smarter.Vote",
     );
-    expect(raceMetaDescription(race)).toContain(
-      "Compare candidates in the 2026 Georgia U.S. Senate Election",
+    expect(raceMetaDescription(race)).toBe(
+      "Compare Jane Doe, John Smith, and others in the 2026 Georgia U.S. Senate Election on November 3, 2026, with sourced issue positions, polling, and race updates.",
     );
+  });
+
+  it("describes only candidate content that is present", () => {
+    const race = {
+      id: "ga-senate-2026",
+      office: "U.S. Senate",
+      state: "Georgia",
+    };
+    expect(
+      candidateMetaDescription(
+        {
+          name: "Jane Doe",
+          summary: "Candidate biography",
+          summary_sources: [
+            {
+              url: "https://example.com",
+              type: "website",
+              title: "Bio",
+              last_accessed: "2026-08-18T00:00:00Z",
+              is_fresh: true,
+            },
+          ],
+          issues: {
+            Healthcare: {
+              stance: "Supports a policy.",
+              sources: [],
+              confidence: "high",
+            },
+            Economy: {
+              stance: "Supports another policy.",
+              sources: [],
+              confidence: "medium",
+            },
+          },
+          donor_summary: "Donor summary",
+        },
+        race,
+      ),
+    ).toBe(
+      "Explore Jane Doe's positions on Healthcare and Economy, biography, donor information, and cited sources for the 2026 Georgia U.S. Senate Election.",
+    );
+
+    expect(candidateMetaDescription({ name: "Jane Doe" }, race)).toBe(
+      "Learn about Jane Doe in the 2026 Georgia U.S. Senate Election.",
+    );
+
+    expect(
+      candidateMetaDescription(
+        {
+          name: "Jane Doe",
+          issues: {
+            Healthcare: {
+              stance: "No public position found",
+              sources: [],
+              confidence: "low",
+            },
+          },
+        },
+        race,
+      ),
+    ).toBe("Learn about Jane Doe in the 2026 Georgia U.S. Senate Election.");
   });
 });

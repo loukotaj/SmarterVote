@@ -15,6 +15,7 @@ from auth import verify_token
 from cloud_run_jobs import dispatch_pipeline_job
 from fastapi import APIRouter, Depends, HTTPException
 from request_models import RaceQueueRequest, validate_race_id
+from routers.research_program import assert_race_admitted
 from routers.utils import _queue_ttl_at
 
 from shared.config import FIRESTORE_QUEUE_COLLECTION, FIRESTORE_RACES_COLLECTION, FIRESTORE_RUNS_COLLECTION
@@ -238,6 +239,7 @@ def queue_races(request: RaceQueueRequest) -> Dict[str, Any]:
             errors.append({"race_id": race_id, "error": "Invalid race_id format"})
             continue
         try:
+            assert_race_admitted(db, race_id, "queue")
             from google.cloud.firestore_v1 import SERVER_TIMESTAMP  # type: ignore
 
             race_doc = db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).get()

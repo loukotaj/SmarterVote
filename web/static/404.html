@@ -18,39 +18,161 @@
           sans-serif;
       }
       body {
-        display: grid;
         min-height: 100vh;
         margin: 0;
-        place-items: center;
         background: #f8fafc;
         color: #172033;
       }
+      header,
+      footer {
+        background: #ffffff;
+        border-color: #e5e7eb;
+        border-style: solid;
+        border-width: 0;
+      }
+      header {
+        border-bottom-width: 1px;
+      }
+      footer {
+        border-top-width: 1px;
+      }
+      .shell {
+        width: min(100% - 2rem, 72rem);
+        margin: 0 auto;
+      }
+      .site-header,
+      .site-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 4.25rem;
+        gap: 1rem;
+      }
+      .brand {
+        color: #2563eb;
+        font-size: 1.1rem;
+        font-weight: 850;
+        text-decoration: none;
+      }
       main {
-        max-width: 34rem;
-        padding: 2rem;
+        display: grid;
+        box-sizing: border-box;
+        min-height: calc(100vh - 8.5rem);
+        padding-block: 3rem;
+        place-items: center;
+      }
+      .card {
+        width: min(100% - 2rem, 34rem);
+        box-sizing: border-box;
+        padding: clamp(2rem, 7vw, 4rem);
+        border: 1px solid #e5e7eb;
+        border-radius: 1.5rem;
+        background: #ffffff;
+        box-shadow: 0 12px 36px rgb(15 23 42 / 8%);
         text-align: center;
+      }
+      .eyebrow {
+        margin: 0 0 0.75rem;
+        color: #2563eb;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 8vw, 3rem);
+        letter-spacing: -0.04em;
+      }
+      .message {
+        margin: 1rem auto 0;
+        color: #4b5563;
+        line-height: 1.65;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: 2rem;
       }
       a {
         color: #1d4ed8;
         font-weight: 700;
+      }
+      .action {
+        display: inline-flex;
+        min-height: 2.75rem;
+        box-sizing: border-box;
+        align-items: center;
+        padding: 0.65rem 1rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.75rem;
+        background: #ffffff;
+        text-decoration: none;
+      }
+      .action-primary {
+        border-color: #2563eb;
+        background: #2563eb;
+        color: #ffffff;
+      }
+      .site-footer {
+        color: #6b7280;
+        font-size: 0.75rem;
       }
       @media (prefers-color-scheme: dark) {
         body {
           background: #0f172a;
           color: #e2e8f0;
         }
+        header,
+        footer,
+        .card,
+        .action {
+          border-color: #374151;
+          background: #111827;
+        }
+        .message,
+        .site-footer {
+          color: #d1d5db;
+        }
         a {
           color: #93c5fd;
+        }
+        .action-primary {
+          border-color: #2563eb;
+          background: #2563eb;
+          color: #ffffff;
         }
       }
     </style>
   </head>
   <body>
+    <header>
+      <div class="shell site-header">
+        <a class="brand" href="/">Smarter.Vote</a>
+        <a href="/elections/">Browse elections</a>
+      </div>
+    </header>
     <main>
-      <p>404</p>
-      <h1>Page not found</h1>
-      <p>The page you requested does not exist.</p>
-      <p><a href="/">Return to Smarter.Vote</a></p>
+      <section class="card" aria-labelledby="not-found-heading">
+        <p class="eyebrow">Error 404</p>
+        <h1 id="not-found-heading">Page not found</h1>
+        <p class="message">
+          The page may have moved or the address may be incorrect. You can
+          return home or continue to the election directory.
+        </p>
+        <div class="actions">
+          <a class="action action-primary" href="/">Return home</a>
+          <a class="action" href="/elections/">Browse elections</a>
+        </div>
+      </section>
     </main>
+    <footer>
+      <div class="shell site-footer">
+        <span>Independent, sourced election research.</span>
+        <a href="/about/">About Smarter.Vote</a>
+      </div>
+    </footer>
   </body>
 </html>

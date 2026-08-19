@@ -367,8 +367,10 @@ def _record_provisional_roster(race_json: Dict[str, Any], log: Any | None = None
     pipeline_state = race_json.setdefault("pipeline_state", {})
     pipeline_state["roster_research"] = {
         "finalized_at": datetime.now(timezone.utc).isoformat(),
+        "contest_stage": str(race_json.get("contest_stage") or "unknown"),
         "summary": note,
         "active_candidate_count": len(names),
+        "candidate_names": names,
         "completeness_sources": [],
         "completeness_status": "unproven",
         "completeness_note": note,

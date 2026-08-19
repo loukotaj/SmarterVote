@@ -1,167 +1,219 @@
-# 2026 Race Research Operating Plan
+# 2026 Midterm Research Plan
 
-Status: active through the 2026 general election.
+Status: active planning; paid work is on hold pending credential/payment
+readiness and the discovery-cost fix. Last production audit: 2026-08-18.
 
-This is the operating view for completing discovery and issue research across
-the covered catalog. It intentionally contains no static race counts, dated
-batch ledgers, or estimated spend snapshots: those become wrong as races are
-added, primaries settle, and drafts change. Get the current inventory from the
-read-only MCP audit before each work session.
+This plan tracks scope, readiness, priority, and budget. It does not authorize
+runs, publication, deployment, or catalog deletion. Operational mechanics remain
+canonical in [pipeline-operations.md](pipeline-operations.md).
 
-This document sets work policy. It does not authorize queueing paid research or
-publishing drafts. Queue mechanics, review requirements, and cost accounting
-are canonical in [pipeline-operations.md](pipeline-operations.md).
+## Objective
 
-## Outcomes
+- Cover **507 valid races**: 435 U.S. House, 35 U.S. Senate, 36 governor, and
+  the Arkansas Supreme Court contest.
+- Give each covered race one reviewed discovery/core refresh after its
+  general-election field settles.
+- Complete reviewed issue research for every `tossup`, `tilt_*`, and `lean_*`
+  race during September; use demand for later expansion.
+- Keep most of the initial **$300** uncommitted until two settled-race pilots
+  prove cost and quality.
 
-1. Every covered 2026 race receives **discovery after its relevant primary is
-   settled**. Discovery establishes the current contest and nominee roster.
-2. Every eligible race receives a complete **issue-research run during
-   September**, prioritized by voter demand and competitiveness.
-3. At any time, the operator can identify races that are not eligible, ready,
-   queued, blocked, or complete without relying on a hand-maintained calendar.
+`refresh_race_core` is the correct normal post-primary operation. The missing
+controls are upstream: validate the race, prove its result is stable, and allow
+only one run per stable-result fingerprint.
 
-## Compact operating schedule
+## Scope correction
 
-This is the calendar for operating the backlog, not a second catalog. The live
-tracker identifies the exact race IDs in each cohort. Primary dates are checked
-against the [NCSL 2026 primary calendar](https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates)
-and the [FEC congressional calendar](https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf);
-the relevant state election authority controls when a result or field is final.
+Firestore contains 511 race-like records but is not an election manifest. Four
+records are outside valid 2026 scope:
 
-| Window | Discovery / core-refresh work | Issue work |
+| Race ID | Production state | Disposition |
 | --- | --- | --- |
-| Aug. 15–17 | Finish the Hawaii and Aug. 11 cohorts (AL House 1/2/6/7, CT, MN, VT, WI) once results settle. | Only races whose post-primary core refresh has passed review. |
-| Aug. 19–31 | Process Alaska, Florida, and Wyoming after the Aug. 18 primary; process Oklahoma only after the Aug. 25 runoff and applicable withdrawal window. | Continue small, demand-ranked cohorts from reviewed races. |
-| Sep. 1–18 | Process MA (Sep. 1), NH (Sep. 8), RI (Sep. 9), and DE (Sep. 15) after official results/finalization. | Main September campaign: work through the eligible issue queue in small cohorts. |
-| Sep. 21–Oct. 16 | Clear discovery exceptions; do not start issue work for a race with an unresolved field. | Finish competitive gaps first, then likely/open-seat demand. Record named blockers instead of silently skipping them. |
-| Oct. 17–Nov. 6 | Read-only catalog check and only material roster corrections. For Louisiana or any special election, use its election authority's current ballot/result schedule rather than a generic primary rule. | No broad new campaign; only voter-demand, roster-change, or correction work. |
+| `nd-senate-2026` | Cancelled; no artifact | Retire; the seat is Class III. |
+| `vt-senate-2026` | Cancelled; no artifact | Retire; the seat is Class III. |
+| `ut-governor-2026` | Cancelled; no artifact | Retire; no regular 2026 contest. |
+| `ut-senate-2026` | **Published** with reviewed issues | Unpublish/retire; the seat is Class III. |
 
-Run the tracker after each listed election event and weekly during September.
+The [Senate Class III roster](https://www.senate.gov/senators/Class_III.htm)
+places John Hoeven, Peter Welch, and Mike Lee in terms ending in 2029; the
+[Class II roster](https://www.senate.gov/senators/Class_II.htm) is the regular
+2026 cycle. [Utah's official filings](https://vote.utah.gov/2026-candidate-filings/)
+list no U.S. Senate or governor contest. The three empty records are not missing
+research; `ut-senate-2026` is a published data-quality incident.
 
-## The live tracker
+`ar-supreme-court-2026` is real, published, and validated. “Every race” means
+the validated 507-race product scope, not every state/local election nationally.
 
-At the beginning of each session, run the following read-only tools:
+## Current position
 
-1. `audit_issue_research_readiness(include_rows=true, include_schedule=true,
-   traffic_hours=168)` for the catalog inventory, repair workstream, current
-   issue gaps, demand, priority queue, and cost ceiling.
-2. `list_active_runs()` and `get_queue(active_only=true)` for work already in
-   flight. Do not queue a race that appears in either result.
-3. `get_race_data(race_id, draft=true)` for any race about to be queued or
-   declared complete.
+| Valid-scope measure | Count | View |
+| --- | ---: | --- |
+| Covered and published races | 507 | Reconciled scope |
+| Candidates / issue slots | 1,528 / 18,336 | Latest repair artifact |
+| Terminal / missing issue slots | 4,334 / 14,002 | Latest repair artifact |
+| Races still needing issue work | 416 | Latest repair artifact |
+| Competitive / competitive issue gaps | 81 / 44 | Rating + latest repair |
+| Incomplete stored roster evidence | 227 | Latest repair artifact |
+| Passing stored validation | 115 | Latest repair artifact |
+| Validated / discovery-only / partial | 114 / 392 / 1 | Published catalog |
+| Active runs / queue | 0 / 0 | Live pipeline state |
 
-Treat the audit rows as the tracker. Filter or group them using this status
-model:
+Office composition:
 
-| Status | Meaning | Next action |
+| Office | Races | Candidates | Competitive | Published validated |
+| --- | ---: | ---: | ---: | ---: |
+| U.S. House | 435 | 1,250 | 65 | 63 |
+| Governor | 36 | 128 | 10 | 16 |
+| U.S. Senate | 35 | 152 | 6 | 34 |
+| Arkansas Supreme Court | 1 | 2 | 0 | 1 |
+
+The $1,192.98 all-gap repair ceiling prices broad stored candidate fields. It
+is not expected spend. Settle each roster and re-plan before reserving money.
+
+## Demand and cost findings
+
+Traffic is a ranking signal, never a readiness gate or sole reason to spend.
+
+| Signal | Audited result |
+| --- | --- |
+| Cloudflare, 7 days | 5,659 pageviews; 4,829 mapped to valid races |
+| Cloudflare, 30 days | 20,480 pageviews; 15,730 mapped to valid races |
+| Bing, Jun. 16-Aug. 17 | 4,104 clicks / 105,730 impressions / 3.88% CTR |
+| Google, May 17-Aug. 16 | 134 clicks / 4,022 impressions |
+
+Bing produced 1,126 clicks in the latest seven days, up 13.9% from 989. Its
+latest 30 days produced 3,614 clicks versus 485 in the preceding 30 days.
+Cloudflare's 30-day response is about 98% desktop, 95% direct, and 1.0 page per
+visit, so it may include bots or analytics aggregation. Require another signal
+(search landing-page activity, API demand, or competitiveness) before traffic
+overrides issue priority.
+
+Latest 500-run/metric join:
+
+| Workflow | Runs | Average | Median | Maximum | Healthy |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Standalone discovery | 103 | $0.242 | $0.104 | $2.171 | 49% |
+| Discovery with core steps | 173 | $0.112 | $0.075 | $0.722 | 80% |
+| Full reviewed issues | 15 | $0.678 | $0.648 | $1.559 | 53% |
+| Full reviewed, 2 candidates | 4 | $0.433 | $0.417 | $0.551 | 75% |
+| Full reviewed, 3 candidates | 6 | $0.592 | $0.591 | $0.708 | 67% |
+| Full reviewed, 4+ candidates | 5 | $0.979 | $0.934 | $1.559 | 20% |
+
+Discovery is not ready for a broad batch. Waiting for narrowed rosters reduces
+issue cost and failure risk: the current 44 competitive gaps project to roughly
+**$26.40** at a conservative $0.60 two-candidate rate. Partial issue workflows
+are not completion evidence because they omit review/iteration.
+
+The cost service reports $108.23 in the last 30 days and $215.53 lifetime, but
+its `cheap`/`full` split is model mode, not workflow. GCP infrastructure spend
+is unknown because the billing-export dataset is missing/unreadable.
+
+## Priority and schedule
+
+Ready work is ordered by:
+
+1. stable official result;
+2. tossup, tilt, then lean;
+3. corroborated demand within a rating;
+4. lower-cost two-candidate fields when otherwise tied.
+
+The leading seven-day Cloudflare race pages are `fl-governor-2026` (1,057),
+`ca-house-05-2026` (387), `fl-house-25-2026` (310), `fl-house-22-2026`
+(266), `fl-house-13-2026` (261), `ak-governor-2026` (222), and
+`fl-house-07-2026` (206). Florida/Alaska are the first result-check cohort;
+`fl-house-13-2026` is the strongest current issue-gap candidate once settled.
+
+Dates trigger checks, not automatic runs:
+
+| Window | Discovery/core | Issues |
 | --- | --- | --- |
-| `awaiting_primary_result` | The relevant primary has not produced an official settled result. | Wait; record the official result URL when available. |
-| `ready_for_discovery` | Official result is verified externally and no run is active. | Queue the post-primary core refresh. |
-| `discovery_running` | In `list_active_runs` or active queue. | Monitor; do not duplicate it. |
-| `needs_roster_resolution` | Audit workstream is `roster_then_issue_research`, or draft evidence is incomplete. | Run/review discovery before issue work. |
-| `ready_for_issues` | Discovery is reviewed, roster is credible, and no run is active. | Rank by demand and queue the combined issue run. |
-| `issue_research_running` | In flight. | Monitor and review its draft after completion. |
-| `complete` | Discovery or issue run has passed the relevant draft review gate. | Keep in the normal refresh cycle. |
-| `manual_review` | Missing artifact, failed grade, contradictory result, or other exception. | Resolve before spending more. |
+| Now-Aug. 24 | Hold paid work; verify HI, AL/CT/MN/VT/WI, then AK/FL/WY results. | Select two pilot races only. |
+| Aug. 25-31 | Check OK/applicable special runoffs; require credentials, admission guard, and cost fix. | Run the two-race pilot only with approval. |
+| Sep. 1-18 | Process MA, NH, RI, and DE after stable results. | Competitive cohorts of at most five. |
+| Sep. 19-Oct. 16 | Finish discovery exceptions. | Finish competitive gaps, then corroborated high demand. |
+| Oct. 17-Nov. 2 | Material corrections only. | Newly competitive/demanded/corrective only. |
+| Nov. 3-Dec. 12 | Handle Louisiana's open election/runoff after the applicable event. | Avoid broad fields unless demand justifies them. |
 
-The tracker needs one human-input field: **official primary result URL and
-checked date**. The MCP audit deliberately returns `primary_result_verified:
-false`; it has stored race evidence but cannot establish that an election
-authority has certified a nominee. Do not turn that field true by inference
-from a forecast, media report, or a completed pipeline run.
+Verify dates with [NCSL](https://www.ncsl.org/elections-and-campaigns/2026-state-primary-election-dates),
+the [FEC calendar](https://www.fec.gov/resources/cms-content/documents/2026pdates.pdf),
+and the relevant state authority.
 
-## Post-primary core refresh: event-driven and cheap
+## Stable-result and spend gates
 
-Run discovery as soon as the relevant primary outcome is official enough to
-settle the general-election field. For states with runoff, ranked-choice, or
-other delayed finalization, wait for the contest that actually determines the
-advancing candidate(s). Louisiana-style all-party general elections are an
-exception: use the current general-election field rather than inventing a
-primary gate.
+Discovery is ready only when an official exact-contest source shows every
+advancing candidate, unresolved counts/runoffs cannot change the field, and the
+roster is unchanged across two checks at least six hours apart. Persist the URL,
+times, normalized names, event/date fingerprint, and operator. A changed
+fingerprint or degraded run goes to manual review; it does not auto-retry.
 
-For the normal post-primary cohort, use the canonical low-cost
-`refresh_race_core` tool. It runs discovery in the correct sequence with images,
-polling, forecast, and voter resources, so the roster change and voter-facing
-maintenance stay together. This is the intended roughly $0.09/race core run.
+After the hold:
 
-Use a standalone discovery run only for an urgent roster correction where the
-other core data is known-good and refreshing it would be needless work:
+- Discovery/core target: **at or below $0.10/race**; alert above $0.15 and stop
+  the cohort if any run exceeds $0.25.
+- Full issues for a settled two-candidate field: plan at $0.60, alert above
+  $0.75, and stop/degrade at $1.25 unless overridden.
+- Run two representative pilots first; both must pass roster, health, validation,
+  and cost gates. Review every later cohort of at most five.
+- Count failed/cancelled spend and classify workflow from `enabled_steps`.
 
-```text
-queue_races(
-  race_ids=[...],
-  enabled_steps=["discovery"],
-  baseline_source="published"
-)
-```
+| Envelope | Cap |
+| --- | ---: |
+| All-race post-primary discovery/core | $65 |
+| Remaining competitive issues | $50 |
+| Corrections/reviewed retries | $35 |
+| Demand-led expansion | $40 |
+| Uncommitted reserve | $110 |
+| **Total ceiling** | **$300** |
 
-Do not use `force_fresh=true` for normal roster settlement; it discards usable
-evidence.
+Show `current_field_ceiling`, `post_primary_scenario_estimate`, and observed
+cost separately. The $300 is a ceiling, not a target.
 
-After completion, inspect `get_race_data(..., draft=true)`. A finished queue
-item is not enough: confirm the exact contest, candidates, candidate summaries,
-and roster sources are credible, and confirm `validation_grade.passed` where a
-grade is present. Put unresolved evidence, no-candidate results, or
-contradictory rosters in `manual_review`.
+## API, MCP, and admin work
 
-## September issue-research workflow
+Build in this order:
 
-Only start issue work after discovery is reviewed. Each session:
+1. **Coverage/event manifest and admission guard.** Store race ID, cycle,
+   office, event type/date, primary/runoff date, official source, disposition,
+   and sourced special-election override. Queue/research/publish reject IDs
+   outside it. Today `queue_races` validates only syntax and can create a race.
+2. **Result checkpoints.** Add protected writes and cached reads for official
+   checks and fingerprints. Checkpoint writes never queue work.
+3. **Canonical status read.** Join manifest, checkpoint, active work, published
+   health, latest repair gaps, rating, separate demand signals, and program
+   spend. Every field declares `manifest`, `published`, `draft`, or `latest`
+   provenance.
+4. **MCP.** Add read-only `get_research_program_status` and explicit
+   `record_research_result_checkpoint`; internalize pagination and the valid
+   denominator. Keep `refresh_race_core` as the canonical run operation.
+5. **Admin.** Add coverage validity, result/discovery/issue states, event date,
+   blockers, candidates, estimates, actual spend, provenance, filters, and a
+   checkpoint editor to Races. Add envelope/cohort cost controls to Costs.
+6. **Metrics.** Classify by steps, include failed/cancelled spend, configure GCP
+   billing export, and keep Cloudflare/Bing/Google/API demand separate.
 
-1. Start with `audit_issue_research_readiness(..., include_schedule=true)`.
-   Its `issue_queue` orders eligible gaps by competitiveness and observed demand
-   (page views plus API requests in the selected time window).
-2. Remove rows that are awaiting official results, need roster resolution, are
-   already active, or have failed draft review.
-3. Use `plan_repairs(race_ids)` on the intended small cohort to verify the
-   workstream and its maximum estimated cost before spending.
-4. Queue the full, reviewed issue bundle—not `issues` alone:
+The admin catalog currently exposes no `contest_stage`, `election_stage`,
+`primary_date`, or `event_type`. `scan_catalog` reads published/admin health;
+`audit_issue_research_readiness` uses latest repair artifacts but combines them
+with catalog metadata. Their validation/roster/issue counts diverge when drafts
+exist. The canonical status endpoint must not silently mix those views.
 
-```text
-queue_races(
-  race_ids=[...],
-  enabled_steps=[
-    "issues", "finance", "refinement", "polling", "forecast",
-    "voter_resources", "review", "iteration"
-  ],
-  baseline_source="latest"
-)
-```
+Required lifecycle:
 
-Run small sequential cohorts, then review drafts before taking the next cohort.
-This keeps September demand-driven while retaining a clear path to full catalog
-coverage. Use `baseline_source="published"` only when intentionally discarding
-the latest draft.
-
-## MCP data-quality boundaries
-
-The tools are useful, but their sources and limits differ:
-
-| Tool | Reliable for | Do not use it to decide |
+| Discovery | Issues | Action |
 | --- | --- | --- |
-| `audit_issue_research_readiness` | Stored roster/issue gaps, deterministic repair plans, demand ranking | Whether a primary result is official or a draft is publishable |
-| `plan_repairs` | Read-only workstream and bounded cost estimate | Queueing, completion, or publication |
-| `list_active_runs` + `get_queue(active_only=true)` | Current pipeline work and duplicate-work avoidance | Draft quality |
-| `get_race_data(draft=true)` | The draft actually produced by a run | Election certification |
-| `assess_publish_readiness` | A later publication decision | Discovery completion by itself |
-| `recheck_all_races` | Catalog reconciliation | A harmless tracker refresh—it mutates catalog status |
+| `waiting_event` / `stabilizing` | `blocked_roster` | Check result |
+| `ready` | `blocked_roster` | Eligible for authorized core refresh |
+| `queued` / `running` | `blocked_roster` | Monitor; never duplicate |
+| `review_required` | `blocked_roster` | Review evidence, health, and cost |
+| `complete` | `ready` | Eligible for authorized issues |
+| `complete` | issue lifecycle | Queue/monitor/review issues |
+| `manual_review` | `manual_review` | Resolve named exception |
 
-Demand data is optional and should never block the roster/issue audit. The
-analytics API now returns a neutral `requests` count for the requested `hours`
-window; the historical `requests_24h` field remains only as a compatibility
-alias. MCP reads the neutral field first and accepts the alias from older API
-deployments. Therefore a 168-hour audit ranks on 168-hour API demand, not a
-mislabelled 24-hour number.
+Until this ships, use the read-only issue audit, all `scan_catalog` pages,
+active runs/queue, and an official result check. `recheck_all_races` mutates
+state and is not a tracker read.
 
-## Completion rules
-
-Discovery is complete only when the official-result check is recorded, no run
-is active, and the reviewed draft has a credible exact-contest roster. Issue
-research is complete only when discovery is complete and the combined run's
-draft passes review, including actual issue content and populated finance where
-applicable. Publication remains a separate, explicit decision.
-
-Re-run the read-only tracker weekly during September and after every primary
-result. The resulting rows—not this document—are the current count of work
-remaining.
+The program is complete when all 507 manifest races have a disposition, every
+applicable race has reviewed discovery matching its stable fingerprint, every
+then-current competitive race has reviewed complete issues, exceptions are
+resolved/accepted, and attributable spend is at or below $300.

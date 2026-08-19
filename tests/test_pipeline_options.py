@@ -21,6 +21,8 @@ from shared.pipeline_options import PipelineRunOptions, ResolvedPipelineRunOptio
 def test_resume_partial_defaults_false_and_is_explicitly_available():
     assert ResolvedPipelineRunOptions().resume_partial is False
     assert ResolvedPipelineRunOptions(resume_partial=True).resume_partial is True
+    assert ResolvedPipelineRunOptions().allow_fast_no_change is False
+    assert ResolvedPipelineRunOptions(allow_fast_no_change=True).allow_fast_no_change is True
 
 
 def test_normalize_pipeline_steps_none_passthrough():
@@ -178,6 +180,7 @@ def test_resolved_pipeline_run_options_applies_execution_defaults():
     assert resolved.cheap_mode is True
     assert resolved.save_artifact is True
     assert resolved.force_fresh is False
+    assert resolved.allow_fast_no_change is False
     assert resolved.baseline_source == "latest"
     assert resolved.target_no_info is False
 

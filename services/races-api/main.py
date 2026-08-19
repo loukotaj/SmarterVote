@@ -58,6 +58,7 @@ from routers import pipeline as pipeline_router_module
 from routers import queue as queue_router_module
 from routers import race_versions as race_versions_router_module
 from routers import races_admin as races_admin_router_module
+from routers import research_program as research_program_router_module
 from routers import runs as runs_router_module
 from simple_publish_service import SimplePublishService
 from slowapi import _rate_limit_exceeded_handler
@@ -152,6 +153,7 @@ app.include_router(runs_router_module.router)
 app.include_router(races_admin_router_module.router)
 app.include_router(race_versions_router_module.router)
 app.include_router(pipeline_router_module.router)
+app.include_router(research_program_router_module.router)
 
 # ---------------------------------------------------------------------------
 # Payment routers (public checkout + webhook)

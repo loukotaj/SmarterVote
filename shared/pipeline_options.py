@@ -22,6 +22,7 @@ class PipelineRunOptions(BaseModel):
     note: Optional[str] = None
     goal: Optional[str] = None
     force_fresh: Optional[bool] = None
+    allow_fast_no_change: Optional[bool] = None
     baseline_source: Optional[Literal["latest", "published"]] = None
     resume_partial: Optional[bool] = None
     research_model: Optional[str] = None
@@ -86,6 +87,7 @@ class ResolvedPipelineRunOptions(PipelineRunOptions):
     cheap_mode: bool = True
     save_artifact: bool = True
     force_fresh: bool = False
+    allow_fast_no_change: bool = False
     baseline_source: Literal["latest", "published"] = "latest"
     resume_partial: bool = False
     target_no_info: bool = False

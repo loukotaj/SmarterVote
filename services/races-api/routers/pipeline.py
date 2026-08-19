@@ -11,6 +11,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from starlette.concurrency import run_in_threadpool
 
 from shared.config import FIRESTORE_METRICS_COLLECTION, FIRESTORE_RUNS_COLLECTION
+from shared.pipeline_config import PIPELINE_STEP_ORDER
 
 router = APIRouter()
 
@@ -33,10 +34,42 @@ def _as_int(value: Any, default: int = 0) -> int:
         return default
 
 
+def _workflow_name(options: Dict[str, Any]) -> str:
+    steps = options.get("all_enabled_steps") or options.get("enabled_steps")
+    if not isinstance(steps, list) or not steps:
+        return "unknown"
+    normalized = {str(step) for step in steps}
+    if normalized == set(PIPELINE_STEP_ORDER):
+        return "full"
+    if normalized == {"discovery"}:
+        return "discovery"
+    if "issues" in normalized:
+        return "issues"
+    core = {"discovery", "images", "polling", "forecast", "voter_resources"}
+    if normalized.issubset(core) and "discovery" in normalized:
+        return "refresh_core"
+    return "targeted"
+
+
+def _merge_run_metric(run_record: Dict[str, Any], metric_record: Dict[str, Any]) -> Dict[str, Any]:
+    """Prefer metric costs while retaining workflow metadata from the run."""
+    merged = {**run_record, **metric_record}
+    for field in ("race_id", "enabled_steps", "workflow", "model_profile", "cheap_mode", "candidate_count"):
+        value = run_record.get(field)
+        if value not in (None, "", [], {}):
+            merged[field] = value
+    return merged
+
+
 def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[str, Any]:
     """Project heterogeneous pipeline_runs docs into a stable dashboard schema."""
     payload = raw.get("payload") if isinstance(raw.get("payload"), dict) else {}
-    options = raw.get("options") if isinstance(raw.get("options"), dict) else {}
+    if isinstance(raw.get("options"), dict):
+        options = raw["options"]
+    elif isinstance(payload.get("options"), dict):
+        options = payload["options"]
+    else:
+        options = {}
     if isinstance(raw.get("agent_metrics"), dict):
         agent_metrics = raw["agent_metrics"]
     elif isinstance(payload.get("agent_metrics"), dict):
@@ -107,6 +140,8 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
         if duration_ms > 0:
             duration_s = round(duration_ms / 1000.0, 2)
 
+    workflow_steps = options.get("all_enabled_steps") or options.get("enabled_steps")
+
     return {
         "run_id": run_id,
         "race_id": race_id,
@@ -144,6 +179,8 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
             _as_int(agent_metrics.get("token_budget_nudges"), 0),
         ),
         "model_profile": options.get("model_profile"),
+        "enabled_steps": workflow_steps if isinstance(workflow_steps, list) else None,
+        "workflow": str(raw.get("workflow") or _workflow_name(options)),
     }
 
 
@@ -297,7 +334,7 @@ def _load_summary_firestore_records(
         docs = db.collection(FIRESTORE_RUNS_COLLECTION).limit(5000).stream()
         for doc in docs:
             plain = firestore_helpers._doc_to_plain(doc)
-            if plain is not None and _has_pipeline_cost_data(plain):
+            if plain is not None:
                 record = _normalize_pipeline_run(plain, doc.id)
                 run_records[str(record["run_id"])] = record
         run_query_ok = True
@@ -346,7 +383,7 @@ async def get_pipeline_metrics(limit: int = 50) -> Dict[str, Any]:
         key=lambda item: _to_epoch_seconds(item[1].get("timestamp")),
         reverse=True,
     ):
-        merged = {**run_record, **metric_records.get(run_id, {})}
+        merged = _merge_run_metric(run_record, metric_records.get(run_id, {}))
         if run_record.get("serper_calls") and not merged.get("serper_calls"):
             merged["serper_calls"] = run_record["serper_calls"]
         if run_record.get("duration_s") and not merged.get("duration_s"):
@@ -398,7 +435,7 @@ async def get_pipeline_metrics_summary(hours: Optional[int] = None) -> Dict[str,
     else:
         records = []
         for run_id in set(run_records) | set(metric_records):
-            records.append({**run_records.get(run_id, {}), **metric_records.get(run_id, {})})
+            records.append(_merge_run_metric(run_records.get(run_id, {}), metric_records.get(run_id, {})))
 
     if hours is not None and hours > 0:
         cutoff = datetime.now(timezone.utc).timestamp() - hours * 3600

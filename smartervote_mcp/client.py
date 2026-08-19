@@ -93,6 +93,9 @@ class RacesApiClient:
     async def post(self, path: str, *, json: dict[str, Any] | None = None) -> Any:
         return await self.request("POST", path, json=json)
 
+    async def put(self, path: str, *, json: dict[str, Any] | None = None) -> Any:
+        return await self.request("PUT", path, json=json)
+
     async def delete(self, path: str, *, params: dict[str, Any] | None = None) -> Any:
         return await self.request("DELETE", path, params=params)
 

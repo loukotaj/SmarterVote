@@ -92,7 +92,9 @@ test("race detail and comparison routes render structured fallback data", async 
 }) => {
   await page.goto("/races/sample-race/");
   await expect(
-    page.getByRole("heading", { name: "Sample State U.S. Senate Race 2025" }),
+    page.getByRole("heading", {
+      name: "2025 Sample State U.S. Senate Election",
+    }),
   ).toBeVisible();
   await expect(page.getByRole("heading", { name: "Candidates" })).toBeVisible();
   await expect(

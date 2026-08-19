@@ -22,12 +22,10 @@ function escapeXml(value) {
     .replaceAll("'", "&apos;");
 }
 
-function urlEntry(loc, lastmod, changefreq, priority) {
+function urlEntry(loc, lastmod) {
   const lines = ["  <url>", `    <loc>${escapeXml(loc)}</loc>`];
   if (lastmod)
     lines.push(`    <lastmod>${escapeXml(lastmod.slice(0, 10))}</lastmod>`);
-  lines.push(`    <changefreq>${changefreq}</changefreq>`);
-  lines.push(`    <priority>${priority}</priority>`);
   lines.push("  </url>");
   return lines.join("\n");
 }
@@ -67,45 +65,26 @@ try {
   races = await res.json();
 }
 const entries = [
-  urlEntry(`${SITE_URL}/`, new Date().toISOString(), "weekly", "1.0"),
-  urlEntry(`${SITE_URL}/elections/`, new Date().toISOString(), "weekly", "0.9"),
-  urlEntry(`${SITE_URL}/forecast/`, new Date().toISOString(), "weekly", "0.9"),
-  urlEntry(`${SITE_URL}/my-ballot/`, new Date().toISOString(), "weekly", "0.9"),
-  urlEntry(`${SITE_URL}/about/`, new Date().toISOString(), "monthly", "0.8"),
-  urlEntry(`${SITE_URL}/support/`, new Date().toISOString(), "monthly", "0.7"),
-  urlEntry(`${SITE_URL}/partners/`, new Date().toISOString(), "monthly", "0.7"),
-  urlEntry(
-    `${SITE_URL}/corrections/`,
-    new Date().toISOString(),
-    "monthly",
-    "0.6",
-  ),
-  urlEntry(
-    `${SITE_URL}/funding-and-editorial-independence/`,
-    new Date().toISOString(),
-    "monthly",
-    "0.7",
-  ),
-  urlEntry(`${SITE_URL}/privacy/`, new Date().toISOString(), "yearly", "0.5"),
-  urlEntry(`${SITE_URL}/terms/`, new Date().toISOString(), "yearly", "0.5"),
+  urlEntry(`${SITE_URL}/`),
+  urlEntry(`${SITE_URL}/elections/`),
+  urlEntry(`${SITE_URL}/forecast/`),
+  urlEntry(`${SITE_URL}/my-ballot/`),
+  urlEntry(`${SITE_URL}/about/`),
+  urlEntry(`${SITE_URL}/support/`),
+  urlEntry(`${SITE_URL}/partners/`),
+  urlEntry(`${SITE_URL}/corrections/`),
+  urlEntry(`${SITE_URL}/funding-and-editorial-independence/`),
+  urlEntry(`${SITE_URL}/privacy/`),
+  urlEntry(`${SITE_URL}/terms/`),
 ];
 
 for (const race of races) {
-  entries.push(
-    urlEntry(
-      `${SITE_URL}/races/${race.id}/`,
-      race.updated_utc,
-      "weekly",
-      "0.9",
-    ),
-  );
+  entries.push(urlEntry(`${SITE_URL}/races/${race.id}/`, race.updated_utc));
   for (const candidate of race.candidates ?? []) {
     entries.push(
       urlEntry(
         `${SITE_URL}/races/${race.id}/${candidateSlug(candidate.name)}/`,
         race.updated_utc,
-        "weekly",
-        "0.7",
       ),
     );
   }

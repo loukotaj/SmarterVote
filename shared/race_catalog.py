@@ -364,6 +364,7 @@ def build_race_summary_fields(race_id: str, race_data: Dict[str, Any]) -> Dict[s
         "office": race_data.get("office"),
         "jurisdiction": race_data.get("jurisdiction"),
         "state": race_data.get("state"),
+        "contest_stage": race_data.get("contest_stage", "unknown"),
         "election_date": race_data.get("election_date"),
         "updated_utc": updated_utc,
         "candidates": candidates,
@@ -381,6 +382,7 @@ def build_versioned_catalog_fields(prefix: str, race_data: Dict[str, Any]) -> Di
     updated_utc = race_data.get("updated_utc")
     return {
         f"{prefix}_updated_utc": updated_utc,
+        f"{prefix}_contest_stage": race_data.get("contest_stage", "unknown"),
         f"{prefix}_candidate_count": len(candidates),
         f"{prefix}_quality_grade": extract_quality_grade(race_data),
         f"{prefix}_catalog_health": build_catalog_health(race_data),

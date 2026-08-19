@@ -87,6 +87,10 @@ The admin dashboard should target `services/races-api`.
 | POST   | `/api/races/{race_id}/publish`                              | Publish a race                                   |
 | POST   | `/api/races/{race_id}/unpublish`                            | Unpublish a race                                 |
 | POST   | `/api/races/publish`                                        | Batch publish drafts                             |
+| GET    | `/api/research/manifest`                                    | Authoritative 2026 race/event coverage manifest |
+| GET    | `/api/research/status`                                      | Provenance-safe research status and spend        |
+| GET    | `/api/research/checkpoints/{race_id}`                       | Read official result checkpoint                 |
+| PUT    | `/api/research/checkpoints/{race_id}`                       | Record official result evidence                 |
 | GET    | `/api/races/{race_id}/data?draft=true`                      | Get draft or published JSON                      |
 | GET    | `/api/races/{race_id}/versions`                             | List retired versions                            |
 | GET    | `/api/races/{race_id}/versions/{filename}`                  | Read a retired version JSON file                 |
@@ -124,6 +128,22 @@ Initial population is handled by the existing admin recheck flow. After deploy, 
 existing Firestore race docs plus known GCS draft/published race IDs, hydrates catalog metadata from storage, and
 creates missing `races/{race_id}` documents when a race already exists in GCS.
 
+The 2026 research program is manifest-first rather than catalog-first. The
+committed `shared/data/research_manifest_2026.json` defines the expected 507
+contests and their official primary/runoff schedule. Firestore
+`research_checkpoints/{race_id}` stores operator-attributed result evidence,
+including two checks at least six hours apart before a result can be marked
+stable. `/api/research/status` joins those sources to the race catalog and
+deduplicated pipeline run/metric records. Published and draft artifact health
+remain separate fields; the response never presents an unlabeled blend as
+canonical.
+
+The manifest is the default write allowlist. Queue, direct-run, and publish
+writes require either manifest membership or an active coverage override with
+an official source, reason, and approver. Known exclusions always return the
+specific audited reason. Read, delete, cancel, and reconciliation routes are not
+subject to admission, so the guard cannot strand an existing record.
+
 ## Published-data API Surface
 
 | Method | Path                       | Purpose                                                   |
@@ -155,7 +175,7 @@ result for the admin dashboard. API request analytics remain separate and descri
 The public SvelteKit site separates product introduction from race discovery:
 
 - `/` is the editorial homepage. It demonstrates the research experience, shows selected national-election content and editorial standards, and links into the ballot lookup and directory; it does not collect an address.
-- `/my-ballot/` is the focused address lookup and in-page national-election result flow. It is prerendered for direct navigation but excluded from search indexing and the sitemap.
+- `/my-ballot/` is the focused address lookup and in-page national-election result flow. It is prerendered, indexable, and included in the sitemap as a useful public election-discovery page.
 - `/elections/` is the browse and filtering surface for published election research. Current launch coverage includes supported U.S. House, U.S. Senate, presidential, and gubernatorial races.
 - `/races/{slug}/` and its candidate and comparison subroutes remain the detailed research surfaces.
 - `/about/` publishes the project's identity and research methodology; `/methodology/` redirects to that section. `/corrections/`, `/privacy/`, `/terms/`, and `/funding-and-editorial-independence/` publish the correction, privacy, legal, and editorial-independence statements.

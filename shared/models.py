@@ -457,8 +457,10 @@ class RosterResearchAudit(BaseModel):
     """Evidence used to atomically finalize the active candidate roster."""
 
     finalized_at: datetime
+    contest_stage: ContestStage = ContestStage.UNKNOWN
     summary: str = ""
     active_candidate_count: int
+    candidate_names: List[str] = Field(default_factory=list)
     completeness_sources: List[CandidateRosterSource] = Field(default_factory=list)
     completeness_status: Optional[Literal["unproven"]] = None
     completeness_note: Optional[str] = None
@@ -481,6 +483,7 @@ class PipelineState(BaseModel):
     remaining_candidates: List[str] = Field(default_factory=list)
     remaining_steps: List[str] = Field(default_factory=list)
     completed_units: List[str] = Field(default_factory=list)
+    skipped_units: List[str] = Field(default_factory=list)
     issue_attempts: Dict[str, int] = Field(default_factory=dict)
     issue_research: Dict[str, IssueResearchAudit] = Field(default_factory=dict)
     step_failures: List[StepFailure] = Field(default_factory=list)

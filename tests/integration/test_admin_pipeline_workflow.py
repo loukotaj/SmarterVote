@@ -22,7 +22,7 @@ def test_admin_queue_failure_retry_and_publish_is_local_only(monkeypatch):
     """Exercise the operational happy path without cloud or provider calls."""
     monkeypatch.setenv("SKIP_AUTH", "true")
     monkeypatch.setenv("PIPELINE_DEFAULT_RUNNER", "local")
-    race_id = "az-senate-2026"
+    race_id = "ga-senate-2026"
     race_state: dict = {}
     queue_items: list[dict] = []
 
@@ -47,7 +47,7 @@ def test_admin_queue_failure_retry_and_publish_is_local_only(monkeypatch):
 
     draft = {
         "race_id": race_id,
-        "title": "Arizona Senate 2026",
+        "title": "Georgia Senate 2026",
         "updated_utc": "2026-07-18T00:00:00+00:00",
         "candidates": [{"name": "Example Candidate"}],
         "pipeline_state": {"status": "complete"},

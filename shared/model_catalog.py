@@ -133,8 +133,26 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     # One generation, three sizes, identical 1.05M context. Luna is the
     # cheapest model in the catalog that still scores above 50, which makes it
     # the workhorse for bounded judgment calls.
-    "openai/gpt-5.6-luna": ModelSpec("openai/gpt-5.6-luna", "GPT-5.6 Luna", 0.10, 0.60, 0.01, 1_050_000, 51.2, 128_000),
-    "openai/gpt-5.6-terra": ModelSpec("openai/gpt-5.6-terra", "GPT-5.6 Terra", 1.00, 6.00, 0.10, 1_050_000, 55.0, 128_000),
+    "openai/gpt-5.6-luna": ModelSpec(
+        "openai/gpt-5.6-luna",
+        "GPT-5.6 Luna",
+        0.10,
+        0.60,
+        0.01,
+        1_050_000,
+        51.2,
+        128_000,
+    ),
+    "openai/gpt-5.6-terra": ModelSpec(
+        "openai/gpt-5.6-terra",
+        "GPT-5.6 Terra",
+        1.00,
+        6.00,
+        0.10,
+        1_050_000,
+        55.0,
+        128_000,
+    ),
     "openai/gpt-5.6-sol": ModelSpec("openai/gpt-5.6-sol", "GPT-5.6 Sol", 5.00, 30.00, 0.50, 1_050_000, 58.9, 128_000),
     # --- DeepSeek ----------------------------------------------------------
     # The 0731 build is the reason the default profile is cheap. It scores
@@ -144,22 +162,57 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     # Pinned to the dated snapshot; the floating `deepseek-v4-flash` alias is
     # a different, older, dearer model.
     "deepseek/deepseek-v4-flash-0731": ModelSpec(
-        "deepseek/deepseek-v4-flash-0731", "DeepSeek V4 Flash (07-31)", 0.08, 0.18, 0.016, 1_048_576, 49.9, 384_000
+        "deepseek/deepseek-v4-flash-0731",
+        "DeepSeek V4 Flash (07-31)",
+        0.08,
+        0.18,
+        0.016,
+        1_048_576,
+        49.9,
+        384_000,
     ),
     # Confusingly, "Pro" scores *below* the newer Flash (44.3 against 49.9).
     # Kept only so an explicit override resolves to a real price.
     "deepseek/deepseek-v4-pro": ModelSpec(
-        "deepseek/deepseek-v4-pro", "DeepSeek V4 Pro", 1.168, 2.336, 0.09855, 1_048_576, 44.3, 393_216
+        "deepseek/deepseek-v4-pro",
+        "DeepSeek V4 Pro",
+        1.168,
+        2.336,
+        0.09855,
+        1_048_576,
+        44.3,
+        393_216,
     ),
     # --- Google ------------------------------------------------------------
     "google/gemini-3.1-flash-lite": ModelSpec(
-        "google/gemini-3.1-flash-lite", "Gemini 3.1 Flash Lite", 0.25, 1.50, 0.025, 1_048_576, 25.0, 65_536
+        "google/gemini-3.1-flash-lite",
+        "Gemini 3.1 Flash Lite",
+        0.25,
+        1.50,
+        0.025,
+        1_048_576,
+        25.0,
+        65_536,
     ),
     "google/gemini-3.5-flash-lite": ModelSpec(
-        "google/gemini-3.5-flash-lite", "Gemini 3.5 Flash Lite", 0.30, 2.50, 0.03, 1_048_576, 36.5, 65_536
+        "google/gemini-3.5-flash-lite",
+        "Gemini 3.5 Flash Lite",
+        0.30,
+        2.50,
+        0.03,
+        1_048_576,
+        36.5,
+        65_536,
     ),
     "google/gemini-3.6-flash": ModelSpec(
-        "google/gemini-3.6-flash", "Gemini 3.6 Flash", 1.50, 7.50, 0.15, 1_048_576, 50.1, 65_536
+        "google/gemini-3.6-flash",
+        "Gemini 3.6 Flash",
+        1.50,
+        7.50,
+        0.15,
+        1_048_576,
+        50.1,
+        65_536,
     ),
     # --- Anthropic ---------------------------------------------------------
     # Haiku 4.5 is old (2025-10-15) and weak, and it stays because it is the
@@ -167,13 +220,34 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     # three *different* houses more than it wants three strong models, and
     # dropping the Anthropic seat entirely would cost more than Haiku does.
     "anthropic/claude-haiku-4.5": ModelSpec(
-        "anthropic/claude-haiku-4.5", "Claude Haiku 4.5", 1.00, 5.00, 0.10, 200_000, 24.0, 64_000
+        "anthropic/claude-haiku-4.5",
+        "Claude Haiku 4.5",
+        1.00,
+        5.00,
+        0.10,
+        200_000,
+        24.0,
+        64_000,
     ),
     "anthropic/claude-sonnet-5": ModelSpec(
-        "anthropic/claude-sonnet-5", "Claude Sonnet 5", 2.00, 10.00, 0.20, 1_000_000, 53.4, 128_000
+        "anthropic/claude-sonnet-5",
+        "Claude Sonnet 5",
+        2.00,
+        10.00,
+        0.20,
+        1_000_000,
+        53.4,
+        128_000,
     ),
     "anthropic/claude-opus-5": ModelSpec(
-        "anthropic/claude-opus-5", "Claude Opus 5", 5.00, 25.00, 0.50, 1_000_000, 60.7, 128_000
+        "anthropic/claude-opus-5",
+        "Claude Opus 5",
+        5.00,
+        25.00,
+        0.50,
+        1_000_000,
+        60.7,
+        128_000,
     ),
     # --- xAI ---------------------------------------------------------------
     # Grok version strings sort by decimal, not integer: 4.20 (2026-03-31) is

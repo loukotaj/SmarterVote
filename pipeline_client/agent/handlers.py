@@ -1326,8 +1326,10 @@ def _make_editing_handlers(
         pipeline_state = race_json.setdefault("pipeline_state", {})
         pipeline_state["roster_research"] = {
             "finalized_at": datetime.now(timezone.utc).isoformat(),
+            "contest_stage": str(identity.get("contest_stage") or race_json.get("contest_stage") or "unknown"),
             "summary": summary,
             "active_candidate_count": len(active_candidates),
+            "candidate_names": [str(candidate.get("name") or "").strip() for candidate in active_candidates],
             "completeness_sources": completeness_sources,
         }
         log("info", f"    Finalized roster with {len(active_candidates)} active candidate(s): {summary}")
