@@ -126,6 +126,29 @@ def _gcs_archive_race(race_id: str, src_prefix: str, source_label: str) -> bool:
         return False
 
 
+def _gcs_archive_active_if_present(race_id: str, src_prefix: str, source_label: str) -> bool:
+    """Archive an active artifact, distinguishing absence from provider failure.
+
+    Returns ``False`` only when GCS is not configured or the source blob does
+    not exist. Provider/client failures raise so destructive callers can stop.
+    """
+    if not _GCS_BUCKET:
+        return False
+    client = _get_gcs_admin()
+    if client is None:
+        raise RuntimeError("GCS client is unavailable while archiving race data")
+    try:
+        bucket = client.bucket(_GCS_BUCKET)
+        src_blob = bucket.blob(f"{src_prefix}/{race_id}.json")
+        if not src_blob.exists():
+            return False
+        ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        bucket.copy_blob(src_blob, bucket, f"retired/{race_id}/{ts}-{source_label}.json")
+        return True
+    except Exception as exc:
+        raise RuntimeError(f"Unable to archive {src_prefix}/{race_id}.json") from exc
+
+
 def _gcs_list_versions(race_id: str) -> List[Dict[str, Any]]:
     """List retired versions for a race from GCS."""
     if not _GCS_BUCKET:

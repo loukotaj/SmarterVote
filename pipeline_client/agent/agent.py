@@ -637,6 +637,7 @@ async def run_agent(
     target_no_info: bool = False,
     candidate_names: Optional[List[str]] = None,
     goal: Optional[str] = None,
+    allow_fast_no_change: bool = False,
     resume_partial: bool = False,
     continue_incomplete_work: bool = False,
     reject_empty_candidates: bool = False,
@@ -680,6 +681,9 @@ async def run_agent(
     resume_partial : bool
         When True, issue research skips candidate/issue stances already present
         in existing_data. Used by Cloud Function continuation handoff.
+    allow_fast_no_change : bool
+        When True, evidence-backed update phases may stop after a bounded
+        current search confirms that no material change is apparent.
     """
     option_models = resolve_run_models(
         {"model_profile": model_profile, "model_overrides": model_overrides or {}},
@@ -782,6 +786,7 @@ async def run_agent(
             target_no_info=target_no_info,
             target_candidate_names=candidate_names,
             goal=goal,
+            allow_fast_no_change=allow_fast_no_change,
             resume_partial=resume_partial,
             continue_incomplete_work=continue_incomplete_work,
             run_budget=run_budget,
@@ -836,6 +841,7 @@ async def run_agent(
     pipeline_state.setdefault("remaining_candidates", [])
     pipeline_state.setdefault("remaining_steps", [])
     pipeline_state.setdefault("completed_units", [])
+    pipeline_state.setdefault("skipped_units", [])
     unfinished_research_steps = [step for step in pipeline_state["remaining_steps"] if step not in {"review", "iteration"}]
     if should_review and unfinished_research_steps:
         log(

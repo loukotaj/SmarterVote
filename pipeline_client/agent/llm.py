@@ -24,7 +24,14 @@ from .model_registry import MODEL_CATALOG, escalation_for, normalize_model_id
 from .roster_adjudicator import collect_roster_adjudications
 from .run_budget import RunBudget
 from .source_types import normalize_source_type
-from .tools import BALLOTPEDIA_ELECTION_TOOL, BALLOTPEDIA_TOOL, FETCH_TOOL, IMAGE_SEARCH_TOOL, SEARCH_TOOL
+from .tools import (
+    BALLOTPEDIA_ELECTION_TOOL,
+    BALLOTPEDIA_TOOL,
+    FETCH_TOOL,
+    FINISH_NO_CHANGES_TOOL,
+    IMAGE_SEARCH_TOOL,
+    SEARCH_TOOL,
+)
 from .utils import _extract_json, make_logger
 from .web_tools import _fetch_page, _page_fetch_log_hint, _serper_image_search, _serper_search
 
@@ -39,6 +46,31 @@ PROVIDER_ERROR_RETRIES = 2
 
 def _tool_result_is_error(result: Any) -> bool:
     return isinstance(result, str) and result.lstrip().casefold().startswith(("error:", "blocked", "failed"))
+
+
+def _parse_tool_arguments(raw: Any) -> Dict[str, Any]:
+    """Decode tool-call arguments, raising ValueError instead of crashing the phase.
+
+    Models truncate long tool payloads against ``max_tokens`` often enough that an
+    unguarded ``json.loads`` here has aborted whole phases (a forecast run died on
+    ``Expecting ',' delimiter``). Callers turn the ValueError into a tool result the
+    model can act on.
+    """
+    if raw is None:
+        return {}
+    if isinstance(raw, dict):
+        return dict(raw)
+    if not isinstance(raw, str):
+        raise ValueError(f"expected a JSON object, got {type(raw).__name__}")
+    if not raw.strip():
+        return {}
+    try:
+        parsed = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise ValueError(str(exc)) from exc
+    if not isinstance(parsed, dict):
+        raise ValueError(f"expected a JSON object, got {type(parsed).__name__}")
+    return parsed
 
 
 def _provider_usage_cost(usage: Any) -> Optional[float]:
@@ -466,6 +498,7 @@ async def _agent_loop(
     required_final_tool_name: str | None = None,
     required_final_instruction: str = "",
     escalate_on_tool_errors: bool = False,
+    allow_no_change_after_search: bool = False,
 ) -> Dict[str, Any]:
     """Run a single agent loop.
 
@@ -513,11 +546,15 @@ async def _agent_loop(
     fetched_urls: set[str] = set()
     tool_trace = {
         "search_calls": 0,
+        "web_search_calls": 0,
         "page_fetches": 0,
         "editing_calls": 0,
         "token_budget_reached": False,
         "max_iterations_reached": False,
         "required_final_tool_succeeded": False,
+        "no_change_confirmed": False,
+        "no_change_reason": None,
+        "no_change_evidence_url": None,
     }
 
     for iteration in range(max_iterations):
@@ -578,7 +615,11 @@ async def _agent_loop(
                 if allow_search_tools and not token_budget_reached and iteration < nudge_at
                 else []
             )
-            tools_for_call = search_tools + _extra_tools if (search_tools or _extra_tools) else None
+            no_change_available = (
+                allow_no_change_after_search and tool_trace["search_calls"] <= 1 and not tool_trace["editing_calls"]
+            )
+            phase_tools = _extra_tools + ([FINISH_NO_CHANGES_TOOL] if no_change_available else [])
+            tools_for_call = search_tools + phase_tools if (search_tools or phase_tools) else None
             if prepare_final_tool:
                 tools_for_call = _extra_tools or None
             if force_final_tool:
@@ -689,11 +730,35 @@ async def _agent_loop(
                 "tool_calls": [tc.model_dump() for tc in message.tool_calls],
             }
             messages.append(msg_dict)
+            batch_has_editing_call = any(
+                call.function.name in _extra_handlers and call.function.name != "read_profile" for call in message.tool_calls
+            )
             for tool_call in message.tool_calls:
                 fn = tool_call.function
+                try:
+                    args = _parse_tool_arguments(fn.arguments)
+                except ValueError as exc:
+                    # Truncated or otherwise malformed tool arguments used to raise
+                    # out of the loop and abort the whole phase. Hand the model the
+                    # parse error instead so it can reissue the call, and let the
+                    # existing consecutive-error escalation react if it cannot.
+                    consecutive_tool_errors += 1
+                    log("warning", f"    🔧 {fn.name} → malformed arguments: {exc}")
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": (
+                                f"Error: arguments for '{fn.name}' were not valid JSON ({exc}). "
+                                "Reissue the call with complete, valid JSON. If the payload is long, "
+                                "split it across several smaller calls."
+                            ),
+                        }
+                    )
+                    continue
                 if fn.name == "web_search":
                     tool_trace["search_calls"] += 1
-                    args = json.loads(fn.arguments)
+                    tool_trace["web_search_calls"] += 1
                     query = args.get("query", "")
                     log("info", f"    🔍 {query}")
                     search_results = await _await_with_run_budget(
@@ -722,7 +787,6 @@ async def _agent_loop(
                     )
                 elif fn.name == "web_image_search":
                     tool_trace["search_calls"] += 1
-                    args = json.loads(fn.arguments)
                     query = args.get("query", "")
                     log("info", f"    🖼️ {query}")
                     search_results = await _await_with_run_budget(
@@ -746,7 +810,6 @@ async def _agent_loop(
                     )
                 elif fn.name == "fetch_page":
                     tool_trace["page_fetches"] += 1
-                    args = json.loads(fn.arguments)
                     url = args.get("url", "")
                     log("info", f"    📄 fetching {url[:80]}")
                     page_text = await _await_with_run_budget(
@@ -772,7 +835,6 @@ async def _agent_loop(
                     )
                 elif fn.name == "ballotpedia_lookup":
                     tool_trace["search_calls"] += 1
-                    args = json.loads(fn.arguments)
                     candidate_name = args.get("candidate_name", "")
                     log("info", f"    📋 Ballotpedia lookup: {candidate_name}")
                     bp_data = await _await_with_run_budget(
@@ -792,7 +854,6 @@ async def _agent_loop(
                     )
                 elif fn.name == "ballotpedia_election_lookup":
                     tool_trace["search_calls"] += 1
-                    args = json.loads(fn.arguments)
                     election_race_id = args.get("race_id", race_id or "")
                     log("info", f"    🗳️  Ballotpedia election lookup: {election_race_id}")
                     election_data = await _await_with_run_budget(
@@ -820,10 +881,37 @@ async def _agent_loop(
                             "content": context.prepare_tool_result("ballotpedia_election_lookup", election_data),
                         }
                     )
+                elif fn.name == "finish_no_changes" and allow_no_change_after_search:
+                    reason = str(args.get("reason") or "").strip()
+                    evidence_url = str(args.get("evidence_url") or "").strip()
+                    normalized_researched = {url.rstrip("/").casefold() for url in researched_urls}
+                    if tool_trace["search_calls"] != 1 or tool_trace["web_search_calls"] != 1:
+                        handler_result = (
+                            "Error: the no-change shortcut requires exactly one current web_search and no other "
+                            "search calls; continue the normal phase."
+                        )
+                    elif tool_trace["editing_calls"] or batch_has_editing_call:
+                        handler_result = "Error: edits already occurred; finish the normal phase instead."
+                    elif not reason:
+                        handler_result = "Error: explain why the current evidence supports no material change."
+                    elif evidence_url.rstrip("/").casefold() not in normalized_researched:
+                        handler_result = "Error: evidence_url must come from this phase's current search results."
+                    else:
+                        tool_trace["no_change_confirmed"] = True
+                        tool_trace["no_change_reason"] = reason
+                        tool_trace["no_change_evidence_url"] = evidence_url
+                        log("info", f"  [{phase_name}] fast no-change exit: {reason}")
+                        return {"_tool_trace": tool_trace}
+                    messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": tool_call.id,
+                            "content": handler_result,
+                        }
+                    )
                 elif fn.name in _extra_handlers:
                     if fn.name != "read_profile":
                         tool_trace["editing_calls"] += 1
-                    args = json.loads(fn.arguments)
                     log("info", f"    🔧 {fn.name}({', '.join(f'{k}={v!r}' for k, v in args.items())})")
                     args["_research_trace"] = {
                         "researched_urls": sorted(researched_urls),

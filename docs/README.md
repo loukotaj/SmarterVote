@@ -31,6 +31,7 @@ operational release checks. They are not general operating instructions.
 | Document | Current status |
 | --- | --- |
 | [pipeline-result-quality-plan.md](pipeline-result-quality-plan.md) | Implementation complete; targeted data-quality QA remains operational work |
+| [refresh-cost-reduction-plan.md](refresh-cost-reduction-plan.md) | Fast no-change refresh implemented; production cost validation remains |
 | [senate-forecast-page-plan.md](senate-forecast-page-plan.md) | Implementation complete; live publication QA remains an authorized release task |
 
 ## Maintenance rules

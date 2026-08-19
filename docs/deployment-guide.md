@@ -87,6 +87,34 @@ The workflow:
 4. Deploys `web/build` with Wrangler.
 5. Submits IndexNow URLs if `INDEXNOW_KEY` is configured.
 
+### Canonical hostname
+
+Cloudflare permanently redirects `www.smarter.vote` to the canonical apex host
+with the active zone-level Single Redirect named `Redirect www.smarter.vote to
+smarter.vote`. A Pages `_redirects` file cannot match or replace a hostname. The
+rule uses Cloudflare's `Redirect from WWW to root` template with:
+
+- Request URL wildcard: `https://www.*`
+- Target URL wildcard replacement: `https://${1}`
+- Status: `301`
+- Query-string preservation enabled
+
+Keep `www.smarter.vote` attached to the Pages project so Cloudflare can serve
+the certificate and apply the redirect. Verify both path and query preservation
+after changing the rule:
+
+```bash
+curl -I "https://www.smarter.vote/races/ga-governor-2026/?ref=verify"
+```
+
+The response must be `301` with its `Location` header set to
+`https://smarter.vote/races/ga-governor-2026/?ref=verify`.
+
+Candidate retirement redirects are intentionally explicit in
+`web/static/_redirects`. Add a candidate-to-candidate redirect only for an
+unambiguous slug correction; otherwise point the retired URL to its own race
+overview. Include both slash forms to avoid an extra canonicalization hop.
+
 ## Validate
 
 ```powershell

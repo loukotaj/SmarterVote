@@ -1,6 +1,6 @@
 import os
 from importlib.util import find_spec
-from unittest.mock import AsyncMock
+from unittest.mock import AsyncMock, MagicMock
 
 import httpx
 import pytest
@@ -30,6 +30,10 @@ async def test_smartervote_mcp_exposes_lean_tool_surface():
         "list_draft_races",
         "list_pipeline_steps",
         "get_race_data",
+        "get_research_manifest",
+        "get_research_program_status",
+        "get_research_result_checkpoint",
+        "record_research_result_checkpoint",
         "audit_draft_vs_published",
         "plan_repairs",
         "audit_issue_research_readiness",
@@ -604,6 +608,7 @@ async def test_refresh_race_core_queues_auditable_standard_step_set(monkeypatch)
         ["al-house-02-2026"],
         cheap_mode=True,
         force_fresh=False,
+        allow_fast_no_change=True,
         baseline_source="latest",
         save_artifact=True,
         enabled_steps=["discovery", "images", "polling", "forecast", "voter_resources"],
@@ -615,6 +620,67 @@ async def test_refresh_race_core_queues_auditable_standard_step_set(monkeypatch)
         ),
         runner="local",
     )
+
+
+@pytest.mark.asyncio
+async def test_refresh_race_core_passes_force_fresh_escape_hatch(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    queued = AsyncMock(return_value={"added": [], "errors": []})
+    monkeypatch.setattr(server, "queue_races", queued)
+
+    await server.refresh_race_core(["al-house-02-2026"], force_fresh=True)
+
+    assert queued.await_args.kwargs["force_fresh"] is True
+    assert queued.await_args.kwargs["allow_fast_no_change"] is False
+
+
+@pytest.mark.asyncio
+async def test_get_research_program_status_uses_canonical_endpoint(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    client = MagicMock()
+    client.get = AsyncMock(return_value={"summary": {"coverage_count": 507}})
+    monkeypatch.setattr(server, "_client", lambda: client)
+
+    result = await server.get_research_program_status(include_rows=False)
+
+    assert result["summary"]["coverage_count"] == 507
+    client.get.assert_awaited_once_with("/api/research/status", params={"include_rows": False})
+
+
+@pytest.mark.asyncio
+async def test_record_research_checkpoint_never_queues(monkeypatch):
+    if find_spec("mcp") is None:
+        pytest.skip("MCP SDK is optional outside the local MCP environment")
+
+    from smartervote_mcp import server
+
+    client = MagicMock()
+    client.put = AsyncMock(return_value={"race_id": "fl-house-13-2026", "result_state": "stable"})
+    monkeypatch.setattr(server, "_client", lambda: client)
+
+    await server.record_research_result_checkpoint(
+        "fl-house-13-2026",
+        "stable",
+        "operator@example.com",
+        official_result_url="https://results.elections.myflorida.com/",
+        first_checked_at="2026-08-18T18:00:00Z",
+        second_checked_at="2026-08-19T00:00:00Z",
+        advancing_names=["Candidate A", "Candidate B"],
+        event_type="regular_primary",
+        event_date="2026-08-18",
+    )
+
+    path, payload = client.put.await_args.args[0], client.put.await_args.kwargs["json"]
+    assert path == "/api/research/checkpoints/fl-house-13-2026"
+    assert payload["advancing_names"] == ["Candidate A", "Candidate B"]
 
 
 @pytest.mark.asyncio

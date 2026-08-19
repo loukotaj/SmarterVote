@@ -387,7 +387,7 @@
             />
           </svg>
           <span
-            >{race.office}{race.district ? ` (${race.district})` : ""} &bull; {race.jurisdiction}</span
+            >{race.office}{race.district ? ` · ${race.district}` : ""} &bull; {race.jurisdiction}</span
           >
         </div>
         <div class="info-row">

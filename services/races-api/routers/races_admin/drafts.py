@@ -16,6 +16,7 @@ from request_models import BatchPublishRequest, validate_race_id
 # `sys.modules` before executing its body, and the attribute is only read below at call
 # time (never at import time).
 from routers import races_admin as _races_admin_pkg
+from routers.research_program import assert_race_admitted
 
 from .helpers import _clear_public_race_cache, _published_race_update
 
@@ -43,6 +44,7 @@ def delete_draft_race(race_id: str) -> Dict[str, Any]:
         "status": "published" if has_published else "empty",
         "draft_updated_at": None,
         "draft_updated_utc": None,
+        "draft_contest_stage": None,
         "draft_candidate_count": None,
         "draft_quality_grade": None,
         "draft_catalog_health": None,
@@ -59,6 +61,7 @@ def delete_draft_race(race_id: str) -> Dict[str, Any]:
 def publish_race(request: Request, race_id: str) -> Dict[str, Any]:
     """Publish a race (copy draft -> published in GCS)."""
     validate_race_id(race_id)
+    assert_race_admitted(firestore_helpers._get_fs(), race_id, "publish")
     data = gcs_helpers._gcs_get_race_json(race_id, "drafts")
     if data is None:
         raise HTTPException(status_code=404, detail="Draft not found")
@@ -71,6 +74,7 @@ def publish_race(request: Request, race_id: str) -> Dict[str, Any]:
             **_published_race_update(),
             **firestore_helpers._fs_build_published_catalog_fields(race_id, data),
             "draft_updated_utc": None,
+            "draft_contest_stage": None,
             "draft_candidate_count": None,
             "draft_quality_grade": None,
             "draft_catalog_health": None,
@@ -93,6 +97,7 @@ def unpublish_race(request: Request, race_id: str) -> Dict[str, Any]:
         "status": "draft" if has_draft else "empty",
         "published_at": None,
         "published_updated_utc": None,
+        "published_contest_stage": None,
         "published_candidate_count": None,
         "published_quality_grade": None,
         "published_catalog_health": None,
@@ -116,6 +121,7 @@ def batch_publish_races(request: Request, payload: BatchPublishRequest) -> Dict[
     for race_id in payload.race_ids:
         try:
             validate_race_id(race_id)
+            assert_race_admitted(firestore_helpers._get_fs(), race_id, "publish")
             data = gcs_helpers._gcs_get_race_json(race_id, "drafts")
             if data is None:
                 errors.append({"race_id": race_id, "error": "Draft not found"})
@@ -129,6 +135,7 @@ def batch_publish_races(request: Request, payload: BatchPublishRequest) -> Dict[
                     **_published_race_update(),
                     **firestore_helpers._fs_build_published_catalog_fields(race_id, data),
                     "draft_updated_utc": None,
+                    "draft_contest_stage": None,
                     "draft_candidate_count": None,
                     "draft_quality_grade": None,
                     "draft_catalog_health": None,

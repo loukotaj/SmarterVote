@@ -101,10 +101,11 @@
   <div
     class="mb-6 flex flex-col gap-3 rounded-2xl border border-stroke bg-surface p-4 shadow-sm"
   >
-    <span
+    <h2
       class="text-xs font-extrabold uppercase tracking-wider text-content-subtle"
-      >Choose candidates to compare:</span
     >
+      Choose candidates to compare:
+    </h2>
     <div class="flex flex-wrap gap-2.5">
       {#each race.candidates.filter((candidate) => !candidate.withdrawn) as candidate}
         {@const checked = candidates.some(

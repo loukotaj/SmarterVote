@@ -262,6 +262,7 @@ def test_build_race_summary_fields_uses_race_data_id_over_race_id_argument():
     race_data = {
         "id": "actual-id",
         "title": "Georgia Senate",
+        "contest_stage": "post_primary_general",
         "candidates": [{"name": "A"}],
         "updated_utc": datetime.now(timezone.utc).isoformat(),
         "validation_grade": {"grade": "B"},
@@ -272,6 +273,7 @@ def test_build_race_summary_fields_uses_race_data_id_over_race_id_argument():
     assert fields["race_id"] == "actual-id"
     assert fields["candidate_count"] == 1
     assert fields["quality_grade"] == "B"
+    assert fields["contest_stage"] == "post_primary_general"
     assert fields["freshness"] == "recent"
     assert fields["catalog_health"]["research_tier"] == "graded_low"
 
@@ -282,6 +284,7 @@ def test_build_race_summary_fields_falls_back_to_argument_race_id():
     assert fields["race_id"] == "fallback-id"
     assert fields["candidate_count"] == 0
     assert fields["quality_grade"] is None
+    assert fields["contest_stage"] == "unknown"
     assert fields["freshness"] is None
 
 
@@ -289,6 +292,7 @@ def test_build_versioned_catalog_fields_prefixes_keys():
     race_data = {
         "candidates": [{"name": "A"}, {"name": "B"}],
         "updated_utc": "2026-01-01T00:00:00Z",
+        "contest_stage": "pre_primary",
         "validation_grade": {"grade": "A"},
     }
 
@@ -296,6 +300,7 @@ def test_build_versioned_catalog_fields_prefixes_keys():
 
     assert fields == {
         "draft_updated_utc": "2026-01-01T00:00:00Z",
+        "draft_contest_stage": "pre_primary",
         "draft_candidate_count": 2,
         "draft_quality_grade": "A",
         "draft_catalog_health": build_catalog_health(race_data),

@@ -107,6 +107,7 @@ def _catalog_update_from_storage(race_id: str) -> Dict[str, Any] | None:
             {
                 "published_at": None,
                 "published_updated_utc": None,
+                "published_contest_stage": None,
                 "published_candidate_count": None,
                 "published_quality_grade": None,
                 "published_catalog_health": None,
@@ -120,6 +121,7 @@ def _catalog_update_from_storage(race_id: str) -> Dict[str, Any] | None:
             {
                 "draft_updated_at": None,
                 "draft_updated_utc": None,
+                "draft_contest_stage": None,
                 "draft_candidate_count": None,
                 "draft_quality_grade": None,
                 "draft_catalog_health": None,
@@ -293,6 +295,7 @@ def _race_summary(data: Dict[str, Any], fallback_id: str) -> Dict[str, Any]:
         "office": summary.get("office"),
         "jurisdiction": summary.get("jurisdiction"),
         "state": summary.get("state"),
+        "contest_stage": summary.get("contest_stage") or "unknown",
         "election_date": summary.get("election_date") or "",
         "updated_utc": summary.get("updated_utc") or "",
         "candidates": summary.get("candidates") or [],
@@ -349,6 +352,8 @@ def _apply_catalog_view(race: Dict[str, Any]) -> Dict[str, Any]:
             race["status"] = "empty"
 
     if published_exists:
+        race["catalog_view"] = "published"
+        race["contest_stage"] = race.get("published_contest_stage") or race.get("contest_stage") or "unknown"
         race["quality_grade"] = race.get("published_quality_grade")
         race["catalog_health"] = race.get("published_catalog_health") or race.get("catalog_health")
         if race.get("published_candidate_count") is not None:
@@ -356,6 +361,8 @@ def _apply_catalog_view(race: Dict[str, Any]) -> Dict[str, Any]:
         if published_updated:
             race["public_updated_utc"] = published_updated
     elif draft_exists:
+        race["catalog_view"] = "draft"
+        race["contest_stage"] = race.get("draft_contest_stage") or race.get("contest_stage") or "unknown"
         race["quality_grade"] = race.get("draft_quality_grade")
         race["catalog_health"] = race.get("draft_catalog_health") or race.get("catalog_health")
         if race.get("draft_candidate_count") is not None:

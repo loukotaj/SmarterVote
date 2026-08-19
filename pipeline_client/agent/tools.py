@@ -41,6 +41,25 @@ SEARCH_TOOL: dict = {
     },
 }
 
+FINISH_NO_CHANGES_TOOL: dict = {
+    "type": "function",
+    "function": {
+        "name": "finish_no_changes",
+        "description": (
+            "End this maintenance phase immediately after exactly one current web search found no material "
+            "change. Use only when the stored data remains correct; otherwise continue normal research and edits."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "reason": {"type": "string"},
+                "evidence_url": {"type": "string"},
+            },
+            "required": ["reason", "evidence_url"],
+        },
+    },
+}
+
 FETCH_TOOL: dict = {
     "type": "function",
     "function": {

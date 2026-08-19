@@ -18,6 +18,7 @@ from auth import verify_token
 from cloud_run_jobs import dispatch_pipeline_job
 from fastapi import APIRouter, Depends, HTTPException, Request
 from request_models import AssetAuditRequest, RepairPlanRequest, RunOptions, validate_race_id
+from routers.research_program import assert_race_admitted
 from routers.utils import _queue_ttl_at
 
 from shared.config import FIRESTORE_QUEUE_COLLECTION, FIRESTORE_RACES_COLLECTION, FIRESTORE_RUNS_COLLECTION
@@ -293,8 +294,13 @@ def get_race_record(race_id: str) -> Dict[str, Any]:
 
 @router.delete("/api/races/{race_id}", dependencies=[Depends(verify_token)])
 def delete_race_record(request: Request, race_id: str) -> Dict[str, Any]:
-    """Delete a race record and all associated GCS blobs."""
+    """Archive active artifacts, then delete the race record and active blobs."""
     validate_race_id(race_id)
+    try:
+        for prefix, label in (("races", "published"), ("drafts", "draft")):
+            gcs_helpers._gcs_archive_active_if_present(race_id, prefix, label)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=f"Could not archive active artifact; race was not deleted: {exc}") from exc
     gcs_helpers._gcs_delete_race_json(race_id, "races")
     gcs_helpers._gcs_delete_race_json(race_id, "drafts")
     gcs_helpers.update_gcs_summaries_json({race_id: None})
@@ -357,6 +363,7 @@ def run_race_pipeline(race_id: str, options: RunOptions | None = None) -> Dict[s
     from google.cloud.firestore_v1 import SERVER_TIMESTAMP  # type: ignore
 
     db = firestore_helpers._get_fs()
+    assert_race_admitted(db, race_id, "research")
     race_doc = db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).get()
     if race_doc.exists:
         race_data = race_doc.to_dict() or {}

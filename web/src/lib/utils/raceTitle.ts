@@ -1,4 +1,11 @@
-import type { Race, RaceSummary } from "$lib/types";
+import {
+  getIssueDisplayName,
+  type Candidate,
+  type Race,
+  type RaceSummary,
+} from "$lib/types";
+import { formatElectionDate } from "$lib/utils/electionDate";
+import { canonicalRaceState } from "$lib/utils/states";
 
 type TitleRace = Pick<Race | RaceSummary, "id"> &
   Partial<
@@ -6,61 +13,30 @@ type TitleRace = Pick<Race | RaceSummary, "id"> &
       Race | RaceSummary,
       "title" | "office" | "state" | "jurisdiction" | "election_date"
     >
-  > & { district?: string | null };
+  > & {
+    district?: string | null;
+    candidates?: { name: string; withdrawn?: boolean }[];
+  };
 
-const STATE_NAMES: Record<string, string> = {
-  al: "Alabama",
-  ak: "Alaska",
-  az: "Arizona",
-  ar: "Arkansas",
-  ca: "California",
-  co: "Colorado",
-  ct: "Connecticut",
-  de: "Delaware",
-  fl: "Florida",
-  ga: "Georgia",
-  hi: "Hawaii",
-  id: "Idaho",
-  il: "Illinois",
-  in: "Indiana",
-  ia: "Iowa",
-  ks: "Kansas",
-  ky: "Kentucky",
-  la: "Louisiana",
-  me: "Maine",
-  md: "Maryland",
-  ma: "Massachusetts",
-  mi: "Michigan",
-  mn: "Minnesota",
-  ms: "Mississippi",
-  mo: "Missouri",
-  mt: "Montana",
-  ne: "Nebraska",
-  nv: "Nevada",
-  nh: "New Hampshire",
-  nj: "New Jersey",
-  nm: "New Mexico",
-  ny: "New York",
-  nc: "North Carolina",
-  nd: "North Dakota",
-  oh: "Ohio",
-  ok: "Oklahoma",
-  or: "Oregon",
-  pa: "Pennsylvania",
-  ri: "Rhode Island",
-  sc: "South Carolina",
-  sd: "South Dakota",
-  tn: "Tennessee",
-  tx: "Texas",
-  ut: "Utah",
-  vt: "Vermont",
-  va: "Virginia",
-  wa: "Washington",
-  wv: "West Virginia",
-  wi: "Wisconsin",
-  wy: "Wyoming",
-  dc: "District of Columbia",
-};
+type MetadataCandidate = Pick<Candidate, "name"> &
+  Partial<
+    Pick<
+      Candidate,
+      | "issues"
+      | "summary"
+      | "summary_sources"
+      | "career_history"
+      | "education"
+      | "donor_summary"
+      | "voting_summary"
+    >
+  >;
+
+function naturalList(values: string[]): string {
+  if (values.length <= 1) return values[0] ?? "";
+  if (values.length === 2) return `${values[0]} and ${values[1]}`;
+  return `${values.slice(0, -1).join(", ")}, and ${values.at(-1)}`;
+}
 
 function cycleYear(race: TitleRace, parts: string[]): string | null {
   return (
@@ -70,8 +46,8 @@ function cycleYear(race: TitleRace, parts: string[]): string | null {
   );
 }
 
-function stateName(race: TitleRace, parts: string[]): string | null {
-  return race.state?.trim() || STATE_NAMES[parts[0]] || null;
+function stateName(race: TitleRace): string | null {
+  return canonicalRaceState(race);
 }
 
 function ordinal(value: string): string {
@@ -105,7 +81,7 @@ function houseDistrict(
 export function raceDisplayTitle(race: TitleRace): string {
   const parts = race.id.toLowerCase().split("-");
   const year = cycleYear(race, parts);
-  const state = stateName(race, parts);
+  const state = stateName(race);
   const office = race.office?.toLowerCase() ?? "";
   const special = parts.includes("special") ? " Special" : "";
 
@@ -144,5 +120,66 @@ export function raceMetaDescription(
   race: TitleRace | null | undefined,
 ): string {
   const title = race ? raceDisplayTitle(race) : "this election";
-  return `Compare candidates in the ${title} on the issues, with sourced research, polling, and race updates.`;
+  const activeNames =
+    race?.candidates
+      ?.filter((candidate) => !candidate.withdrawn)
+      .map((candidate) => candidate.name)
+      .filter(Boolean) ?? [];
+  const candidateLabel =
+    activeNames.length > 2
+      ? `${activeNames[0]}, ${activeNames[1]}, and others`
+      : naturalList(activeNames) || "candidates";
+  const electionDate = race?.election_date
+    ? ` on ${formatElectionDate(race.election_date)}`
+    : "";
+
+  return `Compare ${candidateLabel} in the ${title}${electionDate}, with sourced issue positions, polling, and race updates.`;
+}
+
+export function candidateMetaDescription(
+  candidate: MetadataCandidate | null | undefined,
+  race: TitleRace | null | undefined,
+): string {
+  const candidateName = candidate?.name ?? "this candidate";
+  const title = race ? raceDisplayTitle(race) : "this election";
+  if (!candidate) return `Explore ${candidateName}'s profile for the ${title}.`;
+
+  const issueNames = Object.entries(candidate.issues ?? {})
+    .filter(([, issue]) => {
+      const stance = issue?.stance?.trim().toLowerCase() ?? "";
+      return Boolean(
+        stance &&
+          !stance.includes("no public position found") &&
+          !stance.includes("no publicly stated position"),
+      );
+    })
+    .map(([issue]) => getIssueDisplayName(issue))
+    .slice(0, 2);
+  const details: string[] = [];
+
+  if (issueNames.length > 0) {
+    details.push(`positions on ${naturalList(issueNames)}`);
+  }
+  if (
+    candidate.summary?.trim() ||
+    candidate.career_history?.length ||
+    candidate.education?.length
+  ) {
+    details.push("biography");
+  }
+  if (candidate.donor_summary?.trim()) details.push("donor information");
+  if (candidate.voting_summary?.trim()) details.push("voting record");
+  if (
+    candidate.summary_sources?.length ||
+    Object.values(candidate.issues ?? {}).some(
+      (issue) => (issue?.sources?.length ?? 0) > 0,
+    )
+  ) {
+    details.push("cited sources");
+  }
+
+  if (details.length === 0) {
+    return `Learn about ${candidateName} in the ${title}.`;
+  }
+  return `Explore ${candidateName}'s ${naturalList(details)} for the ${title}.`;
 }

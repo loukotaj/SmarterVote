@@ -1,11 +1,17 @@
 <script lang="ts">
   import { browser } from "$app/environment";
 
-  export let activeTab: "dashboard" | "races" | "runs" | "forecasts" | "costs" =
-    "dashboard";
+  export let activeTab:
+    | "dashboard"
+    | "research"
+    | "races"
+    | "runs"
+    | "forecasts"
+    | "costs" = "dashboard";
 
   const tabs = [
     { id: "dashboard", label: "Dashboard" },
+    { id: "research", label: "2026 Research" },
     { id: "races", label: "Races" },
     { id: "runs", label: "Runs" },
     { id: "forecasts", label: "Forecasts" },

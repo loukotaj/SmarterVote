@@ -323,8 +323,14 @@ data/analytics.db-wal
 .claude/settings.local.json
 .tmp_cf_staging/
 .tmp_*.log
+/coverage.json
 .vscode/mcp.json
 data/
 !shared/data/
 !shared/data/**
 shared/data/__pycache__/
+
+# Local search-performance exports used for planning audits; may contain
+# private traffic/query data and are not deployable application artifacts.
+/smarter.vote-Performance-on-Search-*.zip
+/smarter.vote_SearchPerformanceOverview_*.csv

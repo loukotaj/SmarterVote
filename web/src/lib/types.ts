@@ -243,6 +243,7 @@ export interface PipelineState {
   remaining_candidates: string[];
   remaining_steps: string[];
   completed_units: string[];
+  skipped_units: string[];
   issue_attempts: Record<string, number>;
   issue_research: Record<string, IssueResearchAudit>;
   step_failures: StepFailure[];
@@ -254,8 +255,10 @@ export interface PipelineState {
 
 export interface RosterResearchAudit {
   finalized_at: string;
+  contest_stage: ContestStage;
   summary: string;
   active_candidate_count: number;
+  candidate_names: string[];
   completeness_sources: CandidateRosterSource[];
   completeness_status?: "unproven";
   completeness_note?: string;
@@ -472,6 +475,7 @@ export interface RunOptions {
     review_grok?: string;
   };
   force_fresh?: boolean;
+  allow_fast_no_change?: boolean;
   // baseline_source/resume_partial/runner are power-user options (set via admin tooling/MCP,
   // not the standard queue form) but are still valid wire-level fields on
   // shared.pipeline_options.PipelineRunOptions — kept here for completeness.
@@ -680,6 +684,14 @@ export interface PipelineRunRecord {
   duration_s: number;
   candidate_count: number;
   cheap_mode: boolean;
+  enabled_steps?: string[] | null;
+  workflow?:
+    | "discovery"
+    | "refresh_core"
+    | "issues"
+    | "targeted"
+    | "full"
+    | "unknown";
 }
 
 export interface PipelineMetricsSummary {
@@ -717,6 +729,108 @@ export interface GcpCostSummary {
 }
 
 // ---------------------------------------------------------------------------
+// 2026 research program status
+// ---------------------------------------------------------------------------
+
+export type ResearchResultState =
+  | "waiting"
+  | "stabilizing"
+  | "stable"
+  | "runoff_pending"
+  | "manual_review";
+
+export interface ResearchManifestEntry {
+  race_id: string;
+  state: string;
+  office: "us_house" | "us_senate" | "governor" | "state_supreme_court";
+  event_type: string;
+  primary_date?: string | null;
+  runoff_date?: string | null;
+  general_election_date: string;
+  schedule_source_url: string;
+}
+
+export interface ResearchCheckpoint {
+  race_id?: string;
+  result_state: ResearchResultState;
+  official_result_url?: string;
+  first_checked_at?: string;
+  second_checked_at?: string;
+  advancing_names?: string[];
+  event_type?: string;
+  event_date?: string;
+  operator: string;
+  blocker?: string;
+  result_fingerprint?: string | null;
+  last_reviewed_discovery_fingerprint?: string;
+  updated_at?: string;
+}
+
+export interface ResearchArtifactStatus {
+  source: "published" | "draft";
+  exists: boolean;
+  updated_utc?: string | null;
+  contest_stage: string;
+  candidate_count?: number | null;
+  quality_grade?: string | null;
+  health?: { missing_issue_count?: number; [key: string]: unknown } | null;
+}
+
+export interface ResearchProgramRow {
+  race_id: string;
+  manifest: ResearchManifestEntry;
+  checkpoint?: ResearchCheckpoint | null;
+  catalog: {
+    source: "catalog";
+    status?: string | null;
+    current_run_id?: string | null;
+    last_run_status?: string | null;
+  };
+  published: ResearchArtifactStatus;
+  draft: ResearchArtifactStatus;
+  latest: ResearchArtifactStatus;
+  latest_source: "published" | "draft";
+  discovery_state: string;
+  issue_state: string;
+  cost: {
+    run_count: number;
+    total_usd: number;
+    by_workflow: Record<string, number>;
+    last_run_at?: string | null;
+  };
+}
+
+export interface ResearchProgramStatus {
+  rows: ResearchProgramRow[];
+  summary: {
+    coverage_count: number;
+    catalog_present_count: number;
+    checkpoint_count: number;
+    orphaned_catalog_count: number;
+    result_states: Record<string, number>;
+    discovery_states: Record<string, number>;
+    issue_states: Record<string, number>;
+    workflow_spend_usd: Record<string, number>;
+    total_pipeline_spend_usd: number;
+  };
+  orphaned_catalog_race_ids: string[];
+  generated_at: string;
+}
+
+export interface ResearchCheckpointInput {
+  result_state: ResearchResultState;
+  operator: string;
+  official_result_url?: string;
+  first_checked_at?: string;
+  second_checked_at?: string;
+  advancing_names?: string[];
+  event_type?: string;
+  event_date?: string;
+  blocker?: string;
+  last_reviewed_discovery_fingerprint?: string;
+}
+
+// ---------------------------------------------------------------------------
 // Unified Race Record (mirrors Python RaceRecord)
 // ---------------------------------------------------------------------------
 
@@ -746,6 +860,10 @@ export interface RaceRecord {
   published_candidate_count?: number;
   draft_updated_utc?: string;
   published_updated_utc?: string;
+  draft_contest_stage?: string;
+  published_contest_stage?: string;
+  contest_stage?: string;
+  catalog_view?: "draft" | "published";
   public_updated_utc?: string;
   has_unpublished_changes?: boolean;
 

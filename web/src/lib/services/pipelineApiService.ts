@@ -15,6 +15,9 @@ import type {
   RaceRecord,
   RunStep,
   ChamberForecasts,
+  ResearchCheckpoint,
+  ResearchCheckpointInput,
+  ResearchProgramStatus,
 } from "$lib/types";
 import type {
   ChamberForecastGenerateResponse,
@@ -38,6 +41,36 @@ export type {
 
 export class PipelineApiService {
   constructor(private apiBase: string) {}
+
+  async getResearchProgramStatus(): Promise<ResearchProgramStatus> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/api/research/status`,
+      {},
+      API_TIMEOUT_ARTIFACT,
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    return await res.json();
+  }
+
+  async recordResearchCheckpoint(
+    raceId: string,
+    checkpoint: ResearchCheckpointInput,
+  ): Promise<ResearchCheckpoint> {
+    const res = await fetchWithAuth(
+      `${this.apiBase}/api/research/checkpoints/${encodeURIComponent(raceId)}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(checkpoint),
+      },
+      API_TIMEOUT_DEFAULT,
+    );
+    if (!res.ok) {
+      const detail = await res.text().catch(() => res.statusText);
+      throw new Error(`HTTP ${res.status}: ${detail}`);
+    }
+    return await res.json();
+  }
 
   private normalizeRun(raw: RunInfo | Record<string, unknown>): RunInfo {
     const r = raw as RunInfo & Record<string, unknown>;

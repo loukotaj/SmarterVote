@@ -86,6 +86,15 @@ afterEach(() => {
 });
 
 describe("ElectionDirectory rendering", () => {
+  it("gives the search field a durable accessible label", () => {
+    renderDirectory();
+
+    expect(
+      document.querySelector('label[for="election-directory-search"]')
+        ?.textContent,
+    ).toContain("Search elections and candidates");
+  });
+
   it("renders a card per race", async () => {
     const { container } = renderDirectory([
       race({ id: "a", title: "Race A" }),
@@ -407,5 +416,33 @@ describe("ElectionDirectory state filtering", () => {
     await fireEvent.change(select, { target: { value: "Kansas" } });
 
     await waitFor(() => expect(cards(container)).toHaveLength(1));
+  });
+
+  it("merges abbreviations and malformed geography into canonical states", async () => {
+    const { container } = renderDirectory([
+      race({ id: "ca-senate-2026", state: "CA", jurisdiction: "California" }),
+      race({
+        id: "ca-house-01-2026",
+        state: "California",
+        jurisdiction: "California's 1st Congressional District",
+      }),
+      race({
+        id: "ut-house-04-2026",
+        state: "Utah's 4th Congressional District",
+        jurisdiction: "Utah's 4th Congressional District",
+      }),
+    ]);
+
+    const select = container.querySelector(
+      "#mobile-state-select",
+    ) as HTMLSelectElement;
+    const labels = Array.from(select.options).map(
+      (option) => option.textContent,
+    );
+
+    expect(labels).toContain("California (2 races)");
+    expect(labels).toContain("Utah (1 race)");
+    expect(labels).not.toContain("CA (1 race)");
+    expect(labels).not.toContain("Utah's 4th Congressional District (1 race)");
   });
 });

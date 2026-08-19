@@ -177,6 +177,7 @@ class FreshnessConfig:
     recent_days: int = 14
     aging_days: int = 30
     stale_days: int = 180
+    refresh_probe_max_baseline_days: int = 90
 
     @classmethod
     def from_env(cls) -> "FreshnessConfig":
@@ -184,11 +185,13 @@ class FreshnessConfig:
         recent = _env_int("PIPELINE_FRESHNESS_RECENT_DAYS", 14, fresh, None)
         aging = _env_int("PIPELINE_FRESHNESS_AGING_DAYS", 30, recent, None)
         stale = _env_int("PIPELINE_FRESHNESS_STALE_DAYS", 180, aging, None)
+        probe_max_age = _env_int("PIPELINE_REFRESH_PROBE_MAX_BASELINE_DAYS", 90, 1, 365)
         return cls(
             fresh_days=fresh,
             recent_days=recent,
             aging_days=aging,
             stale_days=stale,
+            refresh_probe_max_baseline_days=probe_max_age,
         )
 
 

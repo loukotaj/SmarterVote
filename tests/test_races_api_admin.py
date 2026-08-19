@@ -62,6 +62,7 @@ def test_pipeline_metrics_prefers_exact_provider_cost():
             "continuation_count": 2,
             "candidate_count": 2,
             "cheap_mode": True,
+            "options": {"enabled_steps": ["discovery"]},
         },
         "run-exact",
     )
@@ -72,6 +73,8 @@ def test_pipeline_metrics_prefers_exact_provider_cost():
     assert record["cost_source"] == "provider"
     assert record["duration_s"] == 29
     assert record["continuation_count"] == 2
+    assert record["workflow"] == "discovery"
+    assert record["enabled_steps"] == ["discovery"]
     assert _compute_metrics_summary([record])["total_usd"] == pytest.approx(0.0123)
 
 
@@ -87,6 +90,7 @@ async def test_pipeline_metrics_merges_recent_runs_with_metric_records():
             "started_at": "2026-06-01T00:00:00Z",
             "duration_ms": 5000,
             "serper_calls": 7,
+            "options": {"enabled_steps": ["discovery"]},
         }
     )
     metric_doc = _make_existing_doc(
@@ -131,7 +135,21 @@ async def test_pipeline_metrics_merges_recent_runs_with_metric_records():
     assert by_id["run-current"]["cost_usd"] == pytest.approx(0.01234567)
     assert by_id["run-current"]["total_tokens"] == 1200
     assert by_id["run-current"]["serper_calls"] == 7
+    assert by_id["run-current"]["workflow"] == "discovery"
     assert by_id["run-stale"]["estimated_usd"] == pytest.approx(0.01)
+
+
+def test_pipeline_metric_merge_keeps_run_workflow_metadata():
+    from routers.pipeline import _merge_run_metric
+
+    merged = _merge_run_metric(
+        {"race_id": "ar-senate-2026", "workflow": "issues", "enabled_steps": ["issues", "review"]},
+        {"race_id": "ar-senate-2026", "workflow": "unknown", "cost_usd": 0.42},
+    )
+
+    assert merged["workflow"] == "issues"
+    assert merged["enabled_steps"] == ["issues", "review"]
+    assert merged["cost_usd"] == pytest.approx(0.42)
 
 
 @pytest.mark.asyncio
@@ -1194,13 +1212,13 @@ def test_queue_race_success():
         tc = TestClient(app_module.app)
         resp = tc.post(
             "/api/races/queue",
-            json={"race_ids": ["az-01-senate-2026"]},
+            json={"race_ids": ["ga-senate-2026"]},
         )
 
     assert resp.status_code == 200
     body = resp.json()
     assert len(body["added"]) == 1
-    assert body["added"][0]["race_id"] == "az-01-senate-2026"
+    assert body["added"][0]["race_id"] == "ga-senate-2026"
     assert body["errors"] == []
 
 
@@ -1254,16 +1272,16 @@ def test_queue_multiple_races_creates_independent_queue_items():
         tc = TestClient(app_module.app)
         resp = tc.post(
             "/api/races/queue",
-            json={"race_ids": ["az-senate-2026", "ga-governor-2026"], "options": {"cheap_mode": True}},
+            json={"race_ids": ["ar-senate-2026", "ga-governor-2026"], "options": {"cheap_mode": True}},
         )
 
     assert resp.status_code == 200
     body = resp.json()
-    assert [item["race_id"] for item in body["added"]] == ["az-senate-2026", "ga-governor-2026"]
+    assert [item["race_id"] for item in body["added"]] == ["ar-senate-2026", "ga-governor-2026"]
     assert len(queue_docs) == 2
     assert len({doc["run_id"] for doc in queue_docs.values()}) == 2
-    assert {doc["race_id"] for doc in queue_docs.values()} == {"az-senate-2026", "ga-governor-2026"}
-    assert race_updates["az-senate-2026"]["current_run_id"] != race_updates["ga-governor-2026"]["current_run_id"]
+    assert {doc["race_id"] for doc in queue_docs.values()} == {"ar-senate-2026", "ga-governor-2026"}
+    assert race_updates["ar-senate-2026"]["current_run_id"] != race_updates["ga-governor-2026"]["current_run_id"]
 
 
 def test_queue_rejects_duplicate_race_ids_in_same_batch():
@@ -1285,13 +1303,13 @@ def test_queue_rejects_duplicate_race_ids_in_same_batch():
         tc = TestClient(app_module.app)
         resp = tc.post(
             "/api/races/queue",
-            json={"race_ids": ["az-senate-2026", "az-senate-2026"]},
+            json={"race_ids": ["ar-senate-2026", "ar-senate-2026"]},
         )
 
     assert resp.status_code == 200
     body = resp.json()
     assert len(body["added"]) == 1
-    assert body["errors"] == [{"race_id": "az-senate-2026", "error": "Duplicate race_id in request"}]
+    assert body["errors"] == [{"race_id": "ar-senate-2026", "error": "Duplicate race_id in request"}]
 
 
 def test_queue_rejects_already_running_race():
@@ -1299,7 +1317,7 @@ def test_queue_rejects_already_running_race():
     os.environ["SKIP_AUTH"] = "true"
     os.environ["ADMIN_API_KEY"] = "test-key"
 
-    running_doc = _make_existing_doc({"race_id": "az-senate-2026", "status": "running"})
+    running_doc = _make_existing_doc({"race_id": "ar-senate-2026", "status": "running"})
     running_ref = MagicMock()
     running_ref.get.return_value = running_doc
 
@@ -1333,12 +1351,12 @@ def test_queue_rejects_already_running_race():
         patch("gcs_helpers._GCS_BUCKET", ""),
     ):
         tc = TestClient(app_module.app)
-        resp = tc.post("/api/races/queue", json={"race_ids": ["az-senate-2026"]})
+        resp = tc.post("/api/races/queue", json={"race_ids": ["ar-senate-2026"]})
 
     assert resp.status_code == 200
     body = resp.json()
     assert body["added"] == []
-    assert body["errors"] == [{"race_id": "az-senate-2026", "error": "Race is already running"}]
+    assert body["errors"] == [{"race_id": "ar-senate-2026", "error": "Race is already running"}]
 
 
 def test_queue_allows_requeue_when_running_status_is_stale_terminal_run():
@@ -1348,7 +1366,7 @@ def test_queue_allows_requeue_when_running_status_is_stale_terminal_run():
 
     running_doc = _make_existing_doc(
         {
-            "race_id": "az-senate-2026",
+            "race_id": "ar-senate-2026",
             "status": "running",
             "current_run_id": "run-old",
             "draft_updated_at": "2026-05-18T00:59:45.686753+00:00",
@@ -1403,15 +1421,15 @@ def test_queue_allows_requeue_when_running_status_is_stale_terminal_run():
         patch("gcs_helpers._GCS_BUCKET", ""),
     ):
         tc = TestClient(app_module.app)
-        resp = tc.post("/api/races/queue", json={"race_ids": ["az-senate-2026"]})
+        resp = tc.post("/api/races/queue", json={"race_ids": ["ar-senate-2026"]})
 
     assert resp.status_code == 200
     body = resp.json()
     assert len(body["added"]) == 1
     assert body["errors"] == []
     updates = [c.args for c in mock_update.call_args_list]
-    assert any(args[0] == "az-senate-2026" and args[1].get("status") == "draft" for args in updates)
-    assert any(args[0] == "az-senate-2026" and args[1].get("status") == "queued" for args in updates)
+    assert any(args[0] == "ar-senate-2026" and args[1].get("status") == "draft" for args in updates)
+    assert any(args[0] == "ar-senate-2026" and args[1].get("status") == "queued" for args in updates)
 
 
 def test_single_race_run_rejects_already_running_race():
@@ -1419,7 +1437,7 @@ def test_single_race_run_rejects_already_running_race():
     os.environ["SKIP_AUTH"] = "true"
     os.environ["ADMIN_API_KEY"] = "test-key"
 
-    running_doc = _make_existing_doc({"race_id": "az-senate-2026", "status": "running"})
+    running_doc = _make_existing_doc({"race_id": "ar-senate-2026", "status": "running"})
     running_ref = MagicMock()
     running_ref.get.return_value = running_doc
 
@@ -1453,7 +1471,7 @@ def test_single_race_run_rejects_already_running_race():
         patch("gcs_helpers._GCS_BUCKET", ""),
     ):
         tc = TestClient(app_module.app)
-        resp = tc.post("/api/races/az-senate-2026/run", json={"cheap_mode": True})
+        resp = tc.post("/api/races/ar-senate-2026/run", json={"cheap_mode": True})
 
     assert resp.status_code == 409
     assert resp.json()["detail"] == "Race is already running"
@@ -1467,7 +1485,7 @@ def test_single_race_run_allows_when_running_status_is_stale_terminal_run():
 
     running_doc = _make_existing_doc(
         {
-            "race_id": "az-senate-2026",
+            "race_id": "ar-senate-2026",
             "status": "running",
             "current_run_id": "run-old",
             "draft_updated_at": "2026-05-18T00:59:45.686753+00:00",
@@ -1521,13 +1539,13 @@ def test_single_race_run_allows_when_running_status_is_stale_terminal_run():
         patch("gcs_helpers._GCS_BUCKET", ""),
     ):
         tc = TestClient(app_module.app)
-        resp = tc.post("/api/races/az-senate-2026/run", json={"cheap_mode": True})
+        resp = tc.post("/api/races/ar-senate-2026/run", json={"cheap_mode": True})
 
     assert resp.status_code == 200
     assert resp.json()["status"] == "queued"
     updates = [c.args for c in mock_update.call_args_list]
-    assert any(args[0] == "az-senate-2026" and args[1].get("status") == "draft" for args in updates)
-    assert any(args[0] == "az-senate-2026" and args[1].get("status") == "queued" for args in updates)
+    assert any(args[0] == "ar-senate-2026" and args[1].get("status") == "draft" for args in updates)
+    assert any(args[0] == "ar-senate-2026" and args[1].get("status") == "queued" for args in updates)
 
 
 def test_run_options_accept_cloud_function_review_fields():
@@ -2177,7 +2195,7 @@ def test_recheck_marks_stale_running_race_failed():
 
     with (
         patch("firestore_helpers._get_fs", return_value=db),
-        patch("gcs_helpers._gcs_get_race_json", return_value=None),
+        patch("gcs_helpers._gcs_archive_active_if_present", return_value=False),
         patch("firestore_helpers._fs_update_race") as mock_update,
     ):
         tc = TestClient(app_module.app)
@@ -2725,7 +2743,7 @@ def test_publish_race_clears_draft_timestamp():
 
     from fastapi.testclient import TestClient
 
-    draft_json = {"id": "az-senate-2026", "title": "Arizona Senate 2026", "candidates": [{"name": "Alice"}]}
+    draft_json = {"id": "ar-senate-2026", "title": "Arkansas Senate 2026", "candidates": [{"name": "Alice"}]}
 
     with (
         patch("firestore_helpers._get_fs", return_value=_build_empty_firestore_mock()),
@@ -2734,7 +2752,7 @@ def test_publish_race_clears_draft_timestamp():
         patch("firestore_helpers._fs_update_race") as mock_update,
     ):
         tc = TestClient(app_module.app)
-        resp = tc.post("/api/races/az-senate-2026/publish")
+        resp = tc.post("/api/races/ar-senate-2026/publish")
 
     assert resp.status_code == 200
     update = mock_update.call_args.args[1]
@@ -2899,7 +2917,7 @@ def test_batch_publish_skips_failed_validation_grade():
     from fastapi.testclient import TestClient
 
     def fake_get(race_id, prefix):
-        if race_id == "az-senate-2026":
+        if race_id == "ar-senate-2026":
             return {"id": race_id, "candidates": [{"name": "Alice"}], "validation_grade": {"passed": True}}
         return {
             "id": race_id,
@@ -2913,11 +2931,11 @@ def test_batch_publish_skips_failed_validation_grade():
         patch("gcs_helpers._publish_race_gcs") as mock_publish,
     ):
         tc = TestClient(app_module.app)
-        resp = tc.post("/api/races/publish", json={"race_ids": ["az-senate-2026", "nh-senate-2026"]})
+        resp = tc.post("/api/races/publish", json={"race_ids": ["ar-senate-2026", "nh-senate-2026"]})
 
     assert resp.status_code == 200
     body = resp.json()
-    assert body["published"] == ["az-senate-2026"]
+    assert body["published"] == ["ar-senate-2026"]
     assert body["errors"][0]["race_id"] == "nh-senate-2026"
     assert "failed validation" in body["errors"][0]["error"]
     mock_publish.assert_called_once()
@@ -3402,6 +3420,7 @@ def test_delete_race_record():
 
     with (
         patch("firestore_helpers._get_fs", return_value=db),
+        patch("gcs_helpers._gcs_get_race_json", return_value=None),
         patch("gcs_helpers._gcs_delete_race_json") as mock_delete,
         patch("gcs_helpers.update_gcs_summaries_json") as mock_update_summaries,
     ):
@@ -3422,6 +3441,41 @@ def test_delete_race_record():
     # Verify Firestore delete
     races_coll.document.assert_called_once_with("nh-governor-2026")
     race_ref.delete.assert_called_once()
+
+
+def test_delete_race_record_archives_active_artifacts_first():
+    os.environ["SKIP_AUTH"] = "true"
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    db = _build_empty_firestore_mock()
+    with (
+        patch("firestore_helpers._get_fs", return_value=db),
+        patch("gcs_helpers._gcs_archive_active_if_present", side_effect=[True, False]) as archive,
+        patch("gcs_helpers._gcs_delete_race_json"),
+        patch("gcs_helpers.update_gcs_summaries_json"),
+    ):
+        response = TestClient(app_module.app).delete("/api/races/nh-governor-2026")
+
+    assert response.status_code == 200
+    assert archive.call_args_list[0].args == ("nh-governor-2026", "races", "published")
+    assert archive.call_args_list[1].args == ("nh-governor-2026", "drafts", "draft")
+
+
+def test_delete_race_record_refuses_when_archive_fails():
+    os.environ["SKIP_AUTH"] = "true"
+    import main as app_module
+    from fastapi.testclient import TestClient
+
+    with (
+        patch("gcs_helpers._gcs_archive_active_if_present", side_effect=RuntimeError("copy failed")),
+        patch("gcs_helpers._gcs_delete_race_json") as delete,
+    ):
+        response = TestClient(app_module.app).delete("/api/races/nh-governor-2026")
+
+    assert response.status_code == 503
+    assert "was not deleted" in response.json()["detail"]
+    delete.assert_not_called()
 
 
 # ---------------------------------------------------------------------------

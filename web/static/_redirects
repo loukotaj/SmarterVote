@@ -4,3 +4,17 @@
 /200 / 301
 /200/ / 301
 /200.html / 301
+
+# Candidates removed from the published ballot redirect to their race overview.
+/races/md-governor-2026/ronald-w-abend /races/md-governor-2026/ 301
+/races/md-governor-2026/ronald-w-abend/ /races/md-governor-2026/ 301
+/races/mi-governor-2026/mike-cox /races/mi-governor-2026/ 301
+/races/mi-governor-2026/mike-cox/ /races/mi-governor-2026/ 301
+/races/mi-governor-2026/chris-swanson /races/mi-governor-2026/ 301
+/races/mi-governor-2026/chris-swanson/ /races/mi-governor-2026/ 301
+/races/ga-governor-2026/michael-thurmond /races/ga-governor-2026/ 301
+/races/ga-governor-2026/michael-thurmond/ /races/ga-governor-2026/ 301
+/races/ks-senate-2026/chase-laporte /races/ks-senate-2026/ 301
+/races/ks-senate-2026/chase-laporte/ /races/ks-senate-2026/ 301
+/races/nj-senate-2026/robert-lebovics /races/nj-senate-2026/ 301
+/races/nj-senate-2026/robert-lebovics/ /races/nj-senate-2026/ 301

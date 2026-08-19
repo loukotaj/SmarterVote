@@ -358,6 +358,85 @@ async def get_race_data(race_id: str, draft: bool = False) -> Dict[str, Any]:
     return await _client().get(f"/api/races/{race_id}/data", params={"draft": draft})
 
 
+@mcp.tool(structured_output=False)
+async def get_research_manifest() -> Dict[str, Any]:
+    """Return the authoritative 2026 planning manifest and known exclusions."""
+    return await _client().get("/api/research/manifest")
+
+
+@mcp.tool(structured_output=False)
+async def get_research_program_status(include_rows: bool = True) -> Dict[str, Any]:
+    """Return provenance-safe discovery/issue status for the complete manifest.
+
+    Published and draft artifact health are returned separately; ``latest`` is
+    explicitly labelled. The endpoint internalizes manifest coverage and
+    pagination, so its summary cannot accidentally count only one catalog page.
+    Per-race and program totals distinguish discovery, refresh, issue, targeted,
+    and full-run spend.
+    """
+    return await _client().get("/api/research/status", params={"include_rows": include_rows})
+
+
+@mcp.tool(structured_output=False)
+async def get_research_result_checkpoint(race_id: str) -> Dict[str, Any]:
+    """Read the official-result checkpoint for one race without changing state."""
+    return await _client().get(f"/api/research/checkpoints/{race_id}")
+
+
+@mcp.tool(structured_output=False)
+async def record_research_result_checkpoint(
+    race_id: str,
+    result_state: Literal["waiting", "stabilizing", "stable", "runoff_pending", "manual_review"],
+    operator: str,
+    official_result_url: str | None = None,
+    first_checked_at: str | None = None,
+    second_checked_at: str | None = None,
+    advancing_names: List[str] | None = None,
+    event_type: str | None = None,
+    event_date: str | None = None,
+    blocker: str | None = None,
+    program_id: str | None = None,
+    cohort_id: str | None = None,
+    last_reviewed_discovery_fingerprint: str | None = None,
+    coverage_override_source_url: str | None = None,
+    coverage_override_reason: str | None = None,
+    coverage_override_approved_by: str | None = None,
+) -> Dict[str, Any]:
+    """Persist official result evidence; this never queues or publishes work.
+
+    ``stable`` requires an official URL, event/date, advancing names, and two
+    checks at least six hours apart. An out-of-manifest special election also
+    requires all three coverage-override fields.
+    """
+    override_values = [coverage_override_source_url, coverage_override_reason, coverage_override_approved_by]
+    if any(override_values) and not all(override_values):
+        raise ValueError("coverage override requires source URL, reason, and approved_by")
+    payload: Dict[str, Any] = {
+        "result_state": result_state,
+        "operator": operator,
+        "official_result_url": official_result_url,
+        "first_checked_at": first_checked_at,
+        "second_checked_at": second_checked_at,
+        "advancing_names": advancing_names or [],
+        "event_type": event_type,
+        "event_date": event_date,
+        "blocker": blocker,
+        "program_id": program_id,
+        "cohort_id": cohort_id,
+        "last_reviewed_discovery_fingerprint": last_reviewed_discovery_fingerprint,
+    }
+    if all(override_values):
+        payload["coverage_override"] = {
+            "official_source_url": coverage_override_source_url,
+            "reason": coverage_override_reason,
+            "approved_by": coverage_override_approved_by,
+            "active": True,
+        }
+    return await _client().put(
+        f"/api/research/checkpoints/{race_id}", json={key: value for key, value in payload.items() if value is not None}
+    )
+
+
 def _candidate_names(data: Any) -> List[str]:
     """Extract candidate names from a RaceJSON-shaped payload, tolerating missing data."""
     if not isinstance(data, dict):
@@ -874,6 +953,7 @@ async def queue_races(
     race_ids: List[str],
     cheap_mode: bool | None = True,
     force_fresh: bool | None = None,
+    allow_fast_no_change: bool | None = None,
     baseline_source: Literal["latest", "published"] | None = None,
     resume_partial: bool | None = None,
     save_artifact: bool | None = None,
@@ -905,10 +985,13 @@ async def queue_races(
     a draft and falls back to published data. Set resume_partial=True only when
     the latest draft is a trusted pipeline checkpoint whose completed work-unit
     markers should be preserved instead of deliberately refreshed.
+    allow_fast_no_change is an explicit optimization for maintenance workflows;
+    it defaults off here so a targeted discovery repair always rechecks roster.
     """
     options = _pipeline_options(
         cheap_mode=cheap_mode,
         force_fresh=force_fresh,
+        allow_fast_no_change=allow_fast_no_change,
         baseline_source=baseline_source,
         resume_partial=resume_partial,
         save_artifact=save_artifact,
@@ -938,6 +1021,7 @@ async def refresh_race_core(
     include_images: bool = True,
     include_voter_resources: bool = True,
     cheap_mode: bool = True,
+    force_fresh: bool = False,
     debug_mode: bool = True,
     save_artifact: bool = True,
     runner: str = "local",
@@ -961,7 +1045,8 @@ async def refresh_race_core(
     result = await queue_races(
         race_ids,
         cheap_mode=cheap_mode,
-        force_fresh=False,
+        force_fresh=force_fresh,
+        allow_fast_no_change=not force_fresh,
         baseline_source=baseline_source,
         save_artifact=save_artifact,
         enabled_steps=steps,
@@ -1214,9 +1299,11 @@ async def list_races_by_state(state: str, office: str | None = None) -> List[Dic
 
 @mcp.tool(structured_output=False)
 async def delete_race(race_id: str) -> Dict[str, Any]:
-    """Permanently delete a race record, all GCS drafts/published files, and its Firestore entry.
+    """Delete active race data and its Firestore record after archival.
 
-    This is irreversible. Use unpublish_race instead if you only want to hide a race from public view.
+    Existing draft/published artifacts are copied to retired version storage
+    first; the API refuses deletion if archival fails. Use ``unpublish_race``
+    instead if you only want to hide a race from public view.
     """
     return await _client().delete(f"/api/races/{race_id}")
 

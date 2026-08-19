@@ -47,6 +47,21 @@ const race: Race = {
 describe("CandidateComparison", () => {
   afterEach(cleanup);
 
+  it("introduces the candidate picker as a second-level section", () => {
+    const { getByRole } = render(CandidateComparison, {
+      race,
+      candidates: [candidate],
+      onToggle: () => {},
+    });
+
+    expect(
+      getByRole("heading", {
+        level: 2,
+        name: "Choose candidates to compare:",
+      }),
+    ).toBeTruthy();
+  });
+
   it("expands and collapses desktop stance previews", async () => {
     const { container } = render(CandidateComparison, {
       race,

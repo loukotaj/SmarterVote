@@ -16,8 +16,13 @@
   const API_BASE = racesApiBase();
 
   let apiService: PipelineApiService;
-  let activeTab: "dashboard" | "races" | "runs" | "forecasts" | "costs" =
-    "dashboard";
+  let activeTab:
+    | "dashboard"
+    | "research"
+    | "races"
+    | "runs"
+    | "forecasts"
+    | "costs" = "dashboard";
   let queueItems: QueueItem[] = [];
   let runs: RunHistoryItem[] = [];
   let isRefreshingRuns = false;
@@ -33,6 +38,15 @@
   let CostsTabComponent:
     | typeof import("$lib/components/admin/CostsTab.svelte").default
     | null = null;
+  let ResearchProgramTabComponent:
+    | typeof import("$lib/components/admin/ResearchProgramTab.svelte").default
+    | null = null;
+
+  $: if (activeTab === "research" && !ResearchProgramTabComponent) {
+    void import("$lib/components/admin/ResearchProgramTab.svelte").then(
+      (module) => (ResearchProgramTabComponent = module.default),
+    );
+  }
 
   $: if (activeTab === "forecasts" && !ForecastsTabComponent) {
     void import("$lib/components/admin/ForecastsTab.svelte").then(
@@ -122,6 +136,7 @@
     const params = new URLSearchParams(window.location.search);
     const tabParam = params.get("tab");
     if (
+      tabParam === "research" ||
       tabParam === "races" ||
       tabParam === "runs" ||
       tabParam === "forecasts" ||
@@ -323,6 +338,12 @@
 
     {#if activeTab === "dashboard"}
       <DashboardTab {apiService} on:view-runs={() => (activeTab = "runs")} />
+    {:else if activeTab === "research" && apiService}
+      <div class="card p-6">
+        {#if ResearchProgramTabComponent}
+          <svelte:component this={ResearchProgramTabComponent} {apiService} />
+        {/if}
+      </div>
     {:else if activeTab === "races" && apiService}
       <div class="card p-6">
         <RacesTab bind:this={racesTab} />
