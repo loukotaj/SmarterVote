@@ -164,7 +164,7 @@ Common tools:
 - `get_research_manifest`: complete expected 2026 coverage and official event
   schedule; a sourced override admits a newly scheduled contest without waiting
   for a code deployment
-- `get_research_program_status`: all 507 expected races with separate
+- `get_research_program_status`: all 506 expected races with separate
   published/draft provenance, result/discovery/issue states, orphaned catalog
   records, and actual spend grouped by workflow
 - `get_research_result_checkpoint`, `record_research_result_checkpoint`:

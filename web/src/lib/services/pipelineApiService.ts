@@ -160,7 +160,7 @@ export class PipelineApiService {
     const res = await fetchWithAuth(
       `${this.apiBase}/runs`,
       {},
-      API_TIMEOUT_SHORT,
+      API_TIMEOUT_ARTIFACT,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     const data: RunsResponse = await res.json();

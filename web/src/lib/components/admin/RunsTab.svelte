@@ -19,6 +19,7 @@
   export let queueItems: QueueItem[] = [];
   export let isRefreshing = false;
   export let isPruning = false;
+  export let runsError = "";
   export let apiService: PipelineApiService | undefined = undefined;
 
   const dispatch = createEventDispatcher<{
@@ -42,6 +43,9 @@
 
   let pipelineSummary: PipelineMetricsSummary | null = null;
   let pipelineRecords: PipelineRunRecord[] = [];
+  $: metricsByRunId = new Map(
+    pipelineRecords.map((record) => [record.run_id, record]),
+  );
   let loadingMetrics = true;
   let metricsError = "";
 
@@ -333,8 +337,11 @@
     return { prompt, completion, total: prompt + completion, cost };
   }
 
-  function getRunMetrics(run: RunHistoryItem | RunInfo) {
-    const record = pipelineRecords.find((r) => r.run_id === run.run_id);
+  function getRunMetrics(
+    run: RunHistoryItem | RunInfo,
+    recordsByRunId: Map<string, PipelineRunRecord>,
+  ) {
+    const record = recordsByRunId.get(run.run_id);
     const stepSum = sumStepTokens(run);
     const runMetrics = run as RunMetricFields;
 
@@ -367,8 +374,9 @@
   function formatMs(ms?: number): string {
     if (!ms) return "";
     if (ms < 60000) return `${Math.round(ms / 1000)}s`;
-    const m = Math.floor(ms / 60000);
-    const s = Math.round((ms % 60000) / 1000);
+    const totalSeconds = Math.round(ms / 1000);
+    const m = Math.floor(totalSeconds / 60);
+    const s = totalSeconds % 60;
     return s ? `${m}m ${s}s` : `${m}m`;
   }
 
@@ -532,7 +540,7 @@
     let totalSearches = 0;
 
     for (const r of filteredHistoricalRuns) {
-      const m = getRunMetrics(r);
+      const m = getRunMetrics(r, metricsByRunId);
       totalCost += m.cost;
       totalTokens += m.total;
       totalSearches += m.serper;
@@ -684,6 +692,26 @@
       </button>
     </div>
   </div>
+
+  {#if runsError}
+    <div
+      class="flex items-start justify-between gap-4 rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-800 dark:bg-red-950/30 dark:text-red-200"
+      role="alert"
+    >
+      <div>
+        <p class="font-semibold">Run history could not be loaded</p>
+        <p class="mt-1 text-xs">{runsError}</p>
+      </div>
+      <button
+        type="button"
+        class="shrink-0 rounded border border-red-300 px-3 py-1.5 text-xs font-semibold hover:bg-red-100 dark:border-red-700 dark:hover:bg-red-900/40"
+        on:click={() => dispatch("refresh")}
+        disabled={isRefreshing}
+      >
+        Retry
+      </button>
+    </div>
+  {/if}
 
   <!-- Time range selector & Metrics Section -->
   <div class="border-t border-stroke pt-4 space-y-4">
@@ -874,7 +902,7 @@
       </h3>
       <div class="card p-0 divide-y divide-stroke">
         {#each filteredActiveRuns as run (run.run_id)}
-          {@const m = getRunMetrics(run)}
+          {@const m = getRunMetrics(run, metricsByRunId)}
           <div
             class="px-4 py-3 hover:bg-surface-alt transition-colors cursor-pointer flex items-center justify-between"
             role="button"
@@ -1128,7 +1156,7 @@
     {:else}
       <div class="card p-0 divide-y divide-stroke">
         {#each filteredHistoricalRuns as run}
-          {@const metrics = getRunMetrics(run)}
+          {@const metrics = getRunMetrics(run, metricsByRunId)}
           <div
             class="px-4 py-3 hover:bg-surface-alt transition-colors cursor-pointer"
             role="button"
@@ -1350,7 +1378,7 @@
           </button>
         </div>
       {:else if selectedRunDetail}
-        {@const m = getRunMetrics(selectedRunDetail)}
+        {@const m = getRunMetrics(selectedRunDetail, metricsByRunId)}
         <!-- Metadata cards -->
         <div class="card p-3 grid grid-cols-2 gap-3 text-xs">
           <div>

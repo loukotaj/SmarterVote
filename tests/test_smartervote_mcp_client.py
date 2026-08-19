@@ -646,12 +646,12 @@ async def test_get_research_program_status_uses_canonical_endpoint(monkeypatch):
     from smartervote_mcp import server
 
     client = MagicMock()
-    client.get = AsyncMock(return_value={"summary": {"coverage_count": 507}})
+    client.get = AsyncMock(return_value={"summary": {"coverage_count": 506}})
     monkeypatch.setattr(server, "_client", lambda: client)
 
     result = await server.get_research_program_status(include_rows=False)
 
-    assert result["summary"]["coverage_count"] == 507
+    assert result["summary"]["coverage_count"] == 506
     client.get.assert_awaited_once_with("/api/research/status", params={"include_rows": False})
 
 

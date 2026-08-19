@@ -109,7 +109,7 @@ describe("RunsTab", () => {
   }
 
   it("renders pipeline metrics summary and historical runs", async () => {
-    const { component, getByText } = await renderRunsTab();
+    const { component, getByText, container } = await renderRunsTab();
 
     // Trigger metrics loading and await it
     await component.fetchMetrics();
@@ -121,6 +121,21 @@ describe("RunsTab", () => {
 
     // Check historical run item
     expect(getByText("mn-governor-2026")).toBeTruthy();
+    expect(container.textContent).toContain("$0.0112");
+    expect(container.textContent).toContain("150");
+  });
+
+  it("shows a retryable run-history error", async () => {
+    const module = await import("./RunsTab.svelte");
+    const { getByRole, getByText } = render(module.default, {
+      props: {
+        runs: [],
+        queueItems: [],
+        runsError: "Request timed out after 20 seconds",
+      },
+    });
+    expect(getByText("Run history could not be loaded")).toBeTruthy();
+    expect(getByRole("button", { name: "Retry" })).toBeTruthy();
   });
 
   it("opens logs drawer on clicking run history item", async () => {

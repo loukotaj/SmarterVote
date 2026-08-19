@@ -66,7 +66,7 @@ function programStatus(rows: ResearchProgramRow[]): ResearchProgramStatus {
   return {
     rows,
     summary: {
-      coverage_count: 507,
+      coverage_count: 506,
       catalog_present_count: rows.length,
       checkpoint_count: 1,
       orphaned_catalog_count: 1,
@@ -159,7 +159,7 @@ describe("ResearchProgramTab", () => {
 
     expect(service.getResearchProgramStatus).toHaveBeenCalledOnce();
     expect(getTraffic).toHaveBeenCalledWith(24 * 30);
-    expect(container.textContent).toContain("507");
+    expect(container.textContent).toContain("506");
     expect(container.textContent).toContain("legacy-race-2026");
     expect(container.textContent).toContain("15");
     expect(container.textContent).toContain("manifest only");

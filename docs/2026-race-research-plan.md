@@ -9,8 +9,8 @@ canonical in [pipeline-operations.md](pipeline-operations.md).
 
 ## Objective
 
-- Cover **507 valid races**: 435 U.S. House, 35 U.S. Senate, 36 governor, and
-  the Arkansas Supreme Court contest.
+- Cover **506 valid national races**: 435 U.S. House, 35 U.S. Senate, and 36
+  governor contests.
 - Give each covered race one reviewed discovery/core refresh after its
   general-election field settles.
 - Complete reviewed issue research for every `tossup`, `tilt_*`, and `lean_*`
@@ -24,11 +24,12 @@ only one run per stable-result fingerprint.
 
 ## Scope correction
 
-Firestore contains 511 race-like records but is not an election manifest. Four
+Firestore contained 511 race-like records but is not an election manifest. Five
 records are outside valid 2026 scope:
 
 | Race ID | Production state | Disposition |
 | --- | --- | --- |
+| `ar-supreme-court-2026` | **Published** and validated | Unpublish/retire; it is a real statewide judicial contest, but judicial races are outside the national product scope. |
 | `nd-senate-2026` | Cancelled; no artifact | Retire; the seat is Class III. |
 | `vt-senate-2026` | Cancelled; no artifact | Retire; the seat is Class III. |
 | `ut-governor-2026` | Cancelled; no artifact | Retire; no regular 2026 contest. |
@@ -41,31 +42,38 @@ places John Hoeven, Peter Welch, and Mike Lee in terms ending in 2029; the
 list no U.S. Senate or governor contest. The three empty records are not missing
 research; `ut-senate-2026` is a published data-quality incident.
 
-`ar-supreme-court-2026` is real, published, and validated. “Every race” means
-the validated 507-race product scope, not every state/local election nationally.
+Arkansas holds real statewide nonpartisan judicial elections, including the
+[March 3, 2026 contest](https://www.sos.arkansas.gov/uploads/elections/2026_Election_Calendar_Rev._6-2025_.pdf),
+but retaining one judicial race conflicts with the public
+product statement that current coverage focuses on national races and does not
+provide dependable judicial coverage. “Every race” therefore means the
+validated 506-race federal-and-governor scope, not every state/local election.
 
 ## Current position
 
 | Valid-scope measure | Count | View |
 | --- | ---: | --- |
-| Covered and published races | 507 | Reconciled scope |
-| Candidates / issue slots | 1,528 / 18,336 | Latest repair artifact |
-| Terminal / missing issue slots | 4,334 / 14,002 | Latest repair artifact |
+| Covered and published races | 506 | Reconciled scope after judicial-race retirement |
+| Candidates / issue slots | 1,526 / 18,312 | Latest repair artifact minus retired judicial race |
+| Terminal / missing issue slots | 4,322 / 13,990 | Latest repair artifact minus retired judicial race |
 | Races still needing issue work | 416 | Latest repair artifact |
 | Competitive / competitive issue gaps | 81 / 44 | Rating + latest repair |
 | Incomplete stored roster evidence | 227 | Latest repair artifact |
-| Passing stored validation | 115 | Latest repair artifact |
-| Validated / discovery-only / partial | 114 / 392 / 1 | Published catalog |
+| Passing stored validation | 114 | Latest repair artifact minus retired judicial race |
+| Validated / discovery-only / partial | 113 / 392 / 1 | Published catalog after retirement |
 | Active runs / queue | 0 / 0 | Live pipeline state |
 
 Office composition:
 
-| Office | Races | Candidates | Competitive | Published validated |
+| Office | Races | Published candidates | Competitive | Published validated |
 | --- | ---: | ---: | ---: | ---: |
-| U.S. House | 435 | 1,250 | 65 | 63 |
-| Governor | 36 | 128 | 10 | 16 |
-| U.S. Senate | 35 | 152 | 6 | 34 |
-| Arkansas Supreme Court | 1 | 2 | 0 | 1 |
+| U.S. House | 435 | 1,217 | 65 | 63 |
+| Governor | 36 | 150 | 10 | 16 |
+| U.S. Senate | 35 | 156 | 6 | 34 |
+
+Published candidate counts come from the reconciled summaries snapshot; the
+latest repair view above may prefer a newer draft and therefore has three more
+candidates.
 
 The $1,192.98 all-gap repair ceiling prices broad stored candidate fields. It
 is not expected spend. Settle each roster and re-plan before reserving money.
@@ -213,7 +221,7 @@ Until this ships, use the read-only issue audit, all `scan_catalog` pages,
 active runs/queue, and an official result check. `recheck_all_races` mutates
 state and is not a tracker read.
 
-The program is complete when all 507 manifest races have a disposition, every
+The program is complete when all 506 manifest races have a disposition, every
 applicable race has reviewed discovery matching its stable fingerprint, every
 then-current competitive race has reviewed complete issues, exceptions are
 resolved/accepted, and attributable spend is at or below $300.

@@ -221,7 +221,7 @@ def test_status_exposes_published_stage_with_provenance():
     ):
         result = get_research_program_status(include_rows=True)
 
-    assert result["summary"]["coverage_count"] == 507
+    assert result["summary"]["coverage_count"] == 506
     row = next(row for row in result["rows"] if row["race_id"] == race.id)
     assert row["published"]["source"] == "published"
     assert row["published"]["contest_stage"] == "post_primary_general"

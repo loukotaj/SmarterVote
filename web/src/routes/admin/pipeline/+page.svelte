@@ -27,6 +27,7 @@
   let runs: RunHistoryItem[] = [];
   let isRefreshingRuns = false;
   let isPruningRuns = false;
+  let runsError = "";
   let connected = false;
   let queueTimer: ReturnType<typeof setInterval> | null = null;
   let cancellingItemId: string | null = null;
@@ -201,10 +202,13 @@
   async function refreshRuns() {
     if (!apiService || isRefreshingRuns) return;
     isRefreshingRuns = true;
+    runsError = "";
     try {
       runs = await apiService.loadRunHistory();
     } catch (err) {
       console.error("Failed to load runs history:", err);
+      runsError =
+        err instanceof Error ? err.message : "Unable to load run history.";
     } finally {
       isRefreshingRuns = false;
     }
@@ -355,6 +359,7 @@
         {queueItems}
         isRefreshing={isRefreshingRuns}
         isPruning={isPruningRuns}
+        {runsError}
         on:refresh={refreshRuns}
         on:clear-queue={handleClearQueue}
         on:prune-runs={pruneCompletedRuns}

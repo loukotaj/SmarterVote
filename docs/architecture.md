@@ -129,7 +129,7 @@ existing Firestore race docs plus known GCS draft/published race IDs, hydrates c
 creates missing `races/{race_id}` documents when a race already exists in GCS.
 
 The 2026 research program is manifest-first rather than catalog-first. The
-committed `shared/data/research_manifest_2026.json` defines the expected 507
+committed `shared/data/research_manifest_2026.json` defines the expected 506
 contests and their official primary/runoff schedule. Firestore
 `research_checkpoints/{race_id}` stores operator-attributed result evidence,
 including two checks at least six hours apart before a result can be marked

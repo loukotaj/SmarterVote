@@ -4,6 +4,7 @@
     ArcElement,
     CategoryScale,
     Chart as ChartJS,
+    Filler,
     Legend,
     LinearScale,
     LineElement,
@@ -27,6 +28,7 @@
     Tooltip,
     Legend,
     ArcElement,
+    Filler,
   );
 
   export let apiService: PipelineApiService | undefined = undefined;
@@ -79,7 +81,7 @@
         grid: { display: false },
         ticks: { maxTicksLimit: 8, font: { size: 11 } },
       },
-      y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 11 } } },
+      y: { beginAtZero: true, ticks: { precision: 0, font: { size: 11 } } },
     },
   };
 

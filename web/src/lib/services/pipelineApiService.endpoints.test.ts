@@ -70,7 +70,7 @@ const cases: Case[] = [
     name: "loadRunHistory",
     run: () => svc.loadRunHistory(),
     path: "/runs",
-    timeout: API_TIMEOUT_SHORT,
+    timeout: API_TIMEOUT_ARTIFACT,
     payload: { runs: [] },
   },
   {
