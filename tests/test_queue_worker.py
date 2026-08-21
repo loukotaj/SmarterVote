@@ -418,4 +418,6 @@ def test_pending_items_filters_runner_and_status_in_firestore():
     assert [(flt.field_path, flt.op_string, flt.value) for flt in filters] == [
         ("runner", "==", "local"),
         ("status", "==", "pending"),
+        ("runner", "==", "local"),
+        ("status", "==", "running"),
     ]
