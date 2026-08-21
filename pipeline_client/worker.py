@@ -126,22 +126,36 @@ def _bucket_name() -> str:
 
 
 def _pending_items(db: Any, runner: str, limit: int = 50):
-    """Return pending items for one runner, oldest first.
+    """Return pending and recoverable expired-lease items, oldest first.
 
-    Both filters execute in Firestore so completed history can never starve new
-    work. Ordering stays client-side to avoid requiring a three-field index.
+    Runner and status filters execute in Firestore so completed history can
+    never starve new work. Pending and running items use separate equality
+    queries to avoid requiring a composite ``in`` index; only expired running
+    leases are returned. Ordering stays client-side.
     """
     from google.cloud.firestore_v1 import FieldFilter  # type: ignore
 
-    query = db.collection(FIRESTORE_QUEUE_COLLECTION).where(filter=FieldFilter("runner", "==", runner))
-    query = query.where(filter=FieldFilter("status", "==", "pending"))
-    docs = list(query.limit(limit).stream())
+    from pipeline_client.backend.queue_processor import _lease_expired, _now
+
+    collection = db.collection(FIRESTORE_QUEUE_COLLECTION)
+    docs = []
+    for status in ("pending", "running"):
+        query = collection.where(filter=FieldFilter("runner", "==", runner))
+        query = query.where(filter=FieldFilter("status", "==", status))
+        docs.extend(query.limit(limit).stream())
+    now = _now()
     items = []
+    seen_ids = set()
     for doc in docs:
+        if doc.id in seen_ids:
+            continue
+        seen_ids.add(doc.id)
         data = doc.to_dict() or {}
+        if data.get("status") == "running" and not _lease_expired(data, now):
+            continue
         items.append((doc.id, data))
     items.sort(key=lambda pair: str(pair[1].get("created_at") or ""))
-    return items
+    return items[:limit]
 
 
 async def _process_one(

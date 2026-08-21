@@ -186,6 +186,37 @@ def test_pending_items_handles_missing_created_at(monkeypatch):
     assert [item_id for item_id, _ in items] == ["item-no-date", "item-dated"]
 
 
+def test_pending_items_includes_only_expired_running_leases(monkeypatch):
+    monkeypatch.setitem(
+        __import__("sys").modules,
+        "google.cloud.firestore_v1",
+        types.SimpleNamespace(FieldFilter=lambda *a, **k: ("filter", a, k)),
+    )
+    docs = [
+        _FakeDocSnapshot("pending", {"status": "pending", "created_at": "2026-01-01T00:00:00Z"}),
+        _FakeDocSnapshot(
+            "expired",
+            {
+                "status": "running",
+                "created_at": "2026-01-02T00:00:00Z",
+                "lease_expires_at": "2026-01-03T00:00:00Z",
+            },
+        ),
+        _FakeDocSnapshot(
+            "live",
+            {
+                "status": "running",
+                "created_at": "2026-01-03T00:00:00Z",
+                "lease_expires_at": "2999-01-01T00:00:00Z",
+            },
+        ),
+    ]
+
+    items = worker._pending_items(_FakeDb(docs), "local")
+
+    assert [item_id for item_id, _ in items] == ["pending", "expired"]
+
+
 # ---------------------------------------------------------------------------
 # _process_one
 # ---------------------------------------------------------------------------
