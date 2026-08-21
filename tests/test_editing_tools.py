@@ -395,6 +395,52 @@ def test_editing_handlers_reject_webpage_image_and_normalize_sources():
     assert candidate["issues"]["Healthcare"]["sources"][0]["last_accessed"]
 
 
+def test_set_issue_stance_preserves_existing_research_audit():
+    """Review iteration must not erase a completed no-position search trace."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    audit = {
+        "status": "completed",
+        "attempts": 1,
+        "search_calls": 2,
+        "page_fetches": 1,
+        "source_count": 1,
+    }
+    race_json = {
+        "candidates": [
+            {
+                "name": "Alice",
+                "issues": {
+                    "Foreign Policy": {
+                        "stance": "No public position found",
+                        "confidence": "low",
+                        "sources": [{"url": "https://example.com/search-result"}],
+                        "research_audit": audit,
+                    }
+                },
+            }
+        ]
+    }
+    handlers = _make_editing_handlers(race_json, lambda _level, _message: None)
+
+    result = handlers["set_issue_stance"](
+        {
+            "candidate_name": "Alice",
+            "issue": "Foreign Policy",
+            "stance": "No public position found after reviewing campaign materials.",
+            "confidence": "medium",
+            "sources": [{"url": "https://example.com/second-search-result"}],
+        }
+    )
+
+    stance = race_json["candidates"][0]["issues"]["Foreign Policy"]
+    assert result == "Set Alice's Foreign Policy stance (confidence: low)."
+    assert stance["stance"] == "No public position found"
+    assert stance["confidence"] == "low"
+    assert stance["research_audit"] == audit
+    assert len(stance["sources"]) == 2
+
+
 def test_add_candidate_handler():
     """add_candidate handler adds a candidate to race_json."""
     from pipeline_client.agent.agent import _make_editing_handlers
