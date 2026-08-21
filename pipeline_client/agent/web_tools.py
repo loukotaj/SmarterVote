@@ -838,16 +838,28 @@ async def _searlo_search(
     except httpx.HTTPError as exc:
         raise SearchProviderUnavailable(f"Searlo search unavailable: {exc}") from exc
 
-    items = resp.json().get("items", [])
+    data = resp.json()
+    # Searlo currently serves the Google-style response shape (``organic`` /
+    # ``images``), while its API reference documents the newer ``items``
+    # envelope. Accept both so a provider-side rollout cannot silently turn a
+    # successful fallback request into zero evidence.
+    result_key = "images" if images else "organic"
+    items = data.get(result_key)
+    if items is None:
+        items = data.get("items", [])
+    if not isinstance(items, list):
+        raise SearchProviderUnavailable(f"{operation} returned an invalid result payload")
     if images:
-        results = [
-            {
-                "title": item.get("title", ""),
-                "imageUrl": item.get("image", {}).get("src", item.get("link", "")),
-                "url": item.get("image", {}).get("contextLink", item.get("link", "")),
-            }
-            for item in items
-        ]
+        results = []
+        for item in items:
+            image = item.get("image") if isinstance(item.get("image"), dict) else {}
+            results.append(
+                {
+                    "title": item.get("title", ""),
+                    "imageUrl": item.get("imageUrl") or image.get("src") or item.get("link", ""),
+                    "url": image.get("contextLink") or item.get("sourceUrl") or item.get("link", ""),
+                }
+            )
     else:
         results = [
             {"title": item.get("title", ""), "snippet": item.get("snippet", ""), "url": item.get("link", "")} for item in items

@@ -75,7 +75,7 @@ async def test_serper_search_falls_back_to_searlo_when_credits_are_exhausted():
         return_value=httpx.Response(
             200,
             request=httpx.Request("GET", "https://api.searlo.tech/api/v1/search/web"),
-            json={"items": [{"title": "Fallback", "snippet": "Evidence", "link": "https://example.com"}]},
+            json={"organic": [{"title": "Fallback", "snippet": "Evidence", "link": "https://example.com"}]},
         )
     )
 
@@ -245,14 +245,11 @@ async def test_serper_image_search_falls_back_to_searlo_when_credits_are_exhaust
             200,
             request=httpx.Request("GET", "https://api.searlo.tech/api/v1/search/images"),
             json={
-                "items": [
+                "images": [
                     {
                         "title": "Candidate",
-                        "link": "https://example.com/photo.jpg",
-                        "image": {
-                            "src": "https://example.com/photo.jpg",
-                            "contextLink": "https://example.com/candidate",
-                        },
+                        "imageUrl": "https://example.com/photo.jpg",
+                        "sourceUrl": "https://example.com/candidate",
                     }
                 ]
             },
@@ -273,6 +270,35 @@ async def test_serper_image_search_falls_back_to_searlo_when_credits_are_exhaust
             "url": "https://example.com/candidate",
         }
     ]
+
+
+@pytest.mark.asyncio
+async def test_searlo_fallback_accepts_documented_items_shape():
+    """Keep compatibility with Searlo's documented response during API rollout."""
+    mock_client = MagicMock()
+    mock_client.post = AsyncMock(
+        return_value=httpx.Response(
+            400,
+            request=httpx.Request("POST", "https://google.serper.dev/search"),
+            text='{"message":"Not enough credits"}',
+        )
+    )
+    mock_client.get = AsyncMock(
+        return_value=httpx.Response(
+            200,
+            request=httpx.Request("GET", "https://api.searlo.tech/api/v1/search/web"),
+            json={"items": [{"title": "Fallback", "snippet": "Evidence", "link": "https://example.com"}]},
+        )
+    )
+
+    with (
+        patch.dict(os.environ, {"SERPER_API_KEY": "test-key", "SEARLO_API_KEY": "fallback-key"}),
+        patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+        patch("pipeline_client.agent.web_tools._get_serper_client", return_value=mock_client),
+    ):
+        results = await _serper_search("important evidence")
+
+    assert results == [{"title": "Fallback", "snippet": "Evidence", "url": "https://example.com"}]
 
 
 # ---------------------------------------------------------------------------
