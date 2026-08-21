@@ -31,7 +31,7 @@ from ..web_tools import _get_search_cache
 from ._common import (
     PipelineWorkRemaining,
     RunFailureReason,
-    _await_with_run_budget,
+    _await_advisory_with_run_budget,
     _build_handoff_context,
     _is_control_flow_exception,
     _issue_stance_is_complete,
@@ -67,12 +67,22 @@ async def _run_issue_research_for_candidate(
     handlers = _make_editing_handlers(race_json, log)
     cache = _get_search_cache()
     cached_info = cache.list_cached_for_race(race_id) if cache else None
-    candidate_website, candidate_issue_urls = await _await_with_run_budget(
+    source_hints = await _await_advisory_with_run_budget(
         _candidate_source_hints(race_json, candidate_name),
         run_budget=run_budget,
         requested_timeout=20.0,
         operation="candidate source hint crawl",
+        log=log,
+        continuation="continuing issue research with the candidate website only",
     )
+    if source_hints is None:
+        candidate = next(
+            (c for c in race_json.get("candidates", []) if isinstance(c, dict) and c.get("name") == candidate_name),
+            {},
+        )
+        candidate_website, candidate_issue_urls = candidate.get("website") or "(unknown)", []
+    else:
+        candidate_website, candidate_issue_urls = source_hints
     issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
     identity_context = _race_identity_context(race_json)
 
@@ -452,12 +462,18 @@ async def run_issues_phase(ctx: PhaseContext) -> None:
         candidate = candidates_by_name.get(cand_name)
         if not candidate:
             continue
-        candidate_website, candidate_issue_urls = await _await_with_run_budget(
+        source_hints = await _await_advisory_with_run_budget(
             _candidate_source_hints(race_json, cand_name),
             run_budget=run_budget,
             requested_timeout=20.0,
             operation="candidate source hint crawl",
+            log=log,
+            continuation="continuing issue research with the candidate website only",
         )
+        if source_hints is None:
+            candidate_website, candidate_issue_urls = candidate.get("website") or "(unknown)", []
+        else:
+            candidate_website, candidate_issue_urls = source_hints
         for issue_idx, issue in enumerate(CANONICAL_ISSUES):
             unit_id = f"issues:{cand_name}:{issue}"
             existing_issue = candidate.get("issues", {}).get(issue)
