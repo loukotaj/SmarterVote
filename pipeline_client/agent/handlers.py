@@ -1463,6 +1463,12 @@ def _make_editing_handlers(
             "confidence": stored_confidence,
             "sources": merged_sources,
         }
+        # Issue research records a durable audit for documented absences.
+        # Refinement and iteration may improve the stance, but must not erase
+        # that evidence when they write the same candidate/issue again.
+        existing_audit = existing_stance.get("research_audit") if isinstance(existing_stance, dict) else None
+        if isinstance(existing_audit, dict):
+            stance_data["research_audit"] = dict(existing_audit)
         c.setdefault("issues", {})[issue] = stance_data
         log("info", f"    {name} / {issue} [{stored_confidence}]")
         return f"Set {name}'s {issue} stance (confidence: {stored_confidence})."
