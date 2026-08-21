@@ -2293,6 +2293,7 @@ async def test_run_agent_continuation_skips_terminal_no_position_results():
                         "stance": "No public position found after repeated research attempts.",
                         "confidence": "low",
                         "sources": [],
+                        "research_audit": {"status": "completed", "search_calls": 2, "page_fetches": 0},
                     }
                 },
             }
@@ -2315,6 +2316,44 @@ async def test_run_agent_continuation_skips_terminal_no_position_results():
 
     assert mock_loop.call_count == len(CANONICAL_ISSUES) - 1
     assert f"issues:Alice:{CANONICAL_ISSUES[0]}" in result["pipeline_state"]["completed_units"]
+
+
+@pytest.mark.asyncio
+async def test_run_agent_continuation_retries_no_position_without_publishable_audit():
+    existing = {
+        "id": "test-2024",
+        "candidates": [
+            {
+                "name": "Alice",
+                "party": "D",
+                "issues": {
+                    CANONICAL_ISSUES[0]: {
+                        "issue": CANONICAL_ISSUES[0],
+                        "stance": "No public position found",
+                        "confidence": "low",
+                        "sources": [],
+                    }
+                },
+            }
+        ],
+        "pipeline_state": {
+            "completed_units": [f"issues:Alice:{CANONICAL_ISSUES[0]}"],
+        },
+        "updated_utc": "2024-01-01T00:00:00Z",
+    }
+
+    with patch("pipeline_client.agent.phases._agent_loop", new_callable=AsyncMock) as mock_loop:
+        mock_loop.return_value = {}
+        result = await run_agent(
+            "test-2024",
+            cheap_mode=True,
+            existing_data=existing,
+            enabled_steps=["issues"],
+            resume_partial=True,
+        )
+
+    assert mock_loop.call_count == len(CANONICAL_ISSUES)
+    assert f"issues:Alice:{CANONICAL_ISSUES[0]}" not in result["pipeline_state"]["completed_units"]
 
 
 @pytest.mark.asyncio

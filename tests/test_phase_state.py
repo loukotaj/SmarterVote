@@ -31,7 +31,25 @@ def test_issue_attempts_normalizes_values():
 
 def test_issue_stance_completion_distinguishes_terminal_no_position_from_placeholders():
     assert phase_state.issue_stance_is_complete({"stance": "Supports expanded coverage."})
-    assert phase_state.issue_stance_is_complete({"stance": "No public position found after repeated research attempts."})
+    assert phase_state.issue_stance_is_complete(
+        {
+            "stance": "No public position found after repeated research attempts.",
+            "research_audit": {"status": "completed", "search_calls": 2, "page_fetches": 0},
+        }
+    )
+    assert phase_state.issue_stance_is_complete(
+        {
+            "stance": "No public position found",
+            "sources": [{"url": "https://example.com/candidate/issues"}],
+        }
+    )
+    assert not phase_state.issue_stance_is_complete({"stance": "No public position found"})
+    assert not phase_state.issue_stance_is_complete(
+        {
+            "stance": "No public position found",
+            "research_audit": {"status": "completed", "search_calls": 1, "page_fetches": 0},
+        }
+    )
     assert not phase_state.issue_stance_is_complete({"stance": ""})
     assert not phase_state.issue_stance_is_complete({"stance": "DRAFT"})
     assert not phase_state.issue_stance_is_complete({"stance": "To be determined after review"})

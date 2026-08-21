@@ -30,12 +30,18 @@ def issue_stance_is_complete(value: Any) -> bool:
     if not isinstance(value, dict):
         return False
     stance = str(value.get("stance") or "").strip()
-    # A documented no-position result is a terminal research verdict even
-    # though quality scoring correctly treats it as missing substantive policy
-    # information. Continuations must not spend another pass rediscovering the
-    # same absence.
+    # A no-position result is terminal only when it carries the same evidence
+    # that publication review requires. Otherwise a continuation must retry it;
+    # treating the text alone as complete makes targeted provenance repairs skip
+    # the exact issue they were queued to fix.
     if "no public position found" in stance.lower():
-        return True
+        if value.get("sources"):
+            return True
+        audit = value.get("research_audit")
+        if not isinstance(audit, dict) or audit.get("status") != "completed":
+            return False
+        research_actions = int(audit.get("search_calls", 0) or 0) + int(audit.get("page_fetches", 0) or 0)
+        return research_actions >= 2
     return bool(stance) and not _is_missing_stance_text(stance)
 
 
