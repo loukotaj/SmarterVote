@@ -365,6 +365,36 @@ def test_normalize_schema_fields_clamps_invalid_roster_source_type():
     assert types == ["other", "official"]
 
 
+def test_normalize_schema_fields_converts_blank_optional_source_dates_to_none():
+    race_json = {
+        "id": "test-race",
+        "title": "Test Race",
+        "office": "Governor",
+        "jurisdiction": "Test",
+        "state": "TS",
+        "election_date": "2026-11-03",
+        "candidates": [
+            {
+                "name": "Alice",
+                "voting_sources": [
+                    {
+                        "url": "https://example.com/alice",
+                        "type": "website",
+                        "last_accessed": "2026-08-21T00:00:00Z",
+                        "published_at": "  ",
+                    }
+                ],
+            }
+        ],
+    }
+    messages = []
+
+    _normalize_schema_fields(race_json, lambda level, message: messages.append((level, message)))
+
+    assert race_json["candidates"][0]["voting_sources"][0]["published_at"] is None
+    assert messages == [("warning", "Normalized 1 blank optional source published_at value(s)")]
+
+
 # ---------------------------------------------------------------------------
 # Full agent tests (multi-phase)
 # ---------------------------------------------------------------------------
