@@ -8,6 +8,8 @@ be published.
 
 from __future__ import annotations
 
+from unittest.mock import AsyncMock
+
 import pytest
 
 from pipeline_client.agent.phases.context import PhaseContext
@@ -80,3 +82,41 @@ async def test_exhausted_unit_without_research_stays_open(monkeypatch):
     assert "Civil Rights & Equality" not in race_json["candidates"][0]["issues"]
     failures = race_json["pipeline_state"].get("step_failures") or []
     assert any("retry limit" in str(f.get("detail", "")) for f in failures)
+
+
+@pytest.mark.asyncio
+async def test_source_hint_timeout_falls_back_without_handing_off(monkeypatch):
+    """A slow campaign-site crawl is advisory and must not restart the whole run."""
+    from pipeline_client.agent.phases import issues as issues_phase
+
+    race_json = _race()
+    race_json["candidates"][0]["website"] = "https://example.test/candidate"
+
+    async def time_out_advisory(awaitable, **_kwargs):
+        awaitable.close()
+        return None
+
+    advisory = AsyncMock(side_effect=time_out_advisory)
+
+    async def research(candidate_name, issue_name, _candidate, **kwargs):
+        assert candidate_name == "Brinker Harding"
+        assert kwargs["candidate_website"] == "https://example.test/candidate"
+        assert kwargs["candidate_issue_urls"] == []
+        return (
+            {
+                "issue": issue_name,
+                "stance": f"Position on {issue_name}",
+                "confidence": "medium",
+                "sources": [{"url": "https://example.test/source", "type": "website"}],
+            },
+            {"search_calls": 1, "page_fetches": 1},
+        )
+
+    monkeypatch.setattr(issues_phase, "_await_advisory_with_run_budget", advisory)
+    monkeypatch.setattr(issues_phase, "_research_issue_unit", research)
+
+    await _run(race_json)
+
+    assert advisory.await_count == 1
+    assert len(race_json["candidates"][0]["issues"]) == 12
+    assert race_json["pipeline_state"]["remaining_candidates"] == []

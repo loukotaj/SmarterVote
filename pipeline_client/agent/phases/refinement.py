@@ -8,7 +8,7 @@ from ..prompts import CANONICAL_ISSUES, REFINE_META_USER, REFINE_SYSTEM, REFINE_
 from ..run_budget import RunBudgetExceeded
 from ..tools import BACKGROUND_TOOLS, CANDIDATE_TOOLS, DESCRIPTION_TOOLS, ISSUE_TOOLS, READ_PROFILE_TOOL, RECORD_TOOLS
 from ._common import (
-    _await_with_run_budget,
+    _await_advisory_with_run_budget,
     _classify_exception,
     _mark_pipeline_unit_complete,
     _pipeline_completed_units,
@@ -59,12 +59,18 @@ async def run_refinement_phase(ctx: PhaseContext) -> None:
                 race_json=race_json,
             )
             continue
-        candidate_website, candidate_issue_urls = await _await_with_run_budget(
+        source_hints = await _await_advisory_with_run_budget(
             _candidate_source_hints(race_json, cname),
             run_budget=run_budget,
             requested_timeout=20.0,
             operation="candidate source hint crawl",
+            log=log,
+            continuation="continuing refinement with the candidate website only",
         )
+        if source_hints is None:
+            candidate_website, candidate_issue_urls = candidate.get("website") or "(unknown)", []
+        else:
+            candidate_website, candidate_issue_urls = source_hints
         issue_hint_text = ", ".join(candidate_issue_urls) if candidate_issue_urls else "(none found)"
         log("info", f"  Refining {cname}...")
         track(
