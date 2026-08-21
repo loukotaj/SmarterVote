@@ -499,6 +499,33 @@ def _sanitize_roster_sources(race_json: Dict[str, Any], log: Any | None = None) 
             log("warning", f"Normalized invalid roster_sources type(s) for {name}")
 
 
+def _sanitize_optional_source_dates(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Convert blank optional source dates to ``None`` before schema validation.
+
+    Tool calls can legitimately omit ``published_at``, but models occasionally
+    serialize that absence as an empty string. Pydantic cannot parse ``""`` as
+    an optional datetime, so one blank date would otherwise make normalization
+    abandon the entire document and later block publication.
+    """
+    normalized_count = 0
+
+    def visit(value: Any) -> None:
+        nonlocal normalized_count
+        if isinstance(value, dict):
+            if "url" in value and isinstance(value.get("published_at"), str) and not value["published_at"].strip():
+                value["published_at"] = None
+                normalized_count += 1
+            for nested in value.values():
+                visit(nested)
+        elif isinstance(value, list):
+            for nested in value:
+                visit(nested)
+
+    visit(race_json)
+    if normalized_count and log:
+        log("warning", f"Normalized {normalized_count} blank optional source published_at value(s)")
+
+
 def _normalize_schema_fields(race_json: Dict[str, Any], log: Any | None = None) -> None:
     """Apply schema defaults and Pydantic migrations while preserving extra metadata."""
     if not isinstance(race_json.get("schema_version"), str) or not race_json.get("schema_version"):
@@ -507,6 +534,7 @@ def _normalize_schema_fields(race_json: Dict[str, Any], log: Any | None = None) 
     _sanitize_polling(race_json, log)
     _sanitize_candidate_links(race_json, log)
     _sanitize_roster_sources(race_json, log)
+    _sanitize_optional_source_dates(race_json, log)
 
     try:
         from shared.models import RaceJSON as _RaceJSONModel
