@@ -606,6 +606,89 @@ async def test_verify_url_treats_facebook_400_as_inconclusive():
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "url",
+    [
+        "https://www.facebook.com/candidate/posts/123456789/",
+        "https://www.instagram.com/p/ExamplePost/",
+    ],
+)
+async def test_verify_url_treats_social_404_as_inconclusive(url):
+    import httpx
+
+    from pipeline_client.agent.review import _verify_url
+
+    response = httpx.Response(404, request=httpx.Request("GET", url))
+
+    with patch("pipeline_client.agent.review._get_validated", new_callable=AsyncMock, return_value=response):
+        assert await _verify_url(AsyncMock(), url) is None
+
+
+@pytest.mark.asyncio
+async def test_check_profile_links_fetches_duplicate_url_once():
+    import httpx
+
+    from pipeline_client.agent.review import check_profile_links
+
+    shared_url = "https://campaign.example/issues"
+    responses = [
+        httpx.Response(200, request=httpx.Request("GET", shared_url)),
+        httpx.Response(404, request=httpx.Request("GET", shared_url)),
+    ]
+    race_data = {
+        "candidates": [
+            {
+                "name": "Candidate A",
+                "issues": {
+                    "Economy": {"sources": [{"url": shared_url}]},
+                    "Healthcare": {"sources": [{"url": shared_url}]},
+                },
+            }
+        ]
+    }
+
+    with patch(
+        "pipeline_client.agent.review._get_validated",
+        new_callable=AsyncMock,
+        side_effect=responses,
+    ) as fetch:
+        review = await check_profile_links(race_data)
+
+    assert review["verdict"] == "approved"
+    assert review["flags"] == []
+    fetch.assert_awaited_once()
+
+
+@pytest.mark.asyncio
+async def test_social_botwall_does_not_strip_saved_issue_source():
+    import httpx
+
+    from pipeline_client.agent.review import _remove_confirmed_dead_candidate_sources, check_profile_links
+
+    social_url = "https://www.facebook.com/candidate/posts/123456789/"
+    race_data = {
+        "candidates": [
+            {
+                "name": "Candidate A",
+                "issues": {
+                    "Tech & AI": {
+                        "stance": "Discussed local data-center development.",
+                        "sources": [{"url": social_url}],
+                    }
+                },
+            }
+        ]
+    }
+    response = httpx.Response(404, request=httpx.Request("GET", social_url))
+
+    with patch("pipeline_client.agent.review._get_validated", new_callable=AsyncMock, return_value=response):
+        review = await check_profile_links(race_data)
+
+    assert _remove_confirmed_dead_candidate_sources(race_data, review) == 0
+    assert race_data["candidates"][0]["issues"]["Tech & AI"]["sources"] == [{"url": social_url}]
+
+
+@pytest.mark.asyncio
 async def test_verify_url_still_flags_non_facebook_400():
     import httpx
 

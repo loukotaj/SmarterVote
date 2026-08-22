@@ -44,7 +44,15 @@ def _review_model_for(provider: str, *, cheap_mode: bool) -> str:
     return PROFILE_DEFAULTS["default" if cheap_mode else "premium"][_REVIEW_ROLES[provider]]
 
 
-_ACCESS_RESTRICTED_HOSTS = frozenset({"facebook.com", "www.facebook.com", "m.facebook.com"})
+_ACCESS_RESTRICTED_HOSTS = frozenset(
+    {
+        "facebook.com",
+        "www.facebook.com",
+        "m.facebook.com",
+        "instagram.com",
+        "www.instagram.com",
+    }
+)
 _OPERATIONAL_RACE_FIELDS = frozenset(
     {
         "agent_metrics",
@@ -210,7 +218,10 @@ def _is_access_restricted_response(url: str, status_code: int) -> bool:
     if status_code in (401, 403, 429):
         return True
     hostname = (urlparse(url).hostname or "").lower()
-    return status_code == 400 and hostname in _ACCESS_RESTRICTED_HOSTS
+    # Facebook and Instagram commonly return synthetic 400/404 responses to
+    # anonymous or automated requests even while the post is live in a normal
+    # browser. Such a response is not evidence that a citation was deleted.
+    return status_code in {400, 401, 403, 404, 410, 429} and hostname in _ACCESS_RESTRICTED_HOSTS
 
 
 async def _call_review_model(
@@ -373,52 +384,61 @@ async def check_profile_links(
 ) -> Optional[Dict[str, Any]]:
     """Programmatically verify all source URLs in the profile."""
     log = make_logger(on_log)
-    urls_to_check = []  # List of tuples: (url, path_str)
+    # A campaign page is often cited for several issues. Check each unique URL
+    # once: concurrently hammering the same host produced mixed 200/404 bot-wall
+    # responses, and one synthetic 404 then removed every valid occurrence.
+    paths_by_url: Dict[str, List[str]] = {}
+
+    def add_url(url: Any, path: str) -> None:
+        normalized = str(url or "").strip()
+        if normalized:
+            paths_by_url.setdefault(normalized, []).append(path)
 
     # 1. Extract candidate sources
     for c_idx, c in enumerate(race_json.get("candidates", [])):
         # Summary sources
         for s_idx, src in enumerate(c.get("summary_sources", [])):
             if isinstance(src, dict) and src.get("url"):
-                urls_to_check.append((str(src["url"]), f"candidates[{c_idx}].summary_sources[{s_idx}].url"))
+                add_url(src["url"], f"candidates[{c_idx}].summary_sources[{s_idx}].url")
 
         # Issue sources
         for issue, issue_data in c.get("issues", {}).items():
             if isinstance(issue_data, dict):
                 for s_idx, src in enumerate(issue_data.get("sources", [])):
                     if isinstance(src, dict) and src.get("url"):
-                        urls_to_check.append((str(src["url"]), f"candidates[{c_idx}].issues.{issue}.sources[{s_idx}].url"))
+                        add_url(src["url"], f"candidates[{c_idx}].issues.{issue}.sources[{s_idx}].url")
 
         # Donor sources
         for s_idx, src in enumerate(c.get("donor_sources", [])):
             if isinstance(src, dict) and src.get("url"):
-                urls_to_check.append((str(src["url"]), f"candidates[{c_idx}].donor_sources[{s_idx}].url"))
+                add_url(src["url"], f"candidates[{c_idx}].donor_sources[{s_idx}].url")
 
         # Voting sources
         for s_idx, src in enumerate(c.get("voting_sources", [])):
             if isinstance(src, dict) and src.get("url"):
-                urls_to_check.append((str(src["url"]), f"candidates[{c_idx}].voting_sources[{s_idx}].url"))
+                add_url(src["url"], f"candidates[{c_idx}].voting_sources[{s_idx}].url")
 
-    if not urls_to_check:
+    if not paths_by_url:
         return None
 
-    log("info", f"  Verifying {len(urls_to_check)} source links...")
+    occurrence_count = sum(len(paths) for paths in paths_by_url.values())
+    log("info", f"  Verifying {len(paths_by_url)} unique source links ({occurrence_count} citation occurrences)...")
 
     # Run link checks concurrently with a limit on concurrent requests
     sem = asyncio.Semaphore(10)
     timeout = run_budget.bounded_timeout(5.0, minimum_seconds=2.0, operation="review link check") if run_budget else 5.0
     async with httpx.AsyncClient(timeout=timeout, follow_redirects=False) as client:
 
-        async def _check(url: str, path: str):
+        async def _check(url: str):
             async with sem:
                 err = await _verify_url(client, url)
-                return url, path, err
+                return url, err
 
-        tasks = [_check(url, path) for url, path in urls_to_check]
+        tasks = [_check(url) for url in paths_by_url]
         check_results = await asyncio.gather(*tasks)
 
     flags = []
-    for url, path, err in check_results:
+    for url, err in check_results:
         if err:
             reason, permanent = err
             # Severity tracks what the check actually establishes. A 404, a 410,
@@ -429,35 +449,37 @@ async def check_profile_links(
             # with the authority of a confirmed dead link. 401/403/429 never
             # reach here at all; _is_access_restricted_response already treats
             # bot-blocking as no evidence either way.
-            flags.append(
-                {
-                    "field": path,
-                    "concern": (
-                        f"Cited source URL ({url}) returned a dead link: {reason}."
-                        if permanent
-                        else f"Cited source URL ({url}) was unreachable during this check: {reason}."
-                    ),
-                    "suggestion": (
-                        "Verify the URL, find a replacement source, and update the stance."
-                        if permanent
-                        else "Re-check the URL; this may be a transient outage rather than a broken citation."
-                    ),
-                    "severity": "warning" if permanent else "info",
-                    # Machine-readable so deterministic cleanup does not have to
-                    # parse these back out of prose. Recovering the URL by regex
-                    # truncated any address containing parentheses — which covers
-                    # every Ballotpedia/Wikipedia disambiguation link — so those
-                    # citations could never be matched and removed.
-                    "permanent_failure": permanent,
-                    "url": url,
-                }
-            )
+            for path in paths_by_url[url]:
+                flags.append(
+                    {
+                        "field": path,
+                        "concern": (
+                            f"Cited source URL ({url}) returned a dead link: {reason}."
+                            if permanent
+                            else f"Cited source URL ({url}) was unreachable during this check: {reason}."
+                        ),
+                        "suggestion": (
+                            "Verify the URL, find a replacement source, and update the stance."
+                            if permanent
+                            else "Re-check the URL; this may be a transient outage rather than a broken citation."
+                        ),
+                        "severity": "warning" if permanent else "info",
+                        # Machine-readable so deterministic cleanup does not have to
+                        # parse these back out of prose. Recovering the URL by regex
+                        # truncated any address containing parentheses — which covers
+                        # every Ballotpedia/Wikipedia disambiguation link — so those
+                        # citations could never be matched and removed.
+                        "permanent_failure": permanent,
+                        "url": url,
+                    }
+                )
 
     confirmed = sum(1 for flag in flags if flag.get("permanent_failure"))
     unreachable = len(flags) - confirmed
     verdict = "flagged" if confirmed else "approved"
     summary = (
-        f"Scanned {len(urls_to_check)} source links. Found {confirmed} dead link(s) "
+        f"Scanned {len(paths_by_url)} unique source links across {occurrence_count} citation occurrence(s). "
+        f"Found {confirmed} dead citation occurrence(s) "
         f"and {unreachable} that were unreachable without confirming they are gone."
     )
     log("info", f"  Link Validator: {verdict} ({confirmed} dead, {unreachable} unreachable)")
