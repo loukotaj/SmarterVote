@@ -136,9 +136,9 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     "openai/gpt-5.6-luna": ModelSpec(
         "openai/gpt-5.6-luna",
         "GPT-5.6 Luna",
-        0.10,
-        0.60,
-        0.01,
+        0.20,
+        1.20,
+        0.02,
         1_050_000,
         51.2,
         128_000,
@@ -146,28 +146,31 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     "openai/gpt-5.6-terra": ModelSpec(
         "openai/gpt-5.6-terra",
         "GPT-5.6 Terra",
-        1.00,
-        6.00,
-        0.10,
+        2.00,
+        12.00,
+        0.20,
         1_050_000,
         55.0,
         128_000,
     ),
-    "openai/gpt-5.6-sol": ModelSpec("openai/gpt-5.6-sol", "GPT-5.6 Sol", 5.00, 30.00, 0.50, 1_050_000, 58.9, 128_000),
+    "openai/gpt-5.6-sol": ModelSpec("openai/gpt-5.6-sol", "GPT-5.6 Sol", 2.00, 10.00, 0.20, 1_050_000, 58.9, 128_000),
     # --- DeepSeek ----------------------------------------------------------
     # The 0731 build is the reason the default profile is cheap. It scores
     # within 1.3 points of Luna at 9/100ths the output price, and its gains
     # over the original V4 Flash were concentrated exactly where we use it:
     # agentic tool loops (GDPval-AA 1189 -> 1559 Elo, Terminal-Bench +17pts).
-    # Pinned to the dated snapshot; the floating `deepseek-v4-flash` alias is
-    # a different, older, dearer model.
+    # Pinned to the dated snapshot. The floating `deepseek-v4-flash` alias is a
+    # different, older model — and actually *cheaper* ($0.06/$0.12), so the pin
+    # costs us a little. It is worth it: the 0731 gains were concentrated in the
+    # agentic tool loops this model spends its life in, and a floating alias
+    # would move a research model with no commit to point at.
     "deepseek/deepseek-v4-flash-0731": ModelSpec(
         "deepseek/deepseek-v4-flash-0731",
         "DeepSeek V4 Flash (07-31)",
         0.08,
         0.18,
         0.016,
-        1_048_576,
+        1_310_720,
         49.9,
         384_000,
     ),
@@ -176,12 +179,12 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     "deepseek/deepseek-v4-pro": ModelSpec(
         "deepseek/deepseek-v4-pro",
         "DeepSeek V4 Pro",
-        1.168,
-        2.336,
-        0.09855,
+        0.413772,
+        0.827544,
+        0.034481,
         1_048_576,
         44.3,
-        393_216,
+        384_000,
     ),
     # --- Google ------------------------------------------------------------
     "google/gemini-3.1-flash-lite": ModelSpec(
@@ -207,11 +210,23 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     "google/gemini-3.6-flash": ModelSpec(
         "google/gemini-3.6-flash",
         "Gemini 3.6 Flash",
-        1.50,
-        7.50,
-        0.15,
+        0.75,
+        3.75,
+        0.075,
         1_048_576,
         50.1,
+        65_536,
+    ),
+    # Half of 3.6 Flash on input, output *and* cache read, newer, and 4 points
+    # stronger. A strict win with no trade-off to weigh.
+    "google/gemini-3.7-flash": ModelSpec(
+        "google/gemini-3.7-flash",
+        "Gemini 3.7 Flash",
+        0.375,
+        1.875,
+        0.0375,
+        1_048_576,
+        54.1,
         65_536,
     ),
     # --- Anthropic ---------------------------------------------------------
@@ -256,6 +271,18 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
     # model than the default one. Release dates decide, never string order.
     "x-ai/grok-4.3": ModelSpec("x-ai/grok-4.3", "Grok 4.3", 1.25, 2.50, 0.20, 1_000_000, 37.6),
     "x-ai/grok-4.5": ModelSpec("x-ai/grok-4.5", "Grok 4.5", 2.00, 6.00, 0.30, 500_000, 53.8),
+    # Same $2/$6 as 4.5, newer, +5.0 index. Cached input rises $0.30 -> $0.50,
+    # which is near-free here: review calls are cache-cold by design because the
+    # race packet changes on every call.
+    "x-ai/grok-4.6": ModelSpec(
+        "x-ai/grok-4.6",
+        "Grok 4.6",
+        2.00,
+        6.00,
+        0.50,
+        500_000,
+        58.8,
+    ),
 }
 
 
@@ -269,25 +296,34 @@ MODEL_CATALOG: Dict[str, ModelSpec] = {
 #: DeepSeek's is the lowest above 45 index.
 DEFAULT_RESEARCH_MODEL = "deepseek/deepseek-v4-flash-0731"
 
-#: Same jobs under ``premium``. Terra is the cheapest model that genuinely beats
-#: the default research model (55.0 against 49.9); Luna's +1.3 would not be an
-#: upgrade worth a profile switch.
-PREMIUM_RESEARCH_MODEL = "openai/gpt-5.6-terra"
+#: Same jobs under ``premium``. This was Terra, chosen as "the cheapest model
+#: that genuinely beats the default research model" against a catalogued
+#: $1.00/$6.00 that OpenRouter never charged — Terra is really $2.00/$12.00.
+#: At true prices Sol *strictly dominates* it: identical input and cache price,
+#: identical 1.05M context, cheaper output ($10 vs $12), and 58.9 against 55.0.
+#: There is no axis on which Terra is the better buy, so nothing selects it.
+PREMIUM_RESEARCH_MODEL = "openai/gpt-5.6-sol"
 
 #: Bounded sub-agent work and the roster adjudication gate, in *both* profiles.
 #: Deliberately not the research model — see :data:`ADJUDICATOR_MODEL`.
 SMALL_MODEL = "openai/gpt-5.6-luna"
 
 #: Ceiling for escalation. Nothing routes here by default.
-FRONTIER_MODEL = "openai/gpt-5.6-sol"
+#:
+#: Sol became the premium research model, so it can no longer also be the place
+#: research escalates *to* — a self-edge would fail the escalation guard and, more
+#: to the point, would not be an escalation. Opus-5 (60.7) is the only catalogued
+#: model above Sol. This is the one edge that leaves its provider family; nothing
+#: in OpenAI's live list is both stronger than Sol and scored.
+FRONTIER_MODEL = "anthropic/claude-opus-5"
 
 DEFAULT_REVIEW_CLAUDE = "anthropic/claude-haiku-4.5"
 DEFAULT_REVIEW_GEMINI = "google/gemini-3.5-flash-lite"
 DEFAULT_REVIEW_GROK = "x-ai/grok-4.3"
 
 PREMIUM_REVIEW_CLAUDE = "anthropic/claude-sonnet-5"
-PREMIUM_REVIEW_GEMINI = "google/gemini-3.6-flash"
-PREMIUM_REVIEW_GROK = "x-ai/grok-4.5"
+PREMIUM_REVIEW_GEMINI = "google/gemini-3.7-flash"
+PREMIUM_REVIEW_GROK = "x-ai/grok-4.6"
 
 #: The fail-closed reading-comprehension gate in front of every roster edit.
 #:
@@ -363,12 +399,12 @@ PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
 #: Edges stay inside one provider family wherever possible so prompt behaviour
 #: does not shift mid-loop.
 MODEL_ESCALATION: Dict[str, str] = {
-    DEFAULT_RESEARCH_MODEL: PREMIUM_RESEARCH_MODEL,  # 49.9 -> 55.0
-    SMALL_MODEL: PREMIUM_RESEARCH_MODEL,  # 51.2 -> 55.0
-    PREMIUM_RESEARCH_MODEL: FRONTIER_MODEL,  # 55.0 -> 58.9
+    DEFAULT_RESEARCH_MODEL: PREMIUM_RESEARCH_MODEL,  # 49.9 -> 58.9
+    SMALL_MODEL: PREMIUM_RESEARCH_MODEL,  # 51.2 -> 58.9
+    PREMIUM_RESEARCH_MODEL: FRONTIER_MODEL,  # 58.9 -> 60.7
     DEFAULT_REVIEW_CLAUDE: PREMIUM_REVIEW_CLAUDE,  # 24.0 -> 53.4
-    DEFAULT_REVIEW_GEMINI: PREMIUM_REVIEW_GEMINI,  # 36.5 -> 50.1
-    DEFAULT_REVIEW_GROK: PREMIUM_REVIEW_GROK,  # 37.6 -> 53.8
+    DEFAULT_REVIEW_GEMINI: PREMIUM_REVIEW_GEMINI,  # 36.5 -> 54.1
+    DEFAULT_REVIEW_GROK: PREMIUM_REVIEW_GROK,  # 37.6 -> 58.8
 }
 
 
@@ -388,14 +424,16 @@ LEGACY_MODEL_ALIASES: Dict[str, str] = {
     "gemini-3.1-flash-lite": "google/gemini-3.1-flash-lite",
     "gemini-3.5-flash-lite": "google/gemini-3.5-flash-lite",
     "gemini-3.6-flash": "google/gemini-3.6-flash",
+    "gemini-3.7-flash": "google/gemini-3.7-flash",
     "grok-4.3": "x-ai/grok-4.3",
     "grok-4.5": "x-ai/grok-4.5",
+    "grok-4.6": "x-ai/grok-4.6",
     # Retired models, mapped to their nearest current equivalent so historical
     # runs still price and re-run sensibly.
-    "openai/gpt-5.4": "openai/gpt-5.6-terra",
+    "openai/gpt-5.4": "openai/gpt-5.6-sol",
     "openai/gpt-5.4-mini": "openai/gpt-5.6-luna",
     "openai/gpt-5-nano": "openai/gpt-5.6-luna",
-    "gpt-5.4": "openai/gpt-5.6-terra",
+    "gpt-5.4": "openai/gpt-5.6-sol",
     "gpt-5.4-mini": "openai/gpt-5.6-luna",
     "gpt-5-nano": "openai/gpt-5.6-luna",
     "deepseek/deepseek-v4-flash": "deepseek/deepseek-v4-flash-0731",

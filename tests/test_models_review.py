@@ -994,3 +994,90 @@ def test_missing_issues_does_not_fail_a_run_that_skipped_issue_research():
     researched = compute_validation_grade(approvals + [in_scope])
     assert researched["passed"] is False
     assert researched["score"] == 79
+
+
+def test_validation_grade_counts_one_defect_once_across_reviewers():
+    """Two reviewers converging on the same field is corroboration, not two defects.
+
+    Counting the raw flag total let a two-field data problem spotted by two
+    models cost four warning penalties, pushing an otherwise-passing race under
+    the pass mark and blocking its publish.
+    """
+    from pipeline_client.agent.review import compute_validation_grade
+
+    duplicated = [
+        {"field": "candidates[2].education[0].year", "severity": "warning", "concern": "Placeholder year"},
+        {"field": "candidates[2].education[1].year", "severity": "warning", "concern": "Placeholder year"},
+    ]
+    grade = compute_validation_grade(
+        [
+            {"verdict": "approved", "score": 91, "flags": list(duplicated)},
+            {"verdict": "approved", "score": 96, "flags": []},
+            {"verdict": "approved", "score": 91, "flags": list(duplicated)},
+        ]
+    )
+
+    assert grade is not None
+    # avg 93, two distinct warnings at 3 points each -> 87, not 93 - 12 = 81.
+    assert grade["score"] == 87
+    assert grade["passed"] is True
+    assert "2 warning flag(s)" in grade["summary"]
+
+
+def test_validation_grade_keeps_distinct_fieldless_flags_separate():
+    """Field-less flags fall back to their text so unrelated problems still both count."""
+    from pipeline_client.agent.review import compute_validation_grade
+
+    grade = compute_validation_grade(
+        [
+            {
+                "verdict": "approved",
+                "score": 90,
+                "flags": [
+                    {"severity": "warning", "concern": "Polling section is stale"},
+                    {"severity": "warning", "concern": "Forecast lacks lineage"},
+                ],
+            }
+        ]
+    )
+
+    assert grade is not None
+    assert grade["score"] == 84
+    assert "2 warning flag(s)" in grade["summary"]
+
+
+def test_validation_grade_uses_highest_severity_for_the_same_defect():
+    """Severity disagreement must not turn one field defect into two deductions."""
+    from pipeline_client.agent.review import compute_validation_grade
+
+    grade = compute_validation_grade(
+        [
+            {
+                "verdict": "needs_revision",
+                "score": 90,
+                "flags": [{"field": "candidates[0].education[0].year", "severity": "warning", "concern": "Invalid year"}],
+            },
+            {
+                "verdict": "needs_revision",
+                "score": 90,
+                "flags": [{"field": "candidates[0].education[0].year", "severity": "error", "concern": "Placeholder year"}],
+            },
+        ]
+    )
+
+    assert grade is not None
+    assert grade["score"] == 79
+    assert "1 error-severity flag(s)" in grade["summary"]
+
+
+def test_flagged_fields_reports_only_fields_at_or_above_severity():
+    from pipeline_client.agent.review_flags import flagged_fields
+
+    reviews = [
+        {"flags": [{"field": "a", "severity": "warning"}, {"field": "b", "severity": "info"}]},
+        {"flags": [{"field": "a", "severity": "warning"}, {"field": "c", "severity": "error"}]},
+    ]
+
+    assert flagged_fields(reviews) == {"a", "c"}
+    assert flagged_fields(reviews, "error") == {"c"}
+    assert flagged_fields(reviews, "info") == {"a", "b", "c"}

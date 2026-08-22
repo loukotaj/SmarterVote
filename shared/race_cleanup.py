@@ -77,6 +77,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
     source_duplicates_removed = 0
     forecast_sources_added = 0
     invalid_social_links_removed = 0
+    placeholder_fields_cleared = 0
 
     for field in ("title", "description", "polling_note"):
         before = race_data.get(field)
@@ -121,6 +122,31 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
             }
             invalid_social_links_removed += len(social_media) - len(cleaned_social_media)
             candidate["social_media"] = cleaned_social_media
+        # Years are Optional[int] in the schema, so an unknown year is None. A
+        # model that reached for 0 as a "not known" sentinel writes data that
+        # reviewers correctly flag as an invalid placeholder — costing grade
+        # points for a defect no amount of further research can resolve. Clear
+        # it here, before the review phase reads the race.
+        for history_field, year_fields in (
+            ("education", ("year",)),
+            ("career_history", ("start_year", "end_year")),
+        ):
+            entries = candidate.get(history_field)
+            if not isinstance(entries, list):
+                continue
+            for entry in entries:
+                if not isinstance(entry, dict):
+                    continue
+                for year_field in year_fields:
+                    if entry.get(year_field) == 0:
+                        entry[year_field] = None
+                        placeholder_fields_cleared += 1
+                for text_field in ("degree", "field", "description", "organization"):
+                    value = entry.get(text_field)
+                    if isinstance(value, str) and not value.strip():
+                        entry[text_field] = None
+                        placeholder_fields_cleared += 1
+
         issues = candidate.get("issues")
         if isinstance(issues, dict):
             for issue in issues.values():
@@ -192,6 +218,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
         "source_duplicates_removed": source_duplicates_removed,
         "forecast_sources_added": forecast_sources_added,
         "invalid_social_links_removed": invalid_social_links_removed,
+        "placeholder_fields_cleared": placeholder_fields_cleared,
     }
 
 

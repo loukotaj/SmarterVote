@@ -11,6 +11,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from starlette.concurrency import run_in_threadpool
 
 from shared.config import FIRESTORE_METRICS_COLLECTION, FIRESTORE_RUNS_COLLECTION
+from shared.model_catalog import normalize_profile_name
 from shared.pipeline_config import PIPELINE_STEP_ORDER
 
 router = APIRouter()
@@ -59,6 +60,27 @@ def _merge_run_metric(run_record: Dict[str, Any], metric_record: Dict[str, Any])
         if value not in (None, "", [], {}):
             merged[field] = value
     return merged
+
+
+def _resolved_model_profile(options: Dict[str, Any], agent_metrics: Dict[str, Any]) -> Optional[str]:
+    """Report the profile a run actually used, under its current name.
+
+    Two gaps used to hide this. The caller's options only carry a profile when
+    one was named explicitly, so runs that took the default recorded ``None`` --
+    95% of records, leaving most spend unattributable to a tier. And records
+    predating the profile consolidation still carry retired names like
+    "quality", which reached the dashboard unmapped even though
+    ``LEGACY_PROFILE_ALIASES`` exists precisely for replayed run records.
+    """
+    raw = options.get("model_profile") or agent_metrics.get("model_profile")
+    if not raw:
+        return None
+    try:
+        return normalize_profile_name(str(raw))
+    except ValueError:
+        # An unrecognized stored value is still better reported verbatim than
+        # dropped -- it says a run happened under a profile we no longer define.
+        return str(raw)
 
 
 def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[str, Any]:
@@ -178,7 +200,7 @@ def _normalize_pipeline_run(raw: Dict[str, Any], fallback_run_id: str) -> Dict[s
             raw.get("token_budget_nudges"),
             _as_int(agent_metrics.get("token_budget_nudges"), 0),
         ),
-        "model_profile": options.get("model_profile"),
+        "model_profile": _resolved_model_profile(options, agent_metrics),
         "enabled_steps": workflow_steps if isinstance(workflow_steps, list) else None,
         "workflow": str(raw.get("workflow") or _workflow_name(options)),
     }

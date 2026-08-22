@@ -176,6 +176,7 @@ def test_retired_models_render_as_themselves_not_their_replacement():
     """A run that used gpt-5.4 must not display as the model that replaced it."""
     assert label_for("openai/gpt-5.4") == "GPT-5.4"
     assert normalize_model_id("openai/gpt-5.4") == PREMIUM_RESEARCH_MODEL
+    assert normalize_model_id("gpt-5.4") == PREMIUM_RESEARCH_MODEL
     assert label_for(DEFAULT_RESEARCH_MODEL) == MODEL_CATALOG[DEFAULT_RESEARCH_MODEL].label
     assert label_for("something-we-never-ran") == "something-we-never-ran"
 

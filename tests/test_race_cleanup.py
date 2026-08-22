@@ -122,3 +122,52 @@ def test_forecast_without_narrative_claims_does_not_require_sources():
     race = {"forecast": {"rating": "tossup", "source_urls": []}}
 
     assert validate_forecast_evidence(race) is True
+
+
+def test_cleanup_clears_zero_year_placeholders_from_history_entries():
+    """A 0 year is an unknown-value sentinel, not a real year, and must become None.
+
+    Reviewers correctly flag a stored 0 as invalid placeholder data. Clearing it
+    here — before the review phase reads the race — stops that flag from ever
+    being raised and costing grade points nothing can resolve.
+    """
+    race = {
+        "candidates": [
+            {
+                "name": "Candidate",
+                "education": [
+                    {"institution": "University of Virginia", "degree": "BS", "field": "", "year": 0},
+                    {"institution": "Northwestern", "degree": "MBA", "field": "Business", "year": 2011},
+                ],
+                "career_history": [
+                    {"title": "Engineer", "organization": "Acme", "start_year": 0, "end_year": 0},
+                ],
+            }
+        ]
+    }
+
+    report = cleanup_race_data(race)
+
+    education = race["candidates"][0]["education"]
+    assert education[0]["year"] is None
+    assert education[0]["field"] is None
+    assert education[1]["year"] == 2011, "a real year must survive untouched"
+    career = race["candidates"][0]["career_history"][0]
+    assert career["start_year"] is None and career["end_year"] is None
+    assert report["placeholder_fields_cleared"] == 4
+
+
+def test_cleanup_leaves_history_entries_without_placeholders_alone():
+    race = {
+        "candidates": [
+            {
+                "name": "Candidate",
+                "education": [{"institution": "Harvard", "degree": "JD", "field": "Law", "year": 2002}],
+            }
+        ]
+    }
+
+    report = cleanup_race_data(race)
+
+    assert report["placeholder_fields_cleared"] == 0
+    assert race["candidates"][0]["education"][0]["year"] == 2002

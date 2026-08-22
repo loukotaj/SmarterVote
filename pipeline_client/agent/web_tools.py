@@ -15,7 +15,13 @@ from urllib.parse import urljoin, urlparse
 
 import httpx
 
-from .cost import record_fetched_chars, reserve_page_fetch, reserve_search_call
+from .cost import (
+    mark_search_provider_exhausted,
+    record_fetched_chars,
+    reserve_page_fetch,
+    reserve_search_call,
+    search_provider_exhausted,
+)
 from .run_budget import RunBudget
 
 logger = logging.getLogger("pipeline")
@@ -907,6 +913,19 @@ async def _serper_search(
     if not api_key:
         return [{"error": "SERPER_API_KEY not configured"}]
 
+    # Serper already reported exhausted credits this run, so every further call
+    # would 400. Skipping it matters for more than latency: the doomed attempt
+    # reserved a search slot from the same ceiling the Searlo fallback then
+    # reserved again, so each logical search burned two of the run's budget and
+    # halved its effective research depth.
+    if search_provider_exhausted("serper"):
+        return await _searlo_search(
+            normalized_query,
+            num_results=num_results,
+            race_id=race_id,
+            run_budget=run_budget,
+        )
+
     client = _get_serper_client()
     last_error = ""
     for attempt in range(max(1, max_attempts)):
@@ -940,6 +959,7 @@ async def _serper_search(
             try:
                 _raise_for_fatal_serper_error(status, response_text)
             except SerperQuotaExhausted:
+                mark_search_provider_exhausted("serper")
                 return await _searlo_search(
                     normalized_query,
                     num_results=num_results,
@@ -1024,6 +1044,15 @@ async def _serper_image_search(
     if not api_key:
         return [{"error": "SERPER_API_KEY not configured"}]
 
+    if search_provider_exhausted("serper"):
+        return await _searlo_search(
+            normalized_query,
+            num_results=num_results,
+            race_id=race_id,
+            run_budget=run_budget,
+            images=True,
+        )
+
     client = _get_serper_client()
     last_error = ""
     for attempt in range(max(1, max_attempts)):
@@ -1057,6 +1086,7 @@ async def _serper_image_search(
             try:
                 _raise_for_fatal_serper_error(status, response_text)
             except SerperQuotaExhausted:
+                mark_search_provider_exhausted("serper")
                 return await _searlo_search(
                     normalized_query,
                     num_results=num_results,

@@ -53,3 +53,23 @@ def has_actionable_flags(
         for review in reviews
         for flag in review.get("flags", [])
     )
+
+
+def flagged_fields(reviews: List[Dict[str, Any]], min_severity: str = "warning") -> set:
+    """Return the set of field paths carrying a flag at or above *min_severity*.
+
+    Used to tell whether an iteration pass actually cleared what it was given.
+    A flag the model cannot act on — because the tool schema gives it no way to
+    express the fix, say — otherwise persists silently, costing the same grade
+    penalty on every future run with nothing in the logs to explain why.
+    """
+    severity_rank = {"info": 0, "warning": 1, "error": 2}
+    threshold = severity_rank.get(min_severity, 1)
+    return {
+        str(flag.get("field") or "").strip()
+        for review in reviews
+        for flag in review.get("flags") or []
+        if isinstance(flag, dict)
+        and severity_rank.get(flag.get("severity", "info"), 0) >= threshold
+        and str(flag.get("field") or "").strip()
+    }

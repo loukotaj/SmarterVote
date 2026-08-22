@@ -46,6 +46,7 @@ from ..llm import _agent_loop
 from ..market_data.kalshi import fetch_kalshi_market_signals
 
 # --- the surface agent.py and tests import from this package ---
+from ..review_flags import flagged_fields as _flagged_fields
 from ..review_flags import format_review_flags as _format_review_flags
 from ..review_flags import has_actionable_flags as _has_actionable_flags
 from ..selection import _candidate_source_hints, _scale_iterations, _select_target_candidates
@@ -73,6 +74,7 @@ __all__ = [
     "_ballotpedia_election_lookup",
     "_candidate_source_hints",
     "_cap_roster",
+    "_flagged_fields",
     "_has_actionable_flags",
     "_remove_known_ineligible_candidates",
     "_research_issue_unit",

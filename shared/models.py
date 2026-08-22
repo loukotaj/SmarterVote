@@ -488,6 +488,7 @@ class PipelineState(BaseModel):
     issue_research: Dict[str, IssueResearchAudit] = Field(default_factory=dict)
     step_failures: List[StepFailure] = Field(default_factory=list)
     deterministic_cleanup: Dict[str, int] = Field(default_factory=dict)
+    unresolved_review_flags: List[str] = Field(default_factory=list)
     race_identity: Optional[RaceIdentityBrief] = None
     roster_research: Optional[RosterResearchAudit] = None
     metadata_research: Optional[MetadataResearchAudit] = None

@@ -758,3 +758,76 @@ def test_xlsx_extraction_reads_rows_without_a_spreadsheet_dependency():
 
     assert "For Representative in Congress | District 02 | Denise Powell" in text
     assert "2026" in text
+
+
+@pytest.mark.asyncio
+async def test_serper_is_not_retried_after_reporting_exhausted_credits():
+    """Once Serper reports no credits, the run must stop paying for doomed calls.
+
+    The wasted round-trip was the lesser cost: the failed attempt reserved a
+    search slot from the same ceiling the Searlo fallback then reserved again,
+    so every logical search consumed two of the run's budget.
+    """
+    from pipeline_client.agent import cost as cost_module
+    from pipeline_client.agent.web_tools import _serper_search
+
+    quota_response = httpx.Response(
+        400,
+        request=httpx.Request("POST", "https://google.serper.dev/search"),
+        text='{"message":"Not enough credits"}',
+    )
+    searlo_response = httpx.Response(
+        200,
+        request=httpx.Request("GET", "https://api.searlo.tech/api/v1/search/web"),
+        json={"organic": [{"title": "Fallback", "snippet": "Evidence", "link": "https://example.com"}]},
+    )
+    mock_client = MagicMock()
+    mock_client.post = AsyncMock(return_value=quota_response)
+    mock_client.get = AsyncMock(return_value=searlo_response)
+
+    acc = {"prompt_tokens": 0, "completion_tokens": 0, "serper_calls": 0, "searlo_calls": 0}
+    token = cost_module._cost_ctx.set(acc)
+    env = os.environ.copy()
+    env["SERPER_API_KEY"] = "test-key"
+    env["SEARLO_API_KEY"] = "fallback-key"
+    try:
+        with (
+            patch("pipeline_client.agent.web_tools._get_serper_client", return_value=mock_client),
+            patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+            patch.dict(os.environ, env, clear=True),
+        ):
+            first = await _serper_search("first query")
+            second = await _serper_search("second query")
+            third = await _serper_search("third query")
+    finally:
+        cost_module._cost_ctx.reset(token)
+
+    assert first and second and third, "every search still returns Searlo evidence"
+    # Serper is probed once for the run, not once per search.
+    assert mock_client.post.await_count == 1
+    assert mock_client.get.await_count == 3
+    # Three logical searches must cost three budget slots, not six.
+    assert acc["serper_calls"] == 1
+    assert acc["searlo_calls"] == 3
+
+
+@pytest.mark.asyncio
+async def test_serper_exhaustion_does_not_leak_between_runs():
+    """A fresh run re-probes Serper in case the account was topped up."""
+    from pipeline_client.agent import cost as cost_module
+    from pipeline_client.agent.cost import mark_search_provider_exhausted, search_provider_exhausted
+
+    first_run = {"serper_calls": 0}
+    token = cost_module._cost_ctx.set(first_run)
+    try:
+        mark_search_provider_exhausted("serper")
+        assert search_provider_exhausted("serper") is True
+    finally:
+        cost_module._cost_ctx.reset(token)
+
+    second_run = {"serper_calls": 0}
+    token = cost_module._cost_ctx.set(second_run)
+    try:
+        assert search_provider_exhausted("serper") is False
+    finally:
+        cost_module._cost_ctx.reset(token)

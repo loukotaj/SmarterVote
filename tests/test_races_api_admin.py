@@ -4049,3 +4049,62 @@ def test_pipeline_cost_data_detection_ignores_status_only_runs():
     assert not _has_pipeline_cost_data({"run_id": "status-only", "status": "completed", "started_at": "2026-07-01T00:00:00Z"})
     assert _has_pipeline_cost_data({"run_id": "priced", "agent_metrics": {"cost_usd": 0.1}})
     assert _has_pipeline_cost_data({"run_id": "legacy", "payload": {"agent_metrics": {"estimated_usd": 0.2}}})
+
+
+def test_pipeline_metrics_recovers_profile_from_agent_metrics():
+    """A run that took the default profile still reports which tier it ran on.
+
+    Callers only pass ``model_profile`` when naming one explicitly, so reading
+    options alone left ~95% of cost records reporting None and most spend
+    unattributable to a tier. The worker records the resolved profile in
+    ``agent_metrics``; fall back to it.
+    """
+    from routers.pipeline import _normalize_pipeline_run
+
+    record = _normalize_pipeline_run(
+        {
+            "race_id": "ar-senate-2026",
+            "status": "completed",
+            "agent_metrics": {"model_profile": "default", "estimated_usd": 0.4},
+            "options": {"enabled_steps": ["issues"]},
+        },
+        "run-default",
+    )
+
+    assert record["model_profile"] == "default"
+
+
+def test_pipeline_metrics_maps_retired_profile_names_forward():
+    """Stored records predating the consolidation must not leak retired names.
+
+    ``web/src/lib/types.ts`` declares model_profile as default|premium|custom, so
+    a raw "quality" reaching the dashboard contradicts the wire contract.
+    """
+    from routers.pipeline import _normalize_pipeline_run
+
+    record = _normalize_pipeline_run(
+        {
+            "race_id": "fl-house-13-2026",
+            "status": "completed",
+            "options": {"model_profile": "quality", "enabled_steps": ["issues"]},
+        },
+        "run-legacy",
+    )
+
+    assert record["model_profile"] == "premium"
+
+
+def test_pipeline_metrics_prefers_explicit_option_over_agent_metrics():
+    from routers.pipeline import _normalize_pipeline_run
+
+    record = _normalize_pipeline_run(
+        {
+            "race_id": "ar-senate-2026",
+            "status": "completed",
+            "agent_metrics": {"model_profile": "default"},
+            "options": {"model_profile": "premium", "enabled_steps": ["issues"]},
+        },
+        "run-premium",
+    )
+
+    assert record["model_profile"] == "premium"

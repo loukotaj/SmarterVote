@@ -40,6 +40,7 @@ from .llm import _agent_loop, _call_openrouter, _ensure_dict, _normalize_candida
 from .model_registry import resolve_run_models
 from .phases import (  # noqa: F401 - re-exported for backward compat
     _candidate_source_hints,
+    _flagged_fields,
     _has_actionable_flags,
     _run_fresh,
     _run_iteration_pass,
@@ -932,6 +933,9 @@ async def run_agent(
         )
 
     if should_review:
+        # Diagnostics describe this review pass only. A clean rerun must not
+        # inherit unresolved paths from an older draft that it has now fixed.
+        pipeline_state.pop("unresolved_review_flags", None)
         # Review the canonical object that will be saved. Legacy drafts can
         # carry schema-invalid optional values (for example a null social URL),
         # and judging before deterministic cleanup creates a stale error that
@@ -1003,6 +1007,7 @@ async def run_agent(
                     cycle_pct = int(((cycle - 1) + pct / 100) / max_review_cycles * 100)
                     _track("progress", "iteration", pct=cycle_pct, message=message, race_json=checkpoint_race)
 
+                flags_before_iteration = _flagged_fields(reviews, min_severity=min_severity)
                 improved = await _run_iteration_pass(
                     race_id,
                     race_json,
@@ -1032,6 +1037,11 @@ async def run_agent(
                         log("warning", f"Restored {restored_evidence} baseline source citation(s) after iteration")
                         _normalize_schema_fields(race_json, log)
 
+                    # Schema normalization replaces schema-owned nested dicts,
+                    # so refresh this reference before recording post-review
+                    # diagnostics on the canonical pipeline_state object.
+                    pipeline_state = race_json.setdefault("pipeline_state", {})
+
                     updated_packet = build_semantic_review_packet(race_json)
                     log("info", f"  Cycle {cycle}: Re-running reviews...")
                     reviews = await run_reviews(
@@ -1053,6 +1063,23 @@ async def run_agent(
                     )
                     reviewed_packet = updated_packet
                     race_json["reviews"] = reviews
+
+                    # A flag on the same field before and after remediation means
+                    # the pass could not act on it. That is usually a pipeline
+                    # defect rather than stubborn data — an editing tool whose
+                    # schema cannot express the correction, for instance — and it
+                    # will cost the same grade penalty on every future run. Record
+                    # it so the cause is visible instead of silently recurring.
+                    unresolved = sorted(flags_before_iteration & _flagged_fields(reviews, min_severity=min_severity))
+                    if unresolved:
+                        log(
+                            "warning",
+                            f"  Cycle {cycle}: {len(unresolved)} review flag(s) survived iteration: "
+                            + ", ".join(unresolved[:5])
+                            + (f" (+{len(unresolved) - 5} more)" if len(unresolved) > 5 else ""),
+                        )
+                    pipeline_state["unresolved_review_flags"] = unresolved
+
                     for rev in reviews:
                         model_name = rev.get("model", "unknown")
                         verdict = rev.get("verdict", "?")
@@ -1063,6 +1090,7 @@ async def run_agent(
                         if summary:
                             log("info", f"    -> {summary}")
                 else:
+                    pipeline_state["unresolved_review_flags"] = sorted(flags_before_iteration)
                     log("warning", f"  Cycle {cycle}: iteration failed; stopping")
                     break
             if not did_iterate:

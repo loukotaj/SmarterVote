@@ -465,3 +465,35 @@ async def test_save_draft_treats_every_fresh_candidate_as_addition(tmp_path):
         )
 
     assert output.exists()
+
+
+def test_education_and_career_handlers_treat_zero_year_as_unknown():
+    """A model with no way to send null used to write 0, which reviewers then flagged.
+
+    The tool schemas now accept null; the handlers still normalize 0 so an older
+    caller cannot reintroduce the placeholder the iteration pass could not clear.
+    """
+    from pipeline_client.agent.handlers import _make_editing_handlers
+
+    race = {"id": "ar-senate-2026", "candidates": [{"name": "Jeff Wadlin"}]}
+    handlers = _make_editing_handlers(race, lambda *a, **k: None)
+
+    handlers["add_education_entry"](
+        {"candidate_name": "Jeff Wadlin", "institution": "University of Virginia", "degree": "BS", "field": "", "year": 0}
+    )
+    handlers["add_career_entry"](
+        {"candidate_name": "Jeff Wadlin", "title": "Engineer", "organization": "Acme", "start_year": 0, "end_year": 0}
+    )
+
+    candidate = race["candidates"][0]
+    assert candidate["education"][0]["year"] is None
+    assert candidate["education"][0]["field"] is None
+    assert candidate["career_history"][0]["start_year"] is None
+    assert candidate["career_history"][0]["end_year"] is None
+
+    # Re-sending 0 through the update path must not reintroduce it either.
+    handlers["update_education_entry"]({"candidate_name": "Jeff Wadlin", "institution": "Virginia", "year": 0})
+    assert candidate["education"][0]["year"] is None
+
+    handlers["update_education_entry"]({"candidate_name": "Jeff Wadlin", "institution": "Virginia", "year": 1998})
+    assert candidate["education"][0]["year"] == 1998
