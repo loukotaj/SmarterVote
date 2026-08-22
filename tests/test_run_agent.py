@@ -13,7 +13,13 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from pipeline_client.agent.agent import _load_existing, _normalize_schema_fields, _sanitize_polling, run_agent
+from pipeline_client.agent.agent import (
+    _clear_stale_iteration_checkpoints,
+    _load_existing,
+    _normalize_schema_fields,
+    _sanitize_polling,
+    run_agent,
+)
 from pipeline_client.agent.phases import (
     _add_candidates_from_authoritative_roster,
     _format_review_flags,
@@ -95,6 +101,26 @@ def test_known_roster_stages_can_use_current_change_probe(stage):
 
 def test_unknown_roster_stage_cannot_use_fast_probe():
     assert _fast_probe_baseline_reason(_race_with_finalized_roster(stage="unknown"), max_age_days=90) is None
+
+
+def test_new_run_clears_stale_iteration_checkpoints_before_a_handoff():
+    race = {
+        "pipeline_state": {
+            "completed_units": [
+                "issues:Alice:Economy",
+                "iteration:1:Alice",
+                "iteration:2:Bob",
+                "refinement:Alice",
+            ]
+        }
+    }
+
+    _clear_stale_iteration_checkpoints(race)
+
+    assert race["pipeline_state"]["completed_units"] == [
+        "issues:Alice:Economy",
+        "refinement:Alice",
+    ]
 
 
 def test_stale_unproven_or_stage_mismatched_roster_is_not_reused():
