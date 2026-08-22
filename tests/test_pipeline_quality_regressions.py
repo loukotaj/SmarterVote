@@ -146,8 +146,8 @@ def test_polling_semantics_reject_placeholder_and_election_results():
     )
 
 
-def test_automated_warnings_deduct_rather_than_veto():
-    """Warnings scale with how many there are instead of pinning the score.
+def test_automated_warnings_deduct_without_becoming_a_veto():
+    """Warnings can lower the grade but cannot reverse a passing average.
 
     They used to cap the average at 79 against a pass mark of 80, so one
     advisory flag was an unconditional veto — a race three models approved at 93
@@ -173,11 +173,18 @@ def test_automated_warnings_deduct_rather_than_veto():
     assert one["score"] == 93
     assert one["passed"] is True
 
-    # But they accumulate, and enough of them still block.
-    assert grade_with(6)["passed"] is False
+    # Even many advisory warnings cannot contradict a passing reviewer average.
+    many = grade_with(6)
+    assert many["score"] == 80
+    assert many["passed"] is True
 
-    # A weaker review has far less headroom than a strong one.
-    assert grade_with(2, score=83)["passed"] is False
+    # A weaker passing review can be lowered to the threshold, but not below it.
+    weaker = grade_with(2, score=83)
+    assert weaker["score"] == 80
+    assert weaker["passed"] is True
+
+    # Warnings do not rescue a reviewer average that was already below threshold.
+    assert grade_with(1, score=79)["passed"] is False
 
 
 def test_error_flags_still_block_regardless_of_score():
