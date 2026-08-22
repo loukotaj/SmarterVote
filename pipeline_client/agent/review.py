@@ -63,9 +63,9 @@ _STALE_ACCESS_THRESHOLD = timedelta(days=365)
 
 # A race must reach this to publish.
 PASSING_SCORE = 80
-# What each warning-severity flag costs. Warnings are advisory, so they scale
-# rather than veto: at 3 points a race reviewed in the 90s survives two or three
-# of them, while one scraping by in the low 80s does not.
+# What each warning-severity flag costs. Warnings are advisory: they can lower a
+# passing race's letter grade, but cannot by themselves reverse a passing review
+# average. Error-severity flags remain the publication veto.
 WARNING_SCORE_PENALTY = 3
 
 
@@ -955,14 +955,16 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
     if error_flags:
         avg = min(avg, PASSING_SCORE - 1)
 
-    # Warnings are advisory, and used to pin the score to the same place. Against
-    # a pass mark of 80 that made a single warning an unconditional veto: a race
-    # three models approved at an average of 93 graded C over three unsourced
-    # stances and one dead link, and no further research could lift it, because
-    # every surviving warning re-applied the identical cap. They now cost a fixed
-    # amount each, so a strong review absorbs a couple and a weak one carrying
-    # many still fails.
-    avg = max(0, avg - WARNING_SCORE_PENALTY * len(warning_flags))
+    # Reviewers already account for their concerns in the numeric score. Apply a
+    # bounded advisory penalty so warnings can distinguish A from B without
+    # double-counting them into a publication veto. A raw average below the pass
+    # mark still fails, and errors above have already capped the score below it.
+    requested_warning_penalty = WARNING_SCORE_PENALTY * len(warning_flags)
+    if error_flags or avg < PASSING_SCORE:
+        warning_penalty = requested_warning_penalty
+    else:
+        warning_penalty = min(requested_warning_penalty, avg - PASSING_SCORE)
+    avg = max(0, avg - warning_penalty)
 
     if avg >= 90:
         grade = "A"
@@ -980,9 +982,7 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
     approved_count = sum(1 for v in verdicts if v == "approved")
     total = len(eligible_reviews)
 
-    deduction = (
-        f"after a {WARNING_SCORE_PENALTY * len(warning_flags)}-point deduction for {len(warning_flags)} warning flag(s)"
-    )
+    deduction = f"after a {warning_penalty}-point advisory deduction for {len(warning_flags)} warning flag(s)"
     if error_flags:
         summary = (
             f"Below quality threshold - {approved_count}/{total} reviewers approved, but {len(error_flags)} "
