@@ -21,9 +21,9 @@ export const MODEL_CATALOG: Record<string, ModelSpec> = {
   "openai/gpt-5.6-luna": {
     "id": "openai/gpt-5.6-luna",
     "label": "GPT-5.6 Luna",
-    "inputPerM": 0.1,
-    "outputPerM": 0.6,
-    "cachedInputPerM": 0.01,
+    "inputPerM": 0.2,
+    "outputPerM": 1.2,
+    "cachedInputPerM": 0.02,
     "contextWindowTokens": 1050000,
     "intelligence": 51.2,
     "maxCompletionTokens": 128000
@@ -31,9 +31,9 @@ export const MODEL_CATALOG: Record<string, ModelSpec> = {
   "openai/gpt-5.6-terra": {
     "id": "openai/gpt-5.6-terra",
     "label": "GPT-5.6 Terra",
-    "inputPerM": 1.0,
-    "outputPerM": 6.0,
-    "cachedInputPerM": 0.1,
+    "inputPerM": 2.0,
+    "outputPerM": 12.0,
+    "cachedInputPerM": 0.2,
     "contextWindowTokens": 1050000,
     "intelligence": 55.0,
     "maxCompletionTokens": 128000
@@ -41,9 +41,9 @@ export const MODEL_CATALOG: Record<string, ModelSpec> = {
   "openai/gpt-5.6-sol": {
     "id": "openai/gpt-5.6-sol",
     "label": "GPT-5.6 Sol",
-    "inputPerM": 5.0,
-    "outputPerM": 30.0,
-    "cachedInputPerM": 0.5,
+    "inputPerM": 2.0,
+    "outputPerM": 10.0,
+    "cachedInputPerM": 0.2,
     "contextWindowTokens": 1050000,
     "intelligence": 58.9,
     "maxCompletionTokens": 128000
@@ -54,19 +54,19 @@ export const MODEL_CATALOG: Record<string, ModelSpec> = {
     "inputPerM": 0.08,
     "outputPerM": 0.18,
     "cachedInputPerM": 0.016,
-    "contextWindowTokens": 1048576,
+    "contextWindowTokens": 1310720,
     "intelligence": 49.9,
     "maxCompletionTokens": 384000
   },
   "deepseek/deepseek-v4-pro": {
     "id": "deepseek/deepseek-v4-pro",
     "label": "DeepSeek V4 Pro",
-    "inputPerM": 1.168,
-    "outputPerM": 2.336,
-    "cachedInputPerM": 0.09855,
+    "inputPerM": 0.413772,
+    "outputPerM": 0.827544,
+    "cachedInputPerM": 0.034481,
     "contextWindowTokens": 1048576,
     "intelligence": 44.3,
-    "maxCompletionTokens": 393216
+    "maxCompletionTokens": 384000
   },
   "google/gemini-3.1-flash-lite": {
     "id": "google/gemini-3.1-flash-lite",
@@ -91,11 +91,21 @@ export const MODEL_CATALOG: Record<string, ModelSpec> = {
   "google/gemini-3.6-flash": {
     "id": "google/gemini-3.6-flash",
     "label": "Gemini 3.6 Flash",
-    "inputPerM": 1.5,
-    "outputPerM": 7.5,
-    "cachedInputPerM": 0.15,
+    "inputPerM": 0.75,
+    "outputPerM": 3.75,
+    "cachedInputPerM": 0.075,
     "contextWindowTokens": 1048576,
     "intelligence": 50.1,
+    "maxCompletionTokens": 65536
+  },
+  "google/gemini-3.7-flash": {
+    "id": "google/gemini-3.7-flash",
+    "label": "Gemini 3.7 Flash",
+    "inputPerM": 0.375,
+    "outputPerM": 1.875,
+    "cachedInputPerM": 0.0375,
+    "contextWindowTokens": 1048576,
+    "intelligence": 54.1,
     "maxCompletionTokens": 65536
   },
   "anthropic/claude-haiku-4.5": {
@@ -147,6 +157,16 @@ export const MODEL_CATALOG: Record<string, ModelSpec> = {
     "contextWindowTokens": 500000,
     "intelligence": 53.8,
     "maxCompletionTokens": null
+  },
+  "x-ai/grok-4.6": {
+    "id": "x-ai/grok-4.6",
+    "label": "Grok 4.6",
+    "inputPerM": 2.0,
+    "outputPerM": 6.0,
+    "cachedInputPerM": 0.5,
+    "contextWindowTokens": 500000,
+    "intelligence": 58.8,
+    "maxCompletionTokens": null
   }
 };
 
@@ -160,11 +180,13 @@ export const MODEL_LABELS: Record<string, string> = {
   "google/gemini-3.1-flash-lite": "Gemini 3.1 Flash Lite",
   "google/gemini-3.5-flash-lite": "Gemini 3.5 Flash Lite",
   "google/gemini-3.6-flash": "Gemini 3.6 Flash",
+  "google/gemini-3.7-flash": "Gemini 3.7 Flash",
   "anthropic/claude-haiku-4.5": "Claude Haiku 4.5",
   "anthropic/claude-sonnet-5": "Claude Sonnet 5",
   "anthropic/claude-opus-5": "Claude Opus 5",
   "x-ai/grok-4.3": "Grok 4.3",
   "x-ai/grok-4.5": "Grok 4.5",
+  "x-ai/grok-4.6": "Grok 4.6",
   "openai/gpt-5.4": "GPT-5.4",
   "openai/gpt-5.4-mini": "GPT-5.4 Mini",
   "openai/gpt-5-nano": "GPT-5 Nano",
@@ -194,12 +216,14 @@ export const LEGACY_MODEL_ALIASES: Record<string, string> = {
   "gemini-3.1-flash-lite": "google/gemini-3.1-flash-lite",
   "gemini-3.5-flash-lite": "google/gemini-3.5-flash-lite",
   "gemini-3.6-flash": "google/gemini-3.6-flash",
+  "gemini-3.7-flash": "google/gemini-3.7-flash",
   "grok-4.3": "x-ai/grok-4.3",
   "grok-4.5": "x-ai/grok-4.5",
-  "openai/gpt-5.4": "openai/gpt-5.6-terra",
+  "grok-4.6": "x-ai/grok-4.6",
+  "openai/gpt-5.4": "openai/gpt-5.6-sol",
   "openai/gpt-5.4-mini": "openai/gpt-5.6-luna",
   "openai/gpt-5-nano": "openai/gpt-5.6-luna",
-  "gpt-5.4": "openai/gpt-5.6-terra",
+  "gpt-5.4": "openai/gpt-5.6-sol",
   "gpt-5.4-mini": "openai/gpt-5.6-luna",
   "gpt-5-nano": "openai/gpt-5.6-luna",
   "deepseek/deepseek-v4-flash": "deepseek/deepseek-v4-flash-0731",
@@ -246,16 +270,16 @@ export const PROFILE_DEFAULTS: Record<string, Record<string, string>> = {
     "review_grok": "x-ai/grok-4.3"
   },
   "premium": {
-    "primary": "openai/gpt-5.6-terra",
+    "primary": "openai/gpt-5.6-sol",
     "small": "openai/gpt-5.6-luna",
-    "roster": "openai/gpt-5.6-terra",
+    "roster": "openai/gpt-5.6-sol",
     "review_claude": "anthropic/claude-sonnet-5",
-    "review_gemini": "google/gemini-3.6-flash",
-    "review_grok": "x-ai/grok-4.5"
+    "review_gemini": "google/gemini-3.7-flash",
+    "review_grok": "x-ai/grok-4.6"
   }
 };
 
-export const DEFAULT_CHAMBER_FORECAST_MODEL = "google/gemini-3.6-flash";
+export const DEFAULT_CHAMBER_FORECAST_MODEL = "google/gemini-3.7-flash";
 
 export type ReviewerKey = "claude" | "gemini" | "grok";
 
@@ -287,8 +311,8 @@ export const REVIEWER_DEFS: {
         "label": "Gemini 3.5 Flash Lite"
       },
       {
-        "value": "google/gemini-3.6-flash",
-        "label": "Gemini 3.6 Flash"
+        "value": "google/gemini-3.7-flash",
+        "label": "Gemini 3.7 Flash"
       }
     ]
   },
@@ -301,8 +325,8 @@ export const REVIEWER_DEFS: {
         "label": "Grok 4.3"
       },
       {
-        "value": "x-ai/grok-4.5",
-        "label": "Grok 4.5"
+        "value": "x-ai/grok-4.6",
+        "label": "Grok 4.6"
       }
     ]
   }
@@ -318,8 +342,8 @@ export const RESEARCH_MODELS: { value: string; label: string }[] = [
     "label": "DeepSeek V4 Flash (07-31) (default)"
   },
   {
-    "value": "openai/gpt-5.6-terra",
-    "label": "GPT-5.6 Terra (premium)"
+    "value": "openai/gpt-5.6-sol",
+    "label": "GPT-5.6 Sol (premium)"
   }
 ];
 

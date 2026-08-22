@@ -224,3 +224,25 @@ def record_token_budget_nudge() -> None:
     acc = _cost_ctx.get()
     if acc is not None:
         acc["token_budget_nudges"] = int(acc.get("token_budget_nudges", 0) or 0) + 1
+
+
+def mark_search_provider_exhausted(provider: str) -> None:
+    """Record that *provider* has reported exhausted credits for this run.
+
+    Run-scoped rather than process-global so a later run re-probes the provider
+    if its account is topped up, and so tests cannot leak the flag into one
+    another through a module-level global.
+    """
+    acc = _cost_ctx.get()
+    if acc is None:
+        return
+    exhausted = acc.setdefault("exhausted_search_providers", set())
+    exhausted.add(provider)
+
+
+def search_provider_exhausted(provider: str) -> bool:
+    """Report whether *provider* already failed on credits during this run."""
+    acc = _cost_ctx.get()
+    if acc is None:
+        return False
+    return provider in (acc.get("exhausted_search_providers") or set())

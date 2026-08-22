@@ -111,6 +111,37 @@ def _ordinal_word(number: int) -> str:
     return f"{_TENS_CARDINALS[base]}-{_ONES_ORDINALS[ones]}"
 
 
+def _optional_year(value: Any) -> int | None:
+    """Normalize a tool-supplied year, treating 0 as "unknown".
+
+    ``EducationEntry.year`` / ``CareerEntry.start_year`` model an unknown year as
+    ``None``. Tool schemas used to declare these as plain ``integer`` while their
+    descriptions said "null if unknown", so a model obeying the schema had no way
+    to express the absence and sent ``0`` instead. Reviewers then correctly
+    flagged the ``0`` as invalid placeholder data, and the iteration pass could
+    not clear the flag because re-calling the tool re-sent ``0``. The schemas now
+    accept null; this keeps the stored data clean for older callers and for any
+    model that still reaches for the sentinel.
+
+    Raises ``ValueError`` for values that are not year-like at all.
+    """
+    if value in (None, "", 0):
+        return None
+    try:
+        year = int(value)
+    except (TypeError, ValueError):
+        raise ValueError("year must be an integer or omitted") from None
+    return None if year == 0 else year
+
+
+def _optional_text(value: Any) -> str | None:
+    """Normalize an optional free-text tool field, treating "" as absent."""
+    if value is None:
+        return None
+    text = str(value).strip()
+    return text or None
+
+
 def _source_supports_exact_contest(source: Dict[str, Any], *, race_id: str) -> bool:
     """Reject same-number state-legislative evidence for federal House races."""
     match = re.fullmatch(r"[a-z]{2}-house-(\d{1,2})-(?:19|20)\d{2}", race_id)
@@ -1480,16 +1511,21 @@ def _make_editing_handlers(
         c = _find_candidate(name)
         if not c:
             return f"Candidate '{name}' not found."
+        try:
+            start_year = _optional_year(args.get("start_year"))
+            end_year = _optional_year(args.get("end_year"))
+        except ValueError:
+            return "ERROR: career start_year/end_year must be integers or omitted."
         entry = {
             "title": args["title"],
             "organization": args["organization"],
-            "start_year": args.get("start_year"),
-            "end_year": args.get("end_year"),
+            "start_year": start_year,
+            "end_year": end_year,
             "description": args.get("description", ""),
         }
         # Dedup: same org + overlapping years -> skip
         org_lower = args["organization"].lower()
-        start = args.get("start_year")
+        start = start_year
         for existing in c.get("career_history", []):
             same_org = (
                 org_lower in existing.get("organization", "").lower() or existing.get("organization", "").lower() in org_lower
@@ -1506,18 +1542,14 @@ def _make_editing_handlers(
         c = _find_candidate(name)
         if not c:
             return f"Candidate '{name}' not found."
-        year = args.get("year")
-        if year in (None, ""):
-            year = None
-        else:
-            try:
-                year = int(year)
-            except (TypeError, ValueError):
-                return "ERROR: education year must be an integer or omitted."
+        try:
+            year = _optional_year(args.get("year"))
+        except ValueError:
+            return "ERROR: education year must be an integer or omitted."
         entry = {
             "institution": args["institution"],
             "degree": args["degree"],
-            "field": args.get("field"),
+            "field": _optional_text(args.get("field")),
             "year": year,
         }
         # Dedup: same institution + degree -> skip
@@ -1563,7 +1595,14 @@ def _make_editing_handlers(
             return f"No career entry matching '{args['organization']}' found for '{name}'."
         for entry in matched:
             for field in ("title", "start_year", "end_year", "description"):
-                if field in args:
+                if field not in args:
+                    continue
+                if field in ("start_year", "end_year"):
+                    try:
+                        entry[field] = _optional_year(args[field])
+                    except ValueError:
+                        return "ERROR: career start_year/end_year must be integers or omitted."
+                else:
                     entry[field] = args[field]
         changes = {k: v for k, v in args.items() if k not in ("candidate_name", "organization")}
         log("info", f"    ✏️ Updated career entry '{args['organization']}' for {name}: {changes}")
@@ -1583,13 +1622,12 @@ def _make_editing_handlers(
                 if field in args:
                     value = args[field]
                     if field == "year":
-                        if value in (None, ""):
-                            value = None
-                        else:
-                            try:
-                                value = int(value)
-                            except (TypeError, ValueError):
-                                return "ERROR: education year must be an integer or omitted."
+                        try:
+                            value = _optional_year(value)
+                        except ValueError:
+                            return "ERROR: education year must be an integer or omitted."
+                    else:
+                        value = _optional_text(value)
                     entry[field] = value
         changes = {k: v for k, v in args.items() if k not in ("candidate_name", "institution")}
         log("info", f"    ✏️ Updated education entry '{args['institution']}' for {name}: {changes}")

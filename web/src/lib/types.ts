@@ -248,6 +248,7 @@ export interface PipelineState {
   issue_research: Record<string, IssueResearchAudit>;
   step_failures: StepFailure[];
   deterministic_cleanup: Record<string, number>;
+  unresolved_review_flags: string[];
   race_identity?: RaceIdentityBrief;
   roster_research?: RosterResearchAudit;
   metadata_research?: MetadataResearchAudit;

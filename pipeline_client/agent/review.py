@@ -899,6 +899,41 @@ async def run_reviews(
     return results_list
 
 
+def _flag_identity(flag: Dict[str, Any]) -> tuple:
+    """Key a flag by the defect it describes, not by which reviewer raised it."""
+    field = str(flag.get("field") or "").strip().casefold()
+    if field:
+        return ("field", field)
+    # A flag with no field is not tied to a location, so fall back to its text.
+    # Collapsing all field-less flags together would hide unrelated problems.
+    concern = " ".join(str(flag.get("concern") or "").split()).casefold()
+    return ("concern", concern)
+
+
+def _distinct_flags(reviews: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Flatten reviewer flags, counting each distinct defect once.
+
+    Independent reviewers converging on the same field is corroboration that the
+    defect is real — it is not evidence of N separate defects. Counting the raw
+    total let one two-field data problem spotted by two models cost four times
+    the warning penalty, which pushed an otherwise-A race under the pass mark
+    and blocked its publish.
+    """
+    distinct: Dict[tuple, Dict[str, Any]] = {}
+    for review in reviews:
+        for flag in review.get("flags") or []:
+            if not isinstance(flag, dict):
+                continue
+            identity = _flag_identity(flag)
+            previous = distinct.get(identity)
+            severity_rank = {"info": 0, "warning": 1, "error": 2}
+            if previous is None or severity_rank.get(str(flag.get("severity") or "info"), 0) > severity_rank.get(
+                str(previous.get("severity") or "info"), 0
+            ):
+                distinct[identity] = flag
+    return list(distinct.values())
+
+
 def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
     """Compute an aggregate validation grade from review scores."""
     automated_models = {"automated-link-validator", "automated-profile-quality"}
@@ -910,7 +945,7 @@ def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str
 
     avg = round(sum(scores) / len(scores))
     avg = max(0, min(100, avg))
-    flags = [flag for review in reviews for flag in (review.get("flags") or []) if isinstance(flag, dict)]
+    flags = _distinct_flags(reviews)
     error_flags = [flag for flag in flags if flag.get("severity") == "error"]
     warning_flags = [flag for flag in flags if flag.get("severity") == "warning"]
 

@@ -41,8 +41,15 @@ def test_estimate_cost_zero_tokens_is_zero():
 
 
 def test_estimate_cost_uses_catalog_pricing_for_known_model():
+    # Read the rates from the catalog rather than restating them. Hardcoded
+    # literals here do not test that estimate_cost consults the catalog -- they
+    # only fail whenever a price is corrected, which is a routine and expected
+    # change (see scripts/check_model_catalog.py).
+    from shared.model_catalog import MODEL_CATALOG
+
+    spec = MODEL_CATALOG["openai/gpt-5.6-luna"]
     cost = estimate_cost("openai/gpt-5.6-luna", 1000, 1000)
-    assert cost == pytest.approx(1000 / 1_000_000 * 0.10 + 1000 / 1_000_000 * 0.60)
+    assert cost == pytest.approx(1000 / 1_000_000 * spec.input_per_m + 1000 / 1_000_000 * spec.output_per_m)
 
 
 def test_estimate_cost_resolves_legacy_model_alias():

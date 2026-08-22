@@ -1304,6 +1304,7 @@ async def test_run_agent_default_iteration_rereviews_full_profile_once():
     assert "candidates[0].summary" in mock_reviews.call_args_list[1].kwargs["change_manifest"]
     assert mock_reviews.call_args_list[1].args[1]["candidates"][0]["summary"] == "After"
     assert result["agent_metrics"]["review"]["whole_profile"] is True
+    assert result["pipeline_state"]["unresolved_review_flags"] == []
 
 
 @pytest.mark.asyncio
@@ -1417,7 +1418,7 @@ async def test_extra_review_cycles_require_error_flags(monkeypatch):
         ) as mock_iteration,
         patch("pipeline_client.agent.agent.run_reviews", new_callable=AsyncMock, return_value=warning_reviews) as mock_reviews,
     ):
-        await run_agent(
+        result = await run_agent(
             "review-errors-2026",
             existing_data={},
             enabled_steps=["discovery", "review", "iteration"],
@@ -1425,6 +1426,7 @@ async def test_extra_review_cycles_require_error_flags(monkeypatch):
 
     assert mock_iteration.await_count == 1
     assert mock_reviews.await_count == 2
+    assert result["pipeline_state"]["unresolved_review_flags"] == ["candidates[0].summary"]
 
 
 @pytest.mark.asyncio

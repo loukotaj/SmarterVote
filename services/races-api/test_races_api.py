@@ -557,8 +557,14 @@ def test_chamber_forecasts_endpoints(client, monkeypatch, data_dir):
     assert manual_save_resp.status_code == 405
 
 
-def test_generate_chamber_forecasts_defaults_to_gemini_35_flash(client, monkeypatch):
-    """POST /api/races/chamber_forecasts/generate uses the requested default model."""
+def test_generate_chamber_forecasts_defaults_to_catalog_model(client, monkeypatch):
+    """POST /api/races/chamber_forecasts/generate uses the catalogued default model.
+
+    Assert against the catalog constant rather than a model ID. This endpoint
+    deliberately tracks ``PREMIUM_REVIEW_GEMINI``, so pinning a version here just
+    fails whenever that role is legitimately upgraded -- and the old name said
+    3.5 while the assertion said 3.6, so the pin had already drifted from itself.
+    """
     seen_models = []
     seen_cycle_years = []
 
@@ -581,8 +587,10 @@ def test_generate_chamber_forecasts_defaults_to_gemini_35_flash(client, monkeypa
 
     assert resp.status_code == 200
     body = resp.json()
-    assert body["model"] == "google/gemini-3.6-flash"
-    assert seen_models == ["google/gemini-3.6-flash"] * 3
+    from shared.model_catalog import DEFAULT_CHAMBER_FORECAST_MODEL
+
+    assert body["model"] == DEFAULT_CHAMBER_FORECAST_MODEL
+    assert seen_models == [DEFAULT_CHAMBER_FORECAST_MODEL] * 3
     # The cycle must reach the prompt from the race data, not a hardcoded literal.
     # These fixtures are mo-senate-2024, so a "2026" here would mean the prompt is
     # still naming a cycle of its own choosing.
