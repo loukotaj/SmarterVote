@@ -828,7 +828,7 @@ class AgentHandler:
                 "Re-queue the race with candidate_names or inspect discovery output."
             )
         from pipeline_client.agent.handlers import _qualifying_candidate_addition_sources, _roster_source_rejection_summary
-        from shared.run_health import RunFailureReason, record_step_failure
+        from shared.run_health import RunFailureReason, compute_run_health_verdict, record_step_failure
 
         baseline_names = {name.casefold() for name in (verified_baseline_candidate_names or set())}
         unsupported_additions: List[str] = []
@@ -873,6 +873,16 @@ class AgentHandler:
             candidates = kept
             logger.warning("Draft '%s': %s", race_id, detail)
             record_step_failure(race_json, "discovery", RunFailureReason.ROSTER_VERIFICATION_FAILED, detail)
+            # ``run_agent`` computes run_health before this persistence guard runs.
+            # Recompute it after recording the failure so a completed queue item
+            # cannot claim to be healthy after the guard removed candidates.
+            validation = race_json.get("validation_grade")
+            verdict = compute_run_health_verdict(
+                race_json,
+                should_review=isinstance(validation, dict),
+                validation_grade=validation if isinstance(validation, dict) else None,
+            )
+            race_json["run_health"] = verdict.model_dump(mode="json")
 
         json_str = json.dumps(race_json, indent=2, default=str)
 

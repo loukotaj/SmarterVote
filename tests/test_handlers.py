@@ -418,6 +418,8 @@ async def test_save_draft_drops_unverified_addition_but_keeps_the_rest(tmp_path)
     failures = race_json["pipeline_state"]["step_failures"]
     assert failures[0]["reason"] == "roster_verification_failed"
     assert "New Candidate" in failures[0]["detail"]
+    assert race_json["run_health"]["status"] == "failed"
+    assert race_json["run_health"]["reasons"] == ["roster_verification_failed"]
 
 
 @pytest.mark.asyncio

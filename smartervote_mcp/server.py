@@ -893,6 +893,12 @@ async def assess_publish_readiness(race_ids: List[str]) -> Dict[str, Any]:
                     warnings.append("pipeline_not_complete")
             if _contains_placeholder(draft):
                 blockers.append("literal_placeholder_content")
+            step_failures = pipeline_state.get("step_failures") or []
+            if any(
+                isinstance(failure, dict) and failure.get("reason") == "roster_verification_failed"
+                for failure in step_failures
+            ):
+                blockers.append("roster_verification_failed")
 
         published_names = _candidate_names(published)
         if published is None:

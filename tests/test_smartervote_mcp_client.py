@@ -728,7 +728,12 @@ async def test_assess_publish_readiness_blocks_failed_or_placeholder_drafts(monk
             "candidates": [{"name": "Ready Candidate"}],
             "validation_grade": {"passed": True},
             "run_health": {"status": "healthy"},
-            "pipeline_state": {"complete": True},
+            "pipeline_state": {
+                "complete": True,
+                "step_failures": [
+                    {"step": "discovery", "reason": "roster_verification_failed", "detail": "candidate dropped"}
+                ],
+            },
         },
         "/races/ca-house-01-2026": {"candidates": [{"name": "Old Candidate"}]},
         "/api/races/ca-house-02-2026/data": {
@@ -743,8 +748,9 @@ async def test_assess_publish_readiness_blocks_failed_or_placeholder_drafts(monk
 
     result = await server.assess_publish_readiness(["ca-house-01-2026", "ca-house-02-2026"])
 
-    assert result["ready_race_ids"] == ["ca-house-01-2026"]
-    assert result["blocked_race_ids"] == ["ca-house-02-2026"]
+    assert result["ready_race_ids"] == []
+    assert result["blocked_race_ids"] == ["ca-house-01-2026", "ca-house-02-2026"]
+    assert result["rows"][0]["blockers"] == ["roster_verification_failed"]
     assert result["rows"][0]["warnings"] == ["candidate_roster_changes"]
     assert set(result["rows"][1]["blockers"]) == {
         "validation_not_passed",
