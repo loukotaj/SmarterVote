@@ -646,6 +646,25 @@ def _build_run_audit(existing_data: Dict[str, Any] | None, race_json: Dict[str, 
 # ---------------------------------------------------------------------------
 
 
+def _clear_stale_iteration_checkpoints(race_json: Dict[str, Any]) -> None:
+    """Make a newly requested iteration run independent of an older run's checkpoints.
+
+    Continuations must retain units completed by the current run.  A new run, however,
+    can hand off before it reaches iteration; clearing only inside the iteration phase
+    is then too late because the continuation treats inherited baseline markers as its
+    own and skips remediation.
+    """
+    pipeline_state = race_json.get("pipeline_state")
+    if not isinstance(pipeline_state, dict):
+        return
+    completed_units = pipeline_state.get("completed_units")
+    if not isinstance(completed_units, list):
+        return
+    pipeline_state["completed_units"] = [
+        unit for unit in completed_units if not (isinstance(unit, str) and unit.startswith("iteration:"))
+    ]
+
+
 async def run_agent(
     race_id: str,
     *,
@@ -796,6 +815,8 @@ async def run_agent(
         # Health is an assessment of the latest attempt. Retain unrelated failures,
         # but let every enabled phase prove itself again from a clean slate.
         clear_step_failures(existing_data, _enabled)
+        if not resume_partial and _step_enabled("iteration"):
+            _clear_stale_iteration_checkpoints(existing_data)
 
     if existing_data:
         log("info", f"Update mode for {race_id} (profile={profile}, model={model}, small_model={small_model})")
