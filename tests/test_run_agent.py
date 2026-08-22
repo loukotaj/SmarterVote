@@ -773,7 +773,9 @@ async def test_roster_verify_can_recover_completeness_after_removing_primary_los
             return {"_tool_trace": {"required_final_tool_succeeded": False}}
         if kwargs.get("phase_name") == "roster-verify":
             assert kwargs["required_final_tool_name"] == "finalize_roster"
-            assert any(tool["function"]["name"] == "finalize_roster" for tool in kwargs["extra_tools"])
+            recovery_tools = {tool["function"]["name"] for tool in kwargs["extra_tools"]}
+            assert {"set_race_identity", "finalize_roster"}.issubset(recovery_tools)
+            assert "Call set_race_identity" in args[1]
             assert "Any candidates added during the sync that were NOT in the original list:\n(none)" in args[1]
             kwargs["extra_tool_handlers"]["remove_candidate"](
                 {"name": "Primary Loser", "reason": "Lost the completed special primary."}

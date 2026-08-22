@@ -29,6 +29,7 @@ from ..tools import (
     RECORD_TOOLS,
     REMOVE_CANDIDATE_TOOL,
     ROSTER_TOOLS,
+    SET_RACE_IDENTITY_TOOL,
 )
 from ..utils import make_logger
 from ._common import (
@@ -388,7 +389,8 @@ async def _run_update(
                 finalization_instruction = (
                     "The earlier roster-sync phase did not prove completeness. After removing any verified "
                     "inactive candidates, fetch an authoritative exact-contest source or the exact Ballotpedia "
-                    "race page that names the entire current field. Then you MUST call finalize_roster with the "
+                    "race page that names the entire current field. Call set_race_identity with the verified "
+                    "office and current contest stage before finalization. Then you MUST call finalize_roster with the "
                     "remaining complete candidates array, matching source_candidate_names, and the retrieved "
                     "completeness source. Do not finalize from search snippets or candidate-by-candidate sources."
                     if recover_completeness
@@ -413,7 +415,7 @@ async def _run_update(
                     phase_name="roster-verify",
                     max_tokens=4096,
                     extra_tools=[REMOVE_CANDIDATE_TOOL, READ_PROFILE_TOOL]
-                    + ([FINALIZE_ROSTER_TOOL] if recover_completeness else []),
+                    + ([SET_RACE_IDENTITY_TOOL, FINALIZE_ROSTER_TOOL] if recover_completeness else []),
                     extra_tool_handlers=handlers,
                     tools_mode=True,
                     run_budget=run_budget,
