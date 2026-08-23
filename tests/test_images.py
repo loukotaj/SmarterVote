@@ -34,6 +34,12 @@ def test_generic_social_card_rejected_and_data_hosts_skipped():
     assert _candidate_page_urls(cand) == ["https://www.hallieshoffner.com/"]
 
 
+def test_obituary_repository_image_is_rejected_even_when_it_is_a_direct_photo():
+    assert _looks_like_non_photo("https://d1q40j6jx1d8h6.cloudfront.net/Obituaries/46739509/Image_1.jpg")
+    assert _looks_like_non_photo("https://example.com/funeral-home/portraits/alex-smith.webp")
+    assert not _looks_like_non_photo("https://candidate.example/photos/alex-smith-headshot.jpg")
+
+
 def test_extract_page_images_skips_homepage_banner_for_real_headshot():
     html = """
     <meta property="og:image" content="/halliewebsiteshoffnerhomepage.png">

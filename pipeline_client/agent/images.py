@@ -123,12 +123,23 @@ _GENERIC_CARD_MARKERS = (
     "share-card",
 )
 
+# Current candidates should never inherit portraits from obituary or memorial
+# repositories.  Those URLs are often valid image files, so reachability alone
+# cannot distinguish the common-name collision from a candidate headshot.
+_MEMORIAL_IMAGE_MARKERS = (
+    "/obituaries/",
+    "/obituary/",
+    "findagrave",
+    "funeralhome",
+    "funeral-home",
+)
+
 
 def _looks_like_non_photo(url: str, alt: str = "") -> bool:
     haystack = unquote(f"{url} {alt}").lower()
     if any(token in haystack for token in _NON_PHOTO_TOKENS):
         return True
-    return any(marker in haystack for marker in _GENERIC_CARD_MARKERS)
+    return any(marker in haystack for marker in (*_GENERIC_CARD_MARKERS, *_MEMORIAL_IMAGE_MARKERS))
 
 
 def _looks_like_govtrack_reference_headshot(url: str) -> bool:
