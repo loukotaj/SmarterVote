@@ -1014,6 +1014,54 @@ async def test_agent_loop_escalates_after_repeated_blocked_edits():
 
 
 @pytest.mark.asyncio
+async def test_agent_loop_aborts_third_identical_blocked_required_final_tool_after_escalation():
+    blocked = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "finalize",
+                "function": {"name": "finalize_roster", "arguments": json.dumps({"summary": "Official list"})},
+            }
+        ]
+    )
+    final_tool = {
+        "type": "function",
+        "function": {"name": "finalize_roster", "description": "Finalize", "parameters": {"type": "object"}},
+    }
+
+    with patch(
+        "pipeline_client.agent.llm._call_openrouter",
+        new_callable=AsyncMock,
+        side_effect=[blocked, blocked, blocked],
+    ) as call:
+        with pytest.raises(RuntimeError, match="3 identical blocked finalize_roster calls"):
+            await _agent_loop(
+                "system",
+                "user",
+                model=SMALL_MODEL,
+                phase_name="roster-repeat-blocked",
+                max_iterations=8,
+                tools_mode=True,
+                extra_tools=[final_tool],
+                extra_tool_handlers={
+                    "finalize_roster": lambda _args: (
+                        "ERROR: roster finalization blocked. Lock the exact office and contest stage "
+                        "with set_race_identity."
+                    )
+                },
+                required_final_tool_name="finalize_roster",
+                escalate_on_tool_errors=True,
+                return_tool_trace=True,
+            )
+
+    assert call.call_count == 3
+    assert [entry.kwargs["model"] for entry in call.call_args_list] == [
+        SMALL_MODEL,
+        SMALL_MODEL,
+        escalation_for(SMALL_MODEL),
+    ]
+
+
+@pytest.mark.asyncio
 async def test_agent_loop_never_escalates_a_long_but_healthy_loop():
     """A loop that runs to its ceiling is thorough, not stalled.
 

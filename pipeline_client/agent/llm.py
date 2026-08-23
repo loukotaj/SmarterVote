@@ -538,6 +538,7 @@ async def _agent_loop(
     required_final_tool_succeeded = False
     consecutive_tool_errors = 0
     tool_errors_escalated = False
+    blocked_tool_error_counts: Dict[tuple[str, str], int] = {}
     # Resolved once from the loop's own model, so every escalation path in this
     # function agrees on where "stronger" points.
     tool_error_escalation_model = escalation_for(model) if escalate_on_tool_errors else None
@@ -552,6 +553,7 @@ async def _agent_loop(
         "token_budget_reached": False,
         "max_iterations_reached": False,
         "required_final_tool_succeeded": False,
+        "repeated_blocked_tool_abort": False,
         "no_change_confirmed": False,
         "no_change_reason": None,
         "no_change_evidence_url": None,
@@ -930,6 +932,7 @@ async def _agent_loop(
                     )
                     if adjudications:
                         args["_adjudications"] = adjudications
+                    abort_repeated_block = False
                     try:
                         if fn.name == "read_profile" and context_budget.narrow_phase and args.get("section", "full") == "full":
                             handler_result = (
@@ -944,6 +947,13 @@ async def _agent_loop(
                         if _tool_result_is_error(handler_result):
                             consecutive_tool_errors += 1
                             blocked_detail = " ".join(str(handler_result).split())[:1200]
+                            blocked_key = (fn.name, blocked_detail.casefold())
+                            blocked_tool_error_counts[blocked_key] = blocked_tool_error_counts.get(blocked_key, 0) + 1
+                            abort_repeated_block = bool(
+                                fn.name == required_final_tool_name
+                                and tool_errors_escalated
+                                and blocked_tool_error_counts[blocked_key] >= 3
+                            )
                             log("warning", f"    🔧 {fn.name} → BLOCKED: {blocked_detail}")
                         else:
                             consecutive_tool_errors = 0
@@ -958,6 +968,12 @@ async def _agent_loop(
                             "content": context.prepare_tool_result(fn.name, handler_result),
                         }
                     )
+                    if abort_repeated_block:
+                        tool_trace["repeated_blocked_tool_abort"] = True
+                        raise RuntimeError(
+                            f"[{phase_name}] aborting after {blocked_tool_error_counts[blocked_key]} identical "
+                            f"blocked {fn.name} calls following model escalation: {blocked_detail}"
+                        )
                 else:
                     log("warning", f"    ⚠️ Unknown tool: {fn.name}")
                     messages.append(
