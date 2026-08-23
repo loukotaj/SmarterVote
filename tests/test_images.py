@@ -4,6 +4,7 @@ from pipeline_client.agent.images import (
     _candidate_page_urls,
     _extract_page_image_urls,
     _is_valid_image_url,
+    _looks_like_generic_cms_filename,
     _looks_like_govtrack_reference_headshot,
     _looks_like_non_photo,
     _looks_like_social_profile_avatar,
@@ -531,3 +532,26 @@ def test_bare_official_homepage_does_not_outrank_candidate_questionnaire():
         "https://news.example/news/election-2026/meet-the-candidates-district-14",
         "https://www.votevarian2026.com/",
     ]
+
+
+def test_generic_cms_filename_is_rejected_as_non_photo():
+    """A CMS auto-name carries no identity; on a news site it is article art."""
+    # fl-house-06-2026 stored this for Michael Gist: an Ohio Capital Journal
+    # article graphic showing two other men, not a headshot.
+    assert _looks_like_non_photo("https://ohiocapitaljournal.com/wp-content/uploads/2024/06/download-83.png")
+    assert _looks_like_non_photo("https://example.org/uploads/unnamed.jpg")
+    assert _looks_like_non_photo("https://example.org/uploads/img_1024.jpeg")
+    assert _looks_like_non_photo("https://example.org/uploads/photo.png")
+
+
+def test_generic_cms_filename_check_keeps_named_and_dated_photos():
+    """Named portraits and dated capture names must still pass."""
+    # The newsroom questionnaire portraits relied on by fl-house-14-2026.
+    assert not _looks_like_generic_cms_filename(
+        "https://ewscripps-brightspot.s3.amazonaws.com/ee/5d/abc/screenshot-2026-07-30-154741.png"
+    )
+    assert not _looks_like_generic_cms_filename(
+        "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Andrew_Parrott_20241210_123816.jpeg"
+    )
+    # A "/downloads/" directory is not a generic *filename*.
+    assert not _looks_like_generic_cms_filename("https://example.org/downloads/jane-doe.jpg")
