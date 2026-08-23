@@ -5,6 +5,7 @@ from pipeline_client.agent.images import (
     _extract_page_image_urls,
     _looks_like_govtrack_reference_headshot,
     _looks_like_non_photo,
+    _lookup_ballotpedia_image,
     _lookup_wikipedia_image,
     _resolve_single_image,
     _wikimedia_original_image_url,
@@ -38,6 +39,20 @@ def test_obituary_repository_image_is_rejected_even_when_it_is_a_direct_photo():
     assert _looks_like_non_photo("https://d1q40j6jx1d8h6.cloudfront.net/Obituaries/46739509/Image_1.jpg")
     assert _looks_like_non_photo("https://example.com/funeral-home/portraits/alex-smith.webp")
     assert not _looks_like_non_photo("https://candidate.example/photos/alex-smith-headshot.jpg")
+
+
+def test_ballotpedia_submit_photo_placeholder_is_rejected():
+    assert _looks_like_non_photo("https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png")
+
+
+@pytest.mark.asyncio
+async def test_ballotpedia_lookup_drops_submit_photo_placeholder(monkeypatch):
+    async def fake_lookup(candidate_name: str):
+        return "https://ballotpedia.s3.us-east-1.amazonaws.com/images/thumb/6/68/SubmitPhoto-150px.png"
+
+    monkeypatch.setattr("pipeline_client.agent.images._ballotpedia_lookup", fake_lookup)
+
+    assert await _lookup_ballotpedia_image("Salomon Hernandez") is None
 
 
 def test_extract_page_images_skips_homepage_banner_for_real_headshot():
