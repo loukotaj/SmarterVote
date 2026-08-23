@@ -3,8 +3,10 @@ import pytest
 from pipeline_client.agent.images import (
     _candidate_page_urls,
     _extract_page_image_urls,
+    _is_valid_image_url,
     _looks_like_govtrack_reference_headshot,
     _looks_like_non_photo,
+    _looks_like_social_profile_avatar,
     _lookup_ballotpedia_image,
     _lookup_wikipedia_image,
     _resolve_single_image,
@@ -412,3 +414,66 @@ def test_is_untrusted_wikimedia_match_ignores_non_wikimedia_urls():
     assert _is_untrusted_wikimedia_match(
         "https://upload.wikimedia.org/wikipedia/commons/9/9f/David_Matthews_composer.jpg", "David Matthews"
     )
+
+
+def test_site_theme_template_asset_is_rejected_as_non_photo():
+    """A stock banner shipped with the website template is not a headshot."""
+    assert _looks_like_non_photo("https://www.votevarian2026.com/templates/political20_header.png")
+    assert _looks_like_non_photo("https://example.org/themes/campaign/masthead.jpg")
+    assert not _looks_like_non_photo("https://www.votevarian2026.com/images/keith-varian.jpg")
+
+
+def test_social_profile_avatar_detected_only_for_profile_images():
+    assert _looks_like_social_profile_avatar("https://pbs.twimg.com/profile_images/1328143625339940864/abcDEfg_400x400.jpg")
+    assert not _looks_like_social_profile_avatar("https://pbs.twimg.com/media/GpQrStU.jpg")
+    assert not _looks_like_social_profile_avatar("https://candidate.example/photos/alex-smith.jpg")
+
+
+def test_brightspot_image_cdn_url_without_extension_is_a_valid_image():
+    """Scripps newsroom photos are served from a transforming CDN path."""
+    url = (
+        "https://ewscripps.brightspotcdn.com/dims4/default/9cf5bc0/2147483647/strip/true/"
+        "crop/1147x639+0+0/resize/1147x639!/quality/90/"
+        "?url=http%3A%2F%2Fewscripps-brightspot.s3.amazonaws.com%2Fee%2F5d%2Fabc%2Fshot.png"
+    )
+    assert _is_valid_image_url(url)
+
+
+def test_candidate_questionnaire_page_maps_each_photo_to_its_own_candidate():
+    """A multi-candidate voter guide must not give everyone the article hero."""
+    html = """
+    <meta property="og:image" content="/hero-article-card.jpg">
+    <h2>Salomon Hernandez Sr.</h2>
+    <img src="/photos/shot-a.png" width="1147" height="639" alt="">
+    <p>Salomon Hernandez Sr. has lived and worked in Tampa for decades.</p>
+    <h2>Keith Varian</h2>
+    <img src="/photos/shot-b.png" width="1147" height="644" alt="">
+    <p>Keith Varian is a small business owner.</p>
+    """
+
+    hernandez = _extract_page_image_urls(html, "https://news.example/guide", "Salomon Hernandez")
+    varian = _extract_page_image_urls(html, "https://news.example/guide", "Keith Varian")
+
+    assert hernandez[0] == "https://news.example/photos/shot-a.png"
+    assert varian[0] == "https://news.example/photos/shot-b.png"
+
+
+def test_candidate_page_urls_include_cited_candidate_questionnaire():
+    """The questionnaire is often the only published photo of an NPA candidate."""
+    candidate = {
+        "name": "Keith Varian",
+        "website": None,
+        "links": [{"url": "https://ballotpedia.org/Keith_Varian", "type": "ballotpedia"}],
+        "summary_sources": [
+            {
+                "url": "https://www.tampabay28.com/news/election-2026/meet-the-candidates-questionnaire-for-us-district-14",
+                "type": "news",
+                "title": "Meet the candidates: Questionnaire for US District 14",
+            },
+            {"url": "https://floridapolitics.com/archives/814008-general-coverage/", "type": "news"},
+        ],
+    }
+
+    pages = _candidate_page_urls(candidate)
+
+    assert pages == ["https://www.tampabay28.com/news/election-2026/meet-the-candidates-questionnaire-for-us-district-14"]
