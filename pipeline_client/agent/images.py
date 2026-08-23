@@ -161,6 +161,29 @@ _SITE_THEME_DIR_MARKERS = (
     "/theme/",
 )
 
+# Campaign collateral published alongside a candidate's photos — policy
+# one-pagers, agenda graphics, yard-sign art.  These are legitimate uploads in
+# the site's own media directory, so no path marker separates them from a
+# headshot; only the filename does.
+_CAMPAIGN_COLLATERAL_TOKENS = (
+    "agenda",
+    "brochure",
+    "bumper",
+    "flyer",
+    "infographic",
+    "priorities",
+    "to-do",
+    "todo",
+    "yard-sign",
+    "yardsign",
+    "_plan_",
+    "-plan-",
+    "plan_for",
+    "plan-for",
+    "plan_fore",
+    "plan-fore",
+)
+
 _SITE_FURNITURE_TOKENS = (
     "header",
     "masthead",
@@ -187,6 +210,8 @@ def _looks_like_non_photo(url: str, alt: str = "") -> bool:
     if any(token in haystack for token in _NON_PHOTO_TOKENS):
         return True
     if any(marker in haystack for marker in (*_GENERIC_CARD_MARKERS, *_MEMORIAL_IMAGE_MARKERS)):
+        return True
+    if any(token in haystack for token in _CAMPAIGN_COLLATERAL_TOKENS):
         return True
     return _looks_like_site_furniture(haystack)
 
@@ -336,7 +361,7 @@ def _candidate_page_urls(candidate: Dict[str, Any]) -> List[str]:
             continue
         parsed_path = unquote(urlparse(url).path).lower()
         score = 10
-        if link.get("type") == "official":
+        if link.get("type") == "official" and parsed_path.strip("/"):
             score += 20
         if "/candidate/" in parsed_path or name_tokens.intersection(re.findall(r"[a-z0-9]+", parsed_path)):
             score += 30

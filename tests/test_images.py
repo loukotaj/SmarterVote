@@ -504,3 +504,30 @@ def test_cited_questionnaire_outranks_bare_campaign_homepage():
         "https://news.example/news/election-2026/meet-the-candidates-district-14",
         "https://www.votevarian2026.com/",
     ]
+
+
+def test_campaign_policy_graphic_is_rejected_as_non_photo():
+    """Policy one-pagers live beside real photos in a site's media directory."""
+    assert _looks_like_non_photo("https://www.votevarian2026.com/UserFiles/image/Copy_of_Plan_fore_the_Future_(3).jpg")
+    assert _looks_like_non_photo("https://example.org/uploads/my-agenda.png")
+    assert _looks_like_non_photo("https://example.org/uploads/yard-sign.png")
+    assert not _looks_like_non_photo("https://example.org/UserFiles/image/keith-varian-portrait.jpg")
+
+
+def test_bare_official_homepage_does_not_outrank_candidate_questionnaire():
+    """The official bonus is for profile pages, not a bare domain root."""
+    candidate = {
+        "name": "Keith Varian",
+        "links": [{"url": "https://www.votevarian2026.com/", "type": "official"}],
+        "summary_sources": [
+            {
+                "url": "https://news.example/news/election-2026/meet-the-candidates-district-14",
+                "title": "Meet the candidates: Questionnaire for US District 14",
+            }
+        ],
+    }
+
+    assert _candidate_page_urls(candidate) == [
+        "https://news.example/news/election-2026/meet-the-candidates-district-14",
+        "https://www.votevarian2026.com/",
+    ]
