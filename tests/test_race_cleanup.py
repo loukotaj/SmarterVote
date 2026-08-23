@@ -171,3 +171,74 @@ def test_cleanup_leaves_history_entries_without_placeholders_alone():
 
     assert report["placeholder_fields_cleared"] == 0
     assert race["candidates"][0]["education"][0]["year"] == 2002
+
+
+def test_cleanup_drops_lineage_entry_citing_a_url_the_pipeline_never_retrieved():
+    """A forecast model that invents a plausible source URL must not publish it."""
+    race = {
+        "polling": [{"source_url": "http://stpetepolls.org/files/CD14_July15.pdf"}],
+        "candidates": [
+            {
+                "name": "Kathy Castor",
+                "summary_sources": [{"url": "https://floridapolitics.com/archives/814008-beltran-wins/"}],
+            }
+        ],
+        "forecast": {
+            "source_urls": [],
+            "evidence_lineage": [
+                {
+                    "claim": "Castor leads the only general-election poll",
+                    "source_url": "https://stpetepolls.org/files/CD14_July15.pdf",
+                    "kind": "polling",
+                },
+                {
+                    "claim": "Beltran and Castor are the nominees",
+                    "source_url": "https://floridapolitics.com/archives/814008-beltran-wins/",
+                    "kind": "race_context",
+                },
+                {
+                    "claim": "The redrawn district leans Republican",
+                    "source_url": "https://floridaelevationwatch.gov/LawOffices/USRepresentative",
+                    "kind": "race_context",
+                },
+            ],
+        },
+    }
+
+    stats = cleanup_race_data(race)
+    kept = [item["source_url"] for item in race["forecast"]["evidence_lineage"]]
+
+    assert stats["fabricated_lineage_removed"] == 1
+    assert "https://floridaelevationwatch.gov/LawOffices/USRepresentative" not in kept
+    # The poll survives despite citing https:// where the stored record used http://.
+    assert "https://stpetepolls.org/files/CD14_July15.pdf" in kept
+    assert "https://floridapolitics.com/archives/814008-beltran-wins/" in kept
+
+
+def test_cleanup_keeps_lineage_for_issue_and_roster_sources():
+    """Evidence stored anywhere on the race counts as retrieved."""
+    race = {
+        "candidates": [
+            {
+                "name": "Mike Beltran",
+                "roster_sources": [{"url": "https://ballotpedia.org/Florida_14th_2026"}],
+                "issues": {"Economy": {"sources": [{"url": "https://beltranforcongress.com/issues"}]}},
+            }
+        ],
+        "forecast": {
+            "source_urls": [],
+            "evidence_lineage": [
+                {
+                    "claim": "Roster confirmed",
+                    "source_url": "https://ballotpedia.org/Florida_14th_2026",
+                    "kind": "race_context",
+                },
+                {"claim": "Economic platform", "source_url": "https://beltranforcongress.com/issues", "kind": "race_context"},
+            ],
+        },
+    }
+
+    stats = cleanup_race_data(race)
+
+    assert stats["fabricated_lineage_removed"] == 0
+    assert len(race["forecast"]["evidence_lineage"]) == 2

@@ -54,14 +54,26 @@ class _PageImageParser(HTMLParser):
 
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
-        self.images: List[Tuple[str, str, int, int, str]] = []
+        self.images: List[Tuple[str, str, int, int, str, int]] = []
+        self._text_parts: List[str] = []
+        self._text_len = 0
+
+    @property
+    def text(self) -> str:
+        return "".join(self._text_parts)
+
+    def handle_data(self, data: str) -> None:
+        if not data:
+            return
+        self._text_parts.append(data)
+        self._text_len += len(data)
 
     def handle_starttag(self, tag: str, attrs: List[Tuple[str, Optional[str]]]) -> None:
         values = {key.lower(): value or "" for key, value in attrs}
         if tag.lower() == "meta":
             property_name = (values.get("property") or values.get("name") or "").lower()
             if property_name in {"og:image", "og:image:url", "og:image:secure_url", "twitter:image"}:
-                self.images.append((values.get("content", ""), property_name, 0, 0, ""))
+                self.images.append((values.get("content", ""), property_name, 0, 0, "", self._text_len))
             return
         if tag.lower() != "img":
             return
@@ -73,7 +85,7 @@ class _PageImageParser(HTMLParser):
             height = int(values.get("height", "0"))
         except ValueError:
             width = height = 0
-        self.images.append((source, "img", width, height, alt))
+        self.images.append((source, "img", width, height, alt, self._text_len))
 
 
 def _name_tokens(candidate_name: str) -> set[str]:
@@ -136,12 +148,39 @@ _MEMORIAL_IMAGE_MARKERS = (
     "funeral-home",
 )
 
+# Assets served out of a CMS theme/template directory are site furniture — stock
+# "VOTE" banners, masthead art, decorative headers — shipped with the website
+# template rather than a photo of the candidate.  They pass both the extension
+# check and a HEAD request, so only the path shape distinguishes them.
+_SITE_THEME_MARKERS = (
+    "/templates/",
+    "/template/",
+    "/themes/",
+    "/theme/",
+)
+
 
 def _looks_like_non_photo(url: str, alt: str = "") -> bool:
     haystack = unquote(f"{url} {alt}").lower()
     if any(token in haystack for token in _NON_PHOTO_TOKENS):
         return True
-    return any(marker in haystack for marker in (*_GENERIC_CARD_MARKERS, *_MEMORIAL_IMAGE_MARKERS))
+    return any(marker in haystack for marker in (*_GENERIC_CARD_MARKERS, *_MEMORIAL_IMAGE_MARKERS, *_SITE_THEME_MARKERS))
+
+
+def _looks_like_social_profile_avatar(url: str) -> bool:
+    """Return True for small social-network profile avatars worth upgrading.
+
+    A Twitter/X profile image is frequently not a usable candidate portrait —
+    it may be a logo, a family snapshot, or a face obscured by sunglasses and a
+    mask — and it is served at avatar resolution.  It stays usable as a last
+    resort, but a photo published on the candidate's own site or in a local
+    newsroom's candidate questionnaire should outrank it.
+    """
+    try:
+        parsed = urlparse(url)
+    except Exception:
+        return False
+    return parsed.netloc.lower() == "pbs.twimg.com" and "/profile_images/" in unquote(parsed.path).lower()
 
 
 def _looks_like_govtrack_reference_headshot(url: str) -> bool:
@@ -155,15 +194,36 @@ def _looks_like_govtrack_reference_headshot(url: str) -> bool:
     return netloc == "www.govtrack.us" and "/static/legislator-photos/" in path
 
 
+# Character distances between an image and a mention of the candidate's name in
+# the page's extracted text.  A questionnaire entry (photo, name, answers) sits
+# well inside the "near" window; the "far" window still favours the right half
+# of a two-candidate page over a shared article hero.
+_NAME_PROXIMITY_NEAR = 1200
+_NAME_PROXIMITY_FAR = 4000
+
+
+def _name_text_offsets(text: str, candidate_name: str) -> List[int]:
+    """Return offsets where the candidate's full name appears in page text."""
+    tokens = [token for token in re.findall(r"[A-Za-z0-9]+", candidate_name) if len(token) >= 3]
+    if len(tokens) < 2:
+        return []
+    pattern = r"\b" + r"\W+(?:\w+\W+){0,2}?".join(re.escape(token) for token in tokens) + r"\b"
+    try:
+        return [match.start() for match in re.finditer(pattern, text, re.IGNORECASE)]
+    except re.error:
+        return []
+
+
 def _extract_page_image_urls(html: str, page_url: str, candidate_name: str) -> List[str]:
     """Return candidate page images ordered from most to least likely portrait."""
     parser = _PageImageParser()
     parser.feed(html)
     name_tokens = _name_tokens(candidate_name)
-    ranked: List[Tuple[int, int, str]] = []
+    name_offsets = _name_text_offsets(parser.text, candidate_name)
+    ranked: List[Tuple[int, int, int, str]] = []
     seen: set[str] = set()
 
-    for index, (raw_url, source, width, height, alt) in enumerate(parser.images):
+    for index, (raw_url, source, width, height, alt, text_offset) in enumerate(parser.images):
         if not raw_url:
             continue
         url = urljoin(page_url, raw_url)
@@ -186,15 +246,43 @@ def _extract_page_image_urls(html: str, page_url: str, candidate_name: str) -> L
             score += 10
         if source == "img" and width and height and width / max(height, 1) > 3:
             score -= 20
-        ranked.append((score, -index, url))
+        # A candidate questionnaire or voter guide covers several people on one
+        # page, and its og:image is a shared article hero that would otherwise
+        # win for every candidate.  Prefer the image printed beside this
+        # candidate's own name.
+        distance = 0
+        if name_offsets:
+            distance = min(abs(offset - text_offset) for offset in name_offsets)
+            if distance <= _NAME_PROXIMITY_NEAR:
+                score += 60
+            elif distance <= _NAME_PROXIMITY_FAR:
+                score += 25
+        # Within the same bucket the image printed closest to this candidate's
+        # name wins, so adjacent entries in one voter guide stay distinct.
+        ranked.append((score, -distance, -index, url))
 
     ranked.sort(reverse=True)
-    return [url for _, _, url in ranked]
+    return [url for _, _, _, url in ranked]
 
 
 # Data / reference / finance sites never host a personal headshot on their
 # pages — their Open-Graph image is a generic site card — so skip them when
 # crawling candidate pages for a photo (Ballotpedia is handled via its own API).
+# Local-newsroom pages that profile the field candidate-by-candidate.  These are
+# often the only published photo of a third-party or write-in candidate, and the
+# URL/title shape is a reliable signal that the page is a per-candidate profile
+# rather than general campaign coverage.
+_CANDIDATE_PROFILE_MARKERS = (
+    "meet-the-candidates",
+    "meet the candidates",
+    "candidate-questionnaire",
+    "questionnaire",
+    "voter-guide",
+    "voter guide",
+    "candidate-profile",
+    "who-is-running",
+)
+
 _NON_HEADSHOT_HOSTS = (
     "fec.gov",
     "opensecrets.org",
@@ -229,6 +317,19 @@ def _candidate_page_urls(candidate: Dict[str, Any]) -> List[str]:
         if "/candidate/" in parsed_path or name_tokens.intersection(re.findall(r"[a-z0-9]+", parsed_path)):
             score += 30
         pages.append((score, url))
+
+    for source in candidate.get("summary_sources", []):
+        if not isinstance(source, dict):
+            continue
+        url = source.get("url")
+        if not isinstance(url, str) or not url.startswith(("http://", "https://")):
+            continue
+        if any(host in urlparse(url).netloc.lower() for host in _NON_HEADSHOT_HOSTS):
+            continue
+        haystack = f"{unquote(urlparse(url).path)} {source.get('title') or ''}".lower()
+        if not any(marker in haystack for marker in _CANDIDATE_PROFILE_MARKERS):
+            continue
+        pages.append((5, url))
 
     deduped: List[str] = []
     seen: set[str] = set()
@@ -295,7 +396,10 @@ def _is_valid_image_url(url: Any) -> bool:
             return True
 
         # Common image CDNs
-        if any(host in netloc for host in ("cloudfront.net", "githubusercontent.com", "twimg.com", "fbcdn.net")):
+        if any(
+            host in netloc
+            for host in ("cloudfront.net", "githubusercontent.com", "twimg.com", "fbcdn.net", "brightspotcdn.com")
+        ):
             return True
 
     except Exception:
@@ -574,6 +678,12 @@ async def _resolve_single_image(
         candidate["image_url"] = None
         current_url = None
         log("info", f"  [{name}] Existing image is a low-resolution reference photo - searching for better")
+
+    if current_url and _looks_like_social_profile_avatar(current_url):
+        low_resolution_fallback = current_url
+        candidate["image_url"] = None
+        current_url = None
+        log("info", f"  [{name}] Existing image is a social profile avatar - searching for a better portrait")
 
     if current_url and _is_untrusted_wikimedia_match(current_url, name):
         log(

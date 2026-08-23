@@ -51,6 +51,73 @@ def _dedupe_sources(values: Any) -> Any:
     return result
 
 
+def _normalize_url_key(value: Any) -> str:
+    """Return a comparison key ignoring scheme, ``www.`` and trailing slashes."""
+    url = str(value or "").strip().lower()
+    if not url:
+        return ""
+    url = re.sub(r"^https?://", "", url)
+    url = re.sub(r"^www\.", "", url)
+    return url.rstrip("/")
+
+
+def _race_retrieved_urls(race_data: Dict[str, Any]) -> set[str]:
+    """Return comparison keys for every URL actually retrieved into the race.
+
+    The forecast model is asked to cite only sources the pipeline fetched, but a
+    model that cannot recall the exact address sometimes emits a plausible-looking
+    address it never visited (an "official results" host with an invented path).
+    Those URLs are unreachable and unverifiable, so lineage entries citing them
+    must not survive into published data.  Only stored evidence counts here --
+    never the forecast's own free-text fields, which is where the invented URLs
+    appear in the first place.
+    """
+    keys: set[str] = set()
+
+    def add(value: Any) -> None:
+        key = _normalize_url_key(value)
+        if key:
+            keys.add(key)
+
+    def add_sources(sources: Any) -> None:
+        if not isinstance(sources, list):
+            return
+        for source in sources:
+            if isinstance(source, dict):
+                add(source.get("url"))
+            elif isinstance(source, str):
+                add(source)
+
+    for field in ("ballotpedia_url", "how_to_vote_url", "register_to_vote_url"):
+        add(race_data.get(field))
+
+    for poll in race_data.get("polling", []) or []:
+        if isinstance(poll, dict):
+            add(poll.get("source_url"))
+
+    forecast = race_data.get("forecast")
+    if isinstance(forecast, dict):
+        for signal in forecast.get("market_signals", []) or []:
+            if isinstance(signal, dict):
+                add(signal.get("url"))
+
+    for candidate in race_data.get("candidates", []) or []:
+        if not isinstance(candidate, dict):
+            continue
+        add(candidate.get("website"))
+        add(candidate.get("donor_source_url"))
+        add(candidate.get("voting_source_url"))
+        for field in ("summary_sources", "roster_sources", "donor_sources", "voting_sources", "links"):
+            add_sources(candidate.get(field))
+        issues = candidate.get("issues")
+        if isinstance(issues, dict):
+            for issue in issues.values():
+                if isinstance(issue, dict):
+                    add_sources(issue.get("sources"))
+
+    return keys
+
+
 def _forecast_evidence_urls(race_data: Dict[str, Any]) -> List[str]:
     urls: List[Any] = []
     for poll in race_data.get("polling", []):
@@ -78,6 +145,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
     forecast_sources_added = 0
     invalid_social_links_removed = 0
     placeholder_fields_cleared = 0
+    fabricated_lineage_removed = 0
 
     for field in ("title", "description", "polling_note"):
         before = race_data.get(field)
@@ -183,11 +251,19 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
         source_duplicates_removed += max(0, len(forecast.get("source_urls") or []) - len(existing_urls))
         forecast_sources_added = len(merged_urls) - len(existing_urls)
         forecast["source_urls"] = merged_urls
-        existing_lineage = [
+        supplied_lineage = [
             item
             for item in forecast.get("evidence_lineage") or []
             if isinstance(item, dict) and item.get("claim") and item.get("source_url")
         ]
+        retrieved_keys = _race_retrieved_urls(race_data)
+        retrieved_keys.update(_normalize_url_key(url) for url in inferred_urls)
+        existing_lineage = []
+        for item in supplied_lineage:
+            if _normalize_url_key(item.get("source_url")) in retrieved_keys:
+                existing_lineage.append(item)
+            else:
+                fabricated_lineage_removed += 1
         lineage_urls = {str(item["source_url"]) for item in existing_lineage}
         poll_urls = {
             str(poll.get("source_url"))
@@ -219,6 +295,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
         "forecast_sources_added": forecast_sources_added,
         "invalid_social_links_removed": invalid_social_links_removed,
         "placeholder_fields_cleared": placeholder_fields_cleared,
+        "fabricated_lineage_removed": fabricated_lineage_removed,
     }
 
 
