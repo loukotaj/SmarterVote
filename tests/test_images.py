@@ -477,3 +477,30 @@ def test_candidate_page_urls_include_cited_candidate_questionnaire():
     pages = _candidate_page_urls(candidate)
 
     assert pages == ["https://www.tampabay28.com/news/election-2026/meet-the-candidates-questionnaire-for-us-district-14"]
+
+
+def test_wordpress_theme_directory_headshot_is_not_mistaken_for_site_furniture():
+    """Campaign sites routinely serve the real portrait from wp-content/themes/."""
+    assert not _looks_like_non_photo("https://beltranforcongress.com/wp-content/themes/beltran/headshot-color.jpg")
+    assert not _looks_like_non_photo("https://example.org/wp-content/themes/campaign/img/jane-doe.jpg")
+    # Only a theme asset that also reads as furniture is rejected.
+    assert _looks_like_non_photo("https://example.org/wp-content/themes/campaign/img/masthead.jpg")
+
+
+def test_cited_questionnaire_outranks_bare_campaign_homepage():
+    """A homepage's first image is often a slogan graphic; the questionnaire is a portrait."""
+    candidate = {
+        "name": "Keith Varian",
+        "website": "https://www.votevarian2026.com/",
+        "summary_sources": [
+            {
+                "url": "https://news.example/news/election-2026/meet-the-candidates-district-14",
+                "title": "Meet the candidates: Questionnaire for US District 14",
+            }
+        ],
+    }
+
+    assert _candidate_page_urls(candidate) == [
+        "https://news.example/news/election-2026/meet-the-candidates-district-14",
+        "https://www.votevarian2026.com/",
+    ]

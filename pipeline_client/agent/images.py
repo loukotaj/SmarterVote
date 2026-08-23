@@ -148,23 +148,47 @@ _MEMORIAL_IMAGE_MARKERS = (
     "funeral-home",
 )
 
-# Assets served out of a CMS theme/template directory are site furniture — stock
-# "VOTE" banners, masthead art, decorative headers — shipped with the website
-# template rather than a photo of the candidate.  They pass both the extension
-# check and a HEAD request, so only the path shape distinguishes them.
-_SITE_THEME_MARKERS = (
+# Assets served out of a CMS theme/template directory *may* be site furniture —
+# stock "VOTE" banners, masthead art, decorative headers — shipped with the
+# website template rather than a photo of the candidate.  The directory alone
+# is not enough to judge: WordPress campaign sites routinely serve the real
+# headshot from wp-content/themes/<theme>/, so the filename must also read as
+# furniture before the image is rejected.
+_SITE_THEME_DIR_MARKERS = (
     "/templates/",
     "/template/",
     "/themes/",
     "/theme/",
 )
 
+_SITE_FURNITURE_TOKENS = (
+    "header",
+    "masthead",
+    "footer",
+    "nav",
+    "hero",
+    "slider",
+    "slideshow",
+    "carousel",
+    "divider",
+    "watermark",
+)
+
+
+def _looks_like_site_furniture(haystack: str) -> bool:
+    """True for template art (a stock banner), not a portrait stored in a theme."""
+    if not any(marker in haystack for marker in _SITE_THEME_DIR_MARKERS):
+        return False
+    return any(token in haystack for token in _SITE_FURNITURE_TOKENS)
+
 
 def _looks_like_non_photo(url: str, alt: str = "") -> bool:
     haystack = unquote(f"{url} {alt}").lower()
     if any(token in haystack for token in _NON_PHOTO_TOKENS):
         return True
-    return any(marker in haystack for marker in (*_GENERIC_CARD_MARKERS, *_MEMORIAL_IMAGE_MARKERS, *_SITE_THEME_MARKERS))
+    if any(marker in haystack for marker in (*_GENERIC_CARD_MARKERS, *_MEMORIAL_IMAGE_MARKERS)):
+        return True
+    return _looks_like_site_furniture(haystack)
 
 
 def _looks_like_social_profile_avatar(url: str) -> bool:
@@ -329,7 +353,7 @@ def _candidate_page_urls(candidate: Dict[str, Any]) -> List[str]:
         haystack = f"{unquote(urlparse(url).path)} {source.get('title') or ''}".lower()
         if not any(marker in haystack for marker in _CANDIDATE_PROFILE_MARKERS):
             continue
-        pages.append((5, url))
+        pages.append((25, url))
 
     deduped: List[str] = []
     seen: set[str] = set()
