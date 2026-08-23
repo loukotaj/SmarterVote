@@ -198,6 +198,28 @@ _SITE_FURNITURE_TOKENS = (
 )
 
 
+# A CMS's auto-generated filename for an image saved from somewhere else
+# ("download-83.png", "unnamed.jpg", "img_1024.jpeg").  On a news site these
+# are usually article art — a composite of several people, a graphic, a scene
+# — never a portrait tied to one candidate.  Matched on the filename stem
+# alone so a "/downloads/" directory or a candidate actually named e.g.
+# "Imogen" is unaffected, and so dated capture names like the
+# "screenshot-2026-07-30-154741.png" used by newsroom questionnaires still pass.
+_GENERIC_CMS_FILENAME_RE = re.compile(r"^(?:download|unnamed|untitled|image|img|photo|picture|file|default)[-_ ]?\d*$")
+
+
+def _looks_like_generic_cms_filename(url: str) -> bool:
+    """True when the filename carries no identity, only a CMS auto-name."""
+    try:
+        path = unquote(urlparse(url).path)
+    except Exception:
+        return False
+    stem = path.rsplit("/", 1)[-1].rsplit(".", 1)[0].strip().lower()
+    if not stem:
+        return False
+    return bool(_GENERIC_CMS_FILENAME_RE.match(stem))
+
+
 def _looks_like_site_furniture(haystack: str) -> bool:
     """True for template art (a stock banner), not a portrait stored in a theme."""
     if not any(marker in haystack for marker in _SITE_THEME_DIR_MARKERS):
@@ -212,6 +234,8 @@ def _looks_like_non_photo(url: str, alt: str = "") -> bool:
     if any(marker in haystack for marker in (*_GENERIC_CARD_MARKERS, *_MEMORIAL_IMAGE_MARKERS)):
         return True
     if any(token in haystack for token in _CAMPAIGN_COLLATERAL_TOKENS):
+        return True
+    if _looks_like_generic_cms_filename(url):
         return True
     return _looks_like_site_furniture(haystack)
 
