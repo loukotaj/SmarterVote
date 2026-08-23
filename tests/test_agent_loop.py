@@ -1062,6 +1062,86 @@ async def test_agent_loop_aborts_third_identical_blocked_required_final_tool_aft
 
 
 @pytest.mark.asyncio
+async def test_agent_loop_exposes_prerequisite_tools_after_forced_finalization_is_blocked():
+    blocked_finalize = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "blocked-finalize",
+                "function": {"name": "finalize_roster", "arguments": json.dumps({"summary": "Official list"})},
+            }
+        ]
+    )
+    recovered = _mock_openai_response(
+        tool_calls=[
+            {
+                "id": "identity",
+                "function": {
+                    "name": "set_race_identity",
+                    "arguments": json.dumps({"office": "U.S. House", "contest_stage": "general"}),
+                },
+            },
+            {
+                "id": "finalize",
+                "function": {"name": "finalize_roster", "arguments": json.dumps({"summary": "Official list"})},
+            },
+        ]
+    )
+    identity_locked = False
+
+    def set_identity(_args):
+        nonlocal identity_locked
+        identity_locked = True
+        return "OK"
+
+    def finalize(_args):
+        return "OK" if identity_locked else "ERROR: call set_race_identity first"
+
+    tools = [
+        {
+            "type": "function",
+            "function": {"name": "set_race_identity", "description": "Lock identity", "parameters": {"type": "object"}},
+        },
+        {
+            "type": "function",
+            "function": {"name": "finalize_roster", "description": "Finalize", "parameters": {"type": "object"}},
+        },
+    ]
+
+    with (
+        patch("pipeline_client.agent.llm.total_token_budget_reached", return_value=True),
+        patch(
+            "pipeline_client.agent.llm._call_openrouter",
+            new_callable=AsyncMock,
+            side_effect=[blocked_finalize, recovered],
+        ) as call,
+    ):
+        result = await _agent_loop(
+            "system",
+            "user",
+            model=SMALL_MODEL,
+            phase_name="roster-prerequisite-recovery",
+            max_iterations=5,
+            tools_mode=True,
+            extra_tools=tools,
+            extra_tool_handlers={"set_race_identity": set_identity, "finalize_roster": finalize},
+            required_final_tool_name="finalize_roster",
+            return_tool_trace=True,
+        )
+
+    assert call.call_count == 2
+    assert call.call_args_list[0].kwargs["tool_choice"] == {
+        "type": "function",
+        "function": {"name": "finalize_roster"},
+    }
+    assert call.call_args_list[1].kwargs["tool_choice"] is None
+    assert {tool["function"]["name"] for tool in call.call_args_list[1].kwargs["tools"]} == {
+        "set_race_identity",
+        "finalize_roster",
+    }
+    assert result["_tool_trace"]["required_final_tool_succeeded"] is True
+
+
+@pytest.mark.asyncio
 async def test_agent_loop_never_escalates_a_long_but_healthy_loop():
     """A loop that runs to its ceiling is thorough, not stalled.
 

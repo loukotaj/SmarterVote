@@ -536,6 +536,7 @@ async def _agent_loop(
     _MAX_JSON_RETRIES = 3
     token_budget_nudged = False
     required_final_tool_succeeded = False
+    required_final_recovery_pending = False
     consecutive_tool_errors = 0
     tool_errors_escalated = False
     blocked_tool_error_counts: Dict[tuple[str, str], int] = {}
@@ -588,7 +589,11 @@ async def _agent_loop(
                 )
 
         prepare_final_tool = bool(required_final_tool_name and not token_budget_reached and iteration == max_iterations - 2)
-        force_final_tool = bool(required_final_tool_name and (token_budget_reached or iteration == max_iterations - 1))
+        recovery_turn = required_final_recovery_pending
+        required_final_recovery_pending = False
+        force_final_tool = bool(
+            required_final_tool_name and not recovery_turn and (token_budget_reached or iteration == max_iterations - 1)
+        )
         if prepare_final_tool:
             messages.append(
                 {
@@ -606,6 +611,17 @@ async def _agent_loop(
                     "role": "user",
                     "content": required_final_instruction
                     or f"Finalize the evidence now by calling {required_final_tool_name}. Do not perform more research.",
+                }
+            )
+        elif recovery_turn:
+            messages.append(
+                {
+                    "role": "user",
+                    "content": (
+                        f"Your previous {required_final_tool_name} call was blocked by an evidence guard. "
+                        "Use the available non-search editing tools to satisfy that exact prerequisite, then retry "
+                        f"{required_final_tool_name}. Do not repeat the blocked call unchanged."
+                    ),
                 }
             )
 
@@ -954,6 +970,8 @@ async def _agent_loop(
                                 and tool_errors_escalated
                                 and blocked_tool_error_counts[blocked_key] >= 3
                             )
+                            if fn.name == required_final_tool_name:
+                                required_final_recovery_pending = True
                             log("warning", f"    🔧 {fn.name} → BLOCKED: {blocked_detail}")
                         else:
                             consecutive_tool_errors = 0
