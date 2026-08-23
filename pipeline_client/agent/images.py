@@ -41,6 +41,8 @@ _NON_PHOTO_TOKENS = frozenset(
         "socialshare",
         "social-share",
         "sprite",
+        "submit-photo",
+        "submitphoto",
         "torch",
         "wordmark",
     }
@@ -462,7 +464,10 @@ async def _lookup_ballotpedia_image(candidate_name: str) -> Optional[str]:
     Delegates to the shared :mod:`.ballotpedia` module so all Ballotpedia API
     logic lives in one place.
     """
-    return await _ballotpedia_lookup(candidate_name)
+    image_url = await _ballotpedia_lookup(candidate_name)
+    if image_url and _looks_like_non_photo(image_url):
+        return None
+    return image_url
 
 
 async def _resolve_wikimedia_commons(url: str) -> Optional[str]:
