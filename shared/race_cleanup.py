@@ -236,6 +236,40 @@ def _surname_in(flattened_basename: str, name: Any) -> bool:
     return bool(tokens) and tokens[-1] in flattened_basename
 
 
+def _general_election_day(year: int) -> str:
+    """US general election day: the first Tuesday after the first Monday in November."""
+    import datetime
+
+    day = datetime.date(year, 11, 1)
+    while day.weekday() != 0:  # Monday
+        day += datetime.timedelta(days=1)
+    return (day + datetime.timedelta(days=1)).isoformat()
+
+
+def _correct_general_election_date(race_data: Dict[str, Any]) -> int:
+    """Replace a primary date left on a post-primary general race.
+
+    Three published races stored the date of their own primary as the
+    election date -- 2026-08-04 for Michigan and Washington, 2026-06-16 for
+    California -- which is the date a voter reads off the page. The agent does
+    not reliably correct this from a goal instruction, but it is fully
+    determined: a general election is the first Tuesday after the first Monday
+    in November.
+    """
+    if race_data.get("contest_stage") not in {"post_primary_general", "top_two", "uncontested", "runoff"}:
+        return 0
+    race_id = str(race_data.get("id") or "")
+    match = re.search(r"(20\d{2})", race_id)
+    if not match:
+        return 0
+    expected = _general_election_day(int(match.group(1)))
+    current = str(race_data.get("election_date") or "")[:10]
+    if not current or current == expected:
+        return 0
+    race_data["election_date"] = expected
+    return 1
+
+
 def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
     """Apply safe text/source normalization and return mutation counts."""
     text_changes = 0
@@ -246,6 +280,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
     fabricated_lineage_removed = 0
     incomplete_matchups_removed = _prune_incomplete_poll_matchups(race_data)
     unusable_images_cleared = _strip_shared_candidate_images(race_data)
+    election_dates_corrected = _correct_general_election_date(race_data)
     poll_count_corrections = 0
 
     for field in ("title", "description", "polling_note"):
@@ -412,6 +447,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
         "fabricated_lineage_removed": fabricated_lineage_removed,
         "incomplete_matchups_removed": incomplete_matchups_removed,
         "unusable_images_cleared": unusable_images_cleared,
+        "election_dates_corrected": election_dates_corrected,
         "poll_count_corrections": poll_count_corrections,
     }
 

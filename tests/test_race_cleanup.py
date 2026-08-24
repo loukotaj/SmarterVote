@@ -412,3 +412,41 @@ def test_cleanup_leaves_distinct_candidate_photos_alone():
     assert race["candidates"][0]["image_url"] == _BP_THUMBS + "200/300/Warren_Davidson.jpg"
     assert race["candidates"][1]["image_url"] == "https://example.org/venoch.jpg"
     assert stats["unusable_images_cleared"] == 0
+
+
+def test_cleanup_corrects_a_primary_date_on_a_general_election_race():
+    """The stored date is what a voter reads off the page.
+
+    Three published races held the date of their own primary: 2026-08-04 for
+    Michigan and Washington, 2026-06-16 for California. The research agent does
+    not reliably fix this from a goal instruction, but it is fully determined --
+    a general election is the first Tuesday after the first Monday in November.
+    """
+    race = {"id": "wa-house-05-2026", "contest_stage": "post_primary_general", "election_date": "2026-08-04"}
+
+    stats = cleanup_race_data(race)
+
+    assert race["election_date"] == "2026-11-03"
+    assert stats["election_dates_corrected"] == 1
+
+
+def test_cleanup_leaves_a_correct_or_pre_primary_date_alone():
+    """Only a general-election stage implies the November date."""
+    correct = {"id": "x-2026", "contest_stage": "post_primary_general", "election_date": "2026-11-03"}
+    assert cleanup_race_data(correct)["election_dates_corrected"] == 0
+    assert correct["election_date"] == "2026-11-03"
+
+    # A pre-primary race legitimately carries its primary date.
+    pre = {"id": "ma-house-02-2026", "contest_stage": "pre_primary", "election_date": "2026-09-01"}
+    assert cleanup_race_data(pre)["election_dates_corrected"] == 0
+    assert pre["election_date"] == "2026-09-01"
+
+
+def test_general_election_day_is_computed_not_hardcoded():
+    """First Tuesday after the first Monday in November, for any cycle."""
+    from shared.race_cleanup import _general_election_day
+
+    assert _general_election_day(2026) == "2026-11-03"
+    assert _general_election_day(2028) == "2028-11-07"
+    # 2029: Nov 1 is a Thursday, so the first Monday is the 5th and the day is the 6th.
+    assert _general_election_day(2029) == "2029-11-06"
