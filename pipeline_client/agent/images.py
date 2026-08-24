@@ -3,6 +3,7 @@
 import asyncio
 import logging
 import re
+import unicodedata
 from html.parser import HTMLParser
 from typing import Any, Callable, Dict, List, Optional, Tuple
 from urllib.parse import unquote, urljoin, urlparse
@@ -28,6 +29,7 @@ _NON_PHOTO_TOKENS = frozenset(
         "background",
         "banner",
         "collage",
+        "family",
         "favicon",
         "footerbg",
         "herobg",
@@ -57,6 +59,8 @@ class _PageImageParser(HTMLParser):
         self.images: List[Tuple[str, str, int, int, str, int]] = []
         self._text_parts: List[str] = []
         self._text_len = 0
+        self._open_tags: List[Tuple[str, bool]] = []
+        self._widget_depth = 0
 
     @property
     def text(self) -> str:
@@ -68,8 +72,25 @@ class _PageImageParser(HTMLParser):
         self._text_parts.append(data)
         self._text_len += len(data)
 
+    def handle_endtag(self, tag: str) -> None:
+        name = tag.lower()
+        for position in range(len(self._open_tags) - 1, -1, -1):
+            open_tag, is_widget = self._open_tags[position]
+            if open_tag == name:
+                if is_widget:
+                    self._widget_depth = max(0, self._widget_depth - 1)
+                del self._open_tags[position:]
+                return
+
     def handle_starttag(self, tag: str, attrs: List[Tuple[str, Optional[str]]]) -> None:
         values = {key.lower(): value or "" for key, value in attrs}
+        name = tag.lower()
+        if name not in _VOID_HTML_TAGS:
+            marker = f"{values.get('class', '')} {values.get('id', '')}".lower()
+            is_widget = any(token in marker for token in _ROTATING_WIDGET_TOKENS)
+            if is_widget:
+                self._widget_depth += 1
+            self._open_tags.append((name, is_widget))
         if tag.lower() == "meta":
             property_name = (values.get("property") or values.get("name") or "").lower()
             if property_name in {"og:image", "og:image:url", "og:image:secure_url", "twitter:image"}:
@@ -85,11 +106,29 @@ class _PageImageParser(HTMLParser):
             height = int(values.get("height", "0"))
         except ValueError:
             width = height = 0
+        if self._widget_depth:
+            # A rotating widget (Ballotpedia's Candidate Connection carousel,
+            # a site slideshow) cycles through OTHER people's photos, so an
+            # <img> inside one is not this candidate's portrait even though it
+            # sits on their own page.  Nebraska's Senate race stored a survey
+            # carousel slide of an unrelated candidate as Dan Osborn's photo.
+            return
         self.images.append((source, "img", width, height, alt, self._text_len))
 
 
+def _fold_accents(value: str) -> str:
+    """Strip diacritics so accented names survive ASCII tokenization.
+
+    Without this, "Peña" tokenizes as "pe" + "a" -- both below the length
+    floor -- so the surname vanishes and every guard that compares names
+    silently passes anything sharing the given name.  tx-house-37-2026 stored a
+    1945 press photo of the actress Lauren Bacall for Lauren B. Peña that way.
+    """
+    return "".join(ch for ch in unicodedata.normalize("NFKD", value) if not unicodedata.combining(ch))
+
+
 def _name_tokens(candidate_name: str) -> set[str]:
-    return {token for token in re.findall(r"[a-z0-9]+", candidate_name.lower()) if len(token) >= 3}
+    return {token for token in re.findall(r"[a-z0-9]+", _fold_accents(candidate_name).lower()) if len(token) >= 3}
 
 
 def _candidate_surname_token(candidate_name: str) -> Optional[str]:
@@ -122,6 +161,188 @@ def _is_untrusted_wikimedia_match(url: str, candidate_name: str) -> bool:
     return not candidate_tokens.issubset(url_tokens) or bool(url_tokens & _WIKIMEDIA_NON_CANDIDATE_QUALIFIERS)
 
 
+# Words that appear in a Ballotpedia filename without being part of anybody's
+# name, so they must not count toward "this file is named after a person".
+_FILENAME_NON_NAME_TOKENS = frozenset(
+    {
+        "ballotpedia",
+        "campaign",
+        "candidate",
+        "congress",
+        "congressional",
+        "copy",
+        "crop",
+        "cropped",
+        "district",
+        "final",
+        "governor",
+        "headshot",
+        "house",
+        "image",
+        "img",
+        "large",
+        "new",
+        "official",
+        "photo",
+        "picture",
+        "portrait",
+        "profile",
+        "representative",
+        "senate",
+        "senator",
+        "small",
+        "square",
+        "thumb",
+        "thumbnail",
+        "updated",
+        "web",
+        "rep",
+        "sen",
+        "gov",
+    }
+)
+
+
+def _filename_person_tokens(url: str) -> List[str]:
+    """Return name-like word tokens from an image filename.
+
+    Splits on punctuation and on camelCase runs so "PeteRicketts2015" and
+    "Audrey_Hatch_20240808_095600" both reduce to a first/last name pair.
+    """
+    basename = unquote(urlparse(url).path).rsplit("/", 1)[-1]
+    basename = re.sub(r"\.[A-Za-z0-9]{2,5}$", "", basename)
+    words: List[str] = []
+    for chunk in re.split(r"[^A-Za-z]+", basename):
+        if not chunk:
+            continue
+        words.extend(re.findall(r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])", chunk))
+    return [
+        w.lower()
+        for w in words
+        # A name has a vowel.  Without this, hex runs inside a GUID filename
+        # ("...46bdb6089bbb...") read as two name-like tokens and condemn the
+        # photo.
+        if len(w) >= 3 and w.lower() not in _FILENAME_NON_NAME_TOKENS and re.search(r"[aeiouy]", w, re.I)
+    ]
+
+
+_NAME_SUFFIX_TOKENS = frozenset({"jnr", "jr", "snr", "sr", "ii", "iii", "iv", "v", "vi"})
+
+
+def _candidate_surname(candidate_name: str) -> Optional[str]:
+    """Return the candidate's surname, ignoring a generational suffix."""
+    tokens = [t.lower() for t in re.findall(r"[A-Za-z]+", _fold_accents(candidate_name))]
+    tokens = [t for t in tokens if len(t) >= 2 and t not in _NAME_SUFFIX_TOKENS]
+    return tokens[-1] if tokens else None
+
+
+def _middle_initial(name: str) -> Optional[str]:
+    """Return a lone middle initial from "Robert P. Murray", else None."""
+    parts = re.findall(r"[A-Za-z]+", _fold_accents(name))
+    if len(parts) < 3:
+        return None
+    middles = [p for p in parts[1:-1] if len(p) == 1]
+    return middles[0].lower() if len(middles) == 1 else None
+
+
+def _middle_initials_conflict(candidate_name: str, basename: str) -> bool:
+    """True if the file names a namesake distinguished only by middle initial.
+
+    va-house-04-2026 stored the Wikipedia portrait of Robert E. Murray -- the
+    Murray Energy chief executive, who died in 2020 -- for the candidate
+    Robert P. Murray.  Given and family names both matched, so only the middle
+    initial separated a living candidate from a dead coal executive.
+
+    The initial must stand alone as its own word in the filename.  Matching it
+    inside a flattened string reads the "n" of "StevenParsons" as an initial
+    and rejects Steve G. Parsons' own photo.
+    """
+    mine = _middle_initial(candidate_name)
+    if not mine:
+        return False
+    name_parts = [p.lower() for p in re.findall(r"[A-Za-z]+", _fold_accents(candidate_name))]
+    first, last = name_parts[0], name_parts[-1]
+    words: List[str] = []
+    for chunk in re.split(r"[^A-Za-z]+", _fold_accents(basename)):
+        if chunk:
+            words.extend(w.lower() for w in re.findall(r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])", chunk))
+    for index, word in enumerate(words):
+        if word != first or index + 2 >= len(words) + 1:
+            continue
+        rest = words[index + 1 :]
+        if len(rest) >= 2 and len(rest[0]) == 1 and rest[1] == last:
+            return rest[0] != mine
+    return False
+
+
+def _is_mismatched_person_filename(url: str, candidate_name: str) -> bool:
+    """True if an image filename is named after a different person.
+
+    Two separate failures motivate this.  Ballotpedia's own markup is not
+    always right: on Dan Osborn's page the Nebraska Senate votebox rendered
+    ``Audrey_Hatch_20240808_095600.jpg`` under ``alt="Image of Dan Osborn"``,
+    so the page vouched for the wrong face.  And a Colorado candidate's photo
+    was served from ``.../advisor/wayne.r.verity/wayne-verity_400x490.jpg`` —
+    an Ameriprise adviser who merely shares a given name with Wayne Thornton.
+
+    So when a filename spells out a full name, the *surname* has to be this
+    candidate's; a shared first name is not enough.  Filenames that name
+    nobody (``IMG-20260117-WA0002``, ``Carl4congress_profile``) are left alone
+    because candidates upload those themselves.
+    """
+    # A conflicting middle initial is checked on every host, and before the
+    # surname match below, because a namesake shares the surname.  It demands
+    # an explicit initial on both sides, so a slogan filename cannot trip it.
+    if _middle_initials_conflict(candidate_name, unquote(urlparse(url).path).rsplit("/", 1)[-1]):
+        return True
+    # Otherwise only Ballotpedia names its files after people by convention.
+    # On an arbitrary campaign host a filename is as likely to be a slogan --
+    # "GrahamforMaine_HeroPhoto.jpg" is Graham Platner's own hero image, and
+    # his surname is nowhere in it.
+    if "ballotpedia" not in url.lower():
+        return False
+    surname = _candidate_surname(candidate_name)
+    if not surname:
+        return False
+    file_tokens = _filename_person_tokens(url)
+    # One bare token is too weak a signal to overrule the page it came from.
+    if len(file_tokens) < 2:
+        return False
+    # Compare against the letters-only filename, not just the split tokens: a
+    # camelCase split fractures "McGuire" into Mc/Guire and drops the two-letter
+    # fragment, which would otherwise condemn every Mc-, Mac-, De- and La- name
+    # in the catalog.
+    flattened = re.sub(r"[^a-z]", "", unquote(urlparse(url).path).rsplit("/", 1)[-1].lower())
+    if surname in flattened:
+        return False
+    # Candidates upload descriptively named photos of themselves
+    # ("Connie-Centered.png", "IlhanPortrait3.jpg", "meet-paige.jpg").  If the
+    # file names this candidate at all, believe the page it came from.  Match
+    # whole tokens here rather than substrings, so a short given name like
+    # "Dan" cannot be satisfied by "Jordan".
+    if _name_tokens(candidate_name).intersection(file_tokens):
+        return False
+    # Ballotpedia misspells names ("Tom_Periello" for Perriello, "Jessi_Eben"
+    # for Ebben).  Those are still the right person, so allow a near miss --
+    # but only for a surname long enough that proximity means something.
+    if len(surname) >= 5 and any(_within_edit_distance(surname, token, 2) for token in file_tokens):
+        return False
+    return True
+
+
+def _within_edit_distance(left: str, right: str, limit: int) -> bool:
+    """True if `left` and `right` are at most `limit` single-character edits apart."""
+    if abs(len(left) - len(right)) > limit:
+        return False
+    previous = list(range(len(right) + 1))
+    for i, lch in enumerate(left, 1):
+        current = [i]
+        for j, rch in enumerate(right, 1):
+            current.append(min(previous[j] + 1, current[j - 1] + 1, previous[j - 1] + (lch != rch)))
+        previous = current
+    return previous[-1] <= limit
+
+
 # Generic Open-Graph / social-share cards served by data and reference sites
 # (e.g. https://www.fec.gov/static/img/social/fec-data.png) are never a
 # candidate headshot even though they pass the extension check.
@@ -135,6 +356,8 @@ _GENERIC_CARD_MARKERS = (
     "twitter-card",
     "sharecard",
     "share-card",
+    "fb_share",
+    "fb-share",
 )
 
 # Current candidates should never inherit portraits from obituary or memorial
@@ -165,10 +388,65 @@ _SITE_THEME_DIR_MARKERS = (
 # one-pagers, agenda graphics, yard-sign art.  These are legitimate uploads in
 # the site's own media directory, so no path marker separates them from a
 # headshot; only the filename does.
+# Licensed stock libraries.  Their watermarked comps are never a candidate
+# portrait, they are usually a namesake or an unrelated stock model, and
+# republishing one is a licensing problem on top of a factual one.  Twice this
+# session a Getty archive photo was stored as a headshot: a 1947 picture of the
+# jazz singer Mildred Bailey for a candidate named Mildred Hall (matched via
+# "Carnegie HALL"), and a 1989 picture of the British astronaut candidates
+# Helen Sharman and Timothy Mace for a candidate named Tim S. Sharman.
+_STOCK_PHOTO_HOSTS = (
+    "gettyimages.com",
+    "gettyimages.co",
+    "shutterstock.com",
+    "alamy.com",
+    "istockphoto.com",
+    "dreamstime.com",
+    "depositphotos.com",
+    "stock.adobe.com",
+    "123rf.com",
+    "bigstockphoto.com",
+)
+
+
+# Retail product CDNs.  A surname that is also a common noun drags these in:
+# mi-house-13-2026 stored a Home Depot pendant light fixture
+# ("matte-black-rennnsan-pendant-lights-pl8101") as the headshot for a
+# candidate named Raelyn Light, and the surname matched the filename.
+_PRODUCT_IMAGE_HOSTS = (
+    "thdstatic.com",
+    "lowes.com",
+    "walmartimages.com",
+    "media-amazon.com",
+    "ssl-images-amazon.com",
+    "ebayimg.com",
+    "wayfair.com",
+    "etsystatic.com",
+    "shopifycdn.com",
+    "cdn.shopify.com",
+    "scene7.com",
+)
+
+
+def _is_product_image(url: str) -> bool:
+    parsed = urlparse(url)
+    host = (parsed.hostname or "").lower()
+    if any(host == m or host.endswith("." + m) or m in host for m in _PRODUCT_IMAGE_HOSTS):
+        return True
+    return "/productimages/" in parsed.path.lower()
+
+
+def _is_stock_photo_host(url: str) -> bool:
+    host = (urlparse(url).hostname or "").lower()
+    return any(host == marker or host.endswith("." + marker) or marker in host for marker in _STOCK_PHOTO_HOSTS)
+
+
 _CAMPAIGN_COLLATERAL_TOKENS = (
     "agenda",
     "brochure",
     "bumper",
+    "button",
+    "sticker",
     "flyer",
     "infographic",
     "priorities",
@@ -182,6 +460,38 @@ _CAMPAIGN_COLLATERAL_TOKENS = (
     "plan-for",
     "plan_fore",
     "plan-fore",
+)
+
+# Containers that rotate through several unrelated entries.  An <img> inside
+# one belongs to whichever item the widget happens to show first, which is
+# routinely a different person than the page is about.  Kept deliberately
+# narrow: a plain "sidebar" or "related" block legitimately holds the infobox
+# portrait on Ballotpedia and Wikipedia.
+_ROTATING_WIDGET_TOKENS = (
+    "carousel",
+    "slideshow",
+    "slick-",
+    "swiper",
+    "lightbox",
+)
+
+_VOID_HTML_TAGS = frozenset(
+    {
+        "area",
+        "base",
+        "br",
+        "col",
+        "embed",
+        "hr",
+        "img",
+        "input",
+        "link",
+        "meta",
+        "param",
+        "source",
+        "track",
+        "wbr",
+    }
 )
 
 _SITE_FURNITURE_TOKENS = (
@@ -227,9 +537,38 @@ def _looks_like_site_furniture(haystack: str) -> bool:
     return any(token in haystack for token in _SITE_FURNITURE_TOKENS)
 
 
+def _contains_word(haystack: str, token: str) -> bool:
+    """True if `token` appears in `haystack` other than inside a longer word.
+
+    A plain substring test reads "icon" inside "NikiConforti", "banner" inside
+    "Bannerman" and "seal" inside "Seale", condemning those candidates' own
+    photos.  What separates those from a real hit is the character that
+    *follows*: a lowercase letter means the token is a fragment of a longer
+    word.  Names run on before the token often enough
+    ("halliewebsiteshoffnerhomepage.png") that the preceding character cannot
+    be required to be a boundary.  A plural "s" still counts as the end of the
+    word, so "creamlogos3.png" matches while "Logothetis.jpg" does not.
+    """
+
+    def _boundary(index: int) -> bool:
+        if index >= len(haystack):
+            return True
+        char = haystack[index]
+        if not (char.isalpha() and char.islower()):
+            return True
+        return char == "s" and not (
+            index + 1 < len(haystack) and haystack[index + 1].isalpha() and haystack[index + 1].islower()
+        )
+
+    return any(_boundary(m.end()) for m in re.finditer(re.escape(token), haystack, re.IGNORECASE))
+
+
 def _looks_like_non_photo(url: str, alt: str = "") -> bool:
     haystack = unquote(f"{url} {alt}").lower()
-    if any(token in haystack for token in _NON_PHOTO_TOKENS):
+    # Some CMSes join words with "+" ("Social+Share+Card"), so test a variant
+    # with separators unified to "-" as well.
+    unified = re.sub(r"[+_\s]+", "-", haystack)
+    if any(_contains_word(haystack, token) or _contains_word(unified, token) for token in _NON_PHOTO_TOKENS):
         return True
     if any(marker in haystack for marker in (*_GENERIC_CARD_MARKERS, *_MEMORIAL_IMAGE_MARKERS)):
         return True
@@ -237,7 +576,25 @@ def _looks_like_non_photo(url: str, alt: str = "") -> bool:
         return True
     if _looks_like_generic_cms_filename(url):
         return True
+    if _is_stock_photo_host(url) or _is_product_image(url):
+        return True
+    if _looks_like_archival_photo(url):
+        return True
     return _looks_like_site_furniture(haystack)
+
+
+def _looks_like_archival_photo(url: str) -> bool:
+    """True if the filename dates the image to before any current candidate's career.
+
+    A historical namesake is a recurring failure: a 19th-century preacher was
+    stored for Henry Ward III, and a 1945 press photo of the actress Lauren
+    Bacall for Lauren B. Pena.  A pre-1980 year in the filename is archive
+    provenance, never a current campaign portrait.
+    """
+    basename = unquote(urlparse(url).path).rsplit("/", 1)[-1]
+    # "-1920w" and "1920x1000" are responsive-image dimensions, not years.
+    years = re.findall(r"(?<![\dxX])(1[89]\d{2})(?![\dwhxWHX])", basename)
+    return any(1800 <= int(year) <= 1979 for year in years)
 
 
 def _looks_like_social_profile_avatar(url: str) -> bool:
@@ -304,6 +661,8 @@ def _extract_page_image_urls(html: str, page_url: str, candidate_name: str) -> L
             url = f"https://{url[7:]}"
         if url in seen or not _is_valid_image_url(url) or _looks_like_non_photo(url, alt):
             continue
+        if _is_mismatched_person_filename(url, candidate_name):
+            continue
         seen.add(url)
 
         searchable = unquote(f"{url} {alt}").lower()
@@ -357,6 +716,10 @@ _CANDIDATE_PROFILE_MARKERS = (
 )
 
 _NON_HEADSHOT_HOSTS = (
+    # A financial-adviser profile CDN: co-house-04-2026 stored
+    # ".../advisor/wayne.r.verity/wayne-verity_400x490.jpg" for Wayne
+    # Thornton, an unrelated Ameriprise adviser sharing only a given name.
+    "ameriprisecontent.com",
     "fec.gov",
     "opensecrets.org",
     "followthemoney.org",
@@ -724,6 +1087,86 @@ async def _lookup_serper_image(
     return None
 
 
+# News outlets are named after the state they cover, so one covering a
+# *different* state is reporting on a different person.  tn-house-07-2026
+# stored media.newjerseyglobe.com's 2021 photo of a Mercer County, New Jersey
+# commissioner named Andrew Koontz for the Tennessee candidate of that name.
+# Only full state names are matched: two-letter abbreviations collide with
+# ordinary words ("la" inside "lailluminator.com").  Longest first, so
+# "westvirginia" is not read as "virginia".
+_STATE_NAMES_BY_CODE = {
+    "al": "alabama",
+    "ak": "alaska",
+    "az": "arizona",
+    "ar": "arkansas",
+    "ca": "california",
+    "co": "colorado",
+    "ct": "connecticut",
+    "de": "delaware",
+    "fl": "florida",
+    "ga": "georgia",
+    "hi": "hawaii",
+    "id": "idaho",
+    "il": "illinois",
+    "in": "indiana",
+    "ia": "iowa",
+    "ks": "kansas",
+    "ky": "kentucky",
+    "la": "louisiana",
+    "me": "maine",
+    "md": "maryland",
+    "ma": "massachusetts",
+    "mi": "michigan",
+    "mn": "minnesota",
+    "ms": "mississippi",
+    "mo": "missouri",
+    "mt": "montana",
+    "ne": "nebraska",
+    "nv": "nevada",
+    "nh": "newhampshire",
+    "nj": "newjersey",
+    "nm": "newmexico",
+    "ny": "newyork",
+    "nc": "northcarolina",
+    "nd": "northdakota",
+    "oh": "ohio",
+    "ok": "oklahoma",
+    "or": "oregon",
+    "pa": "pennsylvania",
+    "ri": "rhodeisland",
+    "sc": "southcarolina",
+    "sd": "southdakota",
+    "tn": "tennessee",
+    "tx": "texas",
+    "ut": "utah",
+    "vt": "vermont",
+    "va": "virginia",
+    "wa": "washington",
+    "wv": "westvirginia",
+    "wi": "wisconsin",
+    "wy": "wyoming",
+}
+_STATE_NAMES_LONGEST_FIRST = sorted(set(_STATE_NAMES_BY_CODE.values()), key=len, reverse=True)
+
+
+def _host_names_another_state(url: str, race_id: Optional[str]) -> bool:
+    """True if the image host is named for a state other than the race's."""
+    if not race_id:
+        return False
+    own = _STATE_NAMES_BY_CODE.get(race_id.split("-", 1)[0].lower())
+    if not own:
+        return False
+    # Only the registrable domain: a CDN encodes its data-centre region in a
+    # subdomain, and "bloximages.newyork1.vip.townnews.com" is TownNews'
+    # infrastructure serving a Florida paper, not a New York outlet.
+    labels = (urlparse(url).hostname or "").lower().split(".")
+    host = re.sub(r"[^a-z]", "", "".join(labels[-2:]))
+    for state in _STATE_NAMES_LONGEST_FIRST:
+        if state in host:
+            return state != own
+    return False
+
+
 async def _resolve_single_image(
     candidate: Dict[str, Any],
     *,
@@ -757,6 +1200,22 @@ async def _resolve_single_image(
         candidate["image_url"] = None
         current_url = None
         log("info", f"  [{name}] Existing image is a social profile avatar - searching for a better portrait")
+
+    if current_url and _host_names_another_state(current_url, race_id):
+        log(
+            "info",
+            f"  [{name}] Existing image is hosted by another state's outlet - discarding and re-searching",
+        )
+        candidate["image_url"] = None
+        current_url = None
+
+    if current_url and _is_mismatched_person_filename(current_url, name):
+        log(
+            "info",
+            f"  [{name}] Existing Ballotpedia image is filed under another person's name - discarding and re-searching",
+        )
+        candidate["image_url"] = None
+        current_url = None
 
     if current_url and _is_untrusted_wikimedia_match(current_url, name):
         log(

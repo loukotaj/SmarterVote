@@ -179,6 +179,97 @@ def _prune_incomplete_poll_matchups(race_data: Dict[str, Any]) -> int:
     return removed
 
 
+# Images that are not a photograph of anybody: Ballotpedia serves
+# "SubmitPhoto-150px.png" as a call to action asking the candidate to upload
+# one, and 52 candidates across 46 published races had it stored as their
+# headshot.  Two candidates in the same race sharing it also defeats the
+# duplicate-image guard, since it is a legitimately shared URL.
+_PLACEHOLDER_IMAGE_MARKERS = ("submitphoto", "no-image-available", "noimageavailable", "placeholder-avatar")
+
+
+def _is_placeholder_image(url: Any) -> bool:
+    return isinstance(url, str) and any(marker in url.lower() for marker in _PLACEHOLDER_IMAGE_MARKERS)
+
+
+def _strip_shared_candidate_images(race_data: Dict[str, Any]) -> int:
+    """Clear placeholder images, and photos two candidates in one race share.
+
+    A single file cannot depict two different people, so when it is reused the
+    stored URL is wrong for at least one of them and unverifiable for both.
+    ma-house-04-2026 gave Matthew Cook the file named for Jason Poulos, another
+    candidate in the same race -- and slipped past a full-URL duplicate check
+    because the two differed only by thumbnail size (100/100 vs 200/300).
+    """
+    candidates = [c for c in race_data.get("candidates", []) or [] if isinstance(c, dict)]
+    cleared = 0
+    basenames: Dict[str, List[Dict[str, Any]]] = {}
+    for candidate in candidates:
+        url = candidate.get("image_url")
+        if not isinstance(url, str) or not url:
+            continue
+        if _is_placeholder_image(url):
+            candidate["image_url"] = None
+            cleared += 1
+            continue
+        basenames.setdefault(url.rsplit("/", 1)[-1].lower(), []).append(candidate)
+    for basename, sharers in basenames.items():
+        if len(sharers) <= 1:
+            continue
+        # If the filename names one of them, that one is likely right and the
+        # others inherited it: "Jason_Poulos_2026.jpg" belongs to Jason Poulos,
+        # not to Matthew Cook.  Otherwise none can be trusted.
+        flattened = re.sub(r"[^a-z]", "", basename)
+        owners = [c for c in sharers if _surname_in(flattened, c.get("name"))]
+        losers = [c for c in sharers if c not in owners] if len(owners) == 1 else sharers
+        for candidate in losers:
+            candidate["image_url"] = None
+            cleared += 1
+    return cleared
+
+
+def _surname_in(flattened_basename: str, name: Any) -> bool:
+    """True if `name`'s surname appears in a letters-only filename."""
+    if not isinstance(name, str):
+        return False
+    tokens = [t.lower() for t in re.findall(r"[A-Za-z]+", name) if len(t) >= 3]
+    tokens = [t for t in tokens if t not in {"jnr", "snr", "iii"}]
+    return bool(tokens) and tokens[-1] in flattened_basename
+
+
+def _general_election_day(year: int) -> str:
+    """US general election day: the first Tuesday after the first Monday in November."""
+    import datetime
+
+    day = datetime.date(year, 11, 1)
+    while day.weekday() != 0:  # Monday
+        day += datetime.timedelta(days=1)
+    return (day + datetime.timedelta(days=1)).isoformat()
+
+
+def _correct_general_election_date(race_data: Dict[str, Any]) -> int:
+    """Replace a primary date left on a post-primary general race.
+
+    Three published races stored the date of their own primary as the
+    election date -- 2026-08-04 for Michigan and Washington, 2026-06-16 for
+    California -- which is the date a voter reads off the page. The agent does
+    not reliably correct this from a goal instruction, but it is fully
+    determined: a general election is the first Tuesday after the first Monday
+    in November.
+    """
+    if race_data.get("contest_stage") not in {"post_primary_general", "top_two", "uncontested", "runoff"}:
+        return 0
+    race_id = str(race_data.get("id") or "")
+    match = re.search(r"(20\d{2})", race_id)
+    if not match:
+        return 0
+    expected = _general_election_day(int(match.group(1)))
+    current = str(race_data.get("election_date") or "")[:10]
+    if not current or current == expected:
+        return 0
+    race_data["election_date"] = expected
+    return 1
+
+
 def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
     """Apply safe text/source normalization and return mutation counts."""
     text_changes = 0
@@ -188,6 +279,8 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
     placeholder_fields_cleared = 0
     fabricated_lineage_removed = 0
     incomplete_matchups_removed = _prune_incomplete_poll_matchups(race_data)
+    unusable_images_cleared = _strip_shared_candidate_images(race_data)
+    election_dates_corrected = _correct_general_election_date(race_data)
     poll_count_corrections = 0
 
     for field in ("title", "description", "polling_note"):
@@ -353,6 +446,8 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
         "placeholder_fields_cleared": placeholder_fields_cleared,
         "fabricated_lineage_removed": fabricated_lineage_removed,
         "incomplete_matchups_removed": incomplete_matchups_removed,
+        "unusable_images_cleared": unusable_images_cleared,
+        "election_dates_corrected": election_dates_corrected,
         "poll_count_corrections": poll_count_corrections,
     }
 

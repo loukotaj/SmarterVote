@@ -337,3 +337,116 @@ def test_cleanup_leaves_an_honest_poll_count_alone():
     assert len(race["polling"]) == 1
     assert race["forecast"]["based_on_poll_count"] == 1
     assert stats["poll_count_corrections"] == 0
+
+
+_BP_THUMBS = "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/"
+
+
+def test_cleanup_clears_ballotpedia_submit_photo_placeholder():
+    """ "SubmitPhoto-150px.png" asks for a photo; it is not a photo.
+
+    52 candidates across 46 published races were showing this call-to-action
+    graphic as their headshot.
+    """
+    race = {
+        "candidates": [
+            {"name": "Jereme Peters", "image_url": _BP_THUMBS + "150/150/SubmitPhoto-150px.png"},
+            {"name": "Real Person", "image_url": _BP_THUMBS + "200/300/Real_Person.jpg"},
+        ]
+    }
+
+    stats = cleanup_race_data(race)
+
+    assert race["candidates"][0]["image_url"] is None
+    assert race["candidates"][1]["image_url"] == _BP_THUMBS + "200/300/Real_Person.jpg"
+    assert stats["unusable_images_cleared"] == 1
+
+
+def test_cleanup_keeps_the_candidate_a_shared_photo_is_named_for():
+    """One file cannot depict two people, so the one it names keeps it.
+
+    ma-house-04-2026 gave Matthew Cook the file named for Jason Poulos, a rival
+    in the same race. It evaded a full-URL duplicate check because the two
+    differed only by thumbnail size.
+    """
+    race = {
+        "candidates": [
+            {"name": "Jason Poulos", "image_url": _BP_THUMBS + "200/300/Jason_Poulos_2026.jpg"},
+            {"name": "Matthew Cook", "image_url": _BP_THUMBS + "100/100/Jason_Poulos_2026.jpg"},
+        ]
+    }
+
+    stats = cleanup_race_data(race)
+
+    assert race["candidates"][0]["image_url"] == _BP_THUMBS + "200/300/Jason_Poulos_2026.jpg"
+    assert race["candidates"][1]["image_url"] is None
+    assert stats["unusable_images_cleared"] == 1
+
+
+def test_cleanup_clears_a_shared_photo_that_names_nobody():
+    """With no owner to identify, the file is unusable for either candidate."""
+    race = {
+        "candidates": [
+            {"name": "First Candidate", "image_url": _BP_THUMBS + "200/300/headshot.jpg"},
+            {"name": "Second Candidate", "image_url": _BP_THUMBS + "100/100/headshot.jpg"},
+        ]
+    }
+
+    stats = cleanup_race_data(race)
+
+    assert [c["image_url"] for c in race["candidates"]] == [None, None]
+    assert stats["unusable_images_cleared"] == 2
+
+
+def test_cleanup_leaves_distinct_candidate_photos_alone():
+    race = {
+        "candidates": [
+            {"name": "Warren Davidson", "image_url": _BP_THUMBS + "200/300/Warren_Davidson.jpg"},
+            {"name": "Vanessa Enoch", "image_url": "https://example.org/venoch.jpg"},
+            {"name": "No Photo", "image_url": None},
+        ]
+    }
+
+    stats = cleanup_race_data(race)
+
+    assert race["candidates"][0]["image_url"] == _BP_THUMBS + "200/300/Warren_Davidson.jpg"
+    assert race["candidates"][1]["image_url"] == "https://example.org/venoch.jpg"
+    assert stats["unusable_images_cleared"] == 0
+
+
+def test_cleanup_corrects_a_primary_date_on_a_general_election_race():
+    """The stored date is what a voter reads off the page.
+
+    Three published races held the date of their own primary: 2026-08-04 for
+    Michigan and Washington, 2026-06-16 for California. The research agent does
+    not reliably fix this from a goal instruction, but it is fully determined --
+    a general election is the first Tuesday after the first Monday in November.
+    """
+    race = {"id": "wa-house-05-2026", "contest_stage": "post_primary_general", "election_date": "2026-08-04"}
+
+    stats = cleanup_race_data(race)
+
+    assert race["election_date"] == "2026-11-03"
+    assert stats["election_dates_corrected"] == 1
+
+
+def test_cleanup_leaves_a_correct_or_pre_primary_date_alone():
+    """Only a general-election stage implies the November date."""
+    correct = {"id": "x-2026", "contest_stage": "post_primary_general", "election_date": "2026-11-03"}
+    assert cleanup_race_data(correct)["election_dates_corrected"] == 0
+    assert correct["election_date"] == "2026-11-03"
+
+    # A pre-primary race legitimately carries its primary date.
+    pre = {"id": "ma-house-02-2026", "contest_stage": "pre_primary", "election_date": "2026-09-01"}
+    assert cleanup_race_data(pre)["election_dates_corrected"] == 0
+    assert pre["election_date"] == "2026-09-01"
+
+
+def test_general_election_day_is_computed_not_hardcoded():
+    """First Tuesday after the first Monday in November, for any cycle."""
+    from shared.race_cleanup import _general_election_day
+
+    assert _general_election_day(2026) == "2026-11-03"
+    assert _general_election_day(2028) == "2028-11-07"
+    # 2029: Nov 1 is a Thursday, so the first Monday is the 5th and the day is the 6th.
+    assert _general_election_day(2029) == "2029-11-06"

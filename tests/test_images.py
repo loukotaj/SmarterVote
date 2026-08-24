@@ -3,13 +3,19 @@ import pytest
 from pipeline_client.agent.images import (
     _candidate_page_urls,
     _extract_page_image_urls,
+    _filename_person_tokens,
+    _host_names_another_state,
+    _is_mismatched_person_filename,
+    _is_untrusted_wikimedia_match,
     _is_valid_image_url,
+    _looks_like_archival_photo,
     _looks_like_generic_cms_filename,
     _looks_like_govtrack_reference_headshot,
     _looks_like_non_photo,
     _looks_like_social_profile_avatar,
     _lookup_ballotpedia_image,
     _lookup_wikipedia_image,
+    _name_tokens,
     _resolve_single_image,
     _wikimedia_original_image_url,
 )
@@ -555,3 +561,302 @@ def test_generic_cms_filename_check_keeps_named_and_dated_photos():
     )
     # A "/downloads/" directory is not a generic *filename*.
     assert not _looks_like_generic_cms_filename("https://example.org/downloads/jane-doe.jpg")
+
+
+_BP = "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/"
+
+
+def test_ballotpedia_file_named_for_another_person_is_rejected():
+    """Ballotpedia's own markup mislabels photos, so the filename must match.
+
+    On https://ballotpedia.org/Dan_Osborn the Nebraska Senate votebox served
+    ``Audrey_Hatch_20240808_095600.jpg`` under ``alt="Image of Dan Osborn"``.
+    Both the page and the alt text vouched for it, so only the filename
+    revealed that ne-senate-2026 had stored a stranger's face.
+    """
+    assert _is_mismatched_person_filename(_BP + "Audrey_Hatch_20240808_095600.jpg", "Dan Osborn")
+    assert _is_mismatched_person_filename(_BP + "Mike_Marvin_2026-04-29_180732.png", "Dan Osborn")
+    # An opponent's portrait must not migrate across a race's roster either.
+    assert _is_mismatched_person_filename(_BP + "Randy_Weber.jpg", "Thurman Bill Bartie")
+    # co-house-04-2026 stored John Padora Jr's thumbnail for Douglas Mangeris,
+    # picked off a votebox listing every other candidate in the race.
+    assert _is_mismatched_person_filename(_BP + "JohnPadoraJr2025.jpg", "Douglas Mangeris")
+    # A file naming an entirely different person is caught even when the
+    # candidate's own name appears nowhere in it.
+    assert _is_mismatched_person_filename(_BP + "Jason_Poulos_2026.jpg", "Matthew Cook")
+
+
+def test_ballotpedia_filename_check_trusts_a_file_naming_this_candidate():
+    """Descriptive self-uploads must survive; the page vouches for them.
+
+    Auditing all 506 published races showed these outnumber real mismatches,
+    so a shared name token is treated as confirmation rather than noise. The
+    cost is a shared *given* name (an Ameriprise adviser "wayne-verity" stored
+    for Wayne Thornton); that case is caught by _NON_HEADSHOT_HOSTS instead.
+    """
+    assert not _is_mismatched_person_filename(_BP + "Connie-Centered_20260428.png", "Connie Chan")
+    assert not _is_mismatched_person_filename(_BP + "IlhanPortrait3-scaled-1.jpeg", "Ilhan Omar")
+    assert not _is_mismatched_person_filename(_BP + "meet-paige_20260701.jpg", "Paige Cognetti")
+    # Whole-token match, so a short given name cannot be satisfied by a
+    # substring: "Dan" must not be found inside "Jordan".
+    assert _is_mismatched_person_filename(_BP + "Jordan_Smith_2026.jpg", "Dan Osborn")
+
+
+def test_mc_and_de_surnames_are_not_condemned_by_camelcase_splitting():
+    """A camelCase split fractures "McGuire"; the flattened name must match.
+
+    Before this, the audit flagged 27 correct photos -- essentially every
+    Mc-, Mac-, De- and La- surname in the catalog.
+    """
+    assert not _is_mismatched_person_filename(_BP + "Mike_McGuire.jpg", "Mike McGuire")
+    assert not _is_mismatched_person_filename(_BP + "Mark-DeSaulnier.jpg", "Mark DeSaulnier")
+    assert not _is_mismatched_person_filename(_BP + "Betty_McCollum.jpg", "Betty McCollum")
+    assert not _is_mismatched_person_filename(_BP + "NickLaLota24.jpg", "Nicholas J. LaLota")
+
+
+def test_ballotpedia_misspellings_are_tolerated():
+    """Ballotpedia typos still depict the right person, so allow a near miss."""
+    assert not _is_mismatched_person_filename(_BP + "Tom_Periello.jpg", "Tom Perriello")
+    assert not _is_mismatched_person_filename(_BP + "Jessi_Eben.jpg", "Jessi Ebben")
+    assert not _is_mismatched_person_filename(_BP + "Christina-Bohannon.jpg", "Christina Bohannan")
+    # Far apart is still a different person, not a typo.
+    assert _is_mismatched_person_filename(_BP + "Audrey_Hatch_2024.jpg", "Dan Osborn")
+
+
+def test_ballotpedia_filename_check_tolerates_generational_suffixes():
+    """ "Clyde W. Jones, Jr." must resolve to "jones", not to the suffix."""
+    assert not _is_mismatched_person_filename(_BP + "Clyde_Jones_2026.jpg", "Clyde W. Jones, Jr.")
+    assert not _is_mismatched_person_filename(_BP + "Jeffrey_Hulum_III.jpg", "Jeffrey Hulum III")
+
+
+def test_ballotpedia_filename_check_keeps_the_candidates_own_photo():
+    """Matching either the given name or the surname is enough."""
+    assert not _is_mismatched_person_filename(_BP + "William_Timmons.jpg", "William Timmons")
+    assert not _is_mismatched_person_filename(_BP + "Jessica-Ethridge.PNG", "Jessica Ethridge")
+    # camelCase run: "PeteRicketts2015" -> pete / ricketts
+    assert not _is_mismatched_person_filename(_BP + "PeteRicketts2015.jpg", "Pete Ricketts")
+    assert not _is_mismatched_person_filename(_BP + "ThurmanBartie2026.jpg", "Thurman Bill Bartie")
+    # A married/maiden double surname still matches on the shared token.
+    assert not _is_mismatched_person_filename(_BP + "Chauna_Banks-Daniel.jpg", "Chauna Banks")
+
+
+def test_ballotpedia_filename_check_ignores_files_that_name_nobody():
+    """Candidate-submitted uploads carry no name and must not be discarded.
+
+    Requiring two name-like tokens is what protects these: one bare token is
+    too weak a signal to overrule the page the image was found on.
+    """
+    assert not _is_mismatched_person_filename(_BP + "IMG-20260117-WA0002_20260813_173322_32663_1.jpg", "Lewis Mizrahi")
+    assert not _is_mismatched_person_filename(_BP + "Carl4congress_profile.jpg", "Carl Boyanton")
+    assert not _is_mismatched_person_filename(_BP + "Monique-Ballotpedia.jpg", "Monique Appeaning")
+    assert not _is_mismatched_person_filename(_BP + "LRG-Headshot_202604.jpg", "Lindsay Garcia")
+    # Non-Ballotpedia hosts are out of scope: on an arbitrary campaign host a
+    # filename is as likely to be a slogan as a name, and "GrahamforMaine"
+    # legitimately omits Graham Platner's surname.
+    assert not _is_mismatched_person_filename("https://example.org/uploads/Audrey_Hatch.jpg", "Dan Osborn")
+
+
+def test_images_inside_a_rotating_widget_are_ignored():
+    """A carousel cycles through other people, so its slides aren't portraits."""
+    html = (
+        "<html><body>"
+        '<div class="question_carousel"><div class="item active">'
+        '<img src="/files/other_person.jpg" alt="Dan Osborn" width="200" height="300"/>'
+        "</div></div>"
+        '<div class="infobox"><img src="/files/real-portrait.jpg" alt="Dan Osborn"/></div>'
+        "</body></html>"
+    )
+    urls = _extract_page_image_urls(html, "https://example.org/Dan_Osborn", "Dan Osborn")
+    assert not any("other_person" in u for u in urls)
+    assert any("real-portrait" in u for u in urls)
+
+
+def test_accented_surnames_survive_tokenization():
+    """A diacritic must not delete the surname from every name comparison.
+
+    "Pena" with a tilde tokenized as "pe" + "a", both under the length floor,
+    so only the given name survived -- and tx-house-37-2026 stored a 1945 press
+    photo of the actress Lauren Bacall for Lauren B. Pena, matched on "Lauren"
+    alone. This weakened every guard for any candidate with a non-ASCII name.
+    """
+    assert _name_tokens("Lauren B. Peña") == {"lauren", "pena"}
+    assert _name_tokens("José García") == {"jose", "garcia"}
+
+    bacall = (
+        "https://upload.wikimedia.org/wikipedia/commons/7/76/" "Lauren_Bacall_1945_press_photo.jpg?utm_source=en.wikipedia.org"
+    )
+    assert _is_untrusted_wikimedia_match(bacall, "Lauren B. Peña")
+
+
+def test_filename_tokens_ignore_the_query_string():
+    """Tracking parameters are not part of the name the file carries."""
+    url = _BP + "Jane_Doe.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+    assert _filename_person_tokens(url) == ["jane", "doe"]
+
+
+def test_pre_1980_year_in_filename_marks_an_archival_photo():
+    """A historical namesake is a recurring failure mode."""
+    assert _looks_like_archival_photo("https://x/Lauren_Bacall_1945_press_photo.jpg")
+    assert _looks_like_archival_photo("https://x/Henry_Ward_Beecher_1863.jpg")
+    # Current-cycle dates and capture stamps must not trip it.
+    assert not _looks_like_archival_photo("https://x/Jane_Doe_2026.jpg")
+    assert not _looks_like_archival_photo("https://x/Rick_Edmonds_202403.jpg")
+    assert not _looks_like_archival_photo("https://x/IMG-20260117-WA0002.jpg")
+
+
+def test_conflicting_middle_initial_marks_a_namesake():
+    """Only a middle initial separated a candidate from a dead executive.
+
+    va-house-04-2026 stored the Wikipedia portrait of Robert E. Murray, the
+    Murray Energy chief executive who died in 2020, for candidate Robert P.
+    Murray. Given and family names both matched.
+    """
+    assert _is_mismatched_person_filename(
+        "https://upload.wikimedia.org/wikipedia/commons/5/53/Robert_E._Murray_%28crop%29.jpg",
+        "Robert P. Murray",
+    )
+    # The candidate's own photo, and a file carrying no initial, both stand.
+    assert not _is_mismatched_person_filename(_BP + "Robert_P._Murray.jpg", "Robert P. Murray")
+    assert not _is_mismatched_person_filename(_BP + "Robert_Murray_2026.jpg", "Robert P. Murray")
+    assert not _is_mismatched_person_filename(_BP + "Frank_D._Lucas.jpg", "Frank D. Lucas")
+
+
+def test_middle_initial_must_stand_alone_as_a_word():
+    """A longer form of the given name is not a middle initial.
+
+    Flattening the filename reads the "n" of "StevenParsons" as an initial and
+    rejects Steve G. Parsons' own photo.
+    """
+    assert not _is_mismatched_person_filename(_BP + "StevenParsons24.jpeg", "Steve G. Parsons")
+    # A campaign slogan on an arbitrary host must not trip it either.
+    assert not _is_mismatched_person_filename(
+        "https://images.squarespace-cdn.com/x/GrahamforMaine_HeroPhoto.jpg", "Graham Platner"
+    )
+
+
+def test_licensed_stock_photo_hosts_are_rejected():
+    """A stock library comp is never a candidate portrait, and republishing
+    one is a licensing problem on top of a factual one.
+
+    Twice this session a Getty archive photo was stored as a headshot: a 1947
+    picture of jazz singer Mildred Bailey for a candidate named Mildred Hall
+    (matched via "Carnegie HALL"), and a 1989 picture of British astronaut
+    candidates Helen Sharman and Timothy Mace for Tim S. Sharman. The rule had
+    lived only in the research prompt, so it kept recurring.
+    """
+    assert _looks_like_non_photo(
+        "https://media.gettyimages.com/id/2158763188/photo/"
+        "helen-sharman-and-timothy-mace-candidates-hoping-to-join.jpg?s=612x612"
+    )
+    assert _looks_like_non_photo("https://www.shutterstock.com/image-photo/senator-portrait-123.jpg")
+    assert _looks_like_non_photo("https://www.alamy.com/stock-photo/x.jpg")
+    # A real portrait on a normal host is untouched.
+    assert not _looks_like_non_photo("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Joe_Wilson.jpeg")
+
+
+def test_campaign_button_is_not_a_headshot():
+    """ny-house-18-2026 stored a campaign button graphic for Jackie Auringer."""
+    assert _looks_like_non_photo("https://winwithjackie.com/campaign-button.png")
+    assert _looks_like_non_photo("https://example.org/sticker-2026.png")
+    assert not _looks_like_non_photo("https://winwithjackie.com/jackie-headshot.jpg")
+
+
+def test_non_photo_tokens_do_not_condemn_names_containing_them():
+    """A substring test reads "icon" inside "NikiConforti".
+
+    Auditing the published catalog caught this rejecting real portraits, so
+    a token only counts when it is not a fragment of a longer word.
+    """
+    assert not _looks_like_non_photo("https://example.org/NikiConforti2.png")
+    assert not _looks_like_non_photo("https://example.org/Bannerman_Jane.jpg")
+    assert not _looks_like_non_photo("https://example.org/Seale_John.jpg")
+    assert not _looks_like_non_photo("https://example.org/Logothetis_Maria.jpg")
+    # Real hits still land, including a trailing plural.
+    assert _looks_like_non_photo("https://example.org/site-icon.png")
+    assert _looks_like_non_photo("https://example.org/shoffner-creamlogos3.png")
+    assert _looks_like_non_photo("https://static1.squarespace.com/x/halliewebsiteshoffnerhomepage.png")
+
+
+def test_responsive_width_suffix_is_not_an_archival_year():
+    """ "-1920w" is an image width. Reading it as a year rejected real photos.
+
+    Squarespace and Webflow append these to nearly every image, so the first
+    version of the archival check condemned portraits wholesale -- including a
+    file named "Sheri+Biggs+Headshot-1920w.png".
+    """
+    assert not _looks_like_archival_photo("https://example.org/Sheri+Biggs+Headshot-1920w.png")
+    assert not _looks_like_archival_photo("https://example.org/McDowell+Card+1920x1000.jpg")
+    assert not _looks_like_non_photo("https://example.org/Kingston-+Jim_Color-1920w.jpg")
+    # A genuine archive year still reads as one.
+    assert _looks_like_archival_photo("https://example.org/Cliff_Johnson_-_Houston_Astros_-_1976.jpg")
+
+
+def test_group_and_share_card_images_are_rejected():
+    """A family portrait is not a headshot, whatever the separator."""
+    assert _looks_like_non_photo("https://example.org/Scott_Family-web-1920w.jpg")
+    assert _looks_like_non_photo("https://example.org/tom-sell-family.jpg")
+    assert _looks_like_non_photo("https://example.org/McDowell+Social+Share+Card+1+-+1920x1000.jpg")
+    assert _looks_like_non_photo("https://example.org/fb_share.png")
+    # A surname that merely starts the same way is untouched.
+    assert not _looks_like_non_photo("https://example.org/Familia_Jose.jpg")
+
+
+def test_image_hosted_by_another_states_outlet_is_rejected():
+    """A state's news outlet covers that state's politicians.
+
+    tn-house-07-2026 stored media.newjerseyglobe.com's 2021 photo of a Mercer
+    County, New Jersey commissioner named Andrew Koontz as the headshot for the
+    Tennessee independent of the same name. The filename ("KBS_3310") named
+    nobody, so only the host revealed it.
+    """
+    assert _host_names_another_state("https://media.newjerseyglobe.com/x/KBS_3310-464x290.jpg", "tn-house-07-2026")
+    # The state's own outlet is fine.
+    assert not _host_names_another_state("https://www.texastribune.org/x/a.jpg", "tx-house-12-2026")
+
+
+def test_state_host_check_disambiguates_virginia_from_west_virginia():
+    """ "westvirginia" must not be read as "virginia", or vice versa."""
+    assert not _host_names_another_state("https://westvirginiawatch.com/x/a.jpg", "wv-house-02-2026")
+    assert _host_names_another_state("https://westvirginiawatch.com/x/a.jpg", "va-house-04-2026")
+    assert _host_names_another_state("https://virginiamercury.com/x/a.jpg", "wv-house-02-2026")
+
+
+def test_state_host_check_ignores_hosts_that_name_no_state():
+    """Two-letter codes collide with ordinary words, so only full names count.
+
+    "lailluminator.com" is Louisiana's outlet but contains no full state name,
+    and matching the code "la" would also hit unrelated hosts.
+    """
+    assert not _host_names_another_state("https://lailluminator.com/x/Larry-Davis-2.jpg", "la-house-06-2026")
+    assert not _host_names_another_state("https://lailluminator.com/x/a.jpg", "tn-house-07-2026")
+    assert not _host_names_another_state("https://s3.amazonaws.com/ballotpedia-api4/x/a.jpg", "sc-house-02-2026")
+    assert not _host_names_another_state("https://upload.wikimedia.org/x/a.jpg", "ny-house-08-2026")
+    # No race id means no judgement.
+    assert not _host_names_another_state("https://media.newjerseyglobe.com/x/a.jpg", None)
+
+
+def test_state_host_check_ignores_a_cdn_region_subdomain():
+    """A CDN encodes its data centre in a subdomain, not its coverage area.
+
+    "bloximages.newyork1.vip.townnews.com" is TownNews infrastructure serving a
+    Florida paper; reading "newyork" from it rejected a correct photo. Only the
+    registrable domain is considered.
+    """
+    assert not _host_names_another_state("https://bloximages.newyork1.vip.townnews.com/x/a.jpg", "fl-house-24-2026")
+
+
+def test_retail_product_images_are_rejected():
+    """A surname that is also a common noun drags in shopping results.
+
+    mi-house-13-2026 stored a Home Depot pendant light fixture as the headshot
+    for a candidate named Raelyn Light. The surname genuinely appears in
+    "pendant-lights", so the filename guard could not catch it -- only the host
+    and the /productImages/ path do.
+    """
+    assert _looks_like_non_photo(
+        "https://images.thdstatic.com/productImages/2a4b/svn/" "matte-black-rennnsan-pendant-lights-pl8101-73228-64_1000.jpg"
+    )
+    assert _looks_like_non_photo("https://m.media-amazon.com/images/I/71abc.jpg")
+    assert _looks_like_non_photo("https://example.org/productImages/x.jpg")
+    # Ordinary candidate portraits are untouched.
+    assert not _looks_like_non_photo("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MarkTeixeira2026.png")
