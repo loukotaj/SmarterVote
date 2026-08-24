@@ -3,6 +3,7 @@
 import asyncio
 import logging
 import re
+import unicodedata
 from html.parser import HTMLParser
 from typing import Any, Callable, Dict, List, Optional, Tuple
 from urllib.parse import unquote, urljoin, urlparse
@@ -114,8 +115,19 @@ class _PageImageParser(HTMLParser):
         self.images.append((source, "img", width, height, alt, self._text_len))
 
 
+def _fold_accents(value: str) -> str:
+    """Strip diacritics so accented names survive ASCII tokenization.
+
+    Without this, "Peña" tokenizes as "pe" + "a" -- both below the length
+    floor -- so the surname vanishes and every guard that compares names
+    silently passes anything sharing the given name.  tx-house-37-2026 stored a
+    1945 press photo of the actress Lauren Bacall for Lauren B. Peña that way.
+    """
+    return "".join(ch for ch in unicodedata.normalize("NFKD", value) if not unicodedata.combining(ch))
+
+
 def _name_tokens(candidate_name: str) -> set[str]:
-    return {token for token in re.findall(r"[a-z0-9]+", candidate_name.lower()) if len(token) >= 3}
+    return {token for token in re.findall(r"[a-z0-9]+", _fold_accents(candidate_name).lower()) if len(token) >= 3}
 
 
 def _candidate_surname_token(candidate_name: str) -> Optional[str]:
@@ -196,7 +208,7 @@ def _filename_person_tokens(url: str) -> List[str]:
     Splits on punctuation and on camelCase runs so "PeteRicketts2015" and
     "Audrey_Hatch_20240808_095600" both reduce to a first/last name pair.
     """
-    basename = unquote(url).rsplit("/", 1)[-1]
+    basename = unquote(urlparse(url).path).rsplit("/", 1)[-1]
     basename = re.sub(r"\.[A-Za-z0-9]{2,5}$", "", basename)
     words: List[str] = []
     for chunk in re.split(r"[^A-Za-z]+", basename):
@@ -218,7 +230,7 @@ _NAME_SUFFIX_TOKENS = frozenset({"jnr", "jr", "snr", "sr", "ii", "iii", "iv", "v
 
 def _candidate_surname(candidate_name: str) -> Optional[str]:
     """Return the candidate's surname, ignoring a generational suffix."""
-    tokens = [t.lower() for t in re.findall(r"[A-Za-z]+", candidate_name)]
+    tokens = [t.lower() for t in re.findall(r"[A-Za-z]+", _fold_accents(candidate_name))]
     tokens = [t for t in tokens if len(t) >= 2 and t not in _NAME_SUFFIX_TOKENS]
     return tokens[-1] if tokens else None
 
@@ -255,7 +267,7 @@ def _is_mismatched_person_filename(url: str, candidate_name: str) -> bool:
     # camelCase split fractures "McGuire" into Mc/Guire and drops the two-letter
     # fragment, which would otherwise condemn every Mc-, Mac-, De- and La- name
     # in the catalog.
-    flattened = re.sub(r"[^a-z]", "", unquote(url).rsplit("/", 1)[-1].lower())
+    flattened = re.sub(r"[^a-z]", "", unquote(urlparse(url).path).rsplit("/", 1)[-1].lower())
     if surname in flattened:
         return False
     # Candidates upload descriptively named photos of themselves
@@ -433,7 +445,21 @@ def _looks_like_non_photo(url: str, alt: str = "") -> bool:
         return True
     if _looks_like_generic_cms_filename(url):
         return True
+    if _looks_like_archival_photo(url):
+        return True
     return _looks_like_site_furniture(haystack)
+
+
+def _looks_like_archival_photo(url: str) -> bool:
+    """True if the filename dates the image to before any current candidate's career.
+
+    A historical namesake is a recurring failure: a 19th-century preacher was
+    stored for Henry Ward III, and a 1945 press photo of the actress Lauren
+    Bacall for Lauren B. Pena.  A pre-1980 year in the filename is archive
+    provenance, never a current campaign portrait.
+    """
+    basename = unquote(urlparse(url).path).rsplit("/", 1)[-1]
+    return any(1800 <= int(year) <= 1979 for year in re.findall(r"(?<!\d)(1[89]\d{2})(?!\d)", basename))
 
 
 def _looks_like_social_profile_avatar(url: str) -> bool:

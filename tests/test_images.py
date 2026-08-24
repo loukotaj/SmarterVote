@@ -3,14 +3,18 @@ import pytest
 from pipeline_client.agent.images import (
     _candidate_page_urls,
     _extract_page_image_urls,
+    _filename_person_tokens,
     _is_mismatched_person_filename,
+    _is_untrusted_wikimedia_match,
     _is_valid_image_url,
+    _looks_like_archival_photo,
     _looks_like_generic_cms_filename,
     _looks_like_govtrack_reference_headshot,
     _looks_like_non_photo,
     _looks_like_social_profile_avatar,
     _lookup_ballotpedia_image,
     _lookup_wikipedia_image,
+    _name_tokens,
     _resolve_single_image,
     _wikimedia_original_image_url,
 )
@@ -664,3 +668,36 @@ def test_images_inside_a_rotating_widget_are_ignored():
     urls = _extract_page_image_urls(html, "https://example.org/Dan_Osborn", "Dan Osborn")
     assert not any("other_person" in u for u in urls)
     assert any("real-portrait" in u for u in urls)
+
+
+def test_accented_surnames_survive_tokenization():
+    """A diacritic must not delete the surname from every name comparison.
+
+    "Pena" with a tilde tokenized as "pe" + "a", both under the length floor,
+    so only the given name survived -- and tx-house-37-2026 stored a 1945 press
+    photo of the actress Lauren Bacall for Lauren B. Pena, matched on "Lauren"
+    alone. This weakened every guard for any candidate with a non-ASCII name.
+    """
+    assert _name_tokens("Lauren B. Peña") == {"lauren", "pena"}
+    assert _name_tokens("José García") == {"jose", "garcia"}
+
+    bacall = (
+        "https://upload.wikimedia.org/wikipedia/commons/7/76/" "Lauren_Bacall_1945_press_photo.jpg?utm_source=en.wikipedia.org"
+    )
+    assert _is_untrusted_wikimedia_match(bacall, "Lauren B. Peña")
+
+
+def test_filename_tokens_ignore_the_query_string():
+    """Tracking parameters are not part of the name the file carries."""
+    url = _BP + "Jane_Doe.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+    assert _filename_person_tokens(url) == ["jane", "doe"]
+
+
+def test_pre_1980_year_in_filename_marks_an_archival_photo():
+    """A historical namesake is a recurring failure mode."""
+    assert _looks_like_archival_photo("https://x/Lauren_Bacall_1945_press_photo.jpg")
+    assert _looks_like_archival_photo("https://x/Henry_Ward_Beecher_1863.jpg")
+    # Current-cycle dates and capture stamps must not trip it.
+    assert not _looks_like_archival_photo("https://x/Jane_Doe_2026.jpg")
+    assert not _looks_like_archival_photo("https://x/Rick_Edmonds_202403.jpg")
+    assert not _looks_like_archival_photo("https://x/IMG-20260117-WA0002.jpg")
