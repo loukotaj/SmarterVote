@@ -576,8 +576,46 @@ def test_ballotpedia_file_named_for_another_person_is_rejected():
     # co-house-04-2026 stored John Padora Jr's thumbnail for Douglas Mangeris,
     # picked off a votebox listing every other candidate in the race.
     assert _is_mismatched_person_filename(_BP + "JohnPadoraJr2025.jpg", "Douglas Mangeris")
-    # A shared *given* name is not enough -- the surname must match.
-    assert _is_mismatched_person_filename(_BP + "wayne-verity_b12ec.jpg", "Wayne Thornton")
+    # A file naming an entirely different person is caught even when the
+    # candidate's own name appears nowhere in it.
+    assert _is_mismatched_person_filename(_BP + "Jason_Poulos_2026.jpg", "Matthew Cook")
+
+
+def test_ballotpedia_filename_check_trusts_a_file_naming_this_candidate():
+    """Descriptive self-uploads must survive; the page vouches for them.
+
+    Auditing all 506 published races showed these outnumber real mismatches,
+    so a shared name token is treated as confirmation rather than noise. The
+    cost is a shared *given* name (an Ameriprise adviser "wayne-verity" stored
+    for Wayne Thornton); that case is caught by _NON_HEADSHOT_HOSTS instead.
+    """
+    assert not _is_mismatched_person_filename(_BP + "Connie-Centered_20260428.png", "Connie Chan")
+    assert not _is_mismatched_person_filename(_BP + "IlhanPortrait3-scaled-1.jpeg", "Ilhan Omar")
+    assert not _is_mismatched_person_filename(_BP + "meet-paige_20260701.jpg", "Paige Cognetti")
+    # Whole-token match, so a short given name cannot be satisfied by a
+    # substring: "Dan" must not be found inside "Jordan".
+    assert _is_mismatched_person_filename(_BP + "Jordan_Smith_2026.jpg", "Dan Osborn")
+
+
+def test_mc_and_de_surnames_are_not_condemned_by_camelcase_splitting():
+    """A camelCase split fractures "McGuire"; the flattened name must match.
+
+    Before this, the audit flagged 27 correct photos -- essentially every
+    Mc-, Mac-, De- and La- surname in the catalog.
+    """
+    assert not _is_mismatched_person_filename(_BP + "Mike_McGuire.jpg", "Mike McGuire")
+    assert not _is_mismatched_person_filename(_BP + "Mark-DeSaulnier.jpg", "Mark DeSaulnier")
+    assert not _is_mismatched_person_filename(_BP + "Betty_McCollum.jpg", "Betty McCollum")
+    assert not _is_mismatched_person_filename(_BP + "NickLaLota24.jpg", "Nicholas J. LaLota")
+
+
+def test_ballotpedia_misspellings_are_tolerated():
+    """Ballotpedia typos still depict the right person, so allow a near miss."""
+    assert not _is_mismatched_person_filename(_BP + "Tom_Periello.jpg", "Tom Perriello")
+    assert not _is_mismatched_person_filename(_BP + "Jessi_Eben.jpg", "Jessi Ebben")
+    assert not _is_mismatched_person_filename(_BP + "Christina-Bohannon.jpg", "Christina Bohannan")
+    # Far apart is still a different person, not a typo.
+    assert _is_mismatched_person_filename(_BP + "Audrey_Hatch_2024.jpg", "Dan Osborn")
 
 
 def test_ballotpedia_filename_check_tolerates_generational_suffixes():

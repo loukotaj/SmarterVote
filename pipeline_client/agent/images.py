@@ -244,9 +244,39 @@ def _is_mismatched_person_filename(url: str, candidate_name: str) -> bool:
     # One bare token is too weak a signal to overrule the page it came from.
     if len(file_tokens) < 2:
         return False
-    # Compare against the joined filename too, so a camelCase split that
-    # fractures a surname ("CourtneyMcClain" -> courtney/clain) still matches.
-    return surname not in file_tokens and surname not in "".join(file_tokens)
+    # Compare against the letters-only filename, not just the split tokens: a
+    # camelCase split fractures "McGuire" into Mc/Guire and drops the two-letter
+    # fragment, which would otherwise condemn every Mc-, Mac-, De- and La- name
+    # in the catalog.
+    flattened = re.sub(r"[^a-z]", "", unquote(url).rsplit("/", 1)[-1].lower())
+    if surname in flattened:
+        return False
+    # Candidates upload descriptively named photos of themselves
+    # ("Connie-Centered.png", "IlhanPortrait3.jpg", "meet-paige.jpg").  If the
+    # file names this candidate at all, believe the page it came from.  Match
+    # whole tokens here rather than substrings, so a short given name like
+    # "Dan" cannot be satisfied by "Jordan".
+    if _name_tokens(candidate_name).intersection(file_tokens):
+        return False
+    # Ballotpedia misspells names ("Tom_Periello" for Perriello, "Jessi_Eben"
+    # for Ebben).  Those are still the right person, so allow a near miss --
+    # but only for a surname long enough that proximity means something.
+    if len(surname) >= 5 and any(_within_edit_distance(surname, token, 2) for token in file_tokens):
+        return False
+    return True
+
+
+def _within_edit_distance(left: str, right: str, limit: int) -> bool:
+    """True if `left` and `right` are at most `limit` single-character edits apart."""
+    if abs(len(left) - len(right)) > limit:
+        return False
+    previous = list(range(len(right) + 1))
+    for i, lch in enumerate(left, 1):
+        current = [i]
+        for j, rch in enumerate(right, 1):
+            current.append(min(previous[j] + 1, current[j - 1] + 1, previous[j - 1] + (lch != rch)))
+        previous = current
+    return previous[-1] <= limit
 
 
 # Generic Open-Graph / social-share cards served by data and reference sites
