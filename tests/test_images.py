@@ -758,3 +758,43 @@ def test_campaign_button_is_not_a_headshot():
     assert _looks_like_non_photo("https://winwithjackie.com/campaign-button.png")
     assert _looks_like_non_photo("https://example.org/sticker-2026.png")
     assert not _looks_like_non_photo("https://winwithjackie.com/jackie-headshot.jpg")
+
+
+def test_non_photo_tokens_do_not_condemn_names_containing_them():
+    """A substring test reads "icon" inside "NikiConforti".
+
+    Auditing the published catalog caught this rejecting real portraits, so
+    a token only counts when it is not a fragment of a longer word.
+    """
+    assert not _looks_like_non_photo("https://example.org/NikiConforti2.png")
+    assert not _looks_like_non_photo("https://example.org/Bannerman_Jane.jpg")
+    assert not _looks_like_non_photo("https://example.org/Seale_John.jpg")
+    assert not _looks_like_non_photo("https://example.org/Logothetis_Maria.jpg")
+    # Real hits still land, including a trailing plural.
+    assert _looks_like_non_photo("https://example.org/site-icon.png")
+    assert _looks_like_non_photo("https://example.org/shoffner-creamlogos3.png")
+    assert _looks_like_non_photo("https://static1.squarespace.com/x/halliewebsiteshoffnerhomepage.png")
+
+
+def test_responsive_width_suffix_is_not_an_archival_year():
+    """ "-1920w" is an image width. Reading it as a year rejected real photos.
+
+    Squarespace and Webflow append these to nearly every image, so the first
+    version of the archival check condemned portraits wholesale -- including a
+    file named "Sheri+Biggs+Headshot-1920w.png".
+    """
+    assert not _looks_like_archival_photo("https://example.org/Sheri+Biggs+Headshot-1920w.png")
+    assert not _looks_like_archival_photo("https://example.org/McDowell+Card+1920x1000.jpg")
+    assert not _looks_like_non_photo("https://example.org/Kingston-+Jim_Color-1920w.jpg")
+    # A genuine archive year still reads as one.
+    assert _looks_like_archival_photo("https://example.org/Cliff_Johnson_-_Houston_Astros_-_1976.jpg")
+
+
+def test_group_and_share_card_images_are_rejected():
+    """A family portrait is not a headshot, whatever the separator."""
+    assert _looks_like_non_photo("https://example.org/Scott_Family-web-1920w.jpg")
+    assert _looks_like_non_photo("https://example.org/tom-sell-family.jpg")
+    assert _looks_like_non_photo("https://example.org/McDowell+Social+Share+Card+1+-+1920x1000.jpg")
+    assert _looks_like_non_photo("https://example.org/fb_share.png")
+    # A surname that merely starts the same way is untouched.
+    assert not _looks_like_non_photo("https://example.org/Familia_Jose.jpg")

@@ -29,6 +29,7 @@ _NON_PHOTO_TOKENS = frozenset(
         "background",
         "banner",
         "collage",
+        "family",
         "favicon",
         "footerbg",
         "herobg",
@@ -355,6 +356,8 @@ _GENERIC_CARD_MARKERS = (
     "twitter-card",
     "sharecard",
     "share-card",
+    "fb_share",
+    "fb-share",
 )
 
 # Current candidates should never inherit portraits from obituary or memorial
@@ -507,9 +510,38 @@ def _looks_like_site_furniture(haystack: str) -> bool:
     return any(token in haystack for token in _SITE_FURNITURE_TOKENS)
 
 
+def _contains_word(haystack: str, token: str) -> bool:
+    """True if `token` appears in `haystack` other than inside a longer word.
+
+    A plain substring test reads "icon" inside "NikiConforti", "banner" inside
+    "Bannerman" and "seal" inside "Seale", condemning those candidates' own
+    photos.  What separates those from a real hit is the character that
+    *follows*: a lowercase letter means the token is a fragment of a longer
+    word.  Names run on before the token often enough
+    ("halliewebsiteshoffnerhomepage.png") that the preceding character cannot
+    be required to be a boundary.  A plural "s" still counts as the end of the
+    word, so "creamlogos3.png" matches while "Logothetis.jpg" does not.
+    """
+
+    def _boundary(index: int) -> bool:
+        if index >= len(haystack):
+            return True
+        char = haystack[index]
+        if not (char.isalpha() and char.islower()):
+            return True
+        return char == "s" and not (
+            index + 1 < len(haystack) and haystack[index + 1].isalpha() and haystack[index + 1].islower()
+        )
+
+    return any(_boundary(m.end()) for m in re.finditer(re.escape(token), haystack, re.IGNORECASE))
+
+
 def _looks_like_non_photo(url: str, alt: str = "") -> bool:
     haystack = unquote(f"{url} {alt}").lower()
-    if any(token in haystack for token in _NON_PHOTO_TOKENS):
+    # Some CMSes join words with "+" ("Social+Share+Card"), so test a variant
+    # with separators unified to "-" as well.
+    unified = re.sub(r"[+_\s]+", "-", haystack)
+    if any(_contains_word(haystack, token) or _contains_word(unified, token) for token in _NON_PHOTO_TOKENS):
         return True
     if any(marker in haystack for marker in (*_GENERIC_CARD_MARKERS, *_MEMORIAL_IMAGE_MARKERS)):
         return True
@@ -533,7 +565,9 @@ def _looks_like_archival_photo(url: str) -> bool:
     provenance, never a current campaign portrait.
     """
     basename = unquote(urlparse(url).path).rsplit("/", 1)[-1]
-    return any(1800 <= int(year) <= 1979 for year in re.findall(r"(?<!\d)(1[89]\d{2})(?!\d)", basename))
+    # "-1920w" and "1920x1000" are responsive-image dimensions, not years.
+    years = re.findall(r"(?<![\dxX])(1[89]\d{2})(?![\dwhxWHX])", basename)
+    return any(1800 <= int(year) <= 1979 for year in years)
 
 
 def _looks_like_social_profile_avatar(url: str) -> bool:
