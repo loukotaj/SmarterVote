@@ -1060,6 +1060,82 @@ async def _lookup_serper_image(
     return None
 
 
+# News outlets are named after the state they cover, so one covering a
+# *different* state is reporting on a different person.  tn-house-07-2026
+# stored media.newjerseyglobe.com's 2021 photo of a Mercer County, New Jersey
+# commissioner named Andrew Koontz for the Tennessee candidate of that name.
+# Only full state names are matched: two-letter abbreviations collide with
+# ordinary words ("la" inside "lailluminator.com").  Longest first, so
+# "westvirginia" is not read as "virginia".
+_STATE_NAMES_BY_CODE = {
+    "al": "alabama",
+    "ak": "alaska",
+    "az": "arizona",
+    "ar": "arkansas",
+    "ca": "california",
+    "co": "colorado",
+    "ct": "connecticut",
+    "de": "delaware",
+    "fl": "florida",
+    "ga": "georgia",
+    "hi": "hawaii",
+    "id": "idaho",
+    "il": "illinois",
+    "in": "indiana",
+    "ia": "iowa",
+    "ks": "kansas",
+    "ky": "kentucky",
+    "la": "louisiana",
+    "me": "maine",
+    "md": "maryland",
+    "ma": "massachusetts",
+    "mi": "michigan",
+    "mn": "minnesota",
+    "ms": "mississippi",
+    "mo": "missouri",
+    "mt": "montana",
+    "ne": "nebraska",
+    "nv": "nevada",
+    "nh": "newhampshire",
+    "nj": "newjersey",
+    "nm": "newmexico",
+    "ny": "newyork",
+    "nc": "northcarolina",
+    "nd": "northdakota",
+    "oh": "ohio",
+    "ok": "oklahoma",
+    "or": "oregon",
+    "pa": "pennsylvania",
+    "ri": "rhodeisland",
+    "sc": "southcarolina",
+    "sd": "southdakota",
+    "tn": "tennessee",
+    "tx": "texas",
+    "ut": "utah",
+    "vt": "vermont",
+    "va": "virginia",
+    "wa": "washington",
+    "wv": "westvirginia",
+    "wi": "wisconsin",
+    "wy": "wyoming",
+}
+_STATE_NAMES_LONGEST_FIRST = sorted(set(_STATE_NAMES_BY_CODE.values()), key=len, reverse=True)
+
+
+def _host_names_another_state(url: str, race_id: Optional[str]) -> bool:
+    """True if the image host is named for a state other than the race's."""
+    if not race_id:
+        return False
+    own = _STATE_NAMES_BY_CODE.get(race_id.split("-", 1)[0].lower())
+    if not own:
+        return False
+    host = re.sub(r"[^a-z]", "", (urlparse(url).hostname or "").lower())
+    for state in _STATE_NAMES_LONGEST_FIRST:
+        if state in host:
+            return state != own
+    return False
+
+
 async def _resolve_single_image(
     candidate: Dict[str, Any],
     *,
@@ -1093,6 +1169,14 @@ async def _resolve_single_image(
         candidate["image_url"] = None
         current_url = None
         log("info", f"  [{name}] Existing image is a social profile avatar - searching for a better portrait")
+
+    if current_url and _host_names_another_state(current_url, race_id):
+        log(
+            "info",
+            f"  [{name}] Existing image is hosted by another state's outlet - discarding and re-searching",
+        )
+        candidate["image_url"] = None
+        current_url = None
 
     if current_url and _is_mismatched_person_filename(current_url, name):
         log(

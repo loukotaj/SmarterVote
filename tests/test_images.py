@@ -4,6 +4,7 @@ from pipeline_client.agent.images import (
     _candidate_page_urls,
     _extract_page_image_urls,
     _filename_person_tokens,
+    _host_names_another_state,
     _is_mismatched_person_filename,
     _is_untrusted_wikimedia_match,
     _is_valid_image_url,
@@ -798,3 +799,37 @@ def test_group_and_share_card_images_are_rejected():
     assert _looks_like_non_photo("https://example.org/fb_share.png")
     # A surname that merely starts the same way is untouched.
     assert not _looks_like_non_photo("https://example.org/Familia_Jose.jpg")
+
+
+def test_image_hosted_by_another_states_outlet_is_rejected():
+    """A state's news outlet covers that state's politicians.
+
+    tn-house-07-2026 stored media.newjerseyglobe.com's 2021 photo of a Mercer
+    County, New Jersey commissioner named Andrew Koontz as the headshot for the
+    Tennessee independent of the same name. The filename ("KBS_3310") named
+    nobody, so only the host revealed it.
+    """
+    assert _host_names_another_state("https://media.newjerseyglobe.com/x/KBS_3310-464x290.jpg", "tn-house-07-2026")
+    # The state's own outlet is fine.
+    assert not _host_names_another_state("https://www.texastribune.org/x/a.jpg", "tx-house-12-2026")
+
+
+def test_state_host_check_disambiguates_virginia_from_west_virginia():
+    """ "westvirginia" must not be read as "virginia", or vice versa."""
+    assert not _host_names_another_state("https://westvirginiawatch.com/x/a.jpg", "wv-house-02-2026")
+    assert _host_names_another_state("https://westvirginiawatch.com/x/a.jpg", "va-house-04-2026")
+    assert _host_names_another_state("https://virginiamercury.com/x/a.jpg", "wv-house-02-2026")
+
+
+def test_state_host_check_ignores_hosts_that_name_no_state():
+    """Two-letter codes collide with ordinary words, so only full names count.
+
+    "lailluminator.com" is Louisiana's outlet but contains no full state name,
+    and matching the code "la" would also hit unrelated hosts.
+    """
+    assert not _host_names_another_state("https://lailluminator.com/x/Larry-Davis-2.jpg", "la-house-06-2026")
+    assert not _host_names_another_state("https://lailluminator.com/x/a.jpg", "tn-house-07-2026")
+    assert not _host_names_another_state("https://s3.amazonaws.com/ballotpedia-api4/x/a.jpg", "sc-house-02-2026")
+    assert not _host_names_another_state("https://upload.wikimedia.org/x/a.jpg", "ny-house-08-2026")
+    # No race id means no judgement.
+    assert not _host_names_another_state("https://media.newjerseyglobe.com/x/a.jpg", None)
