@@ -843,3 +843,20 @@ def test_state_host_check_ignores_a_cdn_region_subdomain():
     registrable domain is considered.
     """
     assert not _host_names_another_state("https://bloximages.newyork1.vip.townnews.com/x/a.jpg", "fl-house-24-2026")
+
+
+def test_retail_product_images_are_rejected():
+    """A surname that is also a common noun drags in shopping results.
+
+    mi-house-13-2026 stored a Home Depot pendant light fixture as the headshot
+    for a candidate named Raelyn Light. The surname genuinely appears in
+    "pendant-lights", so the filename guard could not catch it -- only the host
+    and the /productImages/ path do.
+    """
+    assert _looks_like_non_photo(
+        "https://images.thdstatic.com/productImages/2a4b/svn/" "matte-black-rennnsan-pendant-lights-pl8101-73228-64_1000.jpg"
+    )
+    assert _looks_like_non_photo("https://m.media-amazon.com/images/I/71abc.jpg")
+    assert _looks_like_non_photo("https://example.org/productImages/x.jpg")
+    # Ordinary candidate portraits are untouched.
+    assert not _looks_like_non_photo("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MarkTeixeira2026.png")

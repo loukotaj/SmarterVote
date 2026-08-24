@@ -409,6 +409,33 @@ _STOCK_PHOTO_HOSTS = (
 )
 
 
+# Retail product CDNs.  A surname that is also a common noun drags these in:
+# mi-house-13-2026 stored a Home Depot pendant light fixture
+# ("matte-black-rennnsan-pendant-lights-pl8101") as the headshot for a
+# candidate named Raelyn Light, and the surname matched the filename.
+_PRODUCT_IMAGE_HOSTS = (
+    "thdstatic.com",
+    "lowes.com",
+    "walmartimages.com",
+    "media-amazon.com",
+    "ssl-images-amazon.com",
+    "ebayimg.com",
+    "wayfair.com",
+    "etsystatic.com",
+    "shopifycdn.com",
+    "cdn.shopify.com",
+    "scene7.com",
+)
+
+
+def _is_product_image(url: str) -> bool:
+    parsed = urlparse(url)
+    host = (parsed.hostname or "").lower()
+    if any(host == m or host.endswith("." + m) or m in host for m in _PRODUCT_IMAGE_HOSTS):
+        return True
+    return "/productimages/" in parsed.path.lower()
+
+
 def _is_stock_photo_host(url: str) -> bool:
     host = (urlparse(url).hostname or "").lower()
     return any(host == marker or host.endswith("." + marker) or marker in host for marker in _STOCK_PHOTO_HOSTS)
@@ -549,7 +576,7 @@ def _looks_like_non_photo(url: str, alt: str = "") -> bool:
         return True
     if _looks_like_generic_cms_filename(url):
         return True
-    if _is_stock_photo_host(url):
+    if _is_stock_photo_host(url) or _is_product_image(url):
         return True
     if _looks_like_archival_photo(url):
         return True
