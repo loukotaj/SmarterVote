@@ -138,6 +138,47 @@ def _forecast_evidence_urls(race_data: Dict[str, Any]) -> List[str]:
     return _dedupe_urls(urls)
 
 
+def _prune_incomplete_poll_matchups(race_data: Dict[str, Any]) -> int:
+    """Drop poll matchups that name fewer than two candidates.
+
+    A "matchup" reporting a single candidate's share is not a matchup — it is a
+    name-ID or primary-field number stranded by roster filtering. The agent
+    records a primary survey, the roster keeps only the nominee, and the other
+    names are stripped, leaving e.g. ``Dan Green 12%`` displayed on a
+    general-election page as though it were a head-to-head result. A poll left
+    with no usable matchup is removed entirely.
+    """
+    polls = race_data.get("polling")
+    if not isinstance(polls, list):
+        return 0
+    removed = 0
+    kept: List[Any] = []
+    for poll in polls:
+        if not isinstance(poll, dict):
+            kept.append(poll)
+            continue
+        matchups = poll.get("matchups")
+        if not isinstance(matchups, list):
+            kept.append(poll)
+            continue
+        usable = []
+        for matchup in matchups:
+            if not isinstance(matchup, dict):
+                continue
+            names = [n for n in (matchup.get("candidates") or []) if str(n or "").strip()]
+            if len(names) >= 2:
+                usable.append(matchup)
+            else:
+                removed += 1
+        if not usable:
+            continue
+        poll["matchups"] = usable
+        kept.append(poll)
+    if len(kept) != len(polls):
+        race_data["polling"] = kept
+    return removed
+
+
 def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
     """Apply safe text/source normalization and return mutation counts."""
     text_changes = 0
@@ -146,6 +187,8 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
     invalid_social_links_removed = 0
     placeholder_fields_cleared = 0
     fabricated_lineage_removed = 0
+    incomplete_matchups_removed = _prune_incomplete_poll_matchups(race_data)
+    poll_count_corrections = 0
 
     for field in ("title", "description", "polling_note"):
         before = race_data.get(field)
@@ -289,6 +332,19 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
             )
         forecast["evidence_lineage"] = existing_lineage
 
+        # A forecast cannot rest on more polls than the race actually holds.
+        # When a primary-only survey is pruned above, a stale based_on_poll_count
+        # would otherwise keep claiming polling support that is no longer there
+        # (and contradict a rationale that already says none was available).
+        stored_polls = race_data.get("polling")
+        stored_poll_count = len(stored_polls) if isinstance(stored_polls, list) else 0
+        claimed = forecast.get("based_on_poll_count")
+        if isinstance(claimed, bool) or not isinstance(claimed, int):
+            claimed = None
+        if claimed is not None and claimed > stored_poll_count:
+            forecast["based_on_poll_count"] = stored_poll_count
+            poll_count_corrections += 1
+
     return {
         "text_changes": text_changes,
         "source_duplicates_removed": source_duplicates_removed,
@@ -296,6 +352,8 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
         "invalid_social_links_removed": invalid_social_links_removed,
         "placeholder_fields_cleared": placeholder_fields_cleared,
         "fabricated_lineage_removed": fabricated_lineage_removed,
+        "incomplete_matchups_removed": incomplete_matchups_removed,
+        "poll_count_corrections": poll_count_corrections,
     }
 
 
