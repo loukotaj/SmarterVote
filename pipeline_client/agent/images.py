@@ -57,6 +57,8 @@ class _PageImageParser(HTMLParser):
         self.images: List[Tuple[str, str, int, int, str, int]] = []
         self._text_parts: List[str] = []
         self._text_len = 0
+        self._open_tags: List[Tuple[str, bool]] = []
+        self._widget_depth = 0
 
     @property
     def text(self) -> str:
@@ -68,8 +70,25 @@ class _PageImageParser(HTMLParser):
         self._text_parts.append(data)
         self._text_len += len(data)
 
+    def handle_endtag(self, tag: str) -> None:
+        name = tag.lower()
+        for position in range(len(self._open_tags) - 1, -1, -1):
+            open_tag, is_widget = self._open_tags[position]
+            if open_tag == name:
+                if is_widget:
+                    self._widget_depth = max(0, self._widget_depth - 1)
+                del self._open_tags[position:]
+                return
+
     def handle_starttag(self, tag: str, attrs: List[Tuple[str, Optional[str]]]) -> None:
         values = {key.lower(): value or "" for key, value in attrs}
+        name = tag.lower()
+        if name not in _VOID_HTML_TAGS:
+            marker = f"{values.get('class', '')} {values.get('id', '')}".lower()
+            is_widget = any(token in marker for token in _ROTATING_WIDGET_TOKENS)
+            if is_widget:
+                self._widget_depth += 1
+            self._open_tags.append((name, is_widget))
         if tag.lower() == "meta":
             property_name = (values.get("property") or values.get("name") or "").lower()
             if property_name in {"og:image", "og:image:url", "og:image:secure_url", "twitter:image"}:
@@ -85,6 +104,13 @@ class _PageImageParser(HTMLParser):
             height = int(values.get("height", "0"))
         except ValueError:
             width = height = 0
+        if self._widget_depth:
+            # A rotating widget (Ballotpedia's Candidate Connection carousel,
+            # a site slideshow) cycles through OTHER people's photos, so an
+            # <img> inside one is not this candidate's portrait even though it
+            # sits on their own page.  Nebraska's Senate race stored a survey
+            # carousel slide of an unrelated candidate as Dan Osborn's photo.
+            return
         self.images.append((source, "img", width, height, alt, self._text_len))
 
 
@@ -120,6 +146,84 @@ def _is_untrusted_wikimedia_match(url: str, candidate_name: str) -> bool:
         return False
     url_tokens = _name_tokens(unquote(url))
     return not candidate_tokens.issubset(url_tokens) or bool(url_tokens & _WIKIMEDIA_NON_CANDIDATE_QUALIFIERS)
+
+
+# Words that appear in a Ballotpedia filename without being part of anybody's
+# name, so they must not count toward "this file is named after a person".
+_FILENAME_NON_NAME_TOKENS = frozenset(
+    {
+        "ballotpedia",
+        "campaign",
+        "candidate",
+        "congress",
+        "congressional",
+        "copy",
+        "crop",
+        "cropped",
+        "district",
+        "final",
+        "governor",
+        "headshot",
+        "house",
+        "image",
+        "img",
+        "large",
+        "new",
+        "official",
+        "photo",
+        "picture",
+        "portrait",
+        "profile",
+        "representative",
+        "senate",
+        "senator",
+        "small",
+        "square",
+        "thumb",
+        "thumbnail",
+        "updated",
+        "web",
+    }
+)
+
+
+def _filename_person_tokens(url: str) -> List[str]:
+    """Return name-like word tokens from an image filename.
+
+    Splits on punctuation and on camelCase runs so "PeteRicketts2015" and
+    "Audrey_Hatch_20240808_095600" both reduce to a first/last name pair.
+    """
+    basename = unquote(url).rsplit("/", 1)[-1]
+    basename = re.sub(r"\.[A-Za-z0-9]{2,5}$", "", basename)
+    words: List[str] = []
+    for chunk in re.split(r"[^A-Za-z]+", basename):
+        if not chunk:
+            continue
+        words.extend(re.findall(r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])", chunk))
+    return [w.lower() for w in words if len(w) >= 3 and w.lower() not in _FILENAME_NON_NAME_TOKENS]
+
+
+def _is_mismatched_person_filename(url: str, candidate_name: str) -> bool:
+    """True if a Ballotpedia file is named after a different person.
+
+    Ballotpedia's own markup is not always right: on Dan Osborn's page the
+    Nebraska Senate votebox rendered ``Audrey_Hatch_20240808_095600.jpg``
+    under ``alt="Image of Dan Osborn"``.  Trusting the surrounding page
+    therefore isn't enough — when the filename itself spells out a full name,
+    it has to be *this* candidate's.  Files that carry no name at all
+    (``IMG-20260117-WA0002``, ``Carl4congress_profile``) are left alone
+    because candidates upload those themselves.
+    """
+    if "ballotpedia" not in url.lower():
+        return False
+    candidate_tokens = _name_tokens(candidate_name)
+    if not candidate_tokens:
+        return False
+    file_tokens = _filename_person_tokens(url)
+    # One bare token is too weak a signal to overrule the page it came from.
+    if len(file_tokens) < 2:
+        return False
+    return not any(token in candidate_tokens for token in file_tokens)
 
 
 # Generic Open-Graph / social-share cards served by data and reference sites
@@ -182,6 +286,38 @@ _CAMPAIGN_COLLATERAL_TOKENS = (
     "plan-for",
     "plan_fore",
     "plan-fore",
+)
+
+# Containers that rotate through several unrelated entries.  An <img> inside
+# one belongs to whichever item the widget happens to show first, which is
+# routinely a different person than the page is about.  Kept deliberately
+# narrow: a plain "sidebar" or "related" block legitimately holds the infobox
+# portrait on Ballotpedia and Wikipedia.
+_ROTATING_WIDGET_TOKENS = (
+    "carousel",
+    "slideshow",
+    "slick-",
+    "swiper",
+    "lightbox",
+)
+
+_VOID_HTML_TAGS = frozenset(
+    {
+        "area",
+        "base",
+        "br",
+        "col",
+        "embed",
+        "hr",
+        "img",
+        "input",
+        "link",
+        "meta",
+        "param",
+        "source",
+        "track",
+        "wbr",
+    }
 )
 
 _SITE_FURNITURE_TOKENS = (
@@ -303,6 +439,8 @@ def _extract_page_image_urls(html: str, page_url: str, candidate_name: str) -> L
         if url.startswith("http://"):
             url = f"https://{url[7:]}"
         if url in seen or not _is_valid_image_url(url) or _looks_like_non_photo(url, alt):
+            continue
+        if _is_mismatched_person_filename(url, candidate_name):
             continue
         seen.add(url)
 
@@ -757,6 +895,14 @@ async def _resolve_single_image(
         candidate["image_url"] = None
         current_url = None
         log("info", f"  [{name}] Existing image is a social profile avatar - searching for a better portrait")
+
+    if current_url and _is_mismatched_person_filename(current_url, name):
+        log(
+            "info",
+            f"  [{name}] Existing Ballotpedia image is filed under another person's name - discarding and re-searching",
+        )
+        candidate["image_url"] = None
+        current_url = None
 
     if current_url and _is_untrusted_wikimedia_match(current_url, name):
         log(

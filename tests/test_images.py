@@ -3,6 +3,7 @@ import pytest
 from pipeline_client.agent.images import (
     _candidate_page_urls,
     _extract_page_image_urls,
+    _is_mismatched_person_filename,
     _is_valid_image_url,
     _looks_like_generic_cms_filename,
     _looks_like_govtrack_reference_headshot,
@@ -555,3 +556,60 @@ def test_generic_cms_filename_check_keeps_named_and_dated_photos():
     )
     # A "/downloads/" directory is not a generic *filename*.
     assert not _looks_like_generic_cms_filename("https://example.org/downloads/jane-doe.jpg")
+
+
+_BP = "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/"
+
+
+def test_ballotpedia_file_named_for_another_person_is_rejected():
+    """Ballotpedia's own markup mislabels photos, so the filename must match.
+
+    On https://ballotpedia.org/Dan_Osborn the Nebraska Senate votebox served
+    ``Audrey_Hatch_20240808_095600.jpg`` under ``alt="Image of Dan Osborn"``.
+    Both the page and the alt text vouched for it, so only the filename
+    revealed that ne-senate-2026 had stored a stranger's face.
+    """
+    assert _is_mismatched_person_filename(_BP + "Audrey_Hatch_20240808_095600.jpg", "Dan Osborn")
+    assert _is_mismatched_person_filename(_BP + "Mike_Marvin_2026-04-29_180732.png", "Dan Osborn")
+    # An opponent's portrait must not migrate across a race's roster either.
+    assert _is_mismatched_person_filename(_BP + "Randy_Weber.jpg", "Thurman Bill Bartie")
+
+
+def test_ballotpedia_filename_check_keeps_the_candidates_own_photo():
+    """Matching either the given name or the surname is enough."""
+    assert not _is_mismatched_person_filename(_BP + "William_Timmons.jpg", "William Timmons")
+    assert not _is_mismatched_person_filename(_BP + "Jessica-Ethridge.PNG", "Jessica Ethridge")
+    # camelCase run: "PeteRicketts2015" -> pete / ricketts
+    assert not _is_mismatched_person_filename(_BP + "PeteRicketts2015.jpg", "Pete Ricketts")
+    assert not _is_mismatched_person_filename(_BP + "ThurmanBartie2026.jpg", "Thurman Bill Bartie")
+    # A married/maiden double surname still matches on the shared token.
+    assert not _is_mismatched_person_filename(_BP + "Chauna_Banks-Daniel.jpg", "Chauna Banks")
+
+
+def test_ballotpedia_filename_check_ignores_files_that_name_nobody():
+    """Candidate-submitted uploads carry no name and must not be discarded.
+
+    Requiring two name-like tokens is what protects these: one bare token is
+    too weak a signal to overrule the page the image was found on.
+    """
+    assert not _is_mismatched_person_filename(_BP + "IMG-20260117-WA0002_20260813_173322_32663_1.jpg", "Lewis Mizrahi")
+    assert not _is_mismatched_person_filename(_BP + "Carl4congress_profile.jpg", "Carl Boyanton")
+    assert not _is_mismatched_person_filename(_BP + "Monique-Ballotpedia.jpg", "Monique Appeaning")
+    assert not _is_mismatched_person_filename(_BP + "LRG-Headshot_202604.jpg", "Lindsay Garcia")
+    # Non-Ballotpedia hosts are out of scope for this check.
+    assert not _is_mismatched_person_filename("https://example.org/uploads/Audrey_Hatch.jpg", "Dan Osborn")
+
+
+def test_images_inside_a_rotating_widget_are_ignored():
+    """A carousel cycles through other people, so its slides aren't portraits."""
+    html = (
+        "<html><body>"
+        '<div class="question_carousel"><div class="item active">'
+        '<img src="/files/other_person.jpg" alt="Dan Osborn" width="200" height="300"/>'
+        "</div></div>"
+        '<div class="infobox"><img src="/files/real-portrait.jpg" alt="Dan Osborn"/></div>'
+        "</body></html>"
+    )
+    urls = _extract_page_image_urls(html, "https://example.org/Dan_Osborn", "Dan Osborn")
+    assert not any("other_person" in u for u in urls)
+    assert any("real-portrait" in u for u in urls)
