@@ -385,10 +385,38 @@ _SITE_THEME_DIR_MARKERS = (
 # one-pagers, agenda graphics, yard-sign art.  These are legitimate uploads in
 # the site's own media directory, so no path marker separates them from a
 # headshot; only the filename does.
+# Licensed stock libraries.  Their watermarked comps are never a candidate
+# portrait, they are usually a namesake or an unrelated stock model, and
+# republishing one is a licensing problem on top of a factual one.  Twice this
+# session a Getty archive photo was stored as a headshot: a 1947 picture of the
+# jazz singer Mildred Bailey for a candidate named Mildred Hall (matched via
+# "Carnegie HALL"), and a 1989 picture of the British astronaut candidates
+# Helen Sharman and Timothy Mace for a candidate named Tim S. Sharman.
+_STOCK_PHOTO_HOSTS = (
+    "gettyimages.com",
+    "gettyimages.co",
+    "shutterstock.com",
+    "alamy.com",
+    "istockphoto.com",
+    "dreamstime.com",
+    "depositphotos.com",
+    "stock.adobe.com",
+    "123rf.com",
+    "bigstockphoto.com",
+)
+
+
+def _is_stock_photo_host(url: str) -> bool:
+    host = (urlparse(url).hostname or "").lower()
+    return any(host == marker or host.endswith("." + marker) or marker in host for marker in _STOCK_PHOTO_HOSTS)
+
+
 _CAMPAIGN_COLLATERAL_TOKENS = (
     "agenda",
     "brochure",
     "bumper",
+    "button",
+    "sticker",
     "flyer",
     "infographic",
     "priorities",
@@ -488,6 +516,8 @@ def _looks_like_non_photo(url: str, alt: str = "") -> bool:
     if any(token in haystack for token in _CAMPAIGN_COLLATERAL_TOKENS):
         return True
     if _looks_like_generic_cms_filename(url):
+        return True
+    if _is_stock_photo_host(url):
         return True
     if _looks_like_archival_photo(url):
         return True

@@ -731,3 +731,30 @@ def test_middle_initial_must_stand_alone_as_a_word():
     assert not _is_mismatched_person_filename(
         "https://images.squarespace-cdn.com/x/GrahamforMaine_HeroPhoto.jpg", "Graham Platner"
     )
+
+
+def test_licensed_stock_photo_hosts_are_rejected():
+    """A stock library comp is never a candidate portrait, and republishing
+    one is a licensing problem on top of a factual one.
+
+    Twice this session a Getty archive photo was stored as a headshot: a 1947
+    picture of jazz singer Mildred Bailey for a candidate named Mildred Hall
+    (matched via "Carnegie HALL"), and a 1989 picture of British astronaut
+    candidates Helen Sharman and Timothy Mace for Tim S. Sharman. The rule had
+    lived only in the research prompt, so it kept recurring.
+    """
+    assert _looks_like_non_photo(
+        "https://media.gettyimages.com/id/2158763188/photo/"
+        "helen-sharman-and-timothy-mace-candidates-hoping-to-join.jpg?s=612x612"
+    )
+    assert _looks_like_non_photo("https://www.shutterstock.com/image-photo/senator-portrait-123.jpg")
+    assert _looks_like_non_photo("https://www.alamy.com/stock-photo/x.jpg")
+    # A real portrait on a normal host is untouched.
+    assert not _looks_like_non_photo("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Joe_Wilson.jpeg")
+
+
+def test_campaign_button_is_not_a_headshot():
+    """ny-house-18-2026 stored a campaign button graphic for Jackie Auringer."""
+    assert _looks_like_non_photo("https://winwithjackie.com/campaign-button.png")
+    assert _looks_like_non_photo("https://example.org/sticker-2026.png")
+    assert not _looks_like_non_photo("https://winwithjackie.com/jackie-headshot.jpg")
