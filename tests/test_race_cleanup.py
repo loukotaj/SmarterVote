@@ -242,3 +242,98 @@ def test_cleanup_keeps_lineage_for_issue_and_roster_sources():
 
     assert stats["fabricated_lineage_removed"] == 0
     assert len(race["forecast"]["evidence_lineage"]) == 2
+
+
+def test_cleanup_drops_matchup_naming_only_one_candidate():
+    """A primary survey stranded by roster filtering is not a head-to-head."""
+    race = {
+        # fl-house-09-2026 displayed "Dan Green 12%" from a GOP primary poll.
+        "polling": [
+            {
+                "pollster": "Victory Insights",
+                "date": "2026-08-06",
+                "matchups": [{"candidates": ["Dan Green"], "percentages": [12.0]}],
+                "source_url": "https://news.example/crowded-republican-primary",
+            }
+        ],
+        "forecast": {"based_on_poll_count": 0, "source_urls": [], "evidence_lineage": []},
+    }
+
+    stats = cleanup_race_data(race)
+
+    assert stats["incomplete_matchups_removed"] == 1
+    assert race["polling"] == []
+
+
+def test_cleanup_keeps_real_head_to_head_and_drops_only_the_stranded_one():
+    """fl-house-14-2026 holds a real general poll beside a primary leftover."""
+    race = {
+        "polling": [
+            {
+                "pollster": "St. Pete Polls",
+                "date": "2026-07-15",
+                "matchups": [
+                    {"candidates": ["Mike Beltran", "Kathy Castor"], "percentages": [37.5, 46.2]},
+                    {"candidates": ["Mike Beltran"], "percentages": [30.0]},
+                ],
+                "source_url": "https://stpetepolls.org/files/CD14.pdf",
+            },
+            {
+                "pollster": "Catalyst Research",
+                "date": "2026-08-08",
+                "matchups": [{"candidates": ["Mike Beltran"], "percentages": [29.5]}],
+                "source_url": "https://www.scribd.com/document/1072126270/toplines",
+            },
+        ],
+        "forecast": {"based_on_poll_count": 1, "source_urls": [], "evidence_lineage": []},
+    }
+
+    stats = cleanup_race_data(race)
+
+    assert stats["incomplete_matchups_removed"] == 2
+    assert len(race["polling"]) == 1
+    assert race["polling"][0]["pollster"] == "St. Pete Polls"
+    assert race["polling"][0]["matchups"] == [{"candidates": ["Mike Beltran", "Kathy Castor"], "percentages": [37.5, 46.2]}]
+    # The surviving general-election poll still backs the forecast.
+    assert race["forecast"]["based_on_poll_count"] == 1
+
+
+def test_cleanup_clamps_poll_count_to_polls_that_actually_remain():
+    """fl-house-20-2026 claimed one poll while its rationale said none existed."""
+    race = {
+        "polling": [
+            {
+                "pollster": "EMC Research",
+                "date": "2026-05-05",
+                "matchups": [{"candidates": ["Debbie Wasserman Schultz"], "percentages": [52.0]}],
+                "source_url": "https://floridapolitics.com/archives/798629-poll/",
+            }
+        ],
+        "forecast": {"based_on_poll_count": 1, "source_urls": [], "evidence_lineage": []},
+    }
+
+    stats = cleanup_race_data(race)
+
+    assert race["polling"] == []
+    assert race["forecast"]["based_on_poll_count"] == 0
+    assert stats["poll_count_corrections"] == 1
+
+
+def test_cleanup_leaves_an_honest_poll_count_alone():
+    race = {
+        "polling": [
+            {
+                "pollster": "Tavern Research",
+                "date": "2026-08-12",
+                "matchups": [{"candidates": ["Pia Dandiya", "Casey Askar"], "percentages": [50.0, 50.0]}],
+                "source_url": "https://www.nytimes.com/interactive/polls/florida-us-house-22-polls-2026.html",
+            }
+        ],
+        "forecast": {"based_on_poll_count": 1, "source_urls": [], "evidence_lineage": []},
+    }
+
+    stats = cleanup_race_data(race)
+
+    assert len(race["polling"]) == 1
+    assert race["forecast"]["based_on_poll_count"] == 1
+    assert stats["poll_count_corrections"] == 0
