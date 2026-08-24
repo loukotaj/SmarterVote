@@ -1129,7 +1129,11 @@ def _host_names_another_state(url: str, race_id: Optional[str]) -> bool:
     own = _STATE_NAMES_BY_CODE.get(race_id.split("-", 1)[0].lower())
     if not own:
         return False
-    host = re.sub(r"[^a-z]", "", (urlparse(url).hostname or "").lower())
+    # Only the registrable domain: a CDN encodes its data-centre region in a
+    # subdomain, and "bloximages.newyork1.vip.townnews.com" is TownNews'
+    # infrastructure serving a Florida paper, not a New York outlet.
+    labels = (urlparse(url).hostname or "").lower().split(".")
+    host = re.sub(r"[^a-z]", "", "".join(labels[-2:]))
     for state in _STATE_NAMES_LONGEST_FIRST:
         if state in host:
             return state != own

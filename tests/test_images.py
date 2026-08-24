@@ -833,3 +833,13 @@ def test_state_host_check_ignores_hosts_that_name_no_state():
     assert not _host_names_another_state("https://upload.wikimedia.org/x/a.jpg", "ny-house-08-2026")
     # No race id means no judgement.
     assert not _host_names_another_state("https://media.newjerseyglobe.com/x/a.jpg", None)
+
+
+def test_state_host_check_ignores_a_cdn_region_subdomain():
+    """A CDN encodes its data centre in a subdomain, not its coverage area.
+
+    "bloximages.newyork1.vip.townnews.com" is TownNews infrastructure serving a
+    Florida paper; reading "newyork" from it rejected a correct photo. Only the
+    registrable domain is considered.
+    """
+    assert not _host_names_another_state("https://bloximages.newyork1.vip.townnews.com/x/a.jpg", "fl-house-24-2026")
