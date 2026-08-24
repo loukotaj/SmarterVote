@@ -573,6 +573,17 @@ def test_ballotpedia_file_named_for_another_person_is_rejected():
     assert _is_mismatched_person_filename(_BP + "Mike_Marvin_2026-04-29_180732.png", "Dan Osborn")
     # An opponent's portrait must not migrate across a race's roster either.
     assert _is_mismatched_person_filename(_BP + "Randy_Weber.jpg", "Thurman Bill Bartie")
+    # co-house-04-2026 stored John Padora Jr's thumbnail for Douglas Mangeris,
+    # picked off a votebox listing every other candidate in the race.
+    assert _is_mismatched_person_filename(_BP + "JohnPadoraJr2025.jpg", "Douglas Mangeris")
+    # A shared *given* name is not enough -- the surname must match.
+    assert _is_mismatched_person_filename(_BP + "wayne-verity_b12ec.jpg", "Wayne Thornton")
+
+
+def test_ballotpedia_filename_check_tolerates_generational_suffixes():
+    """ "Clyde W. Jones, Jr." must resolve to "jones", not to the suffix."""
+    assert not _is_mismatched_person_filename(_BP + "Clyde_Jones_2026.jpg", "Clyde W. Jones, Jr.")
+    assert not _is_mismatched_person_filename(_BP + "Jeffrey_Hulum_III.jpg", "Jeffrey Hulum III")
 
 
 def test_ballotpedia_filename_check_keeps_the_candidates_own_photo():
@@ -596,7 +607,9 @@ def test_ballotpedia_filename_check_ignores_files_that_name_nobody():
     assert not _is_mismatched_person_filename(_BP + "Carl4congress_profile.jpg", "Carl Boyanton")
     assert not _is_mismatched_person_filename(_BP + "Monique-Ballotpedia.jpg", "Monique Appeaning")
     assert not _is_mismatched_person_filename(_BP + "LRG-Headshot_202604.jpg", "Lindsay Garcia")
-    # Non-Ballotpedia hosts are out of scope for this check.
+    # Non-Ballotpedia hosts are out of scope: on an arbitrary campaign host a
+    # filename is as likely to be a slogan as a name, and "GrahamforMaine"
+    # legitimately omits Graham Platner's surname.
     assert not _is_mismatched_person_filename("https://example.org/uploads/Audrey_Hatch.jpg", "Dan Osborn")
 
 

@@ -183,6 +183,9 @@ _FILENAME_NON_NAME_TOKENS = frozenset(
         "thumbnail",
         "updated",
         "web",
+        "rep",
+        "sen",
+        "gov",
     }
 )
 
@@ -203,27 +206,47 @@ def _filename_person_tokens(url: str) -> List[str]:
     return [w.lower() for w in words if len(w) >= 3 and w.lower() not in _FILENAME_NON_NAME_TOKENS]
 
 
-def _is_mismatched_person_filename(url: str, candidate_name: str) -> bool:
-    """True if a Ballotpedia file is named after a different person.
+_NAME_SUFFIX_TOKENS = frozenset({"jnr", "jr", "snr", "sr", "ii", "iii", "iv", "v", "vi"})
 
-    Ballotpedia's own markup is not always right: on Dan Osborn's page the
-    Nebraska Senate votebox rendered ``Audrey_Hatch_20240808_095600.jpg``
-    under ``alt="Image of Dan Osborn"``.  Trusting the surrounding page
-    therefore isn't enough — when the filename itself spells out a full name,
-    it has to be *this* candidate's.  Files that carry no name at all
-    (``IMG-20260117-WA0002``, ``Carl4congress_profile``) are left alone
+
+def _candidate_surname(candidate_name: str) -> Optional[str]:
+    """Return the candidate's surname, ignoring a generational suffix."""
+    tokens = [t.lower() for t in re.findall(r"[A-Za-z]+", candidate_name)]
+    tokens = [t for t in tokens if len(t) >= 2 and t not in _NAME_SUFFIX_TOKENS]
+    return tokens[-1] if tokens else None
+
+
+def _is_mismatched_person_filename(url: str, candidate_name: str) -> bool:
+    """True if an image filename is named after a different person.
+
+    Two separate failures motivate this.  Ballotpedia's own markup is not
+    always right: on Dan Osborn's page the Nebraska Senate votebox rendered
+    ``Audrey_Hatch_20240808_095600.jpg`` under ``alt="Image of Dan Osborn"``,
+    so the page vouched for the wrong face.  And a Colorado candidate's photo
+    was served from ``.../advisor/wayne.r.verity/wayne-verity_400x490.jpg`` —
+    an Ameriprise adviser who merely shares a given name with Wayne Thornton.
+
+    So when a filename spells out a full name, the *surname* has to be this
+    candidate's; a shared first name is not enough.  Filenames that name
+    nobody (``IMG-20260117-WA0002``, ``Carl4congress_profile``) are left alone
     because candidates upload those themselves.
     """
+    # Only Ballotpedia names its files after people by convention.  On an
+    # arbitrary campaign host a filename is as likely to be a slogan --
+    # "GrahamforMaine_HeroPhoto.jpg" is Graham Platner's own hero image, and
+    # his surname is nowhere in it.
     if "ballotpedia" not in url.lower():
         return False
-    candidate_tokens = _name_tokens(candidate_name)
-    if not candidate_tokens:
+    surname = _candidate_surname(candidate_name)
+    if not surname:
         return False
     file_tokens = _filename_person_tokens(url)
     # One bare token is too weak a signal to overrule the page it came from.
     if len(file_tokens) < 2:
         return False
-    return not any(token in candidate_tokens for token in file_tokens)
+    # Compare against the joined filename too, so a camelCase split that
+    # fractures a surname ("CourtneyMcClain" -> courtney/clain) still matches.
+    return surname not in file_tokens and surname not in "".join(file_tokens)
 
 
 # Generic Open-Graph / social-share cards served by data and reference sites
@@ -495,6 +518,10 @@ _CANDIDATE_PROFILE_MARKERS = (
 )
 
 _NON_HEADSHOT_HOSTS = (
+    # A financial-adviser profile CDN: co-house-04-2026 stored
+    # ".../advisor/wayne.r.verity/wayne-verity_400x490.jpg" for Wayne
+    # Thornton, an unrelated Ameriprise adviser sharing only a given name.
+    "ameriprisecontent.com",
     "fec.gov",
     "opensecrets.org",
     "followthemoney.org",
