@@ -235,6 +235,45 @@ def _candidate_surname(candidate_name: str) -> Optional[str]:
     return tokens[-1] if tokens else None
 
 
+def _middle_initial(name: str) -> Optional[str]:
+    """Return a lone middle initial from "Robert P. Murray", else None."""
+    parts = re.findall(r"[A-Za-z]+", _fold_accents(name))
+    if len(parts) < 3:
+        return None
+    middles = [p for p in parts[1:-1] if len(p) == 1]
+    return middles[0].lower() if len(middles) == 1 else None
+
+
+def _middle_initials_conflict(candidate_name: str, basename: str) -> bool:
+    """True if the file names a namesake distinguished only by middle initial.
+
+    va-house-04-2026 stored the Wikipedia portrait of Robert E. Murray -- the
+    Murray Energy chief executive, who died in 2020 -- for the candidate
+    Robert P. Murray.  Given and family names both matched, so only the middle
+    initial separated a living candidate from a dead coal executive.
+
+    The initial must stand alone as its own word in the filename.  Matching it
+    inside a flattened string reads the "n" of "StevenParsons" as an initial
+    and rejects Steve G. Parsons' own photo.
+    """
+    mine = _middle_initial(candidate_name)
+    if not mine:
+        return False
+    name_parts = [p.lower() for p in re.findall(r"[A-Za-z]+", _fold_accents(candidate_name))]
+    first, last = name_parts[0], name_parts[-1]
+    words: List[str] = []
+    for chunk in re.split(r"[^A-Za-z]+", _fold_accents(basename)):
+        if chunk:
+            words.extend(w.lower() for w in re.findall(r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])", chunk))
+    for index, word in enumerate(words):
+        if word != first or index + 2 >= len(words) + 1:
+            continue
+        rest = words[index + 1 :]
+        if len(rest) >= 2 and len(rest[0]) == 1 and rest[1] == last:
+            return rest[0] != mine
+    return False
+
+
 def _is_mismatched_person_filename(url: str, candidate_name: str) -> bool:
     """True if an image filename is named after a different person.
 
@@ -250,8 +289,13 @@ def _is_mismatched_person_filename(url: str, candidate_name: str) -> bool:
     nobody (``IMG-20260117-WA0002``, ``Carl4congress_profile``) are left alone
     because candidates upload those themselves.
     """
-    # Only Ballotpedia names its files after people by convention.  On an
-    # arbitrary campaign host a filename is as likely to be a slogan --
+    # A conflicting middle initial is checked on every host, and before the
+    # surname match below, because a namesake shares the surname.  It demands
+    # an explicit initial on both sides, so a slogan filename cannot trip it.
+    if _middle_initials_conflict(candidate_name, unquote(urlparse(url).path).rsplit("/", 1)[-1]):
+        return True
+    # Otherwise only Ballotpedia names its files after people by convention.
+    # On an arbitrary campaign host a filename is as likely to be a slogan --
     # "GrahamforMaine_HeroPhoto.jpg" is Graham Platner's own hero image, and
     # his surname is nowhere in it.
     if "ballotpedia" not in url.lower():

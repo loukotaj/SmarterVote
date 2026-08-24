@@ -701,3 +701,33 @@ def test_pre_1980_year_in_filename_marks_an_archival_photo():
     assert not _looks_like_archival_photo("https://x/Jane_Doe_2026.jpg")
     assert not _looks_like_archival_photo("https://x/Rick_Edmonds_202403.jpg")
     assert not _looks_like_archival_photo("https://x/IMG-20260117-WA0002.jpg")
+
+
+def test_conflicting_middle_initial_marks_a_namesake():
+    """Only a middle initial separated a candidate from a dead executive.
+
+    va-house-04-2026 stored the Wikipedia portrait of Robert E. Murray, the
+    Murray Energy chief executive who died in 2020, for candidate Robert P.
+    Murray. Given and family names both matched.
+    """
+    assert _is_mismatched_person_filename(
+        "https://upload.wikimedia.org/wikipedia/commons/5/53/Robert_E._Murray_%28crop%29.jpg",
+        "Robert P. Murray",
+    )
+    # The candidate's own photo, and a file carrying no initial, both stand.
+    assert not _is_mismatched_person_filename(_BP + "Robert_P._Murray.jpg", "Robert P. Murray")
+    assert not _is_mismatched_person_filename(_BP + "Robert_Murray_2026.jpg", "Robert P. Murray")
+    assert not _is_mismatched_person_filename(_BP + "Frank_D._Lucas.jpg", "Frank D. Lucas")
+
+
+def test_middle_initial_must_stand_alone_as_a_word():
+    """A longer form of the given name is not a middle initial.
+
+    Flattening the filename reads the "n" of "StevenParsons" as an initial and
+    rejects Steve G. Parsons' own photo.
+    """
+    assert not _is_mismatched_person_filename(_BP + "StevenParsons24.jpeg", "Steve G. Parsons")
+    # A campaign slogan on an arbitrary host must not trip it either.
+    assert not _is_mismatched_person_filename(
+        "https://images.squarespace-cdn.com/x/GrahamforMaine_HeroPhoto.jpg", "Graham Platner"
+    )
