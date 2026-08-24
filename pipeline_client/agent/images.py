@@ -203,7 +203,14 @@ def _filename_person_tokens(url: str) -> List[str]:
         if not chunk:
             continue
         words.extend(re.findall(r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])", chunk))
-    return [w.lower() for w in words if len(w) >= 3 and w.lower() not in _FILENAME_NON_NAME_TOKENS]
+    return [
+        w.lower()
+        for w in words
+        # A name has a vowel.  Without this, hex runs inside a GUID filename
+        # ("...46bdb6089bbb...") read as two name-like tokens and condemn the
+        # photo.
+        if len(w) >= 3 and w.lower() not in _FILENAME_NON_NAME_TOKENS and re.search(r"[aeiouy]", w, re.I)
+    ]
 
 
 _NAME_SUFFIX_TOKENS = frozenset({"jnr", "jr", "snr", "sr", "ii", "iii", "iv", "v", "vi"})

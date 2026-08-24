@@ -337,3 +337,78 @@ def test_cleanup_leaves_an_honest_poll_count_alone():
     assert len(race["polling"]) == 1
     assert race["forecast"]["based_on_poll_count"] == 1
     assert stats["poll_count_corrections"] == 0
+
+
+_BP_THUMBS = "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/"
+
+
+def test_cleanup_clears_ballotpedia_submit_photo_placeholder():
+    """ "SubmitPhoto-150px.png" asks for a photo; it is not a photo.
+
+    52 candidates across 46 published races were showing this call-to-action
+    graphic as their headshot.
+    """
+    race = {
+        "candidates": [
+            {"name": "Jereme Peters", "image_url": _BP_THUMBS + "150/150/SubmitPhoto-150px.png"},
+            {"name": "Real Person", "image_url": _BP_THUMBS + "200/300/Real_Person.jpg"},
+        ]
+    }
+
+    stats = cleanup_race_data(race)
+
+    assert race["candidates"][0]["image_url"] is None
+    assert race["candidates"][1]["image_url"] == _BP_THUMBS + "200/300/Real_Person.jpg"
+    assert stats["unusable_images_cleared"] == 1
+
+
+def test_cleanup_keeps_the_candidate_a_shared_photo_is_named_for():
+    """One file cannot depict two people, so the one it names keeps it.
+
+    ma-house-04-2026 gave Matthew Cook the file named for Jason Poulos, a rival
+    in the same race. It evaded a full-URL duplicate check because the two
+    differed only by thumbnail size.
+    """
+    race = {
+        "candidates": [
+            {"name": "Jason Poulos", "image_url": _BP_THUMBS + "200/300/Jason_Poulos_2026.jpg"},
+            {"name": "Matthew Cook", "image_url": _BP_THUMBS + "100/100/Jason_Poulos_2026.jpg"},
+        ]
+    }
+
+    stats = cleanup_race_data(race)
+
+    assert race["candidates"][0]["image_url"] == _BP_THUMBS + "200/300/Jason_Poulos_2026.jpg"
+    assert race["candidates"][1]["image_url"] is None
+    assert stats["unusable_images_cleared"] == 1
+
+
+def test_cleanup_clears_a_shared_photo_that_names_nobody():
+    """With no owner to identify, the file is unusable for either candidate."""
+    race = {
+        "candidates": [
+            {"name": "First Candidate", "image_url": _BP_THUMBS + "200/300/headshot.jpg"},
+            {"name": "Second Candidate", "image_url": _BP_THUMBS + "100/100/headshot.jpg"},
+        ]
+    }
+
+    stats = cleanup_race_data(race)
+
+    assert [c["image_url"] for c in race["candidates"]] == [None, None]
+    assert stats["unusable_images_cleared"] == 2
+
+
+def test_cleanup_leaves_distinct_candidate_photos_alone():
+    race = {
+        "candidates": [
+            {"name": "Warren Davidson", "image_url": _BP_THUMBS + "200/300/Warren_Davidson.jpg"},
+            {"name": "Vanessa Enoch", "image_url": "https://example.org/venoch.jpg"},
+            {"name": "No Photo", "image_url": None},
+        ]
+    }
+
+    stats = cleanup_race_data(race)
+
+    assert race["candidates"][0]["image_url"] == _BP_THUMBS + "200/300/Warren_Davidson.jpg"
+    assert race["candidates"][1]["image_url"] == "https://example.org/venoch.jpg"
+    assert stats["unusable_images_cleared"] == 0
