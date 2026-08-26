@@ -484,6 +484,28 @@ def test_wix_urls_without_a_transform_are_left_alone():
     assert race["candidates"][0]["image_url"] == url
 
 
+def test_legitimate_wix_transforms_are_left_alone():
+    ordinary_crop = (
+        "https://static.wixstatic.com/media/photo~mv2.jpg"
+        "/v1/crop/x_10,y_20,w_1200,h_1500/fill/w_800,h_1000,al_c,q_90/photo.jpg"
+    )
+    large_blurred_render = (
+        "https://static.wixstatic.com/media/photo~mv2.jpg" "/v1/fill/w_1200,h_1500,al_c,q_90,blur_2/photo.jpg"
+    )
+    race = {
+        "candidates": [
+            {"name": "A", "image_url": ordinary_crop},
+            {"name": "B", "image_url": large_blurred_render},
+        ]
+    }
+
+    result = cleanup_race_data(race)
+
+    assert result["wix_thumbnails_upgraded"] == 0
+    assert race["candidates"][0]["image_url"] == ordinary_crop
+    assert race["candidates"][1]["image_url"] == large_blurred_render
+
+
 def test_non_wix_images_are_left_alone():
     url = "https://example.com/media/photo.jpg/v1/fill/w_41,h_54/photo.jpg"
     race = {"candidates": [{"name": "A", "image_url": url}, {"name": "B", "image_url": None}]}

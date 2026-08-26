@@ -197,6 +197,8 @@ _WIX_MEDIA_PREFIX = "https://static.wixstatic.com/media/"
 # from the same URL space as the real photo, distinguished only by a transform
 # segment.  Everything from "/v1/" onwards is that transform.
 _WIX_TRANSFORM_SEGMENT = re.compile(r"/v1/.*$")
+_WIX_BLUR_MARKER = re.compile(r"(?:^|[,/])blur_\d+(?:[,/]|$)")
+_WIX_RENDER_DIMENSION = re.compile(r"(?:^|[,/])(?:w|h)_(\d{1,5})(?=[,/])")
 
 
 def _full_size_wix_url(url: Any) -> Any:
@@ -210,6 +212,13 @@ def _full_size_wix_url(url: Any) -> Any:
     if not isinstance(url, str) or not url.startswith(_WIX_MEDIA_PREFIX):
         return url
     if "/v1/" not in url:
+        return url
+    transform = url.split("/v1/", 1)[1].lower()
+    dimensions = [int(value) for value in _WIX_RENDER_DIMENSION.findall(transform)]
+    # Preserve ordinary Wix crops and responsive renders.  The problematic
+    # blur-up placeholder is both explicitly blurred and tiny; either signal
+    # alone is also used by legitimate full-size site imagery.
+    if not _WIX_BLUR_MARKER.search(transform) or not any(value <= 200 for value in dimensions):
         return url
     return _WIX_TRANSFORM_SEGMENT.sub("", url)
 
