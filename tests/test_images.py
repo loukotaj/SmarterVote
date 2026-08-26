@@ -949,3 +949,22 @@ def test_wikimedia_occupational_namesakes_are_rejected(url):
 )
 def test_genuine_official_portraits_survive_namesake_rule(url):
     assert _looks_like_non_photo(url) is False
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        # Card generators name the file after the candidate; the path gives them away.
+        "https://linktr.ee/og/image/wingfieldforcongress.jpg",
+        "https://themidtermproject.org/api/og/candidate/barnett-shafina.png",
+        "https://example.com/social-card/jane-doe.png",
+    ],
+)
+def test_generated_social_cards_are_rejected_by_path(url):
+    assert _looks_like_non_photo(url) is True
+
+
+def test_ordinary_paths_containing_og_are_not_social_cards():
+    """ "og" must match a whole path segment, not a fragment of a word."""
+    assert _looks_like_non_photo("https://example.com/photos/ogden-mayor-jane-doe.jpg") is False
+    assert _looks_like_non_photo("https://example.com/blog/candidate-headshot.jpg") is False

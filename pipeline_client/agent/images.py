@@ -608,16 +608,27 @@ _SOCIAL_CARD_PATTERN = re.compile(
 )
 
 
+_SOCIAL_CARD_PATH_PATTERN = re.compile(r"/(?:og|opengraph|social[-_]?card|social[-_]?share)/")
+
+
 def _looks_like_social_card(url: str) -> bool:
-    """True for the Open Graph preview image a campaign site advertises itself with.
+    """True for the Open Graph preview image a site advertises a candidate with.
 
     These live on the candidate's own domain — normally the most trustworthy
     source — but they are branding, not portraits: CO-06 stored a "RESPECT /
     RESTORE / REFORM" banner as Samir Witta's headshot, and NY-26 a card that
     is mostly the words "DENNIS HANNON FOR CONGRESS".
+
+    Card *generators* name the file after the candidate and put the giveaway in
+    the path instead, so both are checked: "linktr.ee/og/image/
+    wingfieldforcongress.jpg" is a Linktree card, and "themidtermproject.org/
+    api/og/candidate/barnett-shafina.png" renders the initials "SB" on a tile
+    where the photograph would be.
     """
-    basename = unquote(urlparse(url).path).rsplit("/", 1)[-1].lower()
-    return bool(_SOCIAL_CARD_PATTERN.search(basename))
+    path = unquote(urlparse(url).path).lower()
+    if _SOCIAL_CARD_PATH_PATTERN.search(path):
+        return True
+    return bool(_SOCIAL_CARD_PATTERN.search(path.rsplit("/", 1)[-1]))
 
 
 _BANNER_DIMENSIONS_PATTERN = re.compile(r"(?:^|[-_])(\d{2,5})x(\d{2,5})(?:[-_.]|$)")
