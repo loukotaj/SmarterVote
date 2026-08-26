@@ -860,3 +860,16 @@ def test_retail_product_images_are_rejected():
     assert _looks_like_non_photo("https://example.org/productImages/x.jpg")
     # Ordinary candidate portraits are untouched.
     assert not _looks_like_non_photo("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/MarkTeixeira2026.png")
+
+
+def test_crowdfunding_platform_images_are_rejected():
+    """A fundraising banner is collateral, not a portrait.
+
+    mi-house-10-2026 stored a GoFundMe graphic advertising a candidate's book --
+    headline text, bullet points, a donate button and a QR code, with his face
+    in one corner -- as his headshot. The filename was a hash, so only the host
+    identifies it.
+    """
+    assert _looks_like_non_photo("https://images.gofundme.com/HiJ6EOPm6pF39agEz0M8I9plzx8=/1200x900/x.jpg")
+    assert _looks_like_non_photo("https://www.kickstarter.com/assets/x.png")
+    assert not _looks_like_non_photo("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Joe_Wilson.jpeg")

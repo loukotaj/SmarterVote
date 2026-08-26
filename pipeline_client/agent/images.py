@@ -414,6 +414,15 @@ _STOCK_PHOTO_HOSTS = (
 # ("matte-black-rennnsan-pendant-lights-pl8101") as the headshot for a
 # candidate named Raelyn Light, and the surname matched the filename.
 _PRODUCT_IMAGE_HOSTS = (
+    # Crowdfunding platforms serve campaign *graphics* -- a donate banner with
+    # headline text, a QR code and the subject's face in one corner.
+    # mi-house-10-2026 stored a GoFundMe banner advertising a candidate's book
+    # as his headshot.
+    "gofundme.com",
+    "gofund.me",
+    "kickstarter.com",
+    "indiegogo.com",
+    "givebutter.com",
     "thdstatic.com",
     "lowes.com",
     "walmartimages.com",

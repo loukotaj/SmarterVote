@@ -31,11 +31,20 @@ services:
       # storage even though this worker has a cloud bucket configured.
       STORAGE_MODE: gcp
       GOOGLE_APPLICATION_CREDENTIALS: /gcloud-config/application_default_credentials.json
-      # Four concurrent races uses the workstation's available CPU while the
-      # 16 GB Docker allocation remains the practical memory ceiling.
-      WORKER_CONCURRENCY: "4"
+      # Overridable via WORKER_CONCURRENCY in .env. Measured 2026-08-24: four
+      # concurrent races used 165 MiB of a 15.3 GiB allocation at 0.4% CPU
+      # across 22 cores, so local resources are not the binding constraint —
+      # the workload is I/O-bound on web fetches and LLM calls. Provider rate
+      # limits bind first; raise this before worrying about memory.
+      WORKER_CONCURRENCY: "${WORKER_CONCURRENCY:-4}"
       WORKER_POLL_SECONDS: "3"
       # GCS_BUCKET / FIRESTORE_PROJECT come from .env; override here if needed.
+    # Docker's embedded resolver intermittently failed to resolve
+    # oauth2.googleapis.com (Errno -5), breaking Google auth for Firestore
+    # while GCS writes continued on a cached token. Pin public resolvers.
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     volumes:
       - ${APPDATA}/gcloud:/gcloud-config:ro
     restart: unless-stopped
