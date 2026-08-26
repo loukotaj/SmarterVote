@@ -889,3 +889,30 @@ def test_memorial_and_obituary_hosts_are_rejected():
     assert _looks_like_non_photo("https://tributearchive.com/x/y.jpg")
     # An ordinary candidate portrait is untouched.
     assert not _looks_like_non_photo("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Joe_Wilson.jpeg")
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "https://casasforcongress.com/wp-content/uploads/2024/01/cagop-candidate-1024x985.png",
+        "https://example.com/img/txgop-endorsed.png",
+        "https://example.com/img/endorsed.jpg",
+        "https://example.com/img/endorsement-seal.png",
+    ],
+)
+def test_endorsement_badges_are_rejected(url):
+    assert _looks_like_non_photo(url) is True
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        # A real surname must survive: no party-organisation prefix, no badge word.
+        "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Judy_Chu.jpg",
+        "https://example.com/img/Andrew_Sneed_2025.jpeg",
+        # "Endorsements" as a page/section slug in the path, not the filename.
+        "https://example.com/endorsements/maria-gomez-headshot.jpg",
+    ],
+)
+def test_real_headshots_survive_endorsement_badge_rule(url):
+    assert _looks_like_non_photo(url) is False
