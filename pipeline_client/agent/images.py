@@ -594,7 +594,198 @@ def _looks_like_non_photo(url: str, alt: str = "") -> bool:
         return True
     if _looks_like_archival_photo(url):
         return True
+    if _looks_like_social_card(url):
+        return True
+    if _looks_like_banner_crop(url):
+        return True
+    if _is_wikimedia_occupational_namesake(url):
+        return True
+    if _looks_like_endorsement_badge(url):
+        return True
     return _looks_like_site_furniture(haystack)
+
+
+_SOCIAL_CARD_PATTERN = re.compile(
+    r"(?:^|[-_.])(?:og[-_]?image|opengraph|social[-_](?:card|share|image)|twitter[-_]card)(?:[-_.]|$)"
+)
+
+
+_SOCIAL_CARD_PATH_PATTERN = re.compile(r"/(?:og|opengraph|social[-_]?card|social[-_]?share)/")
+
+
+def _looks_like_social_card(url: str) -> bool:
+    """True for the Open Graph preview image a site advertises a candidate with.
+
+    These live on the candidate's own domain — normally the most trustworthy
+    source — but they are branding, not portraits: CO-06 stored a "RESPECT /
+    RESTORE / REFORM" banner as Samir Witta's headshot, and NY-26 a card that
+    is mostly the words "DENNIS HANNON FOR CONGRESS".
+
+    Card *generators* name the file after the candidate and put the giveaway in
+    the path instead, so both are checked: "linktr.ee/og/image/
+    wingfieldforcongress.jpg" is a Linktree card, and "themidtermproject.org/
+    api/og/candidate/barnett-shafina.png" renders the initials "SB" on a tile
+    where the photograph would be.
+    """
+    path = unquote(urlparse(url).path).lower()
+    if _SOCIAL_CARD_PATH_PATTERN.search(path):
+        return True
+    return bool(_SOCIAL_CARD_PATTERN.search(path.rsplit("/", 1)[-1]))
+
+
+_BANNER_DIMENSIONS_PATTERN = re.compile(r"(?:^|[-_])(\d{2,5})x(\d{2,5})(?:[-_.]|$)")
+
+
+def _looks_like_banner_crop(url: str) -> bool:
+    """True when the filename's own dimensions describe a banner, not a portrait.
+
+    A CMS records the crop it produced, so "WebsiteUpdate2-1920x860.jpg" is a
+    page-wide hero strip — CA-44 stored one, a press conference in front of the
+    Capitol, as Nanette Barragan's headshot.  No portrait is twice as wide as
+    it is tall.
+    """
+    basename = unquote(urlparse(url).path).rsplit("/", 1)[-1].lower()
+    match = _BANNER_DIMENSIONS_PATTERN.search(basename)
+    if not match:
+        return False
+    width, height = int(match.group(1)), int(match.group(2))
+    return bool(height) and width / height >= 2.0
+
+
+# A parenthetical on a Wikimedia file is how MediaWiki disambiguates a name.
+# These qualifiers describe the file, or a politician, so they are not evidence
+# of a namesake.
+_WIKIMEDIA_SAFE_QUALIFIERS = frozenset(
+    {
+        "attorney",
+        "congress",
+        "congressional",
+        "congressman",
+        "congresswoman",
+        "crop",
+        "cropped",
+        "governor",
+        "headshot",
+        "house",
+        "judge",
+        "mayor",
+        "official",
+        "photo",
+        "politician",
+        "portrait",
+        "representative",
+        "resized",
+        "retouched",
+        "scaled",
+        "senate",
+        "senator",
+        "uncropped",
+    }
+)
+
+_US_STATE_WORDS = frozenset(
+    {
+        "alabama",
+        "alaska",
+        "arizona",
+        "arkansas",
+        "california",
+        "carolina",
+        "colorado",
+        "connecticut",
+        "dakota",
+        "delaware",
+        "florida",
+        "georgia",
+        "hampshire",
+        "hawaii",
+        "idaho",
+        "illinois",
+        "indiana",
+        "iowa",
+        "island",
+        "jersey",
+        "kansas",
+        "kentucky",
+        "louisiana",
+        "maine",
+        "maryland",
+        "massachusetts",
+        "mexico",
+        "michigan",
+        "minnesota",
+        "mississippi",
+        "missouri",
+        "montana",
+        "nebraska",
+        "nevada",
+        "ohio",
+        "oklahoma",
+        "oregon",
+        "pennsylvania",
+        "rhode",
+        "tennessee",
+        "texas",
+        "utah",
+        "vermont",
+        "virginia",
+        "washington",
+        "wisconsin",
+        "wyoming",
+        "york",
+    }
+)
+
+_PARTY_STATE_TAG = re.compile(r"^[rdi]-[a-z]{2}$")
+
+
+def _is_wikimedia_occupational_namesake(url: str) -> bool:
+    """True for a Wikimedia portrait disambiguated to somebody else's occupation.
+
+    A shared surname defeats every name check, so the qualifier MediaWiki adds
+    to break the tie is the only signal that the file is a different person:
+    "Eric_Jones_(solo_climber)" was a British mountaineer stored for a CA-04
+    candidate, "Ryan_Kelly_(American_football)" a Colts lineman, and
+    "James_Burke_(science_historian)" the television presenter.
+
+    Qualifiers carrying a digit ("(119th Congress)", "(1)", "(3x4)", Flickr
+    ids), a party-state tag ("(R-TN)"), or a political/file word are how
+    genuine official portraits are named, so they are left alone.
+    """
+    if urlparse(url).netloc.lower() not in {"upload.wikimedia.org", "commons.wikimedia.org"}:
+        return False
+    basename = unquote(urlparse(url).path).rsplit("/", 1)[-1].lower()
+    for match in re.finditer(r"\(([^)]*)\)", basename):
+        inner = match.group(1).strip()
+        if any(character.isdigit() for character in inner):
+            continue
+        if _PARTY_STATE_TAG.match(inner):
+            continue
+        words = set(re.findall(r"[a-z]+", inner))
+        if not words or words & _WIKIMEDIA_SAFE_QUALIFIERS or words & _US_STATE_WORDS:
+            continue
+        return True
+    return False
+
+
+_ENDORSEMENT_BADGE_PATTERNS = (
+    # "CAGOP ENDORSED CANDIDATE" seals, and the party-organisation variants of
+    # them, are hosted on the candidate's own site alongside real portraits.
+    re.compile(r"(?:^|[-_])[a-z]{2}(?:gop|dems?|dp|rp)[-_](?:endorsed|candidate)(?:[-_.]|$)"),
+    re.compile(r"(?:^|[-_])(?:endorsed|endorsement)(?:[-_.]|$)"),
+)
+
+
+def _looks_like_endorsement_badge(url: str) -> bool:
+    """True for party endorsement seals, which carry a logo rather than a face.
+
+    A candidate's own campaign site is normally the most trustworthy source for
+    a headshot, so these graphics slip past every host-based check: CA-38 stored
+    a green "CAGOP ENDORSED CANDIDATE" rosette from ``casasforcongress.com`` as
+    Pedro Casas' portrait.  The badge names a designation, never a person.
+    """
+    basename = unquote(urlparse(url).path).rsplit("/", 1)[-1].lower()
+    return any(pattern.search(basename) for pattern in _ENDORSEMENT_BADGE_PATTERNS)
 
 
 def _looks_like_archival_photo(url: str) -> bool:

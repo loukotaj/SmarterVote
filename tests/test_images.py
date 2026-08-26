@@ -889,3 +889,109 @@ def test_memorial_and_obituary_hosts_are_rejected():
     assert _looks_like_non_photo("https://tributearchive.com/x/y.jpg")
     # An ordinary candidate portrait is untouched.
     assert not _looks_like_non_photo("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Joe_Wilson.jpeg")
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "https://www.wittaforcongress.com/images/og-image.jpg",
+        "https://hannonforcongress.com/social-card.png",
+        "https://example.com/assets/og_image.png",
+        "https://example.com/assets/twitter-card.jpg",
+    ],
+)
+def test_social_cards_are_rejected(url):
+    assert _looks_like_non_photo(url) is True
+
+
+@pytest.mark.parametrize(
+    "url,rejected",
+    [
+        # A page-wide hero strip: CA-44 stored one as Nanette Barragan's portrait.
+        ("https://barragan.house.gov/wp-content/uploads/2023/07/WebsiteUpdate2-1920x860.jpg", True),
+        ("https://example.com/img/candidate-2000x600.jpg", True),
+        # Portrait and square crops must survive.
+        ("https://example.com/img/candidate-800x1000.jpg", False),
+        ("https://votevets.org/wp-content/uploads/2025/12/Shawn-2026-headshot-Updated-1200x1200.jpg", False),
+        ("https://example.com/img/candidate-1024x985.jpg", False),
+    ],
+)
+def test_banner_aspect_ratio_rejected_portraits_kept(url, rejected):
+    assert _looks_like_non_photo(url) is rejected
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "https://upload.wikimedia.org/wikipedia/commons/2/2c/Eric_Jones_%28solo_climber%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/5/5b/Ryan_Kelly_%28American_football%29.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/1/13/James_Burke_%28science_historian%29.jpg",
+    ],
+)
+def test_wikimedia_occupational_namesakes_are_rejected(url):
+    assert _looks_like_non_photo(url) is True
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "https://casasforcongress.com/wp-content/uploads/2024/01/cagop-candidate-1024x985.png",
+        "https://example.com/img/txgop-endorsed.png",
+        "https://example.com/img/endorsed.jpg",
+        "https://example.com/img/endorsement-seal.png",
+    ],
+)
+def test_endorsement_badges_are_rejected(url):
+    assert _looks_like_non_photo(url) is True
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        # Real official portraits are disambiguated by Congress number, a
+        # sequence number, a Flickr id, a party-state tag, or a crop note.
+        "https://upload.wikimedia.org/wikipedia/commons/a/ab/Jimmy_Gomez_official_portrait_%28light_crop%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/x/xx/Adam_Gray%2C_official_portrait_%28119th_Congress%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/x/xx/Dina_Titus_official_photo_%281%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/x/xx/Dan_Cox_Mar2020_%2849617550556%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/x/xx/David_Jolly_%283x4%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/x/xx/Sen._Marsha_Blackburn_%28R-TN%29_official_headshot.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/x/xx/Mike_Rogers_%28Alabama_politician%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/x/xx/Mike_Flood%2C_official_portrait_%28118th_Congress%29_%28cropped%29.jpg",
+    ],
+)
+def test_genuine_official_portraits_survive_namesake_rule(url):
+    assert _looks_like_non_photo(url) is False
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        # Card generators name the file after the candidate; the path gives them away.
+        "https://linktr.ee/og/image/wingfieldforcongress.jpg",
+        "https://themidtermproject.org/api/og/candidate/barnett-shafina.png",
+        "https://example.com/social-card/jane-doe.png",
+    ],
+)
+def test_generated_social_cards_are_rejected_by_path(url):
+    assert _looks_like_non_photo(url) is True
+
+
+def test_ordinary_paths_containing_og_are_not_social_cards():
+    """ "og" must match a whole path segment, not a fragment of a word."""
+    assert _looks_like_non_photo("https://example.com/photos/ogden-mayor-jane-doe.jpg") is False
+    assert _looks_like_non_photo("https://example.com/blog/candidate-headshot.jpg") is False
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        # A real surname must survive: no party-organisation prefix, no badge word.
+        "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Judy_Chu.jpg",
+        "https://example.com/img/Andrew_Sneed_2025.jpeg",
+        # "Endorsements" as a page/section slug in the path, not the filename.
+        "https://example.com/endorsements/maria-gomez-headshot.jpg",
+    ],
+)
+def test_real_headshots_survive_endorsement_badge_rule(url):
+    assert _looks_like_non_photo(url) is False
