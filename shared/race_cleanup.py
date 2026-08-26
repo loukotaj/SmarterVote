@@ -365,9 +365,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
         # worth keeping, so drop it rather than invent a school.
         education = candidate.get("education")
         if isinstance(education, list):
-            usable = [
-                entry for entry in education if not isinstance(entry, dict) or str(entry.get("institution") or "").strip()
-            ]
+            usable = [entry for entry in education if isinstance(entry, dict) and str(entry.get("institution") or "").strip()]
             schema_invalid_entries_removed += len(education) - len(usable)
             candidate["education"] = usable
 

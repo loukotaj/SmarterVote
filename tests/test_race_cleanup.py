@@ -461,6 +461,8 @@ def test_education_entries_without_institution_are_dropped():
                 "education": [
                     {"institution": None, "degree": "Master of Science", "field": "Systems Engineering"},
                     {"institution": "   ", "degree": "Bachelor of Science"},
+                    "Master of Arts",
+                    None,
                     {"institution": "Naval Postgraduate School", "degree": "M.S."},
                 ],
             }
@@ -469,7 +471,7 @@ def test_education_entries_without_institution_are_dropped():
 
     result = cleanup_race_data(race)
 
-    assert result["schema_invalid_entries_removed"] == 2
+    assert result["schema_invalid_entries_removed"] == 4
     assert race["candidates"][0]["education"] == [{"institution": "Naval Postgraduate School", "degree": "M.S."}]
 
 
