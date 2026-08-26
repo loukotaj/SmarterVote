@@ -594,7 +594,29 @@ def _looks_like_non_photo(url: str, alt: str = "") -> bool:
         return True
     if _looks_like_archival_photo(url):
         return True
+    if _looks_like_endorsement_badge(url):
+        return True
     return _looks_like_site_furniture(haystack)
+
+
+_ENDORSEMENT_BADGE_PATTERNS = (
+    # "CAGOP ENDORSED CANDIDATE" seals, and the party-organisation variants of
+    # them, are hosted on the candidate's own site alongside real portraits.
+    re.compile(r"(?:^|[-_])[a-z]{2}(?:gop|dems?|dp|rp)[-_](?:endorsed|candidate)(?:[-_.]|$)"),
+    re.compile(r"(?:^|[-_])(?:endorsed|endorsement)(?:[-_.]|$)"),
+)
+
+
+def _looks_like_endorsement_badge(url: str) -> bool:
+    """True for party endorsement seals, which carry a logo rather than a face.
+
+    A candidate's own campaign site is normally the most trustworthy source for
+    a headshot, so these graphics slip past every host-based check: CA-38 stored
+    a green "CAGOP ENDORSED CANDIDATE" rosette from ``casasforcongress.com`` as
+    Pedro Casas' portrait.  The badge names a designation, never a person.
+    """
+    basename = unquote(urlparse(url).path).rsplit("/", 1)[-1].lower()
+    return any(pattern.search(basename) for pattern in _ENDORSEMENT_BADGE_PATTERNS)
 
 
 def _looks_like_archival_photo(url: str) -> bool:
