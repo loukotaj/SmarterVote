@@ -202,6 +202,52 @@ def _is_placeholder_image(url: Any) -> bool:
     return isinstance(url, str) and any(marker in url.lower() for marker in _PLACEHOLDER_IMAGE_MARKERS)
 
 
+_WIX_MEDIA_PREFIX = "https://static.wixstatic.com/media/"
+
+# Wix serves a "blur-up" placeholder -- a heavily downscaled, blurred render --
+# from the same URL space as the real photo, distinguished only by a transform
+# segment.  Everything from "/v1/" onwards is that transform.
+_WIX_TRANSFORM_SEGMENT = re.compile(r"/v1/.*$")
+_WIX_BLUR_MARKER = re.compile(r"(?:^|[,/])blur_\d+(?:[,/]|$)")
+_WIX_RENDER_DIMENSION = re.compile(r"(?:^|[,/])(?:w|h)_(\d{1,5})(?=[,/])")
+
+
+def _full_size_wix_url(url: Any) -> Any:
+    """Rewrite a Wix placeholder render to the full-size original.
+
+    IL-01 stored Jonathan Jackson's portrait as a 41x54 render carrying
+    ``blur_2``; five more races held the same shape.  The underlying image is
+    the candidate's real photo, so dropping the transform recovers it instead
+    of leaving the profile with no picture at all.
+    """
+    if not isinstance(url, str) or not url.startswith(_WIX_MEDIA_PREFIX):
+        return url
+    if "/v1/" not in url:
+        return url
+    transform = url.split("/v1/", 1)[1].lower()
+    dimensions = [int(value) for value in _WIX_RENDER_DIMENSION.findall(transform)]
+    # Preserve ordinary Wix crops and responsive renders.  The problematic
+    # blur-up placeholder is both explicitly blurred and tiny; either signal
+    # alone is also used by legitimate full-size site imagery.
+    if not _WIX_BLUR_MARKER.search(transform) or not any(value <= 200 for value in dimensions):
+        return url
+    return _WIX_TRANSFORM_SEGMENT.sub("", url)
+
+
+def _normalize_wix_candidate_images(race_data: Dict[str, Any]) -> int:
+    """Replace Wix placeholder renders with their full-size originals."""
+    rewritten = 0
+    for candidate in race_data.get("candidates", []) or []:
+        if not isinstance(candidate, dict):
+            continue
+        before = candidate.get("image_url")
+        after = _full_size_wix_url(before)
+        if after != before:
+            candidate["image_url"] = after
+            rewritten += 1
+    return rewritten
+
+
 def _strip_shared_candidate_images(race_data: Dict[str, Any]) -> int:
     """Clear placeholder images, and photos two candidates in one race share.
 
@@ -296,6 +342,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
     schema_invalid_entries_removed = 0
     fabricated_lineage_removed = 0
     incomplete_matchups_removed = _prune_incomplete_poll_matchups(race_data)
+    wix_thumbnails_upgraded = _normalize_wix_candidate_images(race_data)
     unusable_images_cleared = _strip_shared_candidate_images(race_data)
     election_dates_corrected = _correct_general_election_date(race_data)
     poll_count_corrections = 0
@@ -485,6 +532,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
         "fabricated_lineage_removed": fabricated_lineage_removed,
         "incomplete_matchups_removed": incomplete_matchups_removed,
         "unusable_images_cleared": unusable_images_cleared,
+        "wix_thumbnails_upgraded": wix_thumbnails_upgraded,
         "election_dates_corrected": election_dates_corrected,
         "schema_invalid_entries_removed": schema_invalid_entries_removed,
         "poll_count_corrections": poll_count_corrections,
