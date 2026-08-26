@@ -450,3 +450,45 @@ def test_general_election_day_is_computed_not_hardcoded():
     assert _general_election_day(2028) == "2028-11-07"
     # 2029: Nov 1 is a Thursday, so the first Monday is the 5th and the day is the 6th.
     assert _general_election_day(2029) == "2029-11-06"
+
+
+def test_wix_placeholder_thumbnails_are_upgraded_to_full_size():
+    """Wix serves a blurred 41x54 placeholder from the real photo's URL space."""
+    race = {
+        "candidates": [
+            {
+                "name": "Jonathan Jackson",
+                "image_url": (
+                    "https://static.wixstatic.com/media/5ffdcf_6eb4f626c8fa442c8418d07553e6b439~mv2.png"
+                    "/v1/crop/x_114,y_72,w_830,h_1106/fill/w_41,h_54,al_c,q_85,blur_2/1723248559532.png"
+                ),
+            }
+        ]
+    }
+
+    result = cleanup_race_data(race)
+
+    assert result["wix_thumbnails_upgraded"] == 1
+    assert race["candidates"][0]["image_url"] == (
+        "https://static.wixstatic.com/media/5ffdcf_6eb4f626c8fa442c8418d07553e6b439~mv2.png"
+    )
+
+
+def test_wix_urls_without_a_transform_are_left_alone():
+    url = "https://static.wixstatic.com/media/ddc900_b203b52ea1384bc68cfb710790e19750~mv2.png"
+    race = {"candidates": [{"name": "A", "image_url": url}]}
+
+    result = cleanup_race_data(race)
+
+    assert result["wix_thumbnails_upgraded"] == 0
+    assert race["candidates"][0]["image_url"] == url
+
+
+def test_non_wix_images_are_left_alone():
+    url = "https://example.com/media/photo.jpg/v1/fill/w_41,h_54/photo.jpg"
+    race = {"candidates": [{"name": "A", "image_url": url}, {"name": "B", "image_url": None}]}
+
+    result = cleanup_race_data(race)
+
+    assert result["wix_thumbnails_upgraded"] == 0
+    assert race["candidates"][0]["image_url"] == url
