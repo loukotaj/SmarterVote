@@ -594,7 +594,46 @@ def _looks_like_non_photo(url: str, alt: str = "") -> bool:
         return True
     if _looks_like_archival_photo(url):
         return True
+    if _looks_like_ui_icon_asset(url):
+        return True
+    if _is_seo_spam_host(url):
+        return True
     return _looks_like_site_furniture(haystack)
+
+
+# Material Design ships icons at density-independent sizes ("_28dp"), and sites
+# group their social glyphs under a shared directory.
+_UI_ICON_PATTERNS = (
+    re.compile(r"_\d{2,3}dp(?:[-_.]|$)"),
+    re.compile(r"/(?:sociallinks|social-icons?|icons?)/"),
+)
+
+
+def _looks_like_ui_icon_asset(url: str) -> bool:
+    """True for page furniture the image picker mistook for a portrait.
+
+    IN-04 stored Google's 290-byte white LinkedIn glyph,
+    "ssl.gstatic.com/atari/images/sociallinks/linkedin_white_28dp.png", as
+    David Bokash's headshot -- the "photo" nearest his name on the page was the
+    icon of the link to his profile.
+    """
+    path = unquote(urlparse(url).path).lower()
+    return any(pattern.search(path) for pattern in _UI_ICON_PATTERNS)
+
+
+# Indonesian gambling-spam SEO farms recycle image hosts.  "situs" ("site") and
+# these operator names never appear in an English-language campaign photo.
+_SEO_SPAM_PATTERN = re.compile(r"(?:^|[^a-z])(?:situs|judi|bandar|pkv|sbobet|slot[-_]?gacor)(?:[^a-z]|$)")
+
+
+def _is_seo_spam_host(url: str) -> bool:
+    """True for a photo served from a search-spam farm.
+
+    IN-04 published its incumbent's portrait from
+    "imgstore.io/images/2026/05/26/platform-situs-toto-1.webp" -- an online
+    gambling spam asset, not a photograph of Jim Baird.
+    """
+    return bool(_SEO_SPAM_PATTERN.search(unquote(url).lower()))
 
 
 def _looks_like_archival_photo(url: str) -> bool:
