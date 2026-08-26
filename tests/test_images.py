@@ -1032,3 +1032,32 @@ def test_ordinary_paths_containing_og_are_not_social_cards():
 )
 def test_real_headshots_survive_endorsement_badge_rule(url):
     assert _looks_like_non_photo(url) is False
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        # MediaWiki also disambiguates with a hyphenated suffix, which reads as
+        # part of the name to every other check.
+        "https://upload.wikimedia.org/wikipedia/commons/4/49/Peter_Williams_-_JPS_Norton_cropped.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/2/2a/Cliff_Johnson_-_Houston_Astros.jpg",
+    ],
+)
+def test_hyphenated_namesake_portraits_are_rejected(url):
+    assert _looks_like_non_photo(url) is True
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        # A hyphen inside an ordinary official-portrait name must survive.
+        "https://upload.wikimedia.org/wikipedia/commons/x/xx/Maad_Abu-Ghazalah.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/x/xx/Sen._Marsha_Blackburn_-_official_portrait.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/x/xx/Jane_Doe_-_119th_Congress.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/x/xx/Jane_Doe_-_North_Carolina.jpg",
+        # Non-Wikimedia hosts are out of scope for this rule.
+        "https://example.com/photos/john-smith-city-council.jpg",
+    ],
+)
+def test_genuine_portraits_survive_hyphenated_namesake_rule(url):
+    assert _looks_like_non_photo(url) is False

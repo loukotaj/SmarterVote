@@ -5,7 +5,7 @@ import logging
 import re
 import unicodedata
 from html.parser import HTMLParser
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, Iterator, List, Optional, Tuple
 from urllib.parse import unquote, urljoin, urlparse
 
 import httpx
@@ -787,6 +787,11 @@ def _is_wikimedia_occupational_namesake(url: str) -> bool:
     candidate, "Ryan_Kelly_(American_football)" a Colts lineman, and
     "James_Burke_(science_historian)" the television presenter.
 
+    MediaWiki also breaks ties with a hyphenated suffix rather than a
+    parenthetical, which reads as part of the name to every check here:
+    "Peter_Williams_-_JPS_Norton_cropped.JPG" was a helmeted motorcycle racer
+    stored for a LA-02 candidate.
+
     Qualifiers carrying a digit ("(119th Congress)", "(1)", "(3x4)", Flickr
     ids), a party-state tag ("(R-TN)"), or a political/file word are how
     genuine official portraits are named, so they are left alone.
@@ -794,17 +799,77 @@ def _is_wikimedia_occupational_namesake(url: str) -> bool:
     if urlparse(url).netloc.lower() not in {"upload.wikimedia.org", "commons.wikimedia.org"}:
         return False
     basename = unquote(urlparse(url).path).rsplit("/", 1)[-1].lower()
-    for match in re.finditer(r"\(([^)]*)\)", basename):
-        inner = match.group(1).strip()
-        if any(character.isdigit() for character in inner):
-            continue
-        if _PARTY_STATE_TAG.match(inner):
-            continue
-        words = set(re.findall(r"[a-z]+", inner))
-        if not words or words & _WIKIMEDIA_SAFE_QUALIFIERS or words & _US_STATE_WORDS:
-            continue
-        return True
+    for qualifier in _wikimedia_qualifiers(basename):
+        if _is_namesake_qualifier(qualifier):
+            return True
     return False
+
+
+def _wikimedia_qualifiers(basename: str) -> Iterator[str]:
+    """Yield each disambiguating qualifier MediaWiki appended to a filename."""
+    for match in re.finditer(r"\(([^)]*)\)", basename):
+        yield match.group(1)
+    stem = re.sub(r"\.[a-z0-9]{2,4}$", "", basename)
+    # Strip parentheticals first so " - " inside one is not read as a suffix.
+    stem = re.sub(r"\([^)]*\)", " ", stem)
+    hyphenated = re.search(r"[_ ]-[_ ](.+)$", stem)
+    if hyphenated:
+        yield hyphenated.group(1)
+
+
+# Words describing what was done to the file, not who is in it.  They are
+# appended *after* a disambiguating qualifier ("Peter Williams - JPS Norton
+# cropped"), so they must be removed before the qualifier is judged.
+_FILE_PROCESSING_WORDS = frozenset(
+    {
+        "alt",
+        "background",
+        "bw",
+        "clean",
+        "color",
+        "colour",
+        "copy",
+        "crop",
+        "cropped",
+        "cutout",
+        "dark",
+        "edit",
+        "edited",
+        "final",
+        "flipped",
+        "grayscale",
+        "greyscale",
+        "large",
+        "light",
+        "loose",
+        "new",
+        "old",
+        "resized",
+        "retouched",
+        "rotated",
+        "scaled",
+        "small",
+        "square",
+        "thumb",
+        "tight",
+        "transparent",
+        "uncropped",
+        "wide",
+    }
+)
+
+
+def _is_namesake_qualifier(qualifier: str) -> bool:
+    """True when a qualifier describes somebody other than a candidate."""
+    inner = qualifier.strip()
+    if any(character.isdigit() for character in inner):
+        return False
+    if _PARTY_STATE_TAG.match(inner):
+        return False
+    words = set(re.findall(r"[a-z]+", inner)) - _FILE_PROCESSING_WORDS
+    if not words or words & _WIKIMEDIA_SAFE_QUALIFIERS or words & _US_STATE_WORDS:
+        return False
+    return True
 
 
 _ENDORSEMENT_BADGE_PATTERNS = (
