@@ -450,3 +450,50 @@ def test_general_election_day_is_computed_not_hardcoded():
     assert _general_election_day(2028) == "2028-11-07"
     # 2029: Nov 1 is a Thursday, so the first Monday is the 5th and the day is the 6th.
     assert _general_election_day(2029) == "2029-11-06"
+
+
+def test_education_entries_without_institution_are_dropped():
+    """A null institution fails RaceJSON validation for the entire race."""
+    race = {
+        "candidates": [
+            {
+                "name": "Bob Smith",
+                "education": [
+                    {"institution": None, "degree": "Master of Science", "field": "Systems Engineering"},
+                    {"institution": "   ", "degree": "Bachelor of Science"},
+                    "Master of Arts",
+                    None,
+                    {"institution": "Naval Postgraduate School", "degree": "M.S."},
+                ],
+            }
+        ]
+    }
+
+    result = cleanup_race_data(race)
+
+    assert result["schema_invalid_entries_removed"] == 4
+    assert race["candidates"][0]["education"] == [{"institution": "Naval Postgraduate School", "degree": "M.S."}]
+
+
+def test_education_without_institution_makes_race_schema_valid():
+    """The cleaned race must satisfy the RaceJSON education contract."""
+    from shared.models import EducationEntry
+
+    race = {"candidates": [{"name": "Bob Smith", "education": [{"institution": None, "degree": "M.S."}]}]}
+    cleanup_race_data(race)
+
+    for entry in race["candidates"][0]["education"]:
+        EducationEntry.model_validate(entry)
+
+
+def test_complete_education_entries_survive():
+    race = {
+        "candidates": [
+            {"name": "A", "education": [{"institution": "State University", "degree": "B.A.", "year": 1998}]},
+        ]
+    }
+
+    result = cleanup_race_data(race)
+
+    assert result["schema_invalid_entries_removed"] == 0
+    assert len(race["candidates"][0]["education"]) == 1

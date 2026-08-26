@@ -107,7 +107,13 @@ def _race_retrieved_urls(race_data: Dict[str, Any]) -> set[str]:
         add(candidate.get("website"))
         add(candidate.get("donor_source_url"))
         add(candidate.get("voting_source_url"))
-        for field in ("summary_sources", "roster_sources", "donor_sources", "voting_sources", "links"):
+        for field in (
+            "summary_sources",
+            "roster_sources",
+            "donor_sources",
+            "voting_sources",
+            "links",
+        ):
             add_sources(candidate.get(field))
         issues = candidate.get("issues")
         if isinstance(issues, dict):
@@ -184,7 +190,12 @@ def _prune_incomplete_poll_matchups(race_data: Dict[str, Any]) -> int:
 # one, and 52 candidates across 46 published races had it stored as their
 # headshot.  Two candidates in the same race sharing it also defeats the
 # duplicate-image guard, since it is a legitimately shared URL.
-_PLACEHOLDER_IMAGE_MARKERS = ("submitphoto", "no-image-available", "noimageavailable", "placeholder-avatar")
+_PLACEHOLDER_IMAGE_MARKERS = (
+    "submitphoto",
+    "no-image-available",
+    "noimageavailable",
+    "placeholder-avatar",
+)
 
 
 def _is_placeholder_image(url: Any) -> bool:
@@ -256,7 +267,12 @@ def _correct_general_election_date(race_data: Dict[str, Any]) -> int:
     determined: a general election is the first Tuesday after the first Monday
     in November.
     """
-    if race_data.get("contest_stage") not in {"post_primary_general", "top_two", "uncontested", "runoff"}:
+    if race_data.get("contest_stage") not in {
+        "post_primary_general",
+        "top_two",
+        "uncontested",
+        "runoff",
+    }:
         return 0
     race_id = str(race_data.get("id") or "")
     match = re.search(r"(20\d{2})", race_id)
@@ -277,6 +293,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
     forecast_sources_added = 0
     invalid_social_links_removed = 0
     placeholder_fields_cleared = 0
+    schema_invalid_entries_removed = 0
     fabricated_lineage_removed = 0
     incomplete_matchups_removed = _prune_incomplete_poll_matchups(race_data)
     unusable_images_cleared = _strip_shared_candidate_images(race_data)
@@ -292,7 +309,11 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
 
     description = str(race_data.get("description") or "")
     jurisdiction = str(race_data.get("jurisdiction") or "").strip()
-    district_match = re.search(r"\b\d+(?:st|nd|rd|th) Congressional District race\b", description, re.IGNORECASE)
+    district_match = re.search(
+        r"\b\d+(?:st|nd|rd|th) Congressional District race\b",
+        description,
+        re.IGNORECASE,
+    )
     if jurisdiction and district_match:
         damaged_prefix = description[: district_match.start()]
         if damaged_prefix.count("'s") >= 4 or any(ord(char) > 127 for char in damaged_prefix):
@@ -308,7 +329,12 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
             if after != before:
                 candidate[field] = after
                 text_changes += 1
-        for field in ("summary_sources", "donor_sources", "voting_sources", "roster_sources"):
+        for field in (
+            "summary_sources",
+            "donor_sources",
+            "voting_sources",
+            "roster_sources",
+        ):
             before = candidate.get(field)
             after = _dedupe_sources(before)
             if isinstance(before, list) and isinstance(after, list):
@@ -331,6 +357,18 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
         # reviewers correctly flag as an invalid placeholder — costing grade
         # points for a defect no amount of further research can resolve. Clear
         # it here, before the review phase reads the race.
+        # ``EducationEntry.institution`` is a required string.  A model that
+        # knows the degree but not the school emits ``institution: null``,
+        # which fails RaceJSON validation for the *whole* race — CA-24 was
+        # blocked from publishing 24 researched issue stances by two such
+        # entries.  A credential with no institution carries no information
+        # worth keeping, so drop it rather than invent a school.
+        education = candidate.get("education")
+        if isinstance(education, list):
+            usable = [entry for entry in education if isinstance(entry, dict) and str(entry.get("institution") or "").strip()]
+            schema_invalid_entries_removed += len(education) - len(usable)
+            candidate["education"] = usable
+
         for history_field, year_fields in (
             ("education", ("year",)),
             ("career_history", ("start_year", "end_year")),
@@ -448,6 +486,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
         "incomplete_matchups_removed": incomplete_matchups_removed,
         "unusable_images_cleared": unusable_images_cleared,
         "election_dates_corrected": election_dates_corrected,
+        "schema_invalid_entries_removed": schema_invalid_entries_removed,
         "poll_count_corrections": poll_count_corrections,
     }
 
