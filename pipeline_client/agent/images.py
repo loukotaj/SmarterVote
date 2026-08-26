@@ -366,9 +366,14 @@ _GENERIC_CARD_MARKERS = (
 _MEMORIAL_IMAGE_MARKERS = (
     "/obituaries/",
     "/obituary/",
+    "/deceased/",
+    "/in-memoriam/",
     "findagrave",
     "funeralhome",
     "funeral-home",
+    "legacy.com",
+    "tributearchive",
+    "dignitymemorial",
 )
 
 # Assets served out of a CMS theme/template directory *may* be site furniture —

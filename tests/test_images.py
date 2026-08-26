@@ -873,3 +873,19 @@ def test_crowdfunding_platform_images_are_rejected():
     assert _looks_like_non_photo("https://images.gofundme.com/HiJ6EOPm6pF39agEz0M8I9plzx8=/1200x900/x.jpg")
     assert _looks_like_non_photo("https://www.kickstarter.com/assets/x.png")
     assert not _looks_like_non_photo("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Joe_Wilson.jpeg")
+
+
+def test_memorial_and_obituary_hosts_are_rejected():
+    """An obituary portrait is of someone who has died, not a candidate.
+
+    ca-house-10-2026 stored "jackava.b-cdn.net/deceased/d_1758200993193.webp"
+    for Jeffrey Frese. The marker list already covered /obituaries/ and
+    funeral homes but not /deceased/, which is the path memorial CDNs
+    actually use.
+    """
+    assert _looks_like_non_photo("https://jackava.b-cdn.net/deceased/d_1758200993193.webp")
+    assert _looks_like_non_photo("https://example.org/in-memoriam/portrait.jpg")
+    assert _looks_like_non_photo("https://www.legacy.com/obituaries/name/x-obituary")
+    assert _looks_like_non_photo("https://tributearchive.com/x/y.jpg")
+    # An ordinary candidate portrait is untouched.
+    assert not _looks_like_non_photo("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Joe_Wilson.jpeg")
