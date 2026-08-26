@@ -935,6 +935,19 @@ def test_wikimedia_occupational_namesakes_are_rejected(url):
 @pytest.mark.parametrize(
     "url",
     [
+        "https://casasforcongress.com/wp-content/uploads/2024/01/cagop-candidate-1024x985.png",
+        "https://example.com/img/txgop-endorsed.png",
+        "https://example.com/img/endorsed.jpg",
+        "https://example.com/img/endorsement-seal.png",
+    ],
+)
+def test_endorsement_badges_are_rejected(url):
+    assert _looks_like_non_photo(url) is True
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
         # Real official portraits are disambiguated by Congress number, a
         # sequence number, a Flickr id, a party-state tag, or a crop note.
         "https://upload.wikimedia.org/wikipedia/commons/a/ab/Jimmy_Gomez_official_portrait_%28light_crop%29.jpg",
@@ -968,3 +981,17 @@ def test_ordinary_paths_containing_og_are_not_social_cards():
     """ "og" must match a whole path segment, not a fragment of a word."""
     assert _looks_like_non_photo("https://example.com/photos/ogden-mayor-jane-doe.jpg") is False
     assert _looks_like_non_photo("https://example.com/blog/candidate-headshot.jpg") is False
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        # A real surname must survive: no party-organisation prefix, no badge word.
+        "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Judy_Chu.jpg",
+        "https://example.com/img/Andrew_Sneed_2025.jpeg",
+        # "Endorsements" as a page/section slug in the path, not the filename.
+        "https://example.com/endorsements/maria-gomez-headshot.jpg",
+    ],
+)
+def test_real_headshots_survive_endorsement_badge_rule(url):
+    assert _looks_like_non_photo(url) is False
