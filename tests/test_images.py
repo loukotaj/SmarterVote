@@ -894,6 +894,18 @@ def test_memorial_and_obituary_hosts_are_rejected():
 @pytest.mark.parametrize(
     "url",
     [
+        "https://ssl.gstatic.com/atari/images/sociallinks/linkedin_white_28dp.png",
+        "https://example.com/assets/icons/twitter.png",
+        "https://example.com/img/facebook_24dp.png",
+    ],
+)
+def test_ui_icon_assets_are_rejected(url):
+    assert _looks_like_non_photo(url) is True
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
         "https://www.wittaforcongress.com/images/og-image.jpg",
         "https://hannonforcongress.com/social-card.png",
         "https://example.com/assets/og_image.png",
@@ -935,6 +947,18 @@ def test_wikimedia_occupational_namesakes_are_rejected(url):
 @pytest.mark.parametrize(
     "url",
     [
+        "https://imgstore.io/images/2026/05/26/platform-situs-toto-1.webp",
+        "https://example.com/img/judi-online.jpg",
+        "https://example.com/img/slot-gacor.png",
+    ],
+)
+def test_seo_spam_images_are_rejected(url):
+    assert _looks_like_non_photo(url) is True
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
         "https://casasforcongress.com/wp-content/uploads/2024/01/cagop-candidate-1024x985.png",
         "https://example.com/img/txgop-endorsed.png",
         "https://example.com/img/endorsed.jpg",
@@ -943,6 +967,19 @@ def test_wikimedia_occupational_namesakes_are_rejected(url):
 )
 def test_endorsement_badges_are_rejected(url):
     assert _looks_like_non_photo(url) is True
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        # Real surnames and place names must not trip the spam tokens.
+        "https://example.com/photos/hiroshi-bandara.jpg",
+        "https://example.com/photos/candidate-from-totowa.jpg",
+        "https://example.com/photos/judith-alvarez.jpg",
+    ],
+)
+def test_real_names_survive_seo_spam_rule(url):
+    assert _looks_like_non_photo(url) is False
 
 
 @pytest.mark.parametrize(
