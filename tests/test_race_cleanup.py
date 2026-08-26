@@ -486,11 +486,11 @@ def test_wix_urls_without_a_transform_are_left_alone():
 
 def test_legitimate_wix_transforms_are_left_alone():
     ordinary_crop = (
-        "https://static.wixstatic.com/media/photo~mv2.jpg"
-        "/v1/crop/x_10,y_20,w_1200,h_1500/fill/w_800,h_1000,al_c,q_90/photo.jpg"
+        "https://static.wixstatic.com/media/photo-a~mv2.jpg"
+        "/v1/crop/x_10,y_20,w_1200,h_1500/fill/w_800,h_1000,al_c,q_90/photo-a.jpg"
     )
     large_blurred_render = (
-        "https://static.wixstatic.com/media/photo~mv2.jpg" "/v1/fill/w_1200,h_1500,al_c,q_90,blur_2/photo.jpg"
+        "https://static.wixstatic.com/media/photo-b~mv2.jpg" "/v1/fill/w_1200,h_1500,al_c,q_90,blur_2/photo-b.jpg"
     )
     race = {
         "candidates": [
