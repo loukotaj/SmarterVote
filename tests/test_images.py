@@ -1064,6 +1064,47 @@ def test_genuine_portraits_survive_hyphenated_namesake_rule(url):
     assert _looks_like_non_photo(url) is False
 
 
+@pytest.mark.parametrize(
+    "url,name",
+    [
+        # Photo jargon is not a name.  Ballotpedia keeps whatever the uploader's
+        # camera roll or CMS called the file; all three of these are the RIGHT
+        # person, verified by eye.
+        ("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Press-pic-2_20260617_052426.jpg", "Da'Shone Hughey"),
+        ("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/LankfordPost-2_20260629_205343.jpeg", "Jena Nelson"),
+        (
+            "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Screenshot-20260625-122137-Gallery.jpg",
+            "Curtis Goodwin",
+        ),
+    ],
+)
+def test_photo_jargon_filenames_are_not_read_as_another_person(url, name):
+    assert _is_mismatched_person_filename(url, name) is False
+
+
+@pytest.mark.parametrize(
+    "url,name",
+    [
+        # A filename naming a real, different person must still be caught.
+        ("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Audrey_Hatch_20240808.jpg", "Dan Osborn"),
+        ("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Randy_Weber.jpg", "Thurman Bill Bartie"),
+    ],
+)
+def test_real_other_person_filenames_are_still_caught(url, name):
+    assert _is_mismatched_person_filename(url, name) is True
+
+
+def test_a_lone_name_token_beside_jargon_is_not_enough_to_condemn():
+    """Stripping jargon can leave one token, and one token proves nothing.
+
+    "Press_Hatch_2026" reduces to just "hatch", which is as consistent with a
+    photographer credit or a place as with another candidate, so the rule's
+    two-token floor correctly declines to reject.
+    """
+    url = "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Press_Hatch_2026.jpg"
+    assert _is_mismatched_person_filename(url, "Dan Osborn") is False
+
+
 def test_commons_resolved_image_must_match_the_candidate_name():
     wrong_person = "https://upload.wikimedia.org/wikipedia/commons/a/ab/Jane_Doe_portrait.jpg"
     assert _looks_like_non_photo(wrong_person) is False

@@ -199,6 +199,29 @@ _FILENAME_NON_NAME_TOKENS = frozenset(
         "rep",
         "sen",
         "gov",
+        # Photo jargon a self-submitting candidate leaves in the filename.
+        # Ballotpedia keeps whatever the uploader's camera roll or CMS called
+        # the file, so "Press-pic-2" and "Screenshot-…-Gallery" were reading as
+        # first/last name pairs and condemning correct portraits.
+        "avatar",
+        "banner",
+        "default",
+        "edit",
+        "file",
+        "gallery",
+        "hero",
+        "media",
+        "old",
+        "photos",
+        "pic",
+        "pics",
+        "post",
+        "press",
+        "resized",
+        "scaled",
+        "screenshot",
+        "shot",
+        "upload",
     }
 )
 
