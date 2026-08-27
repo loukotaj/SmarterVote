@@ -12,6 +12,7 @@ async def run_image_resolution_phase(ctx: PhaseContext) -> None:
     race_id = ctx.race_id
     selected_name_set = ctx.selected_name_set
     small_model = ctx.small_model
+    image_vision_model = ctx.image_vision_model
     on_log = ctx.on_log
     max_iterations = ctx.max_iterations
     step_enabled = ctx.step_enabled
@@ -43,6 +44,7 @@ async def run_image_resolution_phase(ctx: PhaseContext) -> None:
         },
         agent_loop_fn=_agent_loop,
         model=small_model,
+        image_vision_model=image_vision_model,
         on_log=on_log,
         race_id=race_id,
         max_iterations=min(max_iterations, 10),

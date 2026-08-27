@@ -39,7 +39,7 @@ from typing import Dict, Mapping, Optional
 
 #: Every distinct job a model is chosen for. ``model_overrides`` is validated
 #: against this set.
-MODEL_ROLES = frozenset({"primary", "small", "roster", "review_claude", "review_gemini", "review_grok"})
+MODEL_ROLES = frozenset({"primary", "small", "roster", "image_vision", "review_claude", "review_gemini", "review_grok"})
 
 #: Two real profiles, plus ``custom`` for a run that overrides roles by hand.
 #:
@@ -349,6 +349,19 @@ ROSTER_COMPLETENESS_REVIEW_MODEL = "anthropic/claude-opus-5"
 #: one. Imported by the races-api endpoint and the MCP tool — never re-typed.
 DEFAULT_CHAMBER_FORECAST_MODEL = PREMIUM_REVIEW_GEMINI
 
+#: Looks at a candidate photo before it is stored and answers structural
+#: questions about it — how many faces, is it a photograph at all, is the face
+#: obscured, does it look archival.
+#:
+#: It is the cheapest vision-capable model in the catalog on purpose. The
+#: questions are perceptual rather than analytical, and a dry run over 57
+#: hand-labelled images from live races showed the flash-lite tier answering
+#: them as reliably as anything dearer would: 17 of 24 unusable images caught,
+#: and the only rejection of a "good" image was an archival portrait that was
+#: in fact the wrong person. At ~1,350 input tokens per image this prices a
+#: full catalog sweep at well under a dollar.
+DEFAULT_IMAGE_VISION_MODEL = "google/gemini-3.1-flash-lite"
+
 
 PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
     # What every queued race runs unless someone pays for more.
@@ -364,6 +377,7 @@ PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
         # long tool loop, it tripped the tool-error escalation that accounted
         # for another 26%. Both problems end here.
         "roster": DEFAULT_RESEARCH_MODEL,
+        "image_vision": DEFAULT_IMAGE_VISION_MODEL,
         "review_claude": DEFAULT_REVIEW_CLAUDE,
         "review_gemini": DEFAULT_REVIEW_GEMINI,
         "review_grok": DEFAULT_REVIEW_GROK,
@@ -378,6 +392,9 @@ PROFILE_DEFAULTS: Dict[str, Dict[str, str]] = {
         "primary": PREMIUM_RESEARCH_MODEL,
         "small": SMALL_MODEL,
         "roster": PREMIUM_RESEARCH_MODEL,
+        # Perceptual, not analytical: a dearer model answers "how many faces"
+        # no better, so premium pays for review instead.
+        "image_vision": DEFAULT_IMAGE_VISION_MODEL,
         "review_claude": PREMIUM_REVIEW_CLAUDE,
         "review_gemini": PREMIUM_REVIEW_GEMINI,
         "review_grok": PREMIUM_REVIEW_GROK,

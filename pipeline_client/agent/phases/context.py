@@ -40,6 +40,7 @@ class PhaseContext:
     max_iterations: int
     step_enabled: Any
     track: Any
+    image_vision_model: str = ""
     run_budget: Optional[RunBudget] = None
 
     is_update: bool = False

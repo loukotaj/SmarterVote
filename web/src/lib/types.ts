@@ -471,6 +471,8 @@ export interface RunOptions {
     primary?: string;
     small?: string;
     roster?: string;
+    /** Looks at a resolved candidate photo before it is stored. */
+    image_vision?: string;
     review_claude?: string;
     review_gemini?: string;
     review_grok?: string;
