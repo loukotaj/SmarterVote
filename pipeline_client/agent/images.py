@@ -2,6 +2,7 @@
 
 import asyncio
 import logging
+import os
 import re
 import unicodedata
 from html.parser import HTMLParser
@@ -10,7 +11,10 @@ from urllib.parse import unquote, urljoin, urlparse
 
 import httpx
 
+from shared.model_catalog import DEFAULT_IMAGE_VISION_MODEL
+
 from .ballotpedia import lookup_candidate_image as _ballotpedia_lookup
+from .image_vision import inspect_candidate_photo
 from .run_budget import RunBudget, RunBudgetExceeded
 from .utils import make_logger
 from .web_tools import _serper_image_search
@@ -1787,6 +1791,36 @@ async def _resolve_single_image(
         log("warning", f"  [{name}] Image resolution error: {exc}")
 
 
+async def _discard_if_not_a_headshot(candidate: Dict[str, Any], *, on_log: Optional[Callable] = None) -> None:
+    """Look at the chosen photo and clear it if it is not a usable headshot.
+
+    Runs after URL-based resolution because it answers what no filename can:
+    ``Andrew_Rice.jpg`` was a man in front of the Oklahoma state flag,
+    ``11198004.jpeg`` a child in a baseball uniform, ``jumbotron.png`` a bridge.
+
+    A missing key or an unreachable provider yields no opinion, and no opinion
+    leaves the image alone — an outage is not evidence against a photograph.
+    """
+    url = candidate.get("image_url")
+    if not url:
+        return
+
+    api_key = os.getenv("OPENROUTER_API_KEY", "")
+    if not api_key:
+        return
+
+    log = make_logger(on_log)
+    name = candidate.get("name", "unknown")
+    verdict = await inspect_candidate_photo(url, model=DEFAULT_IMAGE_VISION_MODEL, api_key=api_key)
+    if verdict is None:
+        return
+    if not verdict.usable:
+        log("info", f"  [{name}] Image rejected on inspection ({verdict.reason}) - clearing")
+        candidate["image_url"] = None
+    elif verdict.has_branding:
+        log("info", f"  [{name}] Image kept, but it carries overlaid text")
+
+
 async def resolve_candidate_images(
     race_json: Dict[str, Any],
     *,
@@ -1830,6 +1864,7 @@ async def resolve_candidate_images(
             await asyncio.wait_for(resolve_call, timeout=timeout)
         else:
             await resolve_call
+        await _discard_if_not_a_headshot(c, on_log=on_log)
         done += 1
         if on_progress:
             try:

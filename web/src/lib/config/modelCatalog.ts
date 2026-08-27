@@ -265,6 +265,7 @@ export const PROFILE_DEFAULTS: Record<string, Record<string, string>> = {
     "primary": "deepseek/deepseek-v4-flash-0731",
     "small": "openai/gpt-5.6-luna",
     "roster": "deepseek/deepseek-v4-flash-0731",
+    "image_vision": "google/gemini-3.1-flash-lite",
     "review_claude": "anthropic/claude-haiku-4.5",
     "review_gemini": "google/gemini-3.5-flash-lite",
     "review_grok": "x-ai/grok-4.3"
@@ -273,6 +274,7 @@ export const PROFILE_DEFAULTS: Record<string, Record<string, string>> = {
     "primary": "openai/gpt-5.6-sol",
     "small": "openai/gpt-5.6-luna",
     "roster": "openai/gpt-5.6-sol",
+    "image_vision": "google/gemini-3.1-flash-lite",
     "review_claude": "anthropic/claude-sonnet-5",
     "review_gemini": "google/gemini-3.7-flash",
     "review_grok": "x-ai/grok-4.6"
