@@ -617,6 +617,8 @@ def _looks_like_non_photo(url: str, alt: str = "") -> bool:
         return True
     if _looks_like_archival_photo(url):
         return True
+    if _is_video_thumbnail(url):
+        return True
     if _looks_like_ui_icon_asset(url):
         return True
     if _is_seo_spam_host(url):
@@ -913,6 +915,29 @@ def _looks_like_endorsement_badge(url: str) -> bool:
     """
     basename = unquote(urlparse(url).path).rsplit("/", 1)[-1].lower()
     return any(pattern.search(basename) for pattern in _ENDORSEMENT_BADGE_PATTERNS)
+
+
+# A video platform's thumbnail endpoint returns a frame from a video, never a
+# portrait somebody chose to represent themselves with.
+_VIDEO_THUMBNAIL_HOSTS = re.compile(
+    r"^(?:i\d*\.ytimg\.com|img\.youtube\.com|vumbnail\.com|(?:i\.)?[a-z0-9-]*\.?vimeocdn\.com)$"
+)
+
+
+def _is_video_thumbnail(url: str) -> bool:
+    """True for a still frame lifted from a video.
+
+    The picker matches on words near the image, so a video *title* containing
+    the candidate's name is enough to select the frame: MI-06 stored an
+    Adelaide Footy League thumbnail, "CATCHING UP WITH TIM & TEAGAN!", for
+    candidate Tim Teagan, and MD-04 and CO-07 stored split-screen podcast
+    thumbnails showing two people.
+    """
+    try:
+        netloc = urlparse(url).netloc.lower()
+    except Exception:
+        return False
+    return bool(_VIDEO_THUMBNAIL_HOSTS.match(netloc))
 
 
 def _looks_like_archival_photo(url: str) -> bool:
