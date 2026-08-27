@@ -232,3 +232,26 @@ def test_inspection_records_provider_usage_and_app_headers(monkeypatch):
     assert calls[0]["headers"]["HTTP-Referer"] == "https://smarter.vote"
     assert calls[0]["headers"]["X-Title"] == "SmarterVote"
     assert recorded == [((12, 4, "test/model"), {"cost_usd": 0.00003})]
+
+
+def test_casual_athletic_clothing_is_not_a_sports_photograph():
+    """A GA-14 candidate's own selfie in a running shirt was refused.
+
+    Competition kit distinguishes a sports photograph; a t-shirt does not.
+    """
+    assert verdict_from_observations(_seen(uniform_or_costume="athletic wear")).usable is True
+    # The NBA player the rule was written for is still caught.
+    assert verdict_from_observations(_seen(uniform_or_costume="sports jersey")).usable is False
+
+
+def test_sunglasses_alone_do_not_disqualify_a_portrait():
+    """Two candidates' own outdoor portraits were refused for them."""
+    seen = _seen(obscured_face=True, reason="subject is wearing sunglasses")
+
+    assert verdict_from_observations(seen).usable is True
+
+
+def test_a_genuinely_hidden_face_is_still_refused():
+    """A helmet or a mask still hides the person."""
+    assert verdict_from_observations(_seen(obscured_face=True, reason="face hidden by a helmet")).usable is False
+    assert verdict_from_observations(_seen(obscured_face=True, reason="subject turned away")).usable is False
