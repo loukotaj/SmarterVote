@@ -1167,3 +1167,32 @@ def test_advocacy_pledge_graphics_are_rejected(url):
 
 def test_unrelated_hosts_are_not_treated_as_pledge_graphics():
     assert _looks_like_non_photo("https://termlimitsnews.example.com/photos/jane-doe.jpg") is False
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        # MI-06 stored an Adelaide Footy League thumbnail, "CATCHING UP WITH
+        # TIM & TEAGAN!", for candidate Tim Teagan.
+        "https://i.ytimg.com/vi/eg2ndzcWDEo/hq720.jpg",
+        "https://i9.ytimg.com/vi/abc123/hqdefault.jpg",
+        "https://img.youtube.com/vi/abc123/0.jpg",
+        "https://vumbnail.com/123456.jpg",
+        "https://i.vimeocdn.com/video/123456_640.jpg",
+    ],
+)
+def test_video_thumbnails_are_rejected(url):
+    assert _looks_like_non_photo(url) is True
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        # Ordinary hosts that merely contain a video-ish word must survive.
+        "https://example.com/video-endorsement/jane-doe-headshot.jpg",
+        "https://youtube-candidate-news.example.com/photos/jane-doe.jpg",
+        "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Judy_Chu.jpg",
+    ],
+)
+def test_real_portraits_survive_video_thumbnail_rule(url):
+    assert _looks_like_non_photo(url) is False
