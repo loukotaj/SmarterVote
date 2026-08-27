@@ -1534,15 +1534,26 @@ async def _resolve_single_image(
         candidate["image_url"] = None
         current_url = None
 
+    if current_url and _looks_like_non_photo(current_url):
+        log(
+            "info",
+            f"  [{name}] Existing image is not a portrait of a candidate - discarding and re-searching",
+        )
+        candidate["image_url"] = None
+        current_url = None
+
     # Commons file-page URL: resolve via Special:FilePath redirect
     if current_url and "commons.wikimedia.org/wiki/File:" in current_url:
         log("info", f"  [{name}] Commons page URL detected — resolving via Special:FilePath")
         direct = await _resolve_wikimedia_commons(current_url)
-        if direct:
+        if direct and not _looks_like_non_photo(direct):
             candidate["image_url"] = direct
             log("info", f"  [{name}] Commons resolved → {direct[:80]}")
             return
-        log("info", f"  [{name}] Commons resolution failed — will search for replacement")
+        if direct:
+            log("info", f"  [{name}] Commons resolved to a non-portrait ({direct[:60]}) — searching for replacement")
+        else:
+            log("info", f"  [{name}] Commons resolution failed — will search for replacement")
         candidate["image_url"] = None
         current_url = None
 

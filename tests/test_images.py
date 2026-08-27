@@ -1061,3 +1061,43 @@ def test_hyphenated_namesake_portraits_are_rejected(url):
 )
 def test_genuine_portraits_survive_hyphenated_namesake_rule(url):
     assert _looks_like_non_photo(url) is False
+
+
+@pytest.mark.asyncio
+async def test_commons_resolution_does_not_bypass_the_non_photo_guards(monkeypatch):
+    """A Commons file page must be judged, not trusted because it resolved.
+
+    NJ-03 re-acquired "Ryan_Kelly_(American_football).JPG" — a Colts lineman —
+    the refresh after it had been repaired, because the Commons branch stored
+    whatever Special:FilePath returned and returned early.
+    """
+    from pipeline_client.agent import images as images_module
+
+    namesake = "https://upload.wikimedia.org/wikipedia/commons/5/5b/Ryan_Kelly_%28American_football%29.JPG"
+
+    async def fake_resolve(url):
+        return namesake
+
+    monkeypatch.setattr(images_module, "_resolve_wikimedia_commons", fake_resolve)
+
+    searched = {}
+
+    async def fake_search(*args, **kwargs):
+        searched["called"] = True
+        return None
+
+    monkeypatch.setattr(images_module, "_search_for_candidate_image", fake_search, raising=False)
+
+    candidate = {
+        "name": "Ryan Kelly",
+        "image_url": "https://commons.wikimedia.org/wiki/File:Ryan_Kelly_(American_football).JPG",
+    }
+
+    await images_module._resolve_single_image(
+        candidate,
+        agent_loop_fn=None,
+        model="test-model",
+        race_id="nj-house-03-2026",
+    )
+
+    assert candidate["image_url"] != namesake
