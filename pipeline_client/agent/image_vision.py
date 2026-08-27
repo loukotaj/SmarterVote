@@ -68,7 +68,8 @@ Answer with JSON and nothing else:
 "era" is "archival" when styling, grain or dress place the photograph before
 about 1990. "uniform_or_costume" names sports kit, military dress, religious
 vestments or similar, else null. "obscured_face" covers a helmet, a mask, or a
-subject too distant or turned away to identify."""
+subject too distant or turned away to identify. Sunglasses alone do not make a
+face obscured."""
 
 
 @dataclass(frozen=True)
@@ -110,7 +111,21 @@ def _only_sunglasses(observations: dict[str, Any]) -> bool:
     """
     if (observations.get("faces") or 0) < 1:
         return False
-    return "sunglass" in str(observations.get("reason") or "").lower()
+    reason = str(observations.get("reason") or "").lower()
+    if "sunglass" not in reason:
+        return False
+    other_obstructions = (
+        "helmet",
+        "mask",
+        "face shield",
+        "turned away",
+        "too distant",
+        "face hidden",
+        "face covered",
+        "face blocked",
+        "unidentifiable",
+    )
+    return not any(obstruction in reason for obstruction in other_obstructions)
 
 
 def verdict_from_observations(observations: dict[str, Any]) -> PhotoVerdict:

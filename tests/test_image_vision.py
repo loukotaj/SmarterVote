@@ -255,3 +255,15 @@ def test_a_genuinely_hidden_face_is_still_refused():
     """A helmet or a mask still hides the person."""
     assert verdict_from_observations(_seen(obscured_face=True, reason="face hidden by a helmet")).usable is False
     assert verdict_from_observations(_seen(obscured_face=True, reason="subject turned away")).usable is False
+
+
+@pytest.mark.parametrize(
+    "reason",
+    [
+        "subject has sunglasses and a face mask",
+        "sunglasses under a helmet",
+        "sunglasses but face is turned away",
+    ],
+)
+def test_sunglasses_do_not_override_another_obstruction(reason):
+    assert verdict_from_observations(_seen(obscured_face=True, reason=reason)).usable is False
