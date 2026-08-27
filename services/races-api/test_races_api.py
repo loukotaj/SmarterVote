@@ -921,6 +921,72 @@ def test_call_openrouter_retries_a_rate_limit_then_succeeds(monkeypatch):
     assert calls["n"] == 2
 
 
+def test_call_openrouter_retries_a_transient_error_inside_http_200(monkeypatch):
+    """OpenRouter can encode a 429 in a successful HTTP response."""
+    import chamber_narratives
+
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    calls = {"n": 0}
+    success = {"choices": [{"message": {"content": "{}"}}]}
+
+    class _Resp:
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            calls["n"] += 1
+            if calls["n"] == 1:
+                return {"error": {"message": "Rate limit exceeded", "code": 429}}
+            return success
+
+    class _Client:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *exc):
+            return False
+
+        async def post(self, *args, **kwargs):
+            return _Resp()
+
+    monkeypatch.setattr(chamber_narratives.httpx, "AsyncClient", lambda **kw: _Client())
+
+    async def _no_sleep(_seconds):
+        return None
+
+    monkeypatch.setattr(chamber_narratives.asyncio, "sleep", _no_sleep)
+
+    result = asyncio.run(chamber_narratives._call_openrouter([{"role": "user", "content": "x"}], model="m"))
+
+    assert result is success
+    assert calls["n"] == 2
+
+
+def test_call_openrouter_does_not_retry_a_full_read_timeout(monkeypatch):
+    import chamber_narratives
+
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    calls = {"n": 0}
+
+    class _Client:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *exc):
+            return False
+
+        async def post(self, *args, **kwargs):
+            calls["n"] += 1
+            raise httpx.ReadTimeout("generation timed out")
+
+    monkeypatch.setattr(chamber_narratives.httpx, "AsyncClient", lambda **kw: _Client())
+
+    with pytest.raises(httpx.ReadTimeout):
+        asyncio.run(chamber_narratives._call_openrouter([{"role": "user", "content": "x"}], model="m"))
+
+    assert calls["n"] == 1
+
+
 def test_call_openrouter_does_not_retry_a_client_error(monkeypatch):
     """A bad request will not fix itself, so retrying it only wastes time."""
     import chamber_narratives

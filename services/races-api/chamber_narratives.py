@@ -87,12 +87,28 @@ async def _call_openrouter(messages: list[dict[str, str]], *, model: str) -> dic
                     },
                 )
             resp.raise_for_status()
-            return resp.json()
+            data = resp.json()
+            error = data.get("error") if isinstance(data, dict) else None
+            raw_code = error.get("code") if isinstance(error, dict) else None
+            try:
+                error_code = int(raw_code)
+            except (TypeError, ValueError):
+                error_code = None
+            if error_code not in _RETRY_STATUS_CODES:
+                return data
+            message = error.get("message") or f"provider error {error_code}"
+            last_error = ValueError(f"OpenRouter returned an error instead of a completion: {message}")
         except httpx.HTTPStatusError as exc:
             if exc.response.status_code not in _RETRY_STATUS_CODES:
                 raise
             last_error = exc
-        except (httpx.TransportError, httpx.TimeoutException) as exc:
+        except httpx.ReadTimeout:
+            # A full 240-second generation timeout has already exceeded the
+            # request's useful wall-clock budget. Retrying it up to three more
+            # times would leave backend work running long after the gateway
+            # has given up.
+            raise
+        except httpx.TransportError as exc:
             last_error = exc
         if attempt < _MAX_ATTEMPTS - 1:
             await asyncio.sleep(2**attempt)
