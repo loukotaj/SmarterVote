@@ -6,6 +6,7 @@ from pipeline_client.agent.images import (
     _filename_person_tokens,
     _host_names_another_state,
     _is_mismatched_person_filename,
+    _is_rejected_candidate_image,
     _is_untrusted_wikimedia_match,
     _is_valid_image_url,
     _looks_like_archival_photo,
@@ -1102,3 +1103,49 @@ def test_a_lone_name_token_beside_jargon_is_not_enough_to_condemn():
     """
     url = "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Press_Hatch_2026.jpg"
     assert _is_mismatched_person_filename(url, "Dan Osborn") is False
+
+
+def test_commons_resolved_image_must_match_the_candidate_name():
+    wrong_person = "https://upload.wikimedia.org/wikipedia/commons/a/ab/Jane_Doe_portrait.jpg"
+    assert _looks_like_non_photo(wrong_person) is False
+    assert _is_rejected_candidate_image(wrong_person, "John Smith") is True
+
+
+@pytest.mark.asyncio
+async def test_commons_resolution_does_not_bypass_the_non_photo_guards(monkeypatch):
+    """A Commons file page must be judged, not trusted because it resolved.
+
+    NJ-03 re-acquired "Ryan_Kelly_(American_football).JPG" — a Colts lineman —
+    the refresh after it had been repaired, because the Commons branch stored
+    whatever Special:FilePath returned and returned early.
+    """
+    from pipeline_client.agent import images as images_module
+
+    namesake = "https://upload.wikimedia.org/wikipedia/commons/5/5b/Ryan_Kelly_%28American_football%29.JPG"
+
+    async def fake_resolve(url):
+        return namesake
+
+    monkeypatch.setattr(images_module, "_resolve_wikimedia_commons", fake_resolve)
+
+    searched = {}
+
+    async def fake_search(*args, **kwargs):
+        searched["called"] = True
+        return None
+
+    monkeypatch.setattr(images_module, "_search_for_candidate_image", fake_search, raising=False)
+
+    candidate = {
+        "name": "Ryan Kelly",
+        "image_url": "https://commons.wikimedia.org/wiki/File:Ryan_Kelly_(American_football).JPG",
+    }
+
+    await images_module._resolve_single_image(
+        candidate,
+        agent_loop_fn=None,
+        model="test-model",
+        race_id="nj-house-03-2026",
+    )
+
+    assert candidate["image_url"] != namesake
