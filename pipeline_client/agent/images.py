@@ -1476,6 +1476,15 @@ def _host_names_another_state(url: str, race_id: Optional[str]) -> bool:
     return False
 
 
+def _is_rejected_candidate_image(url: str, candidate_name: str) -> bool:
+    """Apply both generic and candidate-aware guards to a resolved image URL."""
+    return (
+        _looks_like_non_photo(url)
+        or _is_mismatched_person_filename(url, candidate_name)
+        or _is_untrusted_wikimedia_match(url, candidate_name)
+    )
+
+
 async def _resolve_single_image(
     candidate: Dict[str, Any],
     *,
@@ -1534,15 +1543,29 @@ async def _resolve_single_image(
         candidate["image_url"] = None
         current_url = None
 
+    if current_url and _looks_like_non_photo(current_url):
+        log(
+            "info",
+            f"  [{name}] Existing image is not a portrait of a candidate - discarding and re-searching",
+        )
+        candidate["image_url"] = None
+        current_url = None
+
     # Commons file-page URL: resolve via Special:FilePath redirect
     if current_url and "commons.wikimedia.org/wiki/File:" in current_url:
         log("info", f"  [{name}] Commons page URL detected — resolving via Special:FilePath")
         direct = await _resolve_wikimedia_commons(current_url)
-        if direct:
+        if direct and not _is_rejected_candidate_image(direct, name):
             candidate["image_url"] = direct
             log("info", f"  [{name}] Commons resolved → {direct[:80]}")
             return
-        log("info", f"  [{name}] Commons resolution failed — will search for replacement")
+        if direct:
+            log(
+                "info",
+                f"  [{name}] Commons resolved to a rejected or mismatched portrait ({direct[:60]}) — searching for replacement",
+            )
+        else:
+            log("info", f"  [{name}] Commons resolution failed — will search for replacement")
         candidate["image_url"] = None
         current_url = None
 
@@ -1666,9 +1689,12 @@ async def _resolve_single_image(
         if "commons.wikimedia.org/wiki/File:" in found_url:
             log("info", f"  [{name}] Agent URL is Commons page — resolving via Special:FilePath")
             direct = await _resolve_wikimedia_commons(found_url)
-            if direct:
+            if direct and not _is_rejected_candidate_image(direct, name):
                 candidate["image_url"] = direct
                 log("info", f"  [{name}] Commons resolved → {direct[:80]}")
+                return
+            if direct:
+                log("info", f"  [{name}] Agent Commons URL resolved to a rejected or mismatched portrait")
                 return
             log("info", f"  [{name}] Agent Commons URL resolution failed — no image stored")
             return
