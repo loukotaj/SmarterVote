@@ -6,6 +6,7 @@ from pipeline_client.agent.images import (
     _filename_person_tokens,
     _host_names_another_state,
     _is_mismatched_person_filename,
+    _is_rejected_candidate_image,
     _is_untrusted_wikimedia_match,
     _is_valid_image_url,
     _looks_like_archival_photo,
@@ -1061,6 +1062,12 @@ def test_hyphenated_namesake_portraits_are_rejected(url):
 )
 def test_genuine_portraits_survive_hyphenated_namesake_rule(url):
     assert _looks_like_non_photo(url) is False
+
+
+def test_commons_resolved_image_must_match_the_candidate_name():
+    wrong_person = "https://upload.wikimedia.org/wikipedia/commons/a/ab/Jane_Doe_portrait.jpg"
+    assert _looks_like_non_photo(wrong_person) is False
+    assert _is_rejected_candidate_image(wrong_person, "John Smith") is True
 
 
 @pytest.mark.asyncio
