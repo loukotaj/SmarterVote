@@ -68,7 +68,8 @@ Answer with JSON and nothing else:
 "era" is "archival" when styling, grain or dress place the photograph before
 about 1990. "uniform_or_costume" names sports kit, military dress, religious
 vestments or similar, else null. "obscured_face" covers a helmet, a mask, or a
-subject too distant or turned away to identify."""
+subject too distant or turned away to identify. Sunglasses alone do not make a
+face obscured."""
 
 
 @dataclass(frozen=True)
@@ -88,8 +89,43 @@ class PhotoVerdict:
 
 
 def _sports_kit(costume: Any) -> bool:
+    """True for competition kit, not for a candidate in a t-shirt.
+
+    "athletic wear" is deliberately absent: a sweep of every published image
+    flagged a GA-14 candidate's own selfie in a running shirt, which is an
+    ordinary self-submitted portrait. Competition kit -- a numbered jersey, a
+    team uniform -- is what actually distinguishes a sports photograph from a
+    candidate who happens to be dressed casually.
+    """
     text = str(costume or "").lower()
-    return any(word in text for word in ("sport", "jersey", "uniform kit", "athletic"))
+    return any(word in text for word in ("jersey", "sports uniform", "team uniform", "sports kit"))
+
+
+def _only_sunglasses(observations: dict[str, Any]) -> bool:
+    """True when the sole obstruction is sunglasses.
+
+    Two candidates' own outdoor portraits were refused for them. Rejecting
+    those leaves the profile with no picture at all rather than a slightly
+    awkward one, so only a genuinely unidentifiable subject -- a helmet, a
+    mask, someone turned away -- is refused.
+    """
+    if (observations.get("faces") or 0) < 1:
+        return False
+    reason = str(observations.get("reason") or "").lower()
+    if "sunglass" not in reason:
+        return False
+    other_obstructions = (
+        "helmet",
+        "mask",
+        "face shield",
+        "turned away",
+        "too distant",
+        "face hidden",
+        "face covered",
+        "face blocked",
+        "unidentifiable",
+    )
+    return not any(obstruction in reason for obstruction in other_obstructions)
 
 
 def verdict_from_observations(observations: dict[str, Any]) -> PhotoVerdict:
@@ -113,7 +149,7 @@ def verdict_from_observations(observations: dict[str, Any]) -> PhotoVerdict:
         return no("no face in the image")
     if faces is not None and faces >= 2:
         return no(f"{faces} people in the image")
-    if observations.get("obscured_face"):
+    if observations.get("obscured_face") and not _only_sunglasses(observations):
         return no("face is obscured")
     if observations.get("subject_is_child"):
         # Kept as a rejection on child-safety grounds, but it is the one rule
