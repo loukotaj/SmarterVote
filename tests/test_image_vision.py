@@ -9,6 +9,7 @@ import asyncio
 import httpx
 import pytest
 
+from pipeline_client.agent import images
 from pipeline_client.agent.image_vision import PhotoVerdict, inspect_candidate_photo, verdict_from_observations
 
 
@@ -165,3 +166,69 @@ def test_a_young_candidate_is_removed_but_flagged_for_a_human():
 
     assert verdict.usable is False
     assert "verify" in verdict.reason
+
+
+@pytest.mark.asyncio
+async def test_resolver_uses_selected_image_vision_model(monkeypatch):
+    candidate = {"name": "Candidate", "image_url": "https://example.com/a.jpg"}
+    seen = {}
+
+    async def resolved(*args, **kwargs):
+        return None
+
+    async def inspected(url, *, model, api_key, client=None):
+        seen.update(url=url, model=model)
+        return PhotoVerdict(True, "usable")
+
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    monkeypatch.setattr(images, "_resolve_single_image", resolved)
+    monkeypatch.setattr(images, "inspect_candidate_photo", inspected)
+
+    await images.resolve_candidate_images(
+        {"candidates": [candidate]},
+        agent_loop_fn=None,
+        model="search-model",
+        image_vision_model="custom/vision-model",
+    )
+
+    assert seen == {"url": candidate["image_url"], "model": "custom/vision-model"}
+
+
+def test_inspection_records_provider_usage_and_app_headers(monkeypatch):
+    calls = []
+
+    class _Resp:
+        content = b"\x89PNG\r\n"
+        headers = {"content-type": "image/png"}
+
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return {
+                "choices": [{"message": {"content": '{"faces": 1, "is_photograph": true}'}}],
+                "usage": {"prompt_tokens": 12, "completion_tokens": 4, "cost": 0.00003},
+            }
+
+    class _Client:
+        async def get(self, *args, **kwargs):
+            return _Resp()
+
+        async def post(self, *args, **kwargs):
+            calls.append(kwargs)
+            return _Resp()
+
+        async def aclose(self):
+            return None
+
+    recorded = []
+    monkeypatch.setattr("pipeline_client.agent.image_vision.accumulate", lambda *a, **kw: recorded.append((a, kw)))
+
+    verdict = asyncio.run(
+        inspect_candidate_photo("https://example.com/a.jpg", model="test/model", api_key="k", client=_Client())
+    )
+
+    assert verdict and verdict.usable
+    assert calls[0]["headers"]["HTTP-Referer"] == "https://smarter.vote"
+    assert calls[0]["headers"]["X-Title"] == "SmarterVote"
+    assert recorded == [((12, 4, "test/model"), {"cost_usd": 0.00003})]

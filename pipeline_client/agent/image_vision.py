@@ -35,10 +35,13 @@ import base64
 import json
 import logging
 import mimetypes
+import os
 from dataclasses import dataclass
 from typing import Any, Optional
 
 import httpx
+
+from .cost import accumulate
 
 logger = logging.getLogger("pipeline")
 
@@ -128,6 +131,24 @@ def verdict_from_observations(observations: dict[str, Any]) -> PhotoVerdict:
     return PhotoVerdict(True, said or "usable headshot", faces, era, overlaid)
 
 
+def _record_usage(body: dict[str, Any], model: str) -> None:
+    """Include the direct multimodal request in the run's normal cost totals."""
+    usage = body.get("usage")
+    if not isinstance(usage, dict):
+        accumulate(0, 0, model)
+        return
+    try:
+        cost = float(usage["cost"]) if usage.get("cost") is not None else None
+    except (TypeError, ValueError):
+        cost = None
+    accumulate(
+        int(usage.get("prompt_tokens") or 0),
+        int(usage.get("completion_tokens") or 0),
+        model,
+        cost_usd=cost,
+    )
+
+
 async def _fetch_image(url: str, client: httpx.AsyncClient) -> Optional[tuple[str, bytes]]:
     resp = await client.get(url, follow_redirects=True, timeout=30)
     resp.raise_for_status()
@@ -162,7 +183,11 @@ async def inspect_candidate_photo(
         encoded = base64.b64encode(payload).decode()
         resp = await client.post(
             "https://openrouter.ai/api/v1/chat/completions",
-            headers={"Authorization": f"Bearer {api_key}"},
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "HTTP-Referer": os.getenv("OPENROUTER_HTTP_REFERER", "https://smarter.vote"),
+                "X-Title": os.getenv("OPENROUTER_APP_TITLE", "SmarterVote"),
+            },
             json={
                 "model": model,
                 "messages": [
@@ -183,6 +208,7 @@ async def inspect_candidate_photo(
         body = resp.json()
         if body.get("error") or not body.get("choices"):
             return None
+        _record_usage(body, model)
         content = str(body["choices"][0]["message"]["content"]).strip()
         if content.startswith("```"):
             content = content.split("```")[1]
