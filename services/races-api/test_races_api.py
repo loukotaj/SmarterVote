@@ -8,6 +8,7 @@ Covers:
 - 404 for missing races
 """
 
+import asyncio
 import json
 import os
 import sys
@@ -17,6 +18,7 @@ import time
 from typing import Any
 from unittest.mock import MagicMock
 
+import httpx
 import pytest
 from fastapi.testclient import TestClient
 from simple_publish_service import SimplePublishService
@@ -839,3 +841,179 @@ def test_singleflight_cache_ttl_zero_coalesces_without_retaining(tmp_path):
     assert fetch_count == 1
     # cache_ttl=0 means results are not stored long-term
     assert service._race_summaries_cache is None
+
+
+def test_openrouter_error_payload_reports_the_provider_message():
+    """A rate limit arrives as HTTP 200 with an error object, not choices.
+
+    Indexing straight into the response turned that into a bare
+    KeyError: 'choices', which reached the caller as "chamber forecast
+    generation failed: 'choices'" and named no cause.
+    """
+    import chamber_narratives
+
+    payload = {"error": {"message": "Rate limit exceeded: free-models-per-day", "code": 429}}
+
+    with pytest.raises(ValueError) as excinfo:
+        chamber_narratives._extract_choice_content(payload)
+
+    assert "Rate limit exceeded" in str(excinfo.value)
+
+
+def test_openrouter_empty_choices_is_reported_clearly():
+    import chamber_narratives
+
+    with pytest.raises(ValueError) as excinfo:
+        chamber_narratives._extract_choice_content({"choices": []})
+
+    assert "no choices" in str(excinfo.value)
+
+
+def test_openrouter_content_is_returned_when_present():
+    import chamber_narratives
+
+    payload = {"choices": [{"message": {"content": "  hello  "}}]}
+
+    assert chamber_narratives._extract_choice_content(payload) == "hello"
+
+
+def test_call_openrouter_retries_a_rate_limit_then_succeeds(monkeypatch):
+    """429 clears on its own within seconds; losing a chamber forecast to it is needless."""
+    import chamber_narratives
+
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+
+    calls = {"n": 0}
+    success = {"choices": [{"message": {"content": "{}"}}]}
+
+    class _Resp:
+        def __init__(self, status):
+            self.status_code = status
+
+        def raise_for_status(self):
+            if self.status_code >= 400:
+                raise httpx.HTTPStatusError("boom", request=None, response=self)
+
+        def json(self):
+            return success
+
+    class _Client:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *exc):
+            return False
+
+        async def post(self, *args, **kwargs):
+            calls["n"] += 1
+            return _Resp(429 if calls["n"] == 1 else 200)
+
+    monkeypatch.setattr(chamber_narratives.httpx, "AsyncClient", lambda **kw: _Client())
+
+    async def _no_sleep(_seconds):
+        return None
+
+    monkeypatch.setattr(chamber_narratives.asyncio, "sleep", _no_sleep)
+
+    result = asyncio.run(chamber_narratives._call_openrouter([{"role": "user", "content": "x"}], model="m"))
+
+    assert result is success
+    assert calls["n"] == 2
+
+
+def test_call_openrouter_retries_a_transient_error_inside_http_200(monkeypatch):
+    """OpenRouter can encode a 429 in a successful HTTP response."""
+    import chamber_narratives
+
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    calls = {"n": 0}
+    success = {"choices": [{"message": {"content": "{}"}}]}
+
+    class _Resp:
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            calls["n"] += 1
+            if calls["n"] == 1:
+                return {"error": {"message": "Rate limit exceeded", "code": 429}}
+            return success
+
+    class _Client:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *exc):
+            return False
+
+        async def post(self, *args, **kwargs):
+            return _Resp()
+
+    monkeypatch.setattr(chamber_narratives.httpx, "AsyncClient", lambda **kw: _Client())
+
+    async def _no_sleep(_seconds):
+        return None
+
+    monkeypatch.setattr(chamber_narratives.asyncio, "sleep", _no_sleep)
+
+    result = asyncio.run(chamber_narratives._call_openrouter([{"role": "user", "content": "x"}], model="m"))
+
+    assert result is success
+    assert calls["n"] == 2
+
+
+def test_call_openrouter_does_not_retry_a_full_read_timeout(monkeypatch):
+    import chamber_narratives
+
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    calls = {"n": 0}
+
+    class _Client:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *exc):
+            return False
+
+        async def post(self, *args, **kwargs):
+            calls["n"] += 1
+            raise httpx.ReadTimeout("generation timed out")
+
+    monkeypatch.setattr(chamber_narratives.httpx, "AsyncClient", lambda **kw: _Client())
+
+    with pytest.raises(httpx.ReadTimeout):
+        asyncio.run(chamber_narratives._call_openrouter([{"role": "user", "content": "x"}], model="m"))
+
+    assert calls["n"] == 1
+
+
+def test_call_openrouter_does_not_retry_a_client_error(monkeypatch):
+    """A bad request will not fix itself, so retrying it only wastes time."""
+    import chamber_narratives
+
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    calls = {"n": 0}
+
+    class _Resp:
+        status_code = 400
+
+        def raise_for_status(self):
+            raise httpx.HTTPStatusError("bad request", request=None, response=self)
+
+    class _Client:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *exc):
+            return False
+
+        async def post(self, *args, **kwargs):
+            calls["n"] += 1
+            return _Resp()
+
+    monkeypatch.setattr(chamber_narratives.httpx, "AsyncClient", lambda **kw: _Client())
+
+    with pytest.raises(httpx.HTTPStatusError):
+        asyncio.run(chamber_narratives._call_openrouter([{"role": "user", "content": "x"}], model="m"))
+
+    assert calls["n"] == 1

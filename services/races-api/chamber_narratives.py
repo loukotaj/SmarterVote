@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import os
 from typing import Any, Dict, Literal
@@ -36,28 +37,84 @@ def _strip_markdown_code_fence(content: str) -> str:
     return "\n".join(lines).strip()
 
 
+# OpenRouter answers a rate limit or an upstream provider failure with HTTP 429
+# or 5xx, and both clear on their own within seconds.  Losing a whole chamber
+# forecast to one is needless.
+_RETRY_STATUS_CODES = frozenset({408, 429, 500, 502, 503, 504})
+_MAX_ATTEMPTS = 4
+
+
+def _extract_choice_content(data: dict[str, Any]) -> str:
+    """Return the completion text, explaining clearly when there is none.
+
+    OpenRouter reports a rate limit or a provider outage as HTTP 200 carrying an
+    ``error`` object instead of ``choices``.  Indexing straight into the
+    response turned that into a bare ``KeyError: 'choices'``, which surfaced to
+    the caller as "chamber forecast generation failed: 'choices'" and said
+    nothing about the actual cause.
+    """
+    error = data.get("error")
+    if error:
+        message = error.get("message") if isinstance(error, dict) else str(error)
+        raise ValueError(f"OpenRouter returned an error instead of a completion: {message}")
+    choices = data.get("choices")
+    if not choices:
+        raise ValueError("OpenRouter returned no choices and no error; the response was empty")
+    return str(choices[0]["message"]["content"]).strip()
+
+
 async def _call_openrouter(messages: list[dict[str, str]], *, model: str) -> dict[str, Any]:
     api_key = os.getenv("OPENROUTER_API_KEY", "")
     if not api_key:
         raise RuntimeError("OPENROUTER_API_KEY is not set")
 
-    async with httpx.AsyncClient(timeout=240) as client:
-        resp = await client.post(
-            "https://openrouter.ai/api/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {api_key}",
-                "HTTP-Referer": os.getenv("OPENROUTER_HTTP_REFERER", "https://smarter.vote"),
-                "X-Title": os.getenv("OPENROUTER_APP_TITLE", "SmarterVote"),
-            },
-            json={
-                "model": model,
-                "messages": messages,
-                "max_tokens": 16384,
-                "temperature": 0.2,
-            },
-        )
-    resp.raise_for_status()
-    return resp.json()
+    last_error: Exception | None = None
+    for attempt in range(_MAX_ATTEMPTS):
+        try:
+            async with httpx.AsyncClient(timeout=240) as client:
+                resp = await client.post(
+                    "https://openrouter.ai/api/v1/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {api_key}",
+                        "HTTP-Referer": os.getenv("OPENROUTER_HTTP_REFERER", "https://smarter.vote"),
+                        "X-Title": os.getenv("OPENROUTER_APP_TITLE", "SmarterVote"),
+                    },
+                    json={
+                        "model": model,
+                        "messages": messages,
+                        "max_tokens": 16384,
+                        "temperature": 0.2,
+                    },
+                )
+            resp.raise_for_status()
+            data = resp.json()
+            error = data.get("error") if isinstance(data, dict) else None
+            raw_code = error.get("code") if isinstance(error, dict) else None
+            try:
+                error_code = int(raw_code)
+            except (TypeError, ValueError):
+                error_code = None
+            if error_code not in _RETRY_STATUS_CODES:
+                return data
+            message = error.get("message") or f"provider error {error_code}"
+            last_error = ValueError(f"OpenRouter returned an error instead of a completion: {message}")
+        except httpx.HTTPStatusError as exc:
+            if exc.response.status_code not in _RETRY_STATUS_CODES:
+                raise
+            last_error = exc
+        except httpx.ReadTimeout:
+            # A full 240-second generation timeout has already exceeded the
+            # request's useful wall-clock budget. Retrying it up to three more
+            # times would leave backend work running long after the gateway
+            # has given up.
+            raise
+        except httpx.TransportError as exc:
+            last_error = exc
+        if attempt < _MAX_ATTEMPTS - 1:
+            await asyncio.sleep(2**attempt)
+
+    assert last_error is not None
+    raise last_error
 
 
 async def generate_chamber_analysis(
@@ -69,7 +126,7 @@ async def generate_chamber_analysis(
         {"role": "user", "content": f"Here is the aggregated forecast data for the {chamber_name}:\n\n{context_text}"},
     ]
     data = await _call_openrouter(messages, model=model)
-    content = str(data["choices"][0]["message"]["content"]).strip()
+    content = _extract_choice_content(data)
     parsed = json.loads(_strip_markdown_code_fence(content))
     if not isinstance(parsed, dict):
         raise ValueError("OpenRouter chamber analysis response must be a JSON object")
@@ -105,7 +162,7 @@ async def review_chamber_analysis(
     ]
     try:
         data = await _call_openrouter(messages, model=model)
-        content = str(data["choices"][0]["message"]["content"]).strip()
+        content = _extract_choice_content(data)
         parsed = json.loads(_strip_markdown_code_fence(content))
         if not isinstance(parsed, dict):
             raise ValueError("chamber narrative review response must be a JSON object")
