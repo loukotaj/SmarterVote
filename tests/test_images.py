@@ -1154,6 +1154,24 @@ async def test_commons_resolution_does_not_bypass_the_non_photo_guards(monkeypat
 @pytest.mark.parametrize(
     "url",
     [
+        # U.S. Term Limits pledge cards: a district map, a different person,
+        # and the right man under heavy branding — none is a portrait.
+        "https://termlimits.com/wp-content/uploads/2026/03/StevenSwinton.png",
+        "https://termlimits.com/wp-content/uploads/2026/03/CodyCox.png",
+        "https://www.termlimits.com/wp-content/uploads/2025/08/JeffWalter.png",
+    ],
+)
+def test_advocacy_pledge_graphics_are_rejected(url):
+    assert _looks_like_non_photo(url) is True
+
+
+def test_unrelated_hosts_are_not_treated_as_pledge_graphics():
+    assert _looks_like_non_photo("https://termlimitsnews.example.com/photos/jane-doe.jpg") is False
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
         # MI-06 stored an Adelaide Footy League thumbnail, "CATCHING UP WITH
         # TIM & TEAGAN!", for candidate Tim Teagan.
         "https://i.ytimg.com/vi/eg2ndzcWDEo/hq720.jpg",
