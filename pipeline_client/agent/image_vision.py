@@ -113,7 +113,14 @@ def verdict_from_observations(observations: dict[str, Any]) -> PhotoVerdict:
     if observations.get("obscured_face"):
         return no("face is obscured")
     if observations.get("subject_is_child"):
-        return no("subject appears to be a child")
+        # Kept as a rejection on child-safety grounds, but it is the one rule
+        # here that can be wrong about a real candidate: Vermont sets no
+        # minimum age for governor, and a sweep flagged a genuine teenage
+        # candidate alongside a stock photo of a child in a baseball uniform
+        # that had been stored for a Delaware race. Blanking a young
+        # candidate's photo is recoverable; publishing an unrelated child's
+        # face is not, so this errs toward removal and says so loudly.
+        return no("subject appears to be a child - verify before restoring")
     if era == "archival":
         return no("photograph looks archival")
     if _sports_kit(observations.get("uniform_or_costume")):

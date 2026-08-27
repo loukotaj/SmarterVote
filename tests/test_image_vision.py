@@ -151,3 +151,17 @@ def test_verdict_reports_what_was_seen():
     assert isinstance(verdict, PhotoVerdict)
     assert verdict.faces == 3
     assert verdict.era == "contemporary"
+
+
+def test_a_young_candidate_is_removed_but_flagged_for_a_human():
+    """The one rule here that can be wrong about a real candidate.
+
+    Vermont sets no minimum age for governor, and a catalogue sweep flagged a
+    genuine teenage candidate alongside a stock photo of a child stored for a
+    Delaware race. Removal is the safe direction, but the reason has to invite
+    a human to check rather than read as settled.
+    """
+    verdict = verdict_from_observations(_seen(subject_is_child=True))
+
+    assert verdict.usable is False
+    assert "verify" in verdict.reason
