@@ -617,6 +617,8 @@ def _looks_like_non_photo(url: str, alt: str = "") -> bool:
         return True
     if _looks_like_archival_photo(url):
         return True
+    if _is_advocacy_pledge_graphic(url):
+        return True
     if _is_video_thumbnail(url):
         return True
     if _looks_like_ui_icon_asset(url):
@@ -915,6 +917,26 @@ def _looks_like_endorsement_badge(url: str) -> bool:
     """
     basename = unquote(urlparse(url).path).rsplit("/", 1)[-1].lower()
     return any(pattern.search(basename) for pattern in _ENDORSEMENT_BADGE_PATTERNS)
+
+
+# An advocacy group's "thank you for signing the pledge" card is a promotional
+# graphic, never a portrait somebody chose to represent themselves with.
+_PLEDGE_GRAPHIC_HOSTS = frozenset({"termlimits.com", "www.termlimits.com"})
+
+
+def _is_advocacy_pledge_graphic(url: str) -> bool:
+    """True for a campaign-pledge card served by an advocacy organisation.
+
+    U.S. Term Limits publishes one per signatory, always overlaid with "Thank
+    you ... for signing the Term Limits on Congress pledge".  What sits behind
+    the text varies and none of it is usable: NC-13's card was a *map* of the
+    district, TN-01's showed a different person entirely (Cody Cox, a state
+    house candidate), and IL-11's was the right man under heavy branding.
+    """
+    try:
+        return urlparse(url).netloc.lower() in _PLEDGE_GRAPHIC_HOSTS
+    except Exception:
+        return False
 
 
 # A video platform's thumbnail endpoint returns a frame from a video, never a
