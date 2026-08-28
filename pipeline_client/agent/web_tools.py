@@ -874,9 +874,10 @@ async def _searlo_search(
     cache = _get_search_cache()
     if cache:
         cache.set(query, results, race_id=race_id, provider="searlo-images" if images else "searlo")
-    # Searlo is the primary provider now, so taking this path is the normal case
-    # rather than a fault. Logging it at warning produced thousands of lines per
-    # session and buried the warnings that do need attention.
+    # Once Serper reports exhausted credits, Searlo is the active provider for
+    # the rest of the run. Each successful fallback call is normal operation;
+    # logging all of them at warning produced thousands of lines per session and
+    # buried the warnings that do need attention.
     logger.info("Completed %s with Searlo", operation.lower())
     return results
 

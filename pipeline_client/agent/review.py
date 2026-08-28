@@ -985,8 +985,8 @@ def compute_validation_grade(
     this and it is good" when the substance was never collected. Returning
     ``None`` states the honest thing instead: not assessed. Publication is
     unaffected, since an absent grade is already treated as ungraded rather than
-    failed, and a lightweight refresh that never ran issue research keeps
-    publishing exactly as before.
+    failed. A maintenance-only refresh of a race with no issue stances will
+    replace a stale stored grade with this honest ungraded result.
     """
     automated_models = {"automated-link-validator", "automated-profile-quality"}
     eligible_reviews = [r for r in reviews if r.get("model") not in automated_models]
