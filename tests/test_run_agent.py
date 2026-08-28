@@ -1346,14 +1346,30 @@ async def test_run_agent_iteration_continuation_preserves_reviews_and_computes_g
     existing = {
         "id": "review-continuation-2026",
         "election_date": "2026-11-03",
-        "candidates": [{"name": "Alice", "summary": "Before", "issues": {}}],
+        "candidates": [
+            {
+                "name": "Alice",
+                "summary": "Before",
+                "issues": {
+                    "Healthcare": {"stance": "Supports expanding coverage.", "sources": [{"url": "https://example.org/h"}]}
+                },
+            }
+        ],
         "reviews": carried_reviews,
         "pipeline_state": {"complete": True, "remaining_candidates": [], "remaining_steps": []},
         "agent_metrics": {"review": {"whole_profile": True, "packet_revisions": 1}},
     }
     improved = {
         **existing,
-        "candidates": [{"name": "Alice", "summary": "After", "issues": {}}],
+        "candidates": [
+            {
+                "name": "Alice",
+                "summary": "After",
+                "issues": {
+                    "Healthcare": {"stance": "Supports expanding coverage.", "sources": [{"url": "https://example.org/h"}]}
+                },
+            }
+        ],
     }
     final_reviews = [{"model": "claude", "verdict": "approved", "score": 95, "flags": []}]
 
@@ -2182,7 +2198,15 @@ async def test_polling_step_runs_without_issue_finance_or_refinement():
         "id": "poll-only-2026",
         "election_date": "2026-11-03",
         "updated_utc": "2026-06-01T00:00:00Z",
-        "candidates": [{"name": "Alice Smith"}, {"name": "Bob Jones"}],
+        "candidates": [
+            {
+                "name": "Alice Smith",
+                "issues": {
+                    "Healthcare": {"stance": "Supports expanding coverage.", "sources": [{"url": "https://example.org/h"}]}
+                },
+            },
+            {"name": "Bob Jones"},
+        ],
         "polling": [],
         "reviews": reviews,
         "validation_grade": {
