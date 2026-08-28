@@ -202,7 +202,7 @@ def test_catalog_health_tracks_strong_roster_evidence_and_section_freshness():
                             "race_id": "tx-house-01-2026",
                             "evidence_tier": 1,
                             "retrieval_status": "content",
-                            "last_accessed": "2026-07-28T00:00:00Z",
+                            "last_accessed": datetime.now(timezone.utc).isoformat(),
                         }
                     ],
                     "issues": {},

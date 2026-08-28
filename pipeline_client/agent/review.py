@@ -956,13 +956,46 @@ def _distinct_flags(reviews: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return list(distinct.values())
 
 
-def compute_validation_grade(reviews: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
-    """Compute an aggregate validation grade from review scores."""
+def _has_any_issue_stance(race_json: Optional[Dict[str, Any]]) -> bool:
+    """True when at least one candidate carries at least one issue stance."""
+    if not isinstance(race_json, dict):
+        return False
+    for candidate in race_json.get("candidates") or []:
+        if not isinstance(candidate, dict):
+            continue
+        issues = candidate.get("issues")
+        if not isinstance(issues, dict):
+            continue
+        for issue_data in issues.values():
+            if isinstance(issue_data, dict) and str(issue_data.get("stance") or "").strip():
+                return True
+    return False
+
+
+def compute_validation_grade(
+    reviews: List[Dict[str, Any]], race_json: Optional[Dict[str, Any]] = None
+) -> Optional[Dict[str, Any]]:
+    """Compute an aggregate validation grade from review scores.
+
+    ``race_json`` is optional so existing callers keep working, but passing it
+    lets the grade refuse to speak about a race it did not actually assess. A
+    race with candidates and no issue stances at all was scoring a passing A —
+    az-06-house-2026 sat on the live site at A/92 with 3 reviewers approving and
+    zero stances for all four candidates, which reads to a voter as "we checked
+    this and it is good" when the substance was never collected. Returning
+    ``None`` states the honest thing instead: not assessed. Publication is
+    unaffected, since an absent grade is already treated as ungraded rather than
+    failed. A maintenance-only refresh of a race with no issue stances will
+    replace a stale stored grade with this honest ungraded result.
+    """
     automated_models = {"automated-link-validator", "automated-profile-quality"}
     eligible_reviews = [r for r in reviews if r.get("model") not in automated_models]
 
     scores = [r["score"] for r in eligible_reviews if isinstance(r.get("score"), (int, float))]
     if not scores:
+        return None
+
+    if race_json is not None and (race_json.get("candidates") or []) and not _has_any_issue_stance(race_json):
         return None
 
     avg = round(sum(scores) / len(scores))
