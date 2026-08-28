@@ -185,8 +185,14 @@ def _record_usage(body: dict[str, Any], model: str) -> None:
     )
 
 
+#: Wikimedia rejects httpx's default agent with 403, and it hosts a large share
+#: of the official portraits in the catalogue. Without this the check silently
+#: returns "no opinion" on exactly the images it most needs to see.
+_FETCH_HEADERS = {"User-Agent": os.getenv("IMAGE_FETCH_USER_AGENT", "SmarterVote/1.0 (+https://smarter.vote)")}
+
+
 async def _fetch_image(url: str, client: httpx.AsyncClient) -> Optional[tuple[str, bytes]]:
-    resp = await client.get(url, follow_redirects=True, timeout=30)
+    resp = await client.get(url, follow_redirects=True, timeout=30, headers=_FETCH_HEADERS)
     resp.raise_for_status()
     payload = resp.content
     if not payload or len(payload) > MAX_IMAGE_BYTES:

@@ -267,3 +267,46 @@ def test_a_genuinely_hidden_face_is_still_refused():
 )
 def test_sunglasses_do_not_override_another_obstruction(reason):
     assert verdict_from_observations(_seen(obscured_face=True, reason=reason)).usable is False
+
+
+def test_image_fetch_identifies_itself_to_wikimedia():
+    """Wikimedia 403s httpx's default agent, and it hosts many official portraits.
+
+    tx-house-32-2026 stored a 19th-century photograph of a namesake for Charles
+    Harper. The vision check ran, fetched the image, got 403, and returned no
+    opinion -- so the archival photo survived a run whose whole purpose was to
+    catch it.
+    """
+    seen = {}
+
+    class _Resp:
+        content = b"\x89PNG\r\n"
+        headers = {"content-type": "image/png"}
+
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return {"choices": [{"message": {"content": '{"faces": 1, "is_photograph": true}'}}]}
+
+    class _Client:
+        async def get(self, *args, **kwargs):
+            seen.update(kwargs.get("headers") or {})
+            return _Resp()
+
+        async def post(self, *args, **kwargs):
+            return _Resp()
+
+        async def aclose(self):
+            return None
+
+    asyncio.run(
+        inspect_candidate_photo(
+            "https://upload.wikimedia.org/wikipedia/commons/3/30/Charles_Harper.jpg",
+            model="test/model",
+            api_key="k",
+            client=_Client(),
+        )
+    )
+
+    assert "SmarterVote" in seen.get("User-Agent", "")
