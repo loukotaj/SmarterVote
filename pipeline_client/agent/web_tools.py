@@ -874,7 +874,10 @@ async def _searlo_search(
     cache = _get_search_cache()
     if cache:
         cache.set(query, results, race_id=race_id, provider="searlo-images" if images else "searlo")
-    logger.warning("Serper credits exhausted; completed %s with Searlo fallback", operation.lower())
+    # Searlo is the primary provider now, so taking this path is the normal case
+    # rather than a fault. Logging it at warning produced thousands of lines per
+    # session and buried the warnings that do need attention.
+    logger.info("Completed %s with Searlo", operation.lower())
     return results
 
 

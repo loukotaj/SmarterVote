@@ -933,7 +933,7 @@ async def run_agent(
     maintenance_steps_ran = bool(_enabled & {"polling", "forecast", "voter_resources"})
     validation_grade = race_json.get("validation_grade")
     if not isinstance(validation_grade, dict) and race_json.get("reviews"):
-        validation_grade = compute_validation_grade(race_json.get("reviews", []))
+        validation_grade = compute_validation_grade(race_json.get("reviews", []), race_json)
     has_passing_validation = (
         isinstance(validation_grade, dict) and validation_grade.get("passed") is True and bool(race_json.get("reviews"))
     )
@@ -1149,7 +1149,7 @@ async def run_agent(
     validate_forecast_evidence(race_json)
 
     # Compute aggregate validation grade from review scores
-    grade = compute_validation_grade(race_json.get("reviews", [])) if race_json.get("reviews") else None
+    grade = compute_validation_grade(race_json.get("reviews", []), race_json) if race_json.get("reviews") else None
     race_json["validation_grade"] = grade
     race_json["run_audit"] = _build_run_audit(baseline_existing_data, race_json)
 
