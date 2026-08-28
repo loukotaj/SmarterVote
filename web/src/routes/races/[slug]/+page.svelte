@@ -328,9 +328,7 @@
             >
             or
             <a
-              href="https://github.com/sponsors/loukotaj"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/support/"
               class="underline font-medium hover:text-blue-900 dark:hover:text-blue-100"
               >sponsor to help fund it</a
             >!
