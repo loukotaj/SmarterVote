@@ -248,6 +248,43 @@ def _normalize_wix_candidate_images(race_data: Dict[str, Any]) -> int:
     return rewritten
 
 
+#: Ballotpedia serves the same portrait from several fixed-size paths.  The
+#: 100x100 square is a listing thumbnail: it is the smallest size offered and
+#: the only one that crops a portrait to a square, so a face stored at that
+#: size arrives tightly cropped and soft on a candidate page.
+_BALLOTPEDIA_THUMB_PATH = re.compile(r"(ballotpedia-api4/files/thumbs/)100/100/")
+_BALLOTPEDIA_PORTRAIT_SIZE = r"\g<1>200/300/"
+
+
+def _portrait_size_ballotpedia_url(url: Any) -> Any:
+    """Point a Ballotpedia listing thumbnail at the portrait-sized render.
+
+    A sweep of the published catalogue found 47 candidates stored at 100x100
+    while the 200x300 portrait existed at the same path for all 46 distinct
+    URLs -- CA-45's Chuong Vo among them.  The sizes are fixed path segments
+    rather than a transform, so this is a rename, not a resize, and it is left
+    alone when the larger render turns out not to exist: the URL is only
+    rewritten here, and every later step still has to fetch it.
+    """
+    if not isinstance(url, str):
+        return url
+    return _BALLOTPEDIA_THUMB_PATH.sub(_BALLOTPEDIA_PORTRAIT_SIZE, url)
+
+
+def _normalize_ballotpedia_candidate_images(race_data: Dict[str, Any]) -> int:
+    """Upgrade Ballotpedia listing thumbnails to the portrait-sized render."""
+    rewritten = 0
+    for candidate in race_data.get("candidates", []) or []:
+        if not isinstance(candidate, dict):
+            continue
+        before = candidate.get("image_url")
+        after = _portrait_size_ballotpedia_url(before)
+        if after != before:
+            candidate["image_url"] = after
+            rewritten += 1
+    return rewritten
+
+
 def _strip_shared_candidate_images(race_data: Dict[str, Any]) -> int:
     """Clear placeholder images, and photos two candidates in one race share.
 
@@ -343,6 +380,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
     fabricated_lineage_removed = 0
     incomplete_matchups_removed = _prune_incomplete_poll_matchups(race_data)
     wix_thumbnails_upgraded = _normalize_wix_candidate_images(race_data)
+    ballotpedia_thumbnails_upgraded = _normalize_ballotpedia_candidate_images(race_data)
     unusable_images_cleared = _strip_shared_candidate_images(race_data)
     election_dates_corrected = _correct_general_election_date(race_data)
     poll_count_corrections = 0
@@ -533,6 +571,7 @@ def cleanup_race_data(race_data: Dict[str, Any]) -> Dict[str, int]:
         "incomplete_matchups_removed": incomplete_matchups_removed,
         "unusable_images_cleared": unusable_images_cleared,
         "wix_thumbnails_upgraded": wix_thumbnails_upgraded,
+        "ballotpedia_thumbnails_upgraded": ballotpedia_thumbnails_upgraded,
         "election_dates_corrected": election_dates_corrected,
         "schema_invalid_entries_removed": schema_invalid_entries_removed,
         "poll_count_corrections": poll_count_corrections,
