@@ -561,3 +561,43 @@ def test_non_wix_images_are_left_alone():
 
     assert result["wix_thumbnails_upgraded"] == 0
     assert race["candidates"][0]["image_url"] == url
+
+
+def test_ballotpedia_listing_thumbnails_are_upgraded_to_portrait_size():
+    """CA-45 stored Chuong Vo at 100x100 while the 200x300 portrait existed."""
+    race = {
+        "candidates": [
+            {
+                "name": "Chuong Vo",
+                "image_url": ("https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/100/100/Chuong_Vo_20251120_034604.jpg"),
+            }
+        ]
+    }
+
+    result = cleanup_race_data(race)
+
+    assert result["ballotpedia_thumbnails_upgraded"] == 1
+    assert race["candidates"][0]["image_url"] == (
+        "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Chuong_Vo_20251120_034604.jpg"
+    )
+
+
+def test_ballotpedia_portrait_sized_urls_are_left_alone():
+    url = "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Mike_Simpson.jpg"
+    race = {"candidates": [{"name": "Mike Simpson", "image_url": url}, {"name": "B", "image_url": None}]}
+
+    result = cleanup_race_data(race)
+
+    assert result["ballotpedia_thumbnails_upgraded"] == 0
+    assert race["candidates"][0]["image_url"] == url
+
+
+def test_non_ballotpedia_hundred_square_thumbnails_are_left_alone():
+    """The rewrite is keyed to Ballotpedia's path, not to the digits alone."""
+    url = "https://example.com/files/thumbs/100/100/photo.jpg"
+    race = {"candidates": [{"name": "A", "image_url": url}]}
+
+    result = cleanup_race_data(race)
+
+    assert result["ballotpedia_thumbnails_upgraded"] == 0
+    assert race["candidates"][0]["image_url"] == url
