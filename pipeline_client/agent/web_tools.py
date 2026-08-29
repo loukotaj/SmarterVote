@@ -794,6 +794,12 @@ class SearchProviderUnavailable(RuntimeError):
     """
 
 
+#: Server-side statuses that say "try again", not "stop". Serper retried these
+#: from the start; Searlo did not, which mattered little while Searlo was only
+#: the fallback and a great deal once it became the primary provider.
+_TRANSIENT_SEARCH_STATUSES = frozenset({429, 500, 502, 503, 504})
+
+
 class SerperQuotaExhausted(SearchProviderUnavailable):
     """Raised when Serper explicitly reports that its credits are exhausted."""
 
@@ -816,33 +822,77 @@ async def _searlo_search(
     race_id: Optional[str],
     run_budget: RunBudget | None,
     images: bool = False,
+    max_attempts: int = 3,
 ) -> List[Dict[str, Any]]:
-    """Use Searlo after Serper explicitly reports exhausted credits."""
+    """Search via Searlo, the primary provider.
+
+    Transient server errors are retried with backoff. Only a genuinely
+    non-retryable failure -- a rejected key, an exhausted quota, an
+    unparseable payload -- raises, and the caller then falls back to Serper.
+    """
     api_key = os.environ.get("SEARLO_API_KEY", "")
     if not api_key:
-        raise SearchProviderUnavailable("Serper quota exhausted and SEARLO_API_KEY is not configured; stopping research run")
+        raise SearchProviderUnavailable("SEARLO_API_KEY is not configured; no primary search provider available")
 
     operation = "Searlo image search" if images else "Searlo search"
     if run_budget:
         run_budget.require_call_time(2.0, operation=operation)
+    # Reserved once for the logical search rather than per attempt: a retry is
+    # the same question asked again, and charging the run budget for each one
+    # would trade a transient blip for permanently shallower research.
     if not reserve_search_call("searlo"):
         return [{"error": "Run search budget reached; finish from cached evidence."}]
 
-    timeout = run_budget.bounded_timeout(10.0, minimum_seconds=2.0, operation=operation) if run_budget else 10.0
     endpoint = "images" if images else "web"
-    try:
-        resp = await _get_serper_client().get(
-            f"https://api.searlo.tech/api/v1/search/{endpoint}",
-            headers={"x-api-key": api_key},
-            params={"q": query, "limit": min(max(num_results, 1), 10), "gl": "us", "hl": "en"},
-            timeout=timeout,
-        )
-        resp.raise_for_status()
-    except httpx.HTTPStatusError as exc:
-        status = exc.response.status_code if exc.response is not None else 0
-        raise SearchProviderUnavailable(f"Searlo search unavailable (HTTP {status or 'unknown'})") from exc
-    except httpx.HTTPError as exc:
-        raise SearchProviderUnavailable(f"Searlo search unavailable: {exc}") from exc
+    last_exc: httpx.HTTPError | None = None
+    resp = None
+    for attempt in range(max(1, max_attempts)):
+        timeout = run_budget.bounded_timeout(10.0, minimum_seconds=2.0, operation=operation) if run_budget else 10.0
+        try:
+            resp = await _get_serper_client().get(
+                f"https://api.searlo.tech/api/v1/search/{endpoint}",
+                headers={"x-api-key": api_key},
+                params={"q": query, "limit": min(max(num_results, 1), 10), "gl": "us", "hl": "en"},
+                timeout=timeout,
+            )
+            resp.raise_for_status()
+            break
+        except httpx.HTTPStatusError as exc:
+            last_exc = exc
+            status = exc.response.status_code if exc.response is not None else 0
+            # A rejected key or an exhausted quota will not heal by waiting.
+            if status not in _TRANSIENT_SEARCH_STATUSES:
+                raise SearchProviderUnavailable(f"Searlo search unavailable (HTTP {status or 'unknown'})") from exc
+            if attempt >= max_attempts - 1:
+                raise SearchProviderUnavailable(
+                    f"Searlo search unavailable (HTTP {status}) after {max_attempts} attempts"
+                ) from exc
+            logger.warning(
+                "Searlo returned HTTP %s for query %r; retrying (attempt %s/%s)",
+                status,
+                query[:160],
+                attempt + 1,
+                max_attempts,
+            )
+        except httpx.HTTPError as exc:
+            last_exc = exc
+            if attempt >= max_attempts - 1:
+                raise SearchProviderUnavailable(f"Searlo search unavailable: {exc}") from exc
+            logger.warning(
+                "Searlo request failed for query %r; retrying (attempt %s/%s): %s",
+                query[:160],
+                attempt + 1,
+                max_attempts,
+                exc,
+            )
+
+        wait = min(15.0, (2**attempt) * random.uniform(0.8, 1.2))
+        if run_budget:
+            wait = run_budget.bounded_sleep(wait, operation="Searlo retry")
+        await asyncio.sleep(wait)
+
+    if resp is None:  # pragma: no cover - the loop always breaks or raises
+        raise SearchProviderUnavailable(f"Searlo search unavailable: {last_exc or 'retry limit reached'}")
 
     data = resp.json()
     # Searlo currently serves the Google-style response shape (``organic`` /
@@ -874,10 +924,9 @@ async def _searlo_search(
     cache = _get_search_cache()
     if cache:
         cache.set(query, results, race_id=race_id, provider="searlo-images" if images else "searlo")
-    # Once Serper reports exhausted credits, Searlo is the active provider for
-    # the rest of the run. Each successful fallback call is normal operation;
-    # logging all of them at warning produced thousands of lines per session and
-    # buried the warnings that do need attention.
+    # Searlo is the primary provider, so a successful call is the ordinary case.
+    # Logging these at warning produced thousands of lines per session and buried
+    # the warnings that do need attention.
     logger.info("Completed %s with Searlo", operation.lower())
     return results
 
@@ -913,22 +962,37 @@ async def _serper_search(
             logger.debug(f"Search cache HIT: {normalized_query[:60]}")
             return cached["results"]
 
+    # Searlo is the primary provider; Serper is the backup. This inverts the
+    # original arrangement, where Searlo was reached only after Serper reported
+    # exhausted credits. The order matters more than it looks: a single Searlo
+    # 503 used to abort an entire research step, because it surfaced as a
+    # non-retryable provider failure with nothing standing behind it.
+    searlo_failure: SearchProviderUnavailable | None = None
+    if not search_provider_exhausted("searlo"):
+        try:
+            return await _searlo_search(
+                normalized_query,
+                num_results=num_results,
+                race_id=race_id,
+                run_budget=run_budget,
+            )
+        except SearchProviderUnavailable as exc:
+            # Sticky for the rest of the run. Searlo has already been retried
+            # with backoff by this point, so asking it again on the next query
+            # only spends budget to rediscover the same outage.
+            mark_search_provider_exhausted("searlo")
+            searlo_failure = exc
+            logger.warning("Searlo unavailable (%s); falling back to Serper for the rest of this run", exc)
+    else:
+        searlo_failure = SearchProviderUnavailable("Searlo reported unavailable earlier in this run")
+
     api_key = os.environ.get("SERPER_API_KEY", "")
     if not api_key:
+        if searlo_failure is not None:
+            # Both providers are gone. Fail loudly rather than hand the agent an
+            # error string it might paper over with uncited model knowledge.
+            raise searlo_failure
         return [{"error": "SERPER_API_KEY not configured"}]
-
-    # Serper already reported exhausted credits this run, so every further call
-    # would 400. Skipping it matters for more than latency: the doomed attempt
-    # reserved a search slot from the same ceiling the Searlo fallback then
-    # reserved again, so each logical search burned two of the run's budget and
-    # halved its effective research depth.
-    if search_provider_exhausted("serper"):
-        return await _searlo_search(
-            normalized_query,
-            num_results=num_results,
-            race_id=race_id,
-            run_budget=run_budget,
-        )
 
     client = _get_serper_client()
     last_error = ""
@@ -964,13 +1028,10 @@ async def _serper_search(
                 _raise_for_fatal_serper_error(status, response_text)
             except SerperQuotaExhausted:
                 mark_search_provider_exhausted("serper")
-                return await _searlo_search(
-                    normalized_query,
-                    num_results=num_results,
-                    race_id=race_id,
-                    run_budget=run_budget,
-                )
-            if status not in {429, 500, 502, 503, 504} or attempt >= max_attempts - 1:
+                # Searlo was tried first and failed, which is the only way this
+                # backup path runs, so there is nowhere left to fall back to.
+                raise searlo_failure from exc
+            if status not in _TRANSIENT_SEARCH_STATUSES or attempt >= max_attempts - 1:
                 return [{"error": f"Serper search failed: {last_error}"}]
         except httpx.HTTPError as exc:
             last_error = str(exc)
@@ -1044,18 +1105,38 @@ async def _serper_image_search(
             logger.debug(f"Image search cache HIT: {normalized_query[:60]}")
             return cached["results"]
 
+    # Searlo is the primary provider; Serper is the backup. This inverts the
+    # original arrangement, where Searlo was reached only after Serper reported
+    # exhausted credits. The order matters more than it looks: a single Searlo
+    # 503 used to abort an entire research step, because it surfaced as a
+    # non-retryable provider failure with nothing standing behind it.
+    searlo_failure: SearchProviderUnavailable | None = None
+    if not search_provider_exhausted("searlo"):
+        try:
+            return await _searlo_search(
+                normalized_query,
+                num_results=num_results,
+                race_id=race_id,
+                run_budget=run_budget,
+                images=True,
+            )
+        except SearchProviderUnavailable as exc:
+            # Sticky for the rest of the run. Searlo has already been retried
+            # with backoff by this point, so asking it again on the next query
+            # only spends budget to rediscover the same outage.
+            mark_search_provider_exhausted("searlo")
+            searlo_failure = exc
+            logger.warning("Searlo unavailable (%s); falling back to Serper for the rest of this run", exc)
+    else:
+        searlo_failure = SearchProviderUnavailable("Searlo reported unavailable earlier in this run")
+
     api_key = os.environ.get("SERPER_API_KEY", "")
     if not api_key:
+        if searlo_failure is not None:
+            # Both providers are gone. Fail loudly rather than hand the agent an
+            # error string it might paper over with uncited model knowledge.
+            raise searlo_failure
         return [{"error": "SERPER_API_KEY not configured"}]
-
-    if search_provider_exhausted("serper"):
-        return await _searlo_search(
-            normalized_query,
-            num_results=num_results,
-            race_id=race_id,
-            run_budget=run_budget,
-            images=True,
-        )
 
     client = _get_serper_client()
     last_error = ""
@@ -1091,14 +1172,10 @@ async def _serper_image_search(
                 _raise_for_fatal_serper_error(status, response_text)
             except SerperQuotaExhausted:
                 mark_search_provider_exhausted("serper")
-                return await _searlo_search(
-                    normalized_query,
-                    num_results=num_results,
-                    race_id=race_id,
-                    run_budget=run_budget,
-                    images=True,
-                )
-            if status not in {429, 500, 502, 503, 504} or attempt >= max_attempts - 1:
+                # Searlo was tried first and failed, which is the only way this
+                # backup path runs, so there is nowhere left to fall back to.
+                raise searlo_failure from exc
+            if status not in _TRANSIENT_SEARCH_STATUSES or attempt >= max_attempts - 1:
                 return [{"error": f"Serper image search failed: {last_error}"}]
         except httpx.HTTPError as exc:
             last_error = str(exc)

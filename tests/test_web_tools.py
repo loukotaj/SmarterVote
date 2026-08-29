@@ -21,17 +21,22 @@ from pipeline_client.agent.web_tools import SearchProviderUnavailable
 
 
 @pytest.mark.asyncio
-async def test_serper_search_no_api_key():
-    """_serper_search returns error when SERPER_API_KEY is not set."""
+async def test_search_raises_when_no_provider_is_configured():
+    """With neither provider configured, searching must fail loudly.
+
+    Handing the agent a soft error dict here would invite it to answer from
+    unsourced model knowledge, which is the one failure this module exists to
+    prevent.
+    """
     env = os.environ.copy()
     env.pop("SERPER_API_KEY", None)
+    env.pop("SEARLO_API_KEY", None)
     with (
         patch.dict(os.environ, env, clear=True),
         patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+        pytest.raises(SearchProviderUnavailable, match="SEARLO_API_KEY"),
     ):
-        results = await _serper_search("test query")
-    assert len(results) == 1
-    assert "error" in results[0]
+        await _serper_search("test query")
 
 
 @pytest.mark.asyncio
@@ -196,17 +201,17 @@ async def test_serper_search_truncates_oversized_queries():
 
 
 @pytest.mark.asyncio
-async def test_serper_image_search_no_api_key():
-    """_serper_image_search returns error when SERPER_API_KEY is not set."""
+async def test_image_search_raises_when_no_provider_is_configured():
+    """The image path fails loudly for the same reason the web path does."""
     env = os.environ.copy()
     env.pop("SERPER_API_KEY", None)
+    env.pop("SEARLO_API_KEY", None)
     with (
         patch.dict(os.environ, env, clear=True),
         patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+        pytest.raises(SearchProviderUnavailable, match="SEARLO_API_KEY"),
     ):
-        results = await _serper_image_search("test query")
-    assert len(results) == 1
-    assert "error" in results[0]
+        await _serper_image_search("test query")
 
 
 @pytest.mark.asyncio
@@ -761,12 +766,12 @@ def test_xlsx_extraction_reads_rows_without_a_spreadsheet_dependency():
 
 
 @pytest.mark.asyncio
-async def test_serper_is_not_retried_after_reporting_exhausted_credits():
-    """Once Serper reports no credits, the run must stop paying for doomed calls.
+async def test_searlo_serves_every_search_without_probing_serper():
+    """Searlo is the primary provider, so the backup is never dialled.
 
-    The wasted round-trip was the lesser cost: the failed attempt reserved a
-    search slot from the same ceiling the Searlo fallback then reserved again,
-    so every logical search consumed two of the run's budget.
+    The budget accounting is the point: each logical search must reserve one
+    slot, not two. Probing a backup that is not needed would halve the run's
+    effective research depth.
     """
     from pipeline_client.agent import cost as cost_module
     from pipeline_client.agent.web_tools import _serper_search
@@ -802,12 +807,12 @@ async def test_serper_is_not_retried_after_reporting_exhausted_credits():
     finally:
         cost_module._cost_ctx.reset(token)
 
-    assert first and second and third, "every search still returns Searlo evidence"
-    # Serper is probed once for the run, not once per search.
-    assert mock_client.post.await_count == 1
+    assert first and second and third, "every search returns Searlo evidence"
+    # Serper is the backup and Searlo never failed, so it is never called.
+    assert mock_client.post.await_count == 0
     assert mock_client.get.await_count == 3
     # Three logical searches must cost three budget slots, not six.
-    assert acc["serper_calls"] == 1
+    assert acc["serper_calls"] == 0
     assert acc["searlo_calls"] == 3
 
 
@@ -831,3 +836,123 @@ async def test_serper_exhaustion_does_not_leak_between_runs():
         assert search_provider_exhausted("serper") is False
     finally:
         cost_module._cost_ctx.reset(token)
+
+
+def _searlo_ok(title="Primary"):
+    return httpx.Response(
+        200,
+        request=httpx.Request("GET", "https://api.searlo.tech/api/v1/search/web"),
+        json={"organic": [{"title": title, "snippet": "Evidence", "link": "https://example.com"}]},
+    )
+
+
+def _searlo_status(status):
+    return httpx.Response(
+        status,
+        request=httpx.Request("GET", "https://api.searlo.tech/api/v1/search/web"),
+        text="upstream error",
+    )
+
+
+@pytest.mark.asyncio
+async def test_searlo_retries_a_transient_503_and_succeeds():
+    """A single 503 must not cost the caller its search.
+
+    Searlo answered ~99.4% of requests during the outage that prompted this,
+    yet each stray 503 aborted an entire research step, because the failure
+    surfaced as a non-retryable provider error.
+    """
+    from pipeline_client.agent import cost as cost_module
+
+    mock_client = MagicMock()
+    mock_client.get = AsyncMock(side_effect=[_searlo_status(503), _searlo_ok()])
+    mock_client.post = AsyncMock()
+
+    acc = {"serper_calls": 0, "searlo_calls": 0}
+    token = cost_module._cost_ctx.set(acc)
+    env = {"SEARLO_API_KEY": "k", "SERPER_API_KEY": "s"}
+    try:
+        with (
+            patch("pipeline_client.agent.web_tools._get_serper_client", return_value=mock_client),
+            patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+            patch("pipeline_client.agent.web_tools.asyncio.sleep", new_callable=AsyncMock),
+            patch.dict(os.environ, env, clear=True),
+        ):
+            results = await _serper_search("query")
+    finally:
+        cost_module._cost_ctx.reset(token)
+
+    assert results[0]["title"] == "Primary"
+    assert mock_client.get.await_count == 2
+    assert mock_client.post.await_count == 0, "the backup is not needed when the retry succeeds"
+    # The retry is the same question asked again, so it must not be billed twice.
+    assert acc["searlo_calls"] == 1
+
+
+@pytest.mark.asyncio
+async def test_persistent_searlo_outage_falls_back_to_serper():
+    """When Searlo is genuinely down, the backup provider carries the run."""
+    from pipeline_client.agent import cost as cost_module
+
+    serper_response = httpx.Response(
+        200,
+        request=httpx.Request("POST", "https://google.serper.dev/search"),
+        json={"organic": [{"title": "Backup", "snippet": "Evidence", "link": "https://example.com"}]},
+    )
+    mock_client = MagicMock()
+    mock_client.get = AsyncMock(return_value=_searlo_status(503))
+    mock_client.post = AsyncMock(return_value=serper_response)
+
+    acc = {"serper_calls": 0, "searlo_calls": 0}
+    token = cost_module._cost_ctx.set(acc)
+    env = {"SEARLO_API_KEY": "k", "SERPER_API_KEY": "s"}
+    try:
+        with (
+            patch("pipeline_client.agent.web_tools._get_serper_client", return_value=mock_client),
+            patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+            patch("pipeline_client.agent.web_tools.asyncio.sleep", new_callable=AsyncMock),
+            patch.dict(os.environ, env, clear=True),
+        ):
+            first = await _serper_search("first")
+            second = await _serper_search("second")
+    finally:
+        cost_module._cost_ctx.reset(token)
+
+    assert first[0]["title"] == "Backup"
+    assert second[0]["title"] == "Backup"
+    # Searlo is retried within one search, then written off for the run rather
+    # than re-probed on every later query.
+    assert mock_client.get.await_count == 3
+    assert acc["searlo_calls"] == 1
+
+
+@pytest.mark.asyncio
+async def test_searlo_auth_failure_is_not_retried():
+    """A rejected key will not heal by waiting, so spend nothing on backoff."""
+    from pipeline_client.agent import cost as cost_module
+
+    serper_response = httpx.Response(
+        200,
+        request=httpx.Request("POST", "https://google.serper.dev/search"),
+        json={"organic": [{"title": "Backup", "snippet": "Evidence", "link": "https://example.com"}]},
+    )
+    mock_client = MagicMock()
+    mock_client.get = AsyncMock(return_value=_searlo_status(403))
+    mock_client.post = AsyncMock(return_value=serper_response)
+
+    acc = {"serper_calls": 0, "searlo_calls": 0}
+    token = cost_module._cost_ctx.set(acc)
+    env = {"SEARLO_API_KEY": "k", "SERPER_API_KEY": "s"}
+    try:
+        with (
+            patch("pipeline_client.agent.web_tools._get_serper_client", return_value=mock_client),
+            patch("pipeline_client.agent.web_tools._get_search_cache", return_value=None),
+            patch("pipeline_client.agent.web_tools.asyncio.sleep", new_callable=AsyncMock),
+            patch.dict(os.environ, env, clear=True),
+        ):
+            results = await _serper_search("query")
+    finally:
+        cost_module._cost_ctx.reset(token)
+
+    assert results[0]["title"] == "Backup"
+    assert mock_client.get.await_count == 1, "403 is terminal; no backoff"
