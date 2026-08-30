@@ -27,7 +27,7 @@ import signal
 import time
 import uuid
 from pathlib import Path
-from typing import Any, Set
+from typing import Any, Optional, Set
 
 from dotenv import load_dotenv
 
@@ -55,6 +55,10 @@ _ONCE = os.getenv("WORKER_ONCE", "false").strip().lower() in {"1", "true", "yes"
 # See infra/monitoring.tf's `pipeline_worker_heartbeat` log-based metric + the
 # `local_worker_stale` alert policy, which fire off the log line this writes.
 _HEARTBEAT_SECONDS = max(30, int(os.getenv("WORKER_HEARTBEAT_SECONDS", "300")))
+# Consecutive provider auth/credit failures before the worker stops leasing, and
+# how long it waits before probing the provider again. See _AuthFailureGate.
+_AUTH_HALT_THRESHOLD = max(0, int(os.getenv("WORKER_AUTH_FAILURE_HALT_THRESHOLD", "3")))
+_AUTH_HALT_COOLDOWN_SECONDS = max(60, int(os.getenv("WORKER_AUTH_FAILURE_COOLDOWN_SECONDS", "900")))
 _cloud_logger: Any = None
 _cloud_logger_init_failed = False
 
@@ -125,6 +129,81 @@ def _bucket_name() -> str:
     return settings.gcs_bucket or os.getenv("GCS_BUCKET", "")
 
 
+class _AuthFailureGate:
+    """Stops the worker leasing new races while the LLM provider is refusing us.
+
+    On 2026-08-30 the OpenRouter balance hit zero mid-pass and the provider
+    returned HTTP 402 to every call for 18 minutes. Nothing stopped the lease
+    loop: all 27 remaining queued races were claimed, burned against the dead
+    provider and dequeued in the time a single race normally takes, each one
+    recording a run-health failure as though its *research* had failed. Only two
+    of them had any research reason to lose their queue slot.
+
+    One failure is not evidence — a single race can fail auth for its own
+    reasons, and a momentary provider blip should not idle the worker — so the
+    gate only trips after ``threshold`` races in a row end that way. Anything
+    else finishing resets the count.
+
+    Tripping pauses leasing rather than exiting: the container runs under
+    `restart: unless-stopped`, so a process that quits here would be restarted
+    within seconds and burn another ``threshold`` races, over and over. After
+    ``cooldown_seconds`` the gate clears itself and lets work through again, so
+    a topped-up balance resumes on its own at a cost of a few races per
+    cool-down instead of the whole queue.
+
+    Races already in flight are left alone; they own their leases and their
+    partial work is still worth checkpointing.
+    """
+
+    def __init__(
+        self,
+        threshold: int = _AUTH_HALT_THRESHOLD,
+        cooldown_seconds: float = _AUTH_HALT_COOLDOWN_SECONDS,
+        clock: Any = time.monotonic,
+    ) -> None:
+        self._threshold = threshold
+        self._cooldown = cooldown_seconds
+        self._clock = clock
+        self._consecutive = 0
+        self._blocked_until: Optional[float] = None
+
+    @property
+    def consecutive(self) -> int:
+        return self._consecutive
+
+    def record(self, reason: Optional[str]) -> None:
+        """Fold one finished race's terminal failure reason into the streak."""
+        from shared.run_health import RunFailureReason
+
+        if reason == RunFailureReason.PROVIDER_AUTH_FAILURE.value:
+            self._consecutive += 1
+            return
+        self._consecutive = 0
+        self._blocked_until = None
+
+    def leasing_blocked(self) -> bool:
+        """True while the worker should leave queued races alone."""
+        if self._threshold <= 0 or self._consecutive < self._threshold:
+            return False
+        now = self._clock()
+        if self._blocked_until is None:
+            self._blocked_until = now + self._cooldown
+            logger.error(
+                "HALTING NEW LEASES: %d consecutive races failed with a provider auth/credit error. "
+                "The LLM API key is most likely out of credit or revoked — top it up and the worker "
+                "will resume on its own. Remaining races stay queued (not dequeued); retrying in %ds.",
+                self._consecutive,
+                int(self._cooldown),
+            )
+            return True
+        if now >= self._blocked_until:
+            logger.warning("Auth-failure cool-down elapsed — leasing again to probe the provider")
+            self._consecutive = 0
+            self._blocked_until = None
+            return False
+        return True
+
+
 def _pending_items(db: Any, runner: str, limit: int = 50):
     """Return pending and recoverable expired-lease items, oldest first.
 
@@ -159,7 +238,14 @@ def _pending_items(db: Any, runner: str, limit: int = 50):
 
 
 async def _process_one(
-    db: Any, gcs: Any, bucket: str, item_id: str, item_data: dict, sem: asyncio.Semaphore, runner: str
+    db: Any,
+    gcs: Any,
+    bucket: str,
+    item_id: str,
+    item_data: dict,
+    sem: asyncio.Semaphore,
+    runner: str,
+    auth_gate: Optional[_AuthFailureGate] = None,
 ) -> None:
     from pipeline_client.backend.queue_processor import claim_item, process_claimed_item
 
@@ -172,10 +258,16 @@ async def _process_one(
         race_id = claimed.get("race_id", "?")
         logger.info("Worker leased %s (race %s)", item_id, race_id)
         try:
-            await process_claimed_item(db, gcs, bucket, item_id, claimed, lease_owner, runner=runner)
+            reason = await process_claimed_item(db, gcs, bucket, item_id, claimed, lease_owner, runner=runner)
             logger.info("Worker finished %s (race %s)", item_id, race_id)
+            if auth_gate is not None:
+                auth_gate.record(reason)
         except Exception:  # noqa: BLE001
             logger.exception("Worker crashed processing %s (race %s)", item_id, race_id)
+            # A crash here is a worker bug, not evidence about the provider, so
+            # it clears the streak rather than counting toward the halt.
+            if auth_gate is not None:
+                auth_gate.record(None)
 
 
 async def run_worker() -> None:
@@ -220,6 +312,7 @@ async def run_worker() -> None:
             signal.signal(sig, lambda *_: _request_stop())
 
     sem = asyncio.Semaphore(_CONCURRENCY)
+    auth_gate = _AuthFailureGate()
     in_flight: Set[asyncio.Task] = set()
     last_heartbeat = 0.0
     # WORKER_ONCE (the Cloud Run Job path) already has stdout auto-shipped to Cloud
@@ -233,11 +326,13 @@ async def run_worker() -> None:
             last_heartbeat = time.monotonic()
         try:
             capacity = _CONCURRENCY - len(in_flight)
+            if auth_gate.leasing_blocked():
+                capacity = 0
             queue_item_id = os.getenv("QUEUE_ITEM_ID", "").strip()
             if _ONCE and queue_item_id:
                 doc = db.collection(FIRESTORE_QUEUE_COLLECTION).document(queue_item_id).get()
                 data = doc.to_dict() if getattr(doc, "exists", False) else None
-                items = [(queue_item_id, data)] if isinstance(data, dict) else []
+                items = [(queue_item_id, data)] if isinstance(data, dict) and capacity > 0 else []
             else:
                 items = _pending_items(db, _RUNNER, limit=max(capacity, 1)) if capacity > 0 else []
         except Exception:  # noqa: BLE001
@@ -251,7 +346,9 @@ async def run_worker() -> None:
                 break
             if item_id in seen_ids:
                 continue
-            task = asyncio.create_task(_process_one(db, gcs, bucket, item_id, item_data, sem, _RUNNER), name=item_id)
+            task = asyncio.create_task(
+                _process_one(db, gcs, bucket, item_id, item_data, sem, _RUNNER, auth_gate), name=item_id
+            )
             in_flight.add(task)
             task.add_done_callback(in_flight.discard)
             started = True
