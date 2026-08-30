@@ -1196,3 +1196,122 @@ def test_video_thumbnails_are_rejected(url):
 )
 def test_real_portraits_survive_video_thumbnail_rule(url):
     assert _looks_like_non_photo(url) is False
+
+
+# ---------------------------------------------------------------------------
+# _check_url_accessible content-type gate
+# ---------------------------------------------------------------------------
+
+
+class _FakeHeadResponse:
+    def __init__(self, status_code, url, content_type=None):
+        self.status_code = status_code
+        self.url = url
+        self.headers = {} if content_type is None else {"content-type": content_type}
+
+
+class _FakeAccessibilityClient:
+    """Stands in for httpx.AsyncClient for HEAD / byte-range GET probes."""
+
+    def __init__(self, head=None, get=None):
+        self._head = head
+        self._get = get
+        self.get_calls = 0
+
+    def __call__(self, *args, **kwargs):
+        return self
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        return False
+
+    async def head(self, url, headers=None, **kwargs):
+        return self._head
+
+    async def get(self, url, headers=None, **kwargs):
+        self.get_calls += 1
+        return self._get
+
+
+@pytest.mark.parametrize(
+    "content_type,expected",
+    [
+        # lookaside.fbsbx.com answers a .../profile_pic.jpg URL with 200 and an
+        # HTML redirect shim. It passes every filename check we have, and one was
+        # stored as a candidate's official headshot on 2026-08-30.
+        ("text/html; charset=utf-8", False),
+        ("text/plain", False),
+        ("image/jpeg", True),
+        ("image/png", True),
+        # Real image CDNs serve these; rejecting them would cost real headshots.
+        ("binary/octet-stream", True),
+        ("application/octet-stream", True),
+        # Absence is not evidence — plenty of hosts omit the header on HEAD.
+        (None, True),
+        ("", True),
+    ],
+)
+@pytest.mark.asyncio
+async def test_check_url_accessible_rejects_only_markup_content_types(monkeypatch, content_type, expected):
+    from pipeline_client.agent.images import _check_url_accessible
+
+    url = "https://example.com/photos/jane-doe.jpg"
+    client = _FakeAccessibilityClient(head=_FakeHeadResponse(200, url, content_type))
+    monkeypatch.setattr("pipeline_client.agent.images.httpx.AsyncClient", client)
+
+    accessible, final_url = await _check_url_accessible(url)
+
+    assert accessible is expected
+    assert final_url == url
+
+
+@pytest.mark.asyncio
+async def test_check_url_accessible_still_returns_the_redirect_target(monkeypatch):
+    """Wikimedia Special:FilePath resolution depends on the final URL, not the input."""
+    from pipeline_client.agent.images import _check_url_accessible
+
+    requested = "https://commons.wikimedia.org/wiki/Special:FilePath/Jane_Doe.jpg"
+    resolved = "https://upload.wikimedia.org/wikipedia/commons/1/12/Jane_Doe.jpg"
+    client = _FakeAccessibilityClient(head=_FakeHeadResponse(200, resolved, "image/jpeg"))
+    monkeypatch.setattr("pipeline_client.agent.images.httpx.AsyncClient", client)
+
+    accessible, final_url = await _check_url_accessible(requested)
+
+    assert accessible is True
+    assert final_url == resolved
+
+
+@pytest.mark.asyncio
+async def test_check_url_accessible_applies_the_content_type_rule_to_the_range_get_fallback(monkeypatch):
+    from pipeline_client.agent.images import _check_url_accessible
+
+    url = "https://example.com/photos/jane-doe.jpg"
+    client = _FakeAccessibilityClient(
+        head=_FakeHeadResponse(405, url),
+        get=_FakeHeadResponse(206, url, "text/html"),
+    )
+    monkeypatch.setattr("pipeline_client.agent.images.httpx.AsyncClient", client)
+
+    accessible, _ = await _check_url_accessible(url)
+
+    assert client.get_calls == 1, "a 405 must still fall back to the byte-range GET"
+    assert accessible is False
+
+
+@pytest.mark.asyncio
+async def test_check_url_accessible_accepts_an_image_from_the_range_get_fallback(monkeypatch):
+    from pipeline_client.agent.images import _check_url_accessible
+
+    url = "https://example.com/photos/jane-doe.jpg"
+    client = _FakeAccessibilityClient(
+        head=_FakeHeadResponse(501, url),
+        get=_FakeHeadResponse(206, url, "image/jpeg"),
+    )
+    monkeypatch.setattr("pipeline_client.agent.images.httpx.AsyncClient", client)
+
+    accessible, final_url = await _check_url_accessible(url)
+
+    assert accessible is True
+    assert final_url == url
