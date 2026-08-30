@@ -214,6 +214,34 @@ async def test_call_openrouter_client_error_status_raises_permanent_error():
     assert client.chat.completions.create.call_count == 1
 
 
+@pytest.mark.parametrize("status_code", [401, 402, 403])
+@pytest.mark.asyncio
+async def test_call_openrouter_auth_statuses_are_classified_as_auth_failure(status_code):
+    """402 belongs here as much as 401/403 do.
+
+    On 2026-08-30 a zero OpenRouter balance returned 402 ("Payment Required")
+    2,277 times in 18 minutes. Because 402 was missing from the auth tuple,
+    every one of those runs was filed as `request_rejected` — indistinguishable
+    from the agent sending a malformed prompt — so nothing upstream could tell
+    "we're out of credit" apart from a genuine research failure.
+    """
+    client = MagicMock()
+    client.chat.completions.create = AsyncMock(
+        side_effect=APIStatusError("no credit", response=_response(status_code), body=None)
+    )
+
+    with patch("pipeline_client.agent.llm._get_openrouter_client", return_value=client):
+        with pytest.raises(PermanentProviderError) as raised:
+            await _call_openrouter(
+                [{"role": "user", "content": "hi"}],
+                model="gpt-5.4-mini",
+                max_retries=3,
+            )
+
+    assert raised.value.code == "auth_failure"
+    assert client.chat.completions.create.call_count == 1
+
+
 @pytest.mark.asyncio
 async def test_call_openrouter_catalog_model_404_retries_then_succeeds():
     client = MagicMock()
