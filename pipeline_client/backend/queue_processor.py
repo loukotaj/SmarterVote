@@ -108,6 +108,24 @@ def _load_gcs_json(gcs: Any, bucket_name: str, path: str) -> Optional[Dict[str, 
         return None
 
 
+def _reportable_health_reason(run_health: Any) -> Optional[str]:
+    """The failure reason worth reporting to the worker, or None when healthy.
+
+    A provider auth/credit failure outranks whatever else the verdict lists:
+    it is the only reason the worker acts on, and a run that hit a dead
+    provider usually also picks up downstream reasons (missing issues, review
+    not passed) that would otherwise mask it behind list order.
+    """
+    if not isinstance(run_health, dict):
+        return None
+    if run_health.get("status") == RunHealthStatus.HEALTHY.value:
+        return None
+    reasons = [reason for reason in (run_health.get("reasons") or []) if isinstance(reason, str) and reason]
+    if RunFailureReason.PROVIDER_AUTH_FAILURE.value in reasons:
+        return RunFailureReason.PROVIDER_AUTH_FAILURE.value
+    return reasons[0] if reasons else None
+
+
 def _draft_catalog_update(race_id: str, draft_data: Dict[str, Any]) -> Dict[str, Any]:
     fields = build_race_summary_fields(race_id, draft_data)
     fields.update(build_versioned_catalog_fields("draft", draft_data))
@@ -268,11 +286,18 @@ async def process_claimed_item(
     item_data: Dict[str, Any],
     lease_owner: str,
     runner: str = "local",
-) -> None:
+) -> Optional[str]:
     """Run a claimed queue item end-to-end and finalize Firestore state.
 
     A far-future deadline avoids deadline-driven dispatch; research retry
     continuations are followed in-process below.
+
+    Returns the ``RunFailureReason`` value the item ended on, or ``None`` if it
+    ended healthy. The long-lived worker uses this to notice a provider-wide
+    outage (an exhausted API key, say) across consecutive races and stop
+    leasing, rather than feeding the whole queue into a dead provider — the
+    reason is returned rather than raised because this function deliberately
+    absorbs run failures into Firestore state.
     """
     from google.cloud.firestore_v1 import SERVER_TIMESTAMP, Increment  # type: ignore
 
@@ -295,7 +320,7 @@ async def process_claimed_item(
                 "ttl_at": _queue_ttl_at(),
             }
         )
-        return
+        return RunFailureReason.UNKNOWN_ERROR.value
 
     run_ref = db.collection(FIRESTORE_RUNS_COLLECTION).document(run_id)
     if not run_ref.get().exists:
@@ -456,7 +481,7 @@ async def process_claimed_item(
             }
         )
         _set_race_if_current(db, race_id, run_id, {"status": "cancelled", "current_run_id": None})
-        return
+        return RunFailureReason.CANCELLED.value
     except Exception as exc:  # noqa: BLE001
         error_msg = f"{type(exc).__name__}: {exc}".rstrip()
         failure_reason = classify_exception(exc)
@@ -570,6 +595,11 @@ async def process_claimed_item(
             db.collection(FIRESTORE_RACES_COLLECTION).document(race_id).set(
                 _draft_catalog_update(race_id, draft_data), merge=True
             )
+        # A run can finish "completed" and still be unhealthy — most steps absorb
+        # their own provider failures into run_health rather than raising. Surface
+        # the first reason so a provider-wide outage is visible to the caller on
+        # this path too, not only when the whole run blew up.
+        return _reportable_health_reason(run_health)
     else:
         reason = failure_reason or RunFailureReason.UNKNOWN_ERROR
         run_health = {
@@ -609,3 +639,4 @@ async def process_claimed_item(
                 "total_runs": Increment(1),
             },
         )
+        return reason.value

@@ -421,3 +421,67 @@ def test_pending_items_filters_runner_and_status_in_firestore():
         ("runner", "==", "local"),
         ("status", "==", "running"),
     ]
+
+
+@pytest.mark.asyncio
+async def test_process_returns_the_auth_failure_reason_when_the_agent_raises():
+    """The worker halts on this value, so it must escape the Firestore bookkeeping.
+
+    process_claimed_item deliberately absorbs run failures into Firestore state
+    instead of raising, which is why the reason is returned rather than thrown.
+    """
+    from pipeline_client.agent.errors import PermanentProviderError
+    from pipeline_client.backend import queue_processor as qp
+
+    item = {"race_id": "ca-house-01-2026", "run_id": "run-auth", "options": {}}
+    db, item_ref, run_ref, race_ref = _fs_mock(item)
+
+    async def out_of_credit(*_a):
+        raise PermanentProviderError("HTTP 402", provider="openrouter", code="auth_failure")
+
+    with patch.object(qp, "_run_agent", side_effect=out_of_credit):
+        reason = await qp.process_claimed_item(db, MagicMock(), "bucket", "item-auth", item, "owner-auth")
+
+    assert reason == "provider_auth_failure"
+
+
+@pytest.mark.asyncio
+async def test_process_returns_the_auth_reason_from_an_unhealthy_completed_run():
+    """Most steps absorb provider failures into run_health rather than raising, so a
+    credit outage frequently shows up as a `completed` run with a failed verdict."""
+    from pipeline_client.backend import queue_processor as qp
+
+    item = {"race_id": "ca-house-01-2026", "run_id": "run-health", "options": {"save_artifact": False}}
+    db, item_ref, run_ref, race_ref = _fs_mock(item)
+
+    async def fake_run(race_id, run_id, options, existing_data):
+        return {
+            "run_health": {
+                "status": "failed",
+                # Ordered so the auth reason is not first: the downstream noise a
+                # dead provider generates must not mask the cause.
+                "reasons": ["step_no_data", "provider_auth_failure"],
+                "step_failures": [],
+            }
+        }
+
+    with patch.object(qp, "_run_agent", side_effect=fake_run):
+        reason = await qp.process_claimed_item(db, MagicMock(), "bucket", "item-health", item, "owner-health")
+
+    assert reason == "provider_auth_failure"
+
+
+@pytest.mark.asyncio
+async def test_process_returns_none_for_a_healthy_run():
+    from pipeline_client.backend import queue_processor as qp
+
+    item = {"race_id": "ca-house-01-2026", "run_id": "run-ok", "options": {"save_artifact": False}}
+    db, item_ref, run_ref, race_ref = _fs_mock(item)
+
+    async def fake_run(race_id, run_id, options, existing_data):
+        return {"run_health": {"status": "healthy", "reasons": [], "step_failures": []}}
+
+    with patch.object(qp, "_run_agent", side_effect=fake_run):
+        reason = await qp.process_claimed_item(db, MagicMock(), "bucket", "item-ok", item, "owner-ok")
+
+    assert reason is None

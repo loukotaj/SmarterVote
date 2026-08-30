@@ -273,3 +273,121 @@ async def test_process_one_logs_exception_without_raising(monkeypatch):
 
     # Must not raise even though process_claimed_item blew up.
     await worker._process_one(db, MagicMock(), "bucket", "item-1", {"race_id": "race-1"}, sem, "local")
+
+
+# ---------------------------------------------------------------------------
+# _AuthFailureGate
+# ---------------------------------------------------------------------------
+
+
+AUTH = "provider_auth_failure"
+
+
+class _FakeClock:
+    def __init__(self) -> None:
+        self.now = 0.0
+
+    def __call__(self) -> float:
+        return self.now
+
+
+def test_auth_gate_does_not_trip_on_a_single_failure():
+    """One race failing auth is not evidence the provider is down."""
+    gate = worker._AuthFailureGate(threshold=3, cooldown_seconds=900, clock=_FakeClock())
+
+    gate.record(AUTH)
+
+    assert gate.consecutive == 1
+    assert gate.leasing_blocked() is False
+
+
+def test_auth_gate_blocks_leasing_after_consecutive_auth_failures():
+    gate = worker._AuthFailureGate(threshold=3, cooldown_seconds=900, clock=_FakeClock())
+
+    for _ in range(3):
+        gate.record(AUTH)
+
+    assert gate.leasing_blocked() is True
+
+
+def test_auth_gate_streak_is_broken_by_any_other_outcome():
+    """Only a *run* of auth failures counts — the 2026-08-30 signature."""
+    gate = worker._AuthFailureGate(threshold=3, cooldown_seconds=900, clock=_FakeClock())
+
+    gate.record(AUTH)
+    gate.record(AUTH)
+    gate.record(None)  # a healthy race
+    gate.record(AUTH)
+
+    assert gate.consecutive == 1
+    assert gate.leasing_blocked() is False
+
+
+def test_auth_gate_streak_is_broken_by_an_unrelated_failure_reason():
+    gate = worker._AuthFailureGate(threshold=2, cooldown_seconds=900, clock=_FakeClock())
+
+    gate.record(AUTH)
+    gate.record("review_not_passed")
+    gate.record(AUTH)
+
+    assert gate.leasing_blocked() is False
+
+
+def test_auth_gate_clears_itself_after_the_cooldown():
+    """The worker restarts under `restart: unless-stopped`, so blocking is
+    time-boxed rather than terminal: a topped-up balance resumes on its own."""
+    clock = _FakeClock()
+    gate = worker._AuthFailureGate(threshold=2, cooldown_seconds=900, clock=clock)
+
+    gate.record(AUTH)
+    gate.record(AUTH)
+    assert gate.leasing_blocked() is True
+
+    clock.now = 899.0
+    assert gate.leasing_blocked() is True
+
+    clock.now = 900.0
+    assert gate.leasing_blocked() is False
+    assert gate.consecutive == 0
+
+
+def test_auth_gate_threshold_zero_disables_the_halt():
+    gate = worker._AuthFailureGate(threshold=0, cooldown_seconds=900, clock=_FakeClock())
+
+    for _ in range(10):
+        gate.record(AUTH)
+
+    assert gate.leasing_blocked() is False
+
+
+@pytest.mark.asyncio
+async def test_process_one_feeds_the_terminal_reason_to_the_auth_gate(monkeypatch):
+    import pipeline_client.backend.queue_processor as queue_processor
+
+    monkeypatch.setattr(queue_processor, "claim_item", MagicMock(return_value={"race_id": "race-1"}))
+    monkeypatch.setattr(queue_processor, "process_claimed_item", AsyncMock(return_value=AUTH))
+
+    gate = worker._AuthFailureGate(threshold=2, cooldown_seconds=900, clock=_FakeClock())
+    sem = worker.asyncio.Semaphore(1)
+
+    for item_id in ("item-1", "item-2"):
+        await worker._process_one(MagicMock(), MagicMock(), "bucket", item_id, {"race_id": "race-1"}, sem, "local", gate)
+
+    assert gate.leasing_blocked() is True
+
+
+@pytest.mark.asyncio
+async def test_process_one_crash_clears_the_auth_streak(monkeypatch):
+    """A worker-side crash says nothing about the provider's credit."""
+    import pipeline_client.backend.queue_processor as queue_processor
+
+    monkeypatch.setattr(queue_processor, "claim_item", MagicMock(return_value={"race_id": "race-1"}))
+    monkeypatch.setattr(queue_processor, "process_claimed_item", AsyncMock(side_effect=RuntimeError("boom")))
+
+    gate = worker._AuthFailureGate(threshold=2, cooldown_seconds=900, clock=_FakeClock())
+    gate.record(AUTH)
+    sem = worker.asyncio.Semaphore(1)
+
+    await worker._process_one(MagicMock(), MagicMock(), "bucket", "item-1", {"race_id": "race-1"}, sem, "local", gate)
+
+    assert gate.consecutive == 0
