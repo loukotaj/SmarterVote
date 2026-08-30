@@ -350,6 +350,32 @@ def _source_omits_candidate_from_roster(
     return corroborating >= 2
 
 
+def _iso_timestamp_or_now(*candidates: Any) -> str:
+    """First candidate that parses as an ISO-8601 timestamp, else the current time.
+
+    ``last_accessed`` used to accept any truthy string the model produced. In the
+    roster-source prompt ``retrieval_status`` sits immediately before
+    ``last_accessed``, and on 2026-08-30 a model wrote its *retrieval_status*
+    value -- the literal word "content" -- into the timestamp field. Nothing
+    caught it: the record is schema-invalid, and it surfaces downstream as an
+    unresolved review flag on a race that is otherwise publishable.
+
+    Falling back to "now" rather than dropping the field is the honest choice
+    here -- the agent did just retrieve the source, so the retrieval time really
+    is now; only the model's transcription of it was garbage.
+    """
+    for value in candidates:
+        text = str(value or "").strip()
+        if not text:
+            continue
+        try:
+            datetime.fromisoformat(text.replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        return text
+    return datetime.now(timezone.utc).isoformat()
+
+
 def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str, Any] | None:
     """Normalize a lightweight tool-provided source into the shared Source shape."""
     if not isinstance(source, dict) or not source.get("url"):
@@ -357,7 +383,7 @@ def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str
     normalized = {
         "url": source["url"],
         "type": normalize_source_type(source.get("type"), url=str(source["url"]), default_type=default_type),
-        "last_accessed": source.get("last_accessed") or datetime.now(timezone.utc).isoformat(),
+        "last_accessed": _iso_timestamp_or_now(source.get("last_accessed")),
     }
     for key in ("title", "description", "published_at", "checksum", "is_fresh", "is_official_campaign"):
         if source.get(key) is not None:
@@ -413,7 +439,7 @@ def _normalize_roster_source(source: Any, *, race_id: str = "") -> Dict[str, Any
         "type": source_type,
         "title": title,
         "evidence": evidence,
-        "last_accessed": source.get("last_accessed") or source.get("retrieved") or datetime.now(timezone.utc).isoformat(),
+        "last_accessed": _iso_timestamp_or_now(source.get("last_accessed"), source.get("retrieved")),
     }
     for key in ("published_at", "race_id", "evidence_tier", "retrieval_status"):
         if source.get(key) is not None:

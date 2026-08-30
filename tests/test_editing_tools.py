@@ -3089,3 +3089,91 @@ def test_cd_shorthand_establishes_both_office_and_district():
     assert _source_supports_exact_contest(headline, race_id="az-house-07-2026") is False
     state_leg = {"title": "", "evidence": "Arizona House District 5 state legislature race"}
     assert _source_supports_exact_contest(state_leg, race_id="az-house-05-2026") is False
+
+
+# ---------------------------------------------------------------------------
+# last_accessed timestamp validation
+# ---------------------------------------------------------------------------
+
+
+def _roster_source(**overrides):
+    source = {
+        "url": "https://ballotpedia.org/United_States_Senate_election_in_New_Jersey,_2026",
+        "title": "United States Senate election in New Jersey, 2026",
+        "evidence": "Cory Booker is running in the general election for U.S. Senate New Jersey",
+    }
+    source.update(overrides)
+    return source
+
+
+def test_roster_source_keeps_a_valid_iso_last_accessed():
+    from pipeline_client.agent.handlers import _normalize_roster_source
+
+    normalized = _normalize_roster_source(_roster_source(last_accessed="2026-08-30T04:12:00+00:00"), race_id="nj-senate-2026")
+
+    assert normalized["last_accessed"] == "2026-08-30T04:12:00+00:00"
+
+
+def test_roster_source_falls_back_to_retrieved_when_last_accessed_is_absent():
+    from pipeline_client.agent.handlers import _normalize_roster_source
+
+    normalized = _normalize_roster_source(_roster_source(retrieved="2026-08-01"), race_id="nj-senate-2026")
+
+    assert normalized["last_accessed"] == "2026-08-01"
+
+
+@pytest.mark.parametrize("garbage", ["content", "snippet", "unknown", "N/A"])
+def test_roster_source_rejects_a_non_timestamp_last_accessed(garbage):
+    """The model writes the neighbouring field's value into the timestamp.
+
+    In the roster-source prompt `retrieval_status` sits immediately before
+    `last_accessed`, and "content" is a legitimate retrieval_status. On
+    2026-08-30 a model wrote it into last_accessed; the field accepted any
+    truthy string, so the schema-invalid record propagated and surfaced as an
+    unresolved review flag on an otherwise-publishable race.
+    """
+    from datetime import datetime
+
+    from pipeline_client.agent.handlers import _normalize_roster_source
+
+    normalized = _normalize_roster_source(_roster_source(last_accessed=garbage), race_id="nj-senate-2026")
+
+    assert normalized["last_accessed"] != garbage
+    # Must still be a parseable timestamp, not simply dropped — the agent really
+    # did retrieve the source just now.
+    datetime.fromisoformat(normalized["last_accessed"])
+
+
+def test_roster_source_skips_a_garbage_last_accessed_in_favour_of_a_valid_retrieved():
+    from pipeline_client.agent.handlers import _normalize_roster_source
+
+    normalized = _normalize_roster_source(
+        _roster_source(last_accessed="content", retrieved="2026-08-01"), race_id="nj-senate-2026"
+    )
+
+    assert normalized["last_accessed"] == "2026-08-01"
+
+
+def test_roster_source_defaults_to_now_when_no_timestamp_is_given():
+    from datetime import datetime, timezone
+
+    from pipeline_client.agent.handlers import _normalize_roster_source
+
+    before = datetime.now(timezone.utc)
+    normalized = _normalize_roster_source(_roster_source(), race_id="nj-senate-2026")
+
+    assert datetime.fromisoformat(normalized["last_accessed"]) >= before
+
+
+def test_generic_source_normalization_applies_the_same_timestamp_rule():
+    """summary_sources / finance sources carry the same adjacency hazard."""
+    from datetime import datetime
+
+    from pipeline_client.agent.handlers import _normalize_source
+
+    kept = _normalize_source({"url": "https://example.com/a", "last_accessed": "2026-08-30T04:12:00+00:00"})
+    assert kept["last_accessed"] == "2026-08-30T04:12:00+00:00"
+
+    repaired = _normalize_source({"url": "https://example.com/b", "last_accessed": "content"})
+    assert repaired["last_accessed"] != "content"
+    datetime.fromisoformat(repaired["last_accessed"])
