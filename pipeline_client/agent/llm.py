@@ -349,11 +349,15 @@ async def _call_openrouter(
                 await asyncio.sleep(backoff)
                 continue
             if exc.status_code < 500:
-                # 401/403 are almost always an exhausted or invalid API key, not a
-                # malformed request — classify them distinctly so run-health
+                # 401/402/403 are almost always an exhausted or invalid API key, not
+                # a malformed request — classify them distinctly so run-health
                 # reporting can tell "we're out of credit" apart from other
-                # permanent 4xx failures.
-                if exc.status_code in (401, 403):
+                # permanent 4xx failures. 402 ("Payment Required") is the literal
+                # out-of-credit code and was missing here until 2026-08-30, when a
+                # zero OpenRouter balance returned it 2,277 times in 18 minutes and
+                # every one of those runs was filed as `request_rejected` — i.e. as
+                # if the agent had sent malformed prompts.
+                if exc.status_code in (401, 402, 403):
                     raise PermanentProviderError(
                         f"OpenRouter returned HTTP {exc.status_code} (auth/quota failure)",
                         provider="openrouter",
