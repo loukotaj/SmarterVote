@@ -1226,8 +1226,33 @@ def _is_valid_image_url(url: Any) -> bool:
     return False
 
 
+def _serves_a_web_page(response: Any) -> bool:
+    """True only when the response is positively identified as markup, not an image.
+
+    A 200 is not proof a URL is an image. ``lookaside.fbsbx.com`` — Facebook's
+    crawler proxy, which discovery reaches through ``.../profile_pic.jpg`` links
+    that pass every filename check we have — answers HEAD with
+    ``200 content-type: text/html`` and a zero-length body: an HTML redirect
+    shim, not a photo. One of those was stored as a candidate's official
+    headshot on 2026-08-30. Do not "simplify" this back to a status check.
+
+    Deliberately narrow, because the cost of a false reject is a candidate with
+    no photo at all:
+
+    * Only ``text/*`` is rejected. ``binary/octet-stream`` and
+      ``application/octet-stream`` are what several real image CDNs serve, and
+      are accepted.
+    * A missing or empty content-type is accepted. Plenty of hosts omit the
+      header on HEAD, and absence is not evidence.
+    """
+    content_type = (response.headers.get("content-type") or "").strip().lower()
+    if not content_type:
+        return False
+    return content_type.split(";", 1)[0].strip().startswith("text/")
+
+
 async def _check_url_accessible(url: str) -> Tuple[bool, str]:
-    """Check whether a URL is accessible, returning (accessible, final_url).
+    """Check whether a URL is accessible *and an image*, returning (accessible, final_url).
 
     Follows redirects and returns the final URL, which may differ from the input
     — useful for resolving Wikimedia Special:FilePath redirects to upload URLs.
@@ -1235,6 +1260,9 @@ async def _check_url_accessible(url: str) -> Tuple[bool, str]:
     Strategy:
     1. HEAD with browser UA — fast, most servers support it.
     2. If HEAD returns 405/501, fall back to byte-range GET.
+
+    Either way a response that advertises itself as ``text/*`` is rejected; see
+    ``_serves_a_web_page``.
     """
     headers = {"User-Agent": _BROWSER_UA}
     try:
@@ -1242,10 +1270,15 @@ async def _check_url_accessible(url: str) -> Tuple[bool, str]:
             resp = await client.head(url, headers=headers)
             final_url = str(resp.url)
             if resp.status_code < 400:
+                if _serves_a_web_page(resp):
+                    logger.debug("Rejecting %s: served %s, not an image", url, resp.headers.get("content-type"))
+                    return False, url
                 return True, final_url
             if resp.status_code in (405, 501):
                 resp2 = await client.get(url, headers={**headers, "Range": "bytes=0-0"})
-                return resp2.status_code in (200, 206), str(resp2.url)
+                if resp2.status_code not in (200, 206) or _serves_a_web_page(resp2):
+                    return False, url
+                return True, str(resp2.url)
             return False, url
     except Exception:
         return False, url
