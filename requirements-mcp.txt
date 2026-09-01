@@ -4,5 +4,5 @@
 # releases advance ASGI/Pydantic support faster than the pinned races-api stack.
 # FastMCP remains under mcp.server.fastmcp in the 1.x SDK. MCP 2.0 removed
 # that import surface, so upgrading requires a deliberate server migration.
-mcp>=1.29.0,<2.0.0
+mcp>=2.1.1,<3.0.0
 httpx>=0.28.1,<1.0.0
