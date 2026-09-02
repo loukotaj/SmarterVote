@@ -1260,3 +1260,86 @@ def test_image_filename_check_is_quiet_on_matching_and_opaque_names():
     # Missing data never warns.
     assert not contradicts(None, "Jane Doe")
     assert not contradicts("https://example.com/x/JohnPadora.jpg", None)
+
+
+def test_unsourced_substantive_stance_is_an_error():
+    """ri-senate reached `ready: true` carrying an unsourced allegation.
+
+    The stance claimed a named candidate had attacked a sitting senator over
+    antisemitism, in a campaign video dated to the day it was written, with an
+    empty sources array. Two model reviewers flagged it; a third run reworded
+    the sentence and the flag disappeared while the empty array stayed. The
+    deterministic check saw it every time and only ever warned, so nothing
+    stopped it from publishing.
+    """
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "ri-senate-2026",
+        "candidates": [
+            {
+                "name": "Raymond McKay",
+                "issues": {
+                    "Foreign Policy": {
+                        "stance": "In a campaign video, McKay criticized the incumbent over remarks he declined to condemn.",
+                        "confidence": "medium",
+                        "sources": [],
+                    }
+                },
+            }
+        ],
+    }
+
+    flags = check_profile_quality(profile).get("flags", [])
+    unsourced = [f for f in flags if "no supporting sources" in str(f.get("concern", ""))]
+
+    assert len(unsourced) == 1
+    assert unsourced[0]["severity"] == "error"
+
+
+def test_a_documented_absence_still_needs_no_sources():
+    """ "No public position found" is a legitimate answer and must stay publishable."""
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "ri-senate-2026",
+        "candidates": [
+            {
+                "name": "Raymond McKay",
+                "issues": {
+                    "Foreign Policy": {
+                        "stance": "No public position found.",
+                        "confidence": "low",
+                        "sources": [],
+                        "research_audit": {"status": "completed", "search_calls": 6, "page_fetches": 7},
+                    }
+                },
+            }
+        ],
+    }
+
+    flags = check_profile_quality(profile).get("flags", [])
+    assert not [f for f in flags if "no supporting sources" in str(f.get("concern", ""))]
+
+
+def test_a_sourced_stance_is_clean():
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "ri-senate-2026",
+        "candidates": [
+            {
+                "name": "Jack Reed",
+                "issues": {
+                    "Foreign Policy": {
+                        "stance": "Reed supports continued security assistance to Ukraine and chairs the Armed Services Committee.",
+                        "confidence": "high",
+                        "sources": [{"url": "https://www.reed.senate.gov/news/releases/example"}],
+                    }
+                },
+            }
+        ],
+    }
+
+    flags = check_profile_quality(profile).get("flags", [])
+    assert not [f for f in flags if "no supporting sources" in str(f.get("concern", ""))]
