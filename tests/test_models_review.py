@@ -1209,3 +1209,54 @@ def test_flagged_fields_reports_only_fields_at_or_above_severity():
     assert flagged_fields(reviews) == {"a", "c"}
     assert flagged_fields(reviews, "error") == {"c"}
     assert flagged_fields(reviews, "info") == {"a", "b", "c"}
+
+
+def test_image_filename_naming_a_different_person_warns():
+    """co-house-04 stored `JohnPadoraJr2025.jpg` as Douglas Mangeris.
+
+    A real Ballotpedia portrait: reachable, correct content type, right shape.
+    Every automated check passed it. Only a reviewer reading the filename
+    noticed it was somebody else.
+    """
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "co-house-04-2026",
+        "candidates": [
+            {
+                "name": "Douglas Mangeris",
+                "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JohnPadoraJr2025.jpg",
+                "issues": {},
+            }
+        ],
+    }
+
+    flags = check_profile_quality(profile).get("flags", [])
+    image_flags = [f for f in flags if "image_url" in str(f.get("field", ""))]
+
+    assert len(image_flags) == 1
+    assert image_flags[0]["severity"] == "warning", "must not block publication; my eyeball rate is worse than a coin flip"
+
+
+def test_image_filename_check_is_quiet_on_matching_and_opaque_names():
+    from pipeline_client.agent.review import image_filename_contradicts_candidate as contradicts
+
+    # Filename names the candidate, in the several shapes hosts use.
+    assert not contradicts("https://s3.amazonaws.com/x/Marcy_Kaptur.jpg", "Marcy Kaptur")
+    assert not contradicts("https://s3.amazonaws.com/x/DerekMerrin2024.jpeg", "Derek Merrin")
+    assert not contradicts("https://s3.amazonaws.com/x/Matthew_Althaus_20260410_061023.jpg", "Matthew Althaus")
+    # CamelCase splits the surname apart; the flattened basename still matches.
+    assert not contradicts("https://s3.amazonaws.com/x/NickLaLota24.jpg", "Nicholas J. LaLota")
+    # Diacritics folded.
+    assert not contradicts("https://s3.amazonaws.com/x/Angelica_Maria_DuenasCA.jpeg", "Angélica María Dueñas")
+
+    # Opaque filenames assert nothing about who is pictured.
+    assert not contradicts("https://vibe.filesafe.space/177/attachments/1ef1aa67-11e3-4e8a.png", "Kathy McKinstry")
+    assert not contradicts("https://s3.amazonaws.com/x/fu_scd4d3djdzh8w2c_20260526.jpg", "Kurt Alme")
+    assert not contradicts("https://example.com/photos/portrait.jpg", "Jane Doe")
+    # A single word could be a nickname, a photographer or an event.
+    assert not contradicts("https://example.com/x/Sammy-22.jpg", "Phil Weiser")
+
+    # Missing data never warns.
+    assert not contradicts(None, "Jane Doe")
+    assert not contradicts("https://example.com/x/JohnPadora.jpg", None)

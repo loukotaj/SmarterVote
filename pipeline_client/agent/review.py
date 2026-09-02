@@ -6,9 +6,10 @@ import hashlib
 import json
 import logging
 import re
+import unicodedata
 from datetime import datetime, timedelta, timezone
 from typing import Any, Callable, Dict, List, Optional
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
 import httpx
 
@@ -603,6 +604,155 @@ def _implausible_incumbency_claim(race_json: Dict[str, Any]) -> Optional[str]:
     return None
 
 
+# A stored image filename often spells out whose picture it is. When it spells
+# out a *different* person, that is the cheapest possible signal that the wrong
+# photo was attached -- and the only one that catches a technically valid,
+# reachable, correctly-typed image of somebody else.
+_IMAGE_NAME_STOPWORDS = frozenset(
+    {
+        "congress",
+        "congressional",
+        "senate",
+        "senator",
+        "house",
+        "rep",
+        "representative",
+        "gov",
+        "governor",
+        "candidate",
+        "campaign",
+        "official",
+        "portrait",
+        "headshot",
+        "photo",
+        "image",
+        "img",
+        "pic",
+        "picture",
+        "profile",
+        "avatar",
+        "thumb",
+        "thumbnail",
+        "final",
+        "small",
+        "medium",
+        "large",
+        "web",
+        "square",
+        "crop",
+        "cropped",
+        "edit",
+        "edited",
+        "copy",
+        "new",
+        "updated",
+        "scaled",
+        "resized",
+        "for",
+        "the",
+        "and",
+        "of",
+        "district",
+        "county",
+        "state",
+        "committee",
+        "party",
+        "democratic",
+        "republican",
+        "libertarian",
+        "green",
+        "independent",
+        "press",
+        "news",
+        "media",
+        "release",
+        "jr",
+        "sr",
+        "ii",
+        "iii",
+        "iv",
+        "dr",
+        "mr",
+        "mrs",
+        "ms",
+        "screenshot",
+        "untitled",
+        "design",
+        "picsart",
+        "envato",
+        "labs",
+        "base",
+        "dpi",
+    }
+)
+
+_IMAGE_NAME_TOKEN = re.compile(r"[A-Za-z][a-z]{2,}")
+
+
+def _fold_accents(text: str) -> str:
+    """Strip diacritics so `Duenas` matches `Dueñas`."""
+    return "".join(ch for ch in unicodedata.normalize("NFKD", str(text)) if not unicodedata.combining(ch))
+
+
+def _image_basename(url: str) -> str:
+    try:
+        basename = unquote(urlparse(str(url)).path).rsplit("/", 1)[-1]
+    except Exception:
+        return ""
+    return re.sub(r"\.[A-Za-z0-9]{1,5}$", "", _fold_accents(basename))
+
+
+def _image_filename_name_tokens(url: str) -> set[str]:
+    """Name-like words a stored image filename asserts about its subject.
+
+    Splits CamelCase and separator-delimited filenames, drops photo jargon and
+    ordinals, and ignores anything that is not a plausible name word. An opaque
+    filename -- a UUID, a hash, a bare numeric id -- asserts nothing and yields
+    an empty set, which is what keeps this quiet for the many hosts that serve
+    perfectly good portraits under meaningless names.
+    """
+    tokens = {match.group(0).lower() for match in _IMAGE_NAME_TOKEN.finditer(_image_basename(url))}
+    # A name word has a vowel. Without this, a random upload id like
+    # `fu_scd4d3djdzh8w2c` yields "scd" and "djdzh" and reads as two names.
+    return {token for token in tokens if token not in _IMAGE_NAME_STOPWORDS and re.search(r"[aeiouy]", token)}
+
+
+def _candidate_name_tokens(name: str) -> set[str]:
+    parts = {part.strip(".,'\"").lower() for part in re.split(r"[\s\-']+", _fold_accents(name or "")) if part.strip()}
+    return {part for part in parts if len(part) > 2 and part not in _IMAGE_NAME_STOPWORDS}
+
+
+def image_filename_contradicts_candidate(url: Any, name: Any) -> bool:
+    """True when the filename names somebody, and it is not this candidate.
+
+    Deliberately silent unless the filename makes a claim: it must contain at
+    least two name-like words -- a single word is as likely to be a nickname,
+    a photographer, or an event as a surname. Requires a full miss on every
+    token, so `Marcy_Kaptur.jpg`, `DerekMerrin2024.jpeg` and
+    `Matthew_Althaus_20260410_061023.jpg` all pass.
+
+    What it catches is the case nothing else does: co-house-04 stored
+    `JohnPadoraJr2025.jpg` -- a real Ballotpedia portrait, reachable, correct
+    content type -- as Douglas Mangeris. Only a reviewer reading the filename
+    noticed.
+    """
+    if not url or not name:
+        return False
+    filename_tokens = _image_filename_name_tokens(url)
+    if len(filename_tokens) < 2:
+        return False
+    candidate_tokens = _candidate_name_tokens(name)
+    if not candidate_tokens:
+        return False
+    if filename_tokens & candidate_tokens:
+        return False
+    # A surname the tokenizer split ("LaLota" -> "la", "lota") or ran together
+    # ("dougmangeris") still counts as a match, so compare against the flattened
+    # basename as well.
+    flattened = re.sub(r"[^a-z]", "", _image_basename(url).lower())
+    return not any(token in flattened for token in candidate_tokens)
+
+
 def check_profile_quality(race_json: Dict[str, Any], *, issues_step_ran: bool = True) -> Dict[str, Any]:
     """Run deterministic checks for important quality failures reviewers may miss.
 
@@ -714,6 +864,18 @@ def check_profile_quality(race_json: Dict[str, Any], *, issues_step_ran: bool = 
     for index, candidate in enumerate(race_json.get("candidates") or []):
         if not isinstance(candidate, dict):
             continue
+        if image_filename_contradicts_candidate(candidate.get("image_url"), candidate.get("name")):
+            flags.append(
+                {
+                    "field": f"candidates[{index}].image_url",
+                    "concern": (
+                        "Stored image filename names a different person than this candidate; "
+                        "the photo may belong to somebody else."
+                    ),
+                    "suggestion": "Open the image and confirm it shows this candidate; clear image_url if it does not.",
+                    "severity": "warning",
+                }
+            )
         issues = candidate.get("issues")
         issue_names = set(issues) if isinstance(issues, dict) else set()
         missing_issues = sorted(required_issues - issue_names)
