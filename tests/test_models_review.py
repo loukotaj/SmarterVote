@@ -904,6 +904,51 @@ def test_unaudited_absence_without_race_telemetry_is_informational():
     assert legacy_flags[0]["severity"] == "info"
 
 
+def test_untouched_candidate_absence_is_informational_when_another_was_researched():
+    """Regression: a targeted run failed the whole race on candidates it never touched.
+
+    The legacy exemption used to require the race's entire issue_research map to be
+    empty. A run scoped to one candidate populates it, so every other candidate's
+    older un-audited absence became error-severity — review named George McDermott
+    on md-house-04 with "0 search calls and 0 page fetches" when the run had only
+    been asked to add Sam Husseini.
+    """
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "md-house-04-2026",
+        "candidates": [
+            {
+                "name": "Sam Husseini",
+                "issues": {
+                    "Tech & AI": {
+                        "stance": "No public position found",
+                        "confidence": "low",
+                        "sources": [],
+                        "research_audit": {"status": "completed", "search_calls": 2, "page_fetches": 1},
+                    }
+                },
+            },
+            {
+                "name": "George McDermott",
+                "issues": {"Tech & AI": {"stance": "No public position found", "confidence": "low", "sources": []}},
+            },
+        ],
+        # Populated for the targeted candidate only.
+        "pipeline_state": {
+            "issue_research": {"issues:Sam Husseini:Tech & AI": {"status": "completed", "search_calls": 2, "page_fetches": 1}}
+        },
+    }
+
+    result = check_profile_quality(profile)
+
+    assert not [f for f in result.get("flags", []) if "completed audit" in str(f.get("concern", ""))]
+    legacy = [f for f in result.get("flags", []) if "legacy draft predates provenance logging" in str(f.get("concern", ""))]
+    assert len(legacy) == 1
+    assert legacy[0]["severity"] == "info"
+    assert "George McDermott" not in str(legacy[0]["field"])  # flagged by index, not name
+
+
 def test_profile_quality_accepts_source_backed_no_position_without_telemetry():
     from pipeline_client.agent.review import check_profile_quality
 
