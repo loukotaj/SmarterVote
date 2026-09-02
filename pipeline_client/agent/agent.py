@@ -527,6 +527,52 @@ def _sanitize_optional_source_dates(race_json: Dict[str, Any], log: Any | None =
         log("warning", f"Normalized {normalized_count} blank optional source published_at value(s)")
 
 
+def _sanitize_source_last_accessed(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Repair any ``last_accessed`` that is not a parseable timestamp, anywhere.
+
+    #350 and #361 taught the two places that *write* a source object to validate
+    this field, and both fixes hold. Neither helps a value that was already
+    stored: sources inherited from the baseline record are carried over verbatim
+    -- ``add_candidate`` deliberately reuses persisted source dicts so evidence
+    survives a re-run -- so a document poisoned once stays poisoned and can never
+    self-heal.
+
+    tx-house-05 failed RaceJSON validation on four separate runs, across both
+    earlier fixes, on the same inherited value:
+
+        candidates.1.roster_sources.2.last_accessed
+          Input should be a valid datetime or date, input is too short
+
+    The literal string was "content" -- the value of the adjacent
+    ``retrieval_status`` key, which sits directly above ``last_accessed`` in the
+    roster-source prompt. Repairing it here, alongside the sibling sanitizers
+    that already run before validation, closes the class rather than the
+    instance.
+    """
+    from pipeline_client.agent.utils import iso_timestamp_or_now
+
+    repaired = 0
+
+    def visit(value: Any) -> None:
+        nonlocal repaired
+        if isinstance(value, dict):
+            if "url" in value and "last_accessed" in value:
+                current = value.get("last_accessed")
+                fixed = iso_timestamp_or_now(current, value.get("retrieved"))
+                if fixed != current:
+                    value["last_accessed"] = fixed
+                    repaired += 1
+            for nested in value.values():
+                visit(nested)
+        elif isinstance(value, list):
+            for nested in value:
+                visit(nested)
+
+    visit(race_json)
+    if repaired and log:
+        log("warning", f"Repaired {repaired} unparseable source last_accessed value(s)")
+
+
 def _normalize_schema_fields(race_json: Dict[str, Any], log: Any | None = None) -> None:
     """Apply schema defaults and Pydantic migrations while preserving extra metadata."""
     if not isinstance(race_json.get("schema_version"), str) or not race_json.get("schema_version"):
@@ -536,6 +582,7 @@ def _normalize_schema_fields(race_json: Dict[str, Any], log: Any | None = None) 
     _sanitize_candidate_links(race_json, log)
     _sanitize_roster_sources(race_json, log)
     _sanitize_optional_source_dates(race_json, log)
+    _sanitize_source_last_accessed(race_json, log)
 
     try:
         from shared.models import RaceJSON as _RaceJSONModel
