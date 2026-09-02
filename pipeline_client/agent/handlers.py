@@ -37,6 +37,7 @@ from pipeline_client.agent.roster_contract import (
     tier_rejection_reason,
 )
 from pipeline_client.agent.source_types import normalize_source_type
+from pipeline_client.agent.utils import iso_timestamp_or_now
 
 _CANONICAL_ISSUE_SET = set(CANONICAL_ISSUES)
 
@@ -351,29 +352,14 @@ def _source_omits_candidate_from_roster(
 
 
 def _iso_timestamp_or_now(*candidates: Any) -> str:
-    """First candidate that parses as an ISO-8601 timestamp, else the current time.
+    """Delegate to the shared validator so both write paths behave identically.
 
-    ``last_accessed`` used to accept any truthy string the model produced. In the
-    roster-source prompt ``retrieval_status`` sits immediately before
-    ``last_accessed``, and on 2026-08-30 a model wrote its *retrieval_status*
-    value -- the literal word "content" -- into the timestamp field. Nothing
-    caught it: the record is schema-invalid, and it surfaces downstream as an
-    unresolved review flag on a race that is otherwise publishable.
-
-    Falling back to "now" rather than dropping the field is the honest choice
-    here -- the agent did just retrieve the source, so the retrieval time really
-    is now; only the model's transcription of it was garbage.
+    This lived here alone while the normaliser in ``llm.py`` still used a bare
+    ``setdefault``, which leaves a present-but-invalid value untouched. The two
+    paths drifted and tx-house-05 shipped a schema-invalid ``last_accessed``
+    anyway. Keep one implementation.
     """
-    for value in candidates:
-        text = str(value or "").strip()
-        if not text:
-            continue
-        try:
-            datetime.fromisoformat(text.replace("Z", "+00:00"))
-        except ValueError:
-            continue
-        return text
-    return datetime.now(timezone.utc).isoformat()
+    return iso_timestamp_or_now(*candidates)
 
 
 def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str, Any] | None:
