@@ -353,10 +353,37 @@ class Candidate(BaseModel):
     @field_validator("issues", mode="before")
     @classmethod
     def migrate_legacy_issue_names(cls, v: Any) -> Any:
-        """Transparently rename legacy (biased) issue keys to current neutral names."""
+        """Transparently rename legacy (biased) issue keys to current neutral names.
+
+        Renaming can collide: a candidate carrying both "Reproductive Rights" and
+        "Abortion & Reproductive Health" ends up with two entries competing for one
+        key. A plain dict comprehension resolves that by insertion order and throws
+        the loser away whole — including its sources. The same input in a different
+        order produced a stance with one source or with none, and the sourceless
+        version then reads as an unsupported claim.
+
+        Keep the better entry instead: one with a real stance beats one without,
+        and among those, more sources wins. This mirrors ``_issue_quality`` in the
+        agent's own sanitizer, which already deduplicates this way before the
+        document reaches validation.
+        """
         if not isinstance(v, dict):
             return v
-        return {LEGACY_ISSUE_NAMES.get(k, k): val for k, val in v.items()}
+
+        def quality(entry: Any) -> tuple[int, int]:
+            if not isinstance(entry, dict):
+                return (0, 0)
+            stance = str(entry.get("stance") or "").strip()
+            sources = entry.get("sources") or []
+            return (1 if stance else 0, len(sources) if isinstance(sources, list) else 0)
+
+        merged: dict[Any, Any] = {}
+        for key, entry in v.items():
+            canonical = LEGACY_ISSUE_NAMES.get(key, key)
+            if canonical in merged and quality(entry) <= quality(merged[canonical]):
+                continue
+            merged[canonical] = entry
+        return merged
 
     # Background
     career_history: List[CareerEntry] = Field(default_factory=list)
