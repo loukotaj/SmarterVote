@@ -779,7 +779,14 @@ def check_profile_quality(race_json: Dict[str, Any], *, issues_step_ran: bool = 
                     # researched. Older drafts predate provenance logging, so do
                     # not reject their citations merely because no audit survived.
                     continue
-                if _is_documented_absence(stance) and not isinstance(audit, dict) and not issue_research:
+                if _is_documented_absence(stance) and not isinstance(audit, dict) and attempt_key not in issue_research:
+                    # Scoped per stance, not per race. This used to require the whole
+                    # race's issue_research map to be empty, which made the legacy
+                    # exemption depend on whether some *other* candidate happened to be
+                    # researched in the same run. A targeted run populates the map for
+                    # the candidate it touched, so every untouched candidate's older
+                    # absences were suddenly error-severity and failed the whole race —
+                    # review would name a candidate the run was never asked to revisit.
                     flags.append(
                         {
                             "field": f"candidates[{index}].issues.{issue_name}.stance",
