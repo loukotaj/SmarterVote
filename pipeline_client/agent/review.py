@@ -969,12 +969,26 @@ def check_profile_quality(race_json: Dict[str, Any], *, issues_step_ran: bool = 
                         }
                     )
                 if stance and not _is_documented_absence(stance) and not issue_data.get("sources"):
+                    # Error, not warning. A stance that asserts something about a
+                    # candidate with nothing behind it is the one defect that can
+                    # do real harm if it ships, and a warning does not stop it.
+                    #
+                    # ri-senate reached `ready: true` at grade B 89 carrying an
+                    # unsourced claim that a named candidate had attacked a sitting
+                    # senator over antisemitism, dated to the day it was written.
+                    # Two model reviewers flagged it, a third run reworded it, and
+                    # the flag went away while the empty sources array stayed. The
+                    # deterministic check saw it every time and only ever warned.
+                    #
+                    # Measured across the published catalogue before promoting this:
+                    # 69 of 17,138 substantive stances lack sources, 0.40%, in 33
+                    # races. One of them is the literal string "(Draft)".
                     flags.append(
                         {
                             "field": f"candidates[{index}].issues.{issue_name}.sources",
                             "concern": "Substantive issue stance has no supporting sources.",
-                            "suggestion": "Add a source or record that no public position was found.",
-                            "severity": "warning",
+                            "suggestion": "Add a source, or replace the stance with a documented no-position result.",
+                            "severity": "error",
                         }
                     )
     verdict = "flagged" if flags else "approved"
