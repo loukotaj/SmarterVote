@@ -4,13 +4,42 @@ from typing import Any, Dict, List
 
 from pipeline_client.agent.evidence import merge_source_lists
 
+_NO_POSITION_MARKERS = ("no public position found",)
+
+
+def _is_documented_absence(stance: Any) -> bool:
+    return any(marker in str(stance or "").casefold() for marker in _NO_POSITION_MARKERS)
+
 
 def _merge_issue_data(existing: Any, incoming: Any) -> Any:
-    if not isinstance(incoming, dict) or not isinstance(existing, dict):
+    """Merge a patch's issue entry over the stored one, keeping cited evidence.
+
+    Refinement and iteration write issues through here rather than through the
+    ``set_issue_stance`` tool, which refuses a substantive stance carrying no
+    sources. Nothing enforced that rule on this path, so a patch could introduce
+    an assertion about a candidate with nothing behind it -- and 32 of the 69
+    unsourced substantive stances in the published catalogue have no
+    ``research_audit`` at all, meaning they never came from the issues phase.
+    This is where they came from.
+
+    A documented absence is still allowed to carry no sources; that is the
+    honest outcome when a real search finds nothing.
+    """
+    if not isinstance(incoming, dict):
+        return incoming
+    if not isinstance(existing, dict):
+        # Nothing stored yet, so there is no evidence to fall back on. Refuse an
+        # unsourced assertion rather than creating one.
+        if not _is_documented_absence(incoming.get("stance")) and not (incoming.get("sources") or []):
+            return None
         return incoming
     merged = dict(existing)
     merged.update(incoming)
     merged["sources"] = merge_source_lists(incoming.get("sources"), existing.get("sources"))
+    if not _is_documented_absence(merged.get("stance")) and not merged["sources"]:
+        # The rewrite dropped the last citation. Keep what was already stored
+        # rather than publishing the new claim unsupported.
+        return existing
     return merged
 
 
@@ -62,7 +91,11 @@ def _apply_issue_patch(race_json: Dict[str, Any], patch: Dict[str, Any], log: An
         candidate = candidates_by_name[cand_name]
         current_issues = candidate.setdefault("issues", {})
         for issue_name, issue_data in issues.items():
-            current_issues[issue_name] = _merge_issue_data(current_issues.get(issue_name), issue_data)
+            merged = _merge_issue_data(current_issues.get(issue_name), issue_data)
+            if merged is None:
+                log("warning", f"  Skipped unsourced {cand_name} / {issue_name} stance from issue patch")
+                continue
+            current_issues[issue_name] = merged
         updated += 1
     log("info", f"  Issue patch applied — {updated} candidates updated")
 
@@ -118,7 +151,11 @@ def _apply_candidate_patch(candidate: Dict[str, Any], patch: Dict[str, Any], log
     if isinstance(new_issues, dict) and new_issues:
         current_issues = candidate.setdefault("issues", {})
         for issue_name, issue_data in new_issues.items():
-            current_issues[issue_name] = _merge_issue_data(current_issues.get(issue_name), issue_data)
+            merged = _merge_issue_data(current_issues.get(issue_name), issue_data)
+            if merged is None:
+                log("warning", f"  Skipped unsourced {cname} / {issue_name} stance from candidate patch")
+                continue
+            current_issues[issue_name] = merged
     log("debug", f"  Candidate patch applied for {cname}")
 
 
