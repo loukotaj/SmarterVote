@@ -256,6 +256,12 @@ export interface PipelineState {
   race_identity?: RaceIdentityBrief;
   roster_research?: RosterResearchAudit;
   metadata_research?: MetadataResearchAudit;
+  removed_source_urls: RemovedSourceUrl[];
+}
+
+export interface RemovedSourceUrl {
+  candidate_name: string;
+  url: string;
 }
 
 export interface RosterResearchAudit {

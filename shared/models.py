@@ -514,6 +514,13 @@ class MetadataResearchAudit(BaseModel):
     candidate_sources: Dict[str, List[Source]] = Field(default_factory=dict)
 
 
+class RemovedSourceUrl(BaseModel):
+    """Explicit source deletion that baseline preservation must not undo."""
+
+    candidate_name: str
+    url: str
+
+
 class PipelineState(BaseModel):
     """Draft-only progress state for batched research runs."""
 
@@ -530,6 +537,7 @@ class PipelineState(BaseModel):
     race_identity: Optional[RaceIdentityBrief] = None
     roster_research: Optional[RosterResearchAudit] = None
     metadata_research: Optional[MetadataResearchAudit] = None
+    removed_source_urls: List[RemovedSourceUrl] = Field(default_factory=list)
 
 
 class RaceJSON(BaseModel):

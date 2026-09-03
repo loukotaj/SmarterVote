@@ -1713,6 +1713,8 @@ def _make_editing_handlers(
         return f"Added {args.get('type', 'other')} link for '{name}'."
 
     def remove_candidate_source_url(args: Dict[str, Any]) -> str:
+        from pipeline_client.agent.agent import _is_missing_stance_text
+
         name = args["candidate_name"]
         url = str(args["url"]).strip()
         c = _find_candidate(name)
@@ -1720,6 +1722,35 @@ def _make_editing_handlers(
             return f"Candidate '{name}' not found."
         if not url:
             return "ERROR: url is required."
+
+        # Removal is otherwise atomic across the candidate profile. Refuse it
+        # before mutating any list when the URL is the last evidence for a
+        # substantive issue stance. The agent must first add replacement
+        # evidence or explicitly rewrite the stance as a documented absence.
+        # Without this preflight, iteration could create sources=[] while the
+        # durable research audit still reported source_count > 0.
+        issues = c.get("issues")
+        if isinstance(issues, dict):
+            for issue_name, issue_data in issues.items():
+                if not isinstance(issue_data, dict):
+                    continue
+                sources = issue_data.get("sources")
+                if not isinstance(sources, list):
+                    continue
+                removes_url = any(isinstance(source, dict) and source.get("url") == url for source in sources)
+                kept = [source for source in sources if not (isinstance(source, dict) and source.get("url") == url)]
+                stance = str(issue_data.get("stance") or "").strip()
+                if removes_url and not kept and stance and not _is_missing_stance_text(stance):
+                    log(
+                        "warning",
+                        f"    remove_candidate_source_url({name!r}) BLOCKED: {url[:80]} is the last source for "
+                        f"substantive issue {issue_name!r}",
+                    )
+                    return (
+                        f"ERROR: Cannot remove {url!r}; it is the last supporting source for "
+                        f"{name}'s substantive {issue_name} stance. Add a replacement source first, "
+                        "or rewrite the stance as 'No public position found'."
+                    )
 
         removed = 0
 
@@ -1740,7 +1771,6 @@ def _make_editing_handlers(
                 c[scalar_key] = None
                 removed += 1
 
-        issues = c.get("issues")
         if isinstance(issues, dict):
             for issue_data in issues.values():
                 if not isinstance(issue_data, dict):

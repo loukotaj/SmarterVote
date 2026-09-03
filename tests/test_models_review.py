@@ -352,12 +352,14 @@ def test_pipeline_state_preserves_durable_retry_failure_and_cleanup_fields():
             "issue_attempts": {"issues:Alice:Economy": 2},
             "step_failures": [{"step": "forecast", "reason": "step_no_data", "detail": "missing source"}],
             "deterministic_cleanup": {"text_changes": 1},
+            "removed_source_urls": [{"candidate_name": "Alice", "url": "https://example.test/dead"}],
         }
     ).model_dump(mode="json")
 
     assert state["issue_attempts"] == {"issues:Alice:Economy": 2}
     assert state["step_failures"][0]["step"] == "forecast"
     assert state["deterministic_cleanup"] == {"text_changes": 1}
+    assert state["removed_source_urls"] == [{"candidate_name": "Alice", "url": "https://example.test/dead"}]
 
 
 def test_issue_research_effort_context_distinguishes_attempted_absence_from_omission():
