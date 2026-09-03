@@ -38,6 +38,9 @@ services:
       # limits bind first; raise this before worrying about memory.
       WORKER_CONCURRENCY: "${WORKER_CONCURRENCY:-4}"
       WORKER_POLL_SECONDS: "3"
+      # Optional race|candidate|issue diagnostic used to follow one stance's
+      # source array through phase boundaries without changing stored data.
+      PIPELINE_ISSUE_SOURCE_TRACE: "${PIPELINE_ISSUE_SOURCE_TRACE:-}"
       # GCS_BUCKET / FIRESTORE_PROJECT come from .env; override here if needed.
     # Docker's embedded resolver intermittently failed to resolve
     # oauth2.googleapis.com (Errno -5), breaking Google auth for Firestore

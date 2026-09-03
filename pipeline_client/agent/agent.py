@@ -59,6 +59,7 @@ from .review import (
     stamp_roster_fingerprint,
 )
 from .run_budget import RunBudget
+from .source_trace import trace_issue_sources
 from .tools import (  # noqa: F401 - re-exported for tests
     ADD_CANDIDATE_TOOL,
     ADD_LINK_TOOL,
@@ -977,10 +978,13 @@ async def run_agent(
     _sanitize_roster(race_json, log)
     race_json.setdefault("polling", [])
     _normalize_schema_fields(race_json, log)
+    trace_issue_sources(race_json, "after_normalize_schema_fields", log)
     restored_evidence = preserve_baseline_evidence(race_json, baseline_existing_data)
+    trace_issue_sources(race_json, "after_preserve_baseline_evidence", log)
     if restored_evidence:
         log("warning", f"Restored {restored_evidence} baseline source citation(s) omitted by the update")
         _normalize_schema_fields(race_json, log)
+        trace_issue_sources(race_json, "after_restoration_normalize_schema_fields", log)
     pipeline_state = race_json.setdefault("pipeline_state", pipeline_state)
 
     # A run that does not enable `review` carries the previous run's reviews
@@ -1129,10 +1133,17 @@ async def run_agent(
                     race_json["generator"] = generators
                     _sanitize_roster(race_json, log)
                     _normalize_schema_fields(race_json, log)
+                    trace_issue_sources(race_json, f"iteration_{cycle}_after_normalize_schema_fields", log)
                     restored_evidence = preserve_baseline_evidence(race_json, baseline_existing_data)
+                    trace_issue_sources(race_json, f"iteration_{cycle}_after_preserve_baseline_evidence", log)
                     if restored_evidence:
                         log("warning", f"Restored {restored_evidence} baseline source citation(s) after iteration")
                         _normalize_schema_fields(race_json, log)
+                        trace_issue_sources(
+                            race_json,
+                            f"iteration_{cycle}_after_restoration_normalize_schema_fields",
+                            log,
+                        )
 
                     # Schema normalization replaces schema-owned nested dicts,
                     # so refresh this reference before recording post-review
@@ -1345,6 +1356,7 @@ async def run_agent(
 
         _sanitize_roster(race_json, log)
         _normalize_schema_fields(race_json, log)
+        trace_issue_sources(race_json, "final_after_normalize_schema_fields", log)
         _RaceJSONModel.model_validate(race_json)
         log("info", "Schema validation passed; output conforms to RaceJSON v0.3")
     except Exception as schema_exc:
