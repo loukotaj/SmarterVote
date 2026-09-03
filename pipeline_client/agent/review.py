@@ -1115,6 +1115,100 @@ def _flag_identity(flag: Dict[str, Any]) -> tuple:
     return ("concern", concern)
 
 
+_POSITIONAL_FIELD_PATTERN = re.compile(r"^candidates\[(\d+)\]")
+
+_STALE_REVIEW_REASON = "Roster changed after this review was written; positional flags no longer describe these candidates."
+
+
+def roster_fingerprint(race_json: Optional[Dict[str, Any]]) -> str:
+    """Stable digest of the candidate roster a set of reviews was written against.
+
+    Order is part of the fingerprint on purpose. Reviewer flags address
+    candidates positionally (``candidates[2].image_url``), so a reordered roster
+    invalidates them exactly as thoroughly as a replaced one.
+    """
+    if not isinstance(race_json, dict):
+        return ""
+    names: List[str] = []
+    for candidate in race_json.get("candidates") or []:
+        if not isinstance(candidate, dict):
+            continue
+        names.append(re.sub(r"\s+", " ", str(candidate.get("name") or "")).strip().casefold())
+    if not names:
+        return ""
+    return hashlib.sha256("\n".join(names).encode("utf-8")).hexdigest()
+
+
+def stamp_roster_fingerprint(reviews: List[Dict[str, Any]], race_json: Dict[str, Any]) -> None:
+    """Record which roster each review judged, so a later run can tell it is stale."""
+    fingerprint = roster_fingerprint(race_json)
+    for review in reviews:
+        if isinstance(review, dict):
+            review["roster_fingerprint"] = fingerprint
+
+
+def invalidate_stale_reviews(race_json: Dict[str, Any], *, baseline_race_json: Optional[Dict[str, Any]] = None) -> int:
+    """Mark carried-forward reviews that judged a roster this race no longer has.
+
+    A refresh does not re-run ``review``, so reviews from an earlier run ride
+    along unchanged onto the new draft. When the refresh also changed the roster,
+    those reviews describe people who are no longer candidates, yet their
+    error-severity flags still fail the grade and block publication — so a
+    refresh that *fixes* a flagged problem inherits the flag that blocks it.
+    Worse, the flags are positional, so ``candidates[1].image_url`` silently
+    re-points at whoever now occupies that slot and actively misleads a reader.
+
+    Flags are kept rather than deleted, marked ``stale`` so the audit trail
+    survives, and skipped by grading and the publish gate. Only positional flags
+    are invalidated: a race-level concern (a bad title, a dead source) is just as
+    true after the roster changes.
+
+    ``baseline_race_json`` is the draft as it stood when this run started. It
+    lets reviews written before fingerprints existed still be judged: such a
+    review can only have addressed the roster the run began with, so a roster the
+    run has since changed makes it stale.
+    """
+    if not isinstance(race_json, dict):
+        return 0
+    reviews = race_json.get("reviews")
+    if not isinstance(reviews, list):
+        return 0
+
+    current = roster_fingerprint(race_json)
+    baseline = roster_fingerprint(baseline_race_json) if isinstance(baseline_race_json, dict) else None
+
+    stale_reviews = 0
+    for review in reviews:
+        if not isinstance(review, dict) or review.get("stale"):
+            continue
+        stored = review.get("roster_fingerprint")
+        if isinstance(stored, str) and stored:
+            is_stale = stored != current
+        elif baseline is not None:
+            is_stale = baseline != current
+        else:
+            # No fingerprint and no baseline to infer one from. Staleness is
+            # unprovable, and guessing would discard sound review work.
+            is_stale = False
+        if not is_stale:
+            continue
+
+        stale_reviews += 1
+        review["stale"] = True
+        review["stale_reason"] = _STALE_REVIEW_REASON
+        for flag in review.get("flags") or []:
+            if isinstance(flag, dict) and _POSITIONAL_FIELD_PATTERN.match(str(flag.get("field") or "")):
+                flag["stale"] = True
+    return stale_reviews
+
+
+def has_stale_reviews(race_json: Optional[Dict[str, Any]]) -> bool:
+    """True when any stored review was written against a superseded roster."""
+    if not isinstance(race_json, dict):
+        return False
+    return any(isinstance(review, dict) and review.get("stale") for review in race_json.get("reviews") or [])
+
+
 def _distinct_flags(reviews: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Flatten reviewer flags, counting each distinct defect once.
 
@@ -1128,6 +1222,8 @@ def _distinct_flags(reviews: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     for review in reviews:
         for flag in review.get("flags") or []:
             if not isinstance(flag, dict):
+                continue
+            if flag.get("stale"):
                 continue
             identity = _flag_identity(flag)
             previous = distinct.get(identity)

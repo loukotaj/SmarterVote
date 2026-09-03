@@ -50,7 +50,14 @@ from .phases import (  # noqa: F401 - re-exported for backward compat
     _select_target_candidates,
 )
 from .polling_quality import polling_semantic_problem
-from .review import build_review_change_manifest, build_semantic_review_packet, compute_validation_grade, run_reviews
+from .review import (
+    build_review_change_manifest,
+    build_semantic_review_packet,
+    compute_validation_grade,
+    invalidate_stale_reviews,
+    run_reviews,
+    stamp_roster_fingerprint,
+)
 from .run_budget import RunBudget
 from .tools import (  # noqa: F401 - re-exported for tests
     ADD_CANDIDATE_TOOL,
@@ -976,6 +983,24 @@ async def run_agent(
         _normalize_schema_fields(race_json, log)
     pipeline_state = race_json.setdefault("pipeline_state", pipeline_state)
 
+    # A run that does not enable `review` carries the previous run's reviews
+    # forward unchanged. When it also changed the roster, those reviews judged
+    # candidates who are no longer in the race, yet their error flags still fail
+    # the grade and block the publish -- so a refresh that fixes a flagged
+    # problem inherits the flag that blocks it. Drop them from the gates before
+    # anything reads the grade.
+    stale_review_count = invalidate_stale_reviews(race_json, baseline_race_json=baseline_existing_data)
+    if stale_review_count:
+        log(
+            "warning",
+            f"{stale_review_count} carried review(s) judged a roster this run replaced; "
+            "their positional flags are marked stale and no longer block publication",
+        )
+        # The stored grade counted those flags, so it is stale for the same reason.
+        race_json["validation_grade"] = (
+            compute_validation_grade(race_json.get("reviews", []), race_json) if race_json.get("reviews") else None
+        )
+
     review_required_steps_ran = bool(_enabled & {"issues", "refinement", "iteration"})
     maintenance_steps_ran = bool(_enabled & {"polling", "forecast", "voter_resources"})
     validation_grade = race_json.get("validation_grade")
@@ -1038,6 +1063,7 @@ async def run_agent(
                 goal=goal,
             )
             race_json["reviews"] = reviews
+            stamp_roster_fingerprint(reviews, race_json)
             # Log review results to live logs
             for rev in reviews:
                 model_name = rev.get("model", "unknown")
@@ -1134,6 +1160,7 @@ async def run_agent(
                     )
                     reviewed_packet = updated_packet
                     race_json["reviews"] = reviews
+                    stamp_roster_fingerprint(reviews, race_json)
 
                     # A flag on the same field before and after remediation means
                     # the pass could not act on it. That is usually a pipeline
