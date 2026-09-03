@@ -126,6 +126,7 @@ export interface ReviewFlag {
   concern: string;
   suggestion?: string;
   severity: "info" | "warning" | "error";
+  stale: boolean;
 }
 
 export interface AgentReview {
@@ -135,6 +136,9 @@ export interface AgentReview {
   score?: number;
   flags: ReviewFlag[];
   summary: string;
+  roster_fingerprint?: string;
+  stale: boolean;
+  stale_reason?: string;
 }
 
 export interface ValidationGrade {

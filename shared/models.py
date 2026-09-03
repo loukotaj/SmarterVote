@@ -209,6 +209,14 @@ class ReviewFlag(BaseModel):
     concern: str
     suggestion: Optional[str] = None
     severity: Literal["info", "warning", "error"] = "warning"
+    stale: bool = Field(
+        False,
+        description=(
+            "Flag was written against a roster the race no longer has. Flags address candidates "
+            "positionally, so a roster change re-points them at different people; kept for the "
+            "audit trail but excluded from grading and the publish gate."
+        ),
+    )
 
 
 class AgentReview(BaseModel):
@@ -220,6 +228,9 @@ class AgentReview(BaseModel):
     score: Optional[int] = Field(None, ge=0, le=100, description="Quality score 0-100")
     flags: List[ReviewFlag] = Field(default_factory=list)
     summary: str = ""
+    roster_fingerprint: Optional[str] = Field(None, description="Digest of the candidate roster this review actually judged.")
+    stale: bool = Field(False, description="Review judged a roster the race has since replaced.")
+    stale_reason: Optional[str] = Field(None, description="Why this review was marked stale.")
 
 
 class ValidationGrade(BaseModel):

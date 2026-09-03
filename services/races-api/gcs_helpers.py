@@ -329,12 +329,18 @@ def _assert_publishable_race(data: Dict[str, Any]) -> None:
             detail = f" Remaining steps: {', '.join(str(step) for step in remaining)}." if remaining else ""
             raise ValueError(f"Race draft is operationally incomplete and cannot be published.{detail}")
 
+    # A flag marked `stale` was written against a roster this race no longer
+    # has: reviewer flags address candidates positionally, so once the roster
+    # changes `candidates[N].image_url` points at a different person entirely.
+    # Such a flag is kept in the draft for the audit trail but must not block,
+    # or a refresh that corrects a roster permanently inherits the previous
+    # run's flags and can never be published.
     error_flags = [
         flag
         for review in data.get("reviews") or []
         if isinstance(review, dict)
         for flag in review.get("flags") or []
-        if isinstance(flag, dict) and flag.get("severity") == "error"
+        if isinstance(flag, dict) and flag.get("severity") == "error" and not flag.get("stale")
     ]
     if error_flags:
         raise ValueError(f"Race has {len(error_flags)} unresolved error-severity review flag(s) and cannot be published")
