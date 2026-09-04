@@ -11,8 +11,17 @@
 
   const INITIAL_SOURCE_LIMIT = 3;
 
-  $: issueEntries = Object.entries(issues) as [IssueKey, IssueStance][];
+  $: issueEntries = (
+    Object.entries(issues) as [IssueKey, IssueStance][]
+  ).filter(([, stance]) => Boolean(stance?.stance));
   $: hasIssues = issueEntries.length > 0;
+  let selectedIssue: IssueKey | "" = "";
+  $: if (
+    issueEntries.length > 0 &&
+    !issueEntries.some(([issue]) => issue === selectedIssue)
+  ) {
+    selectedIssue = issueEntries[0][0];
+  }
 
   let expandedSources: Set<string> = new Set();
   let visibleTooltip: string | null = null;
@@ -152,7 +161,26 @@
 
   <!-- Mobile-friendly view for smaller screens -->
   <div class="lg:hidden space-y-4">
-    {#each issueEntries as [issue, stance]}
+    <div
+      class="sticky top-[calc(var(--site-header-height)+4.5rem)] z-20 rounded-lg border border-stroke bg-surface p-3 shadow-sm"
+    >
+      <label
+        for="candidate-issue-select"
+        class="mb-1.5 block text-xs font-bold uppercase tracking-wide text-content-subtle"
+      >
+        Review an issue
+      </label>
+      <select
+        id="candidate-issue-select"
+        bind:value={selectedIssue}
+        class="min-h-11 w-full rounded-lg border border-stroke bg-surface px-3 py-2 text-base font-semibold text-content focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        {#each issueEntries as [issue]}
+          <option value={issue}>{getIssueDisplayName(issue)}</option>
+        {/each}
+      </select>
+    </div>
+    {#each issueEntries.filter(([issue]) => issue === selectedIssue) as [issue, stance]}
       <div class="bg-surface border border-stroke rounded-lg p-4">
         <div class="flex items-center justify-between mb-2">
           <h3 class="font-semibold text-content inline-flex items-center gap-1">
@@ -232,5 +260,8 @@
         {/if}
       </div>
     {/each}
+    <p class="text-sm text-content-subtle">
+      Choose another issue above to review the remaining researched positions.
+    </p>
   </div>
 {/if}

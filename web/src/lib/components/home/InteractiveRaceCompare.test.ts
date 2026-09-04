@@ -114,6 +114,26 @@ describe("InteractiveRaceCompare visibility", () => {
     expect(container.textContent).not.toContain("Gone Away");
   });
 
+  it("keeps the homepage preview to two candidates and links to the full comparison", () => {
+    const { container } = render(InteractiveRaceCompare, {
+      races: [
+        race("a", [
+          candidate("Jane Doe"),
+          candidate("John Roe"),
+          candidate("Alex Smith"),
+        ]),
+      ],
+    });
+
+    expect(container.textContent).toContain("Previewing 2 of 3 candidates");
+    expect(container.textContent).not.toContain("Alex Smith");
+    expect(
+      container.querySelector(
+        'a[href="/races/a/compare?candidates=jane-doe,john-roe,alex-smith"]',
+      ),
+    ).not.toBeNull();
+  });
+
   it("hides when withdrawals leave fewer than two candidates", () => {
     const { container } = render(InteractiveRaceCompare, {
       races: [
