@@ -12,6 +12,7 @@ phase-level concern was an eight-file edit that touched nothing to do with the
 concern itself.
 """
 
+from ..source_trace import trace_issue_sources
 from .context import PhaseContext
 from .finance import run_finance_phase
 from .forecast import run_forecast_phase
@@ -42,3 +43,7 @@ async def _run_shared_phases(ctx: PhaseContext) -> None:
     """
     for phase in _PHASES:
         await phase(ctx)
+        if phase is run_issues_phase:
+            trace_issue_sources(ctx.race_json, "after_issues", ctx.log)
+        elif phase is run_refinement_phase:
+            trace_issue_sources(ctx.race_json, "after_refinement", ctx.log)

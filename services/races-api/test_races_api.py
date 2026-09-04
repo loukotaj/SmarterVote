@@ -1017,3 +1017,43 @@ def test_call_openrouter_does_not_retry_a_client_error(monkeypatch):
         asyncio.run(chamber_narratives._call_openrouter([{"role": "user", "content": "x"}], model="m"))
 
     assert calls["n"] == 1
+
+
+def test_init_does_not_create_gcs_client(tmp_path, monkeypatch):
+    """Construction must not touch the network.
+
+    SimplePublishService is instantiated at module import in main.py, before
+    uvicorn binds the port, so anything blocking here is charged against Cloud
+    Run's startup probe budget. A slow storage.Client() once ate 23.5s of a 60s
+    budget and every cold start failed.
+    """
+    from google.cloud import storage
+
+    def _explode(*args, **kwargs):
+        raise AssertionError("storage.Client() must not be called during __init__")
+
+    monkeypatch.setattr(storage, "Client", _explode)
+    monkeypatch.setenv("K_SERVICE", "races-api-test")
+    monkeypatch.setenv("GCS_BUCKET_NAME", "test-bucket")
+
+    service = SimplePublishService(data_directory=str(tmp_path / "published"))
+
+    assert service.cloud_configured is True
+    assert service.gcs_client is None
+
+
+def test_gcs_client_is_created_on_first_use(tmp_path, monkeypatch):
+    """The deferred client is still created when a request actually needs it."""
+    from google.cloud import storage
+
+    sentinel = MagicMock()
+    monkeypatch.setattr(storage, "Client", lambda *a, **kw: sentinel)
+    monkeypatch.setenv("K_SERVICE", "races-api-test")
+    monkeypatch.setenv("GCS_BUCKET_NAME", "test-bucket")
+
+    service = SimplePublishService(data_directory=str(tmp_path / "published"))
+    assert service.gcs_client is None
+
+    assert service._get_gcs_client() is sentinel
+    assert service.gcs_client is sentinel
+    assert service.cloud_enabled is True

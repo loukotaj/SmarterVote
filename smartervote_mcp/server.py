@@ -867,15 +867,24 @@ async def assess_publish_readiness(race_ids: List[str]) -> Dict[str, Any]:
                 warnings.append("validation_absent_unreviewed")
             elif validation.get("passed") is not True:
                 blockers.append("validation_not_passed")
+            # A flag marked `stale` was written against a roster the race no
+            # longer has, so it addresses `candidates[N]` slots now holding
+            # different people. It is kept for the audit trail but must not
+            # block: otherwise a refresh that corrects a roster inherits the
+            # previous run's flags and can never be published.
             error_flags = [
                 flag
                 for review in draft.get("reviews") or []
                 if isinstance(review, dict)
                 for flag in review.get("flags") or []
-                if isinstance(flag, dict) and flag.get("severity") == "error"
+                if isinstance(flag, dict) and flag.get("severity") == "error" and not flag.get("stale")
             ]
             if error_flags:
                 blockers.append("unresolved_error_flags")
+            if any(isinstance(review, dict) and review.get("stale") for review in draft.get("reviews") or []):
+                # Not a blocker, but the operator should know the stored grade
+                # reflects a superseded roster and a re-review would refresh it.
+                warnings.append("reviews_stale_roster_changed")
             health = draft.get("run_health") if isinstance(draft.get("run_health"), dict) else {}
             verdict = str(health.get("status") or health.get("verdict") or "unknown")
             if verdict == "failed":
