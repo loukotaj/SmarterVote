@@ -174,10 +174,10 @@ result for the admin dashboard. API request analytics remain separate and descri
 
 The public SvelteKit site separates product introduction from race discovery:
 
-- `/` is the editorial homepage. It demonstrates the research experience, shows selected national-election content and editorial standards, and links into the ballot lookup and directory; it does not collect an address.
+- `/` is the editorial homepage. It demonstrates the research experience with a compact two-candidate, one-issue preview and a direct handoff to the complete comparison, shows selected national-election content and editorial standards, and links into the ballot lookup and directory; it does not collect an address.
 - `/my-ballot/` is the focused address lookup and in-page national-election result flow. It is prerendered, indexable, and included in the sitemap as a useful public election-discovery page.
-- `/elections/` is the browse and filtering surface for published election research. Current launch coverage includes supported U.S. House, U.S. Senate, presidential, and gubernatorial races.
-- `/races/{slug}/` and its candidate and comparison subroutes remain the detailed research surfaces.
+- `/elections/` is the browse and filtering surface for published election research. Search and office filters precede the state map; on small screens the map is optional and initially collapsed. Results are ordered by canonical state and title. Current launch coverage includes supported U.S. House, U.S. Senate, presidential, and gubernatorial races.
+- `/races/{slug}/` and its candidate and comparison subroutes remain the detailed research surfaces. Race overviews surface the complete comparison near the race title and collapse long introductory copy on small screens. Candidate profiles use section and issue selectors on small screens, while desktop comparisons expose table relationships to assistive technology.
 - `/about/` publishes the project's identity and research methodology; `/methodology/` redirects to that section. `/corrections/`, `/privacy/`, `/terms/`, and `/funding-and-editorial-independence/` publish the correction, privacy, legal, and editorial-independence statements.
 
 Public race names are deterministic for the supported U.S. Senate, U.S. House, and governor families. Pipeline outputs

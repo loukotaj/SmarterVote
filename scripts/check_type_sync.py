@@ -115,6 +115,7 @@ CHECKED_MODELS: Dict[str, Type[BaseModel]] = {
     "PollEntry": shared_models.PollEntry,
     "RaceIdentityBrief": shared_models.RaceIdentityBrief,
     "RunAudit": shared_models.RunAudit,
+    "RemovedSourceUrl": shared_models.RemovedSourceUrl,
     "PipelineState": shared_models.PipelineState,
     "IssueResearchAudit": shared_models.IssueResearchAudit,
     "RosterResearchAudit": shared_models.RosterResearchAudit,

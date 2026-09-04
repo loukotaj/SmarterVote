@@ -62,6 +62,22 @@ describe("CandidateComparison", () => {
     ).toBeTruthy();
   });
 
+  it("exposes the desktop comparison with table relationships", () => {
+    const { container } = render(CandidateComparison, {
+      race,
+      candidates: [candidate],
+    });
+    const desktop = within(
+      container.querySelector("[data-desktop-candidate-comparison]")!,
+    );
+
+    expect(
+      desktop.getByRole("table", { name: "Candidate comparison" }),
+    ).toBeTruthy();
+    expect(desktop.getAllByRole("rowheader").length).toBeGreaterThan(0);
+    expect(desktop.getAllByRole("cell").length).toBeGreaterThan(0);
+  });
+
   it("expands and collapses desktop stance previews", async () => {
     const { container } = render(CandidateComparison, {
       race,
