@@ -107,7 +107,16 @@ def test_apply_meta_patch_ignores_non_list_donor_sources_field():
 
 def test_apply_issue_patch_merges_issues_for_matching_candidates():
     race_json = {"candidates": [{"name": "Jane Doe", "issues": {"Economy": {"stance": "old"}}}]}
-    patch = {"Jane Doe": {"Healthcare": {"stance": "Supports universal coverage", "confidence": "high"}}}
+    patch = {
+        "Jane Doe": {
+            "Healthcare": {
+                "stance": "Supports universal coverage",
+                "confidence": "high",
+                # A substantive stance needs a citation; the merge refuses one without.
+                "sources": [{"url": "https://example.com/health"}],
+            }
+        }
+    }
 
     _apply_issue_patch(race_json, patch, _log())
 
@@ -118,7 +127,11 @@ def test_apply_issue_patch_merges_issues_for_matching_candidates():
 
 def test_apply_issue_patch_creates_issues_dict_when_absent():
     race_json = {"candidates": [{"name": "Jane Doe"}]}
-    _apply_issue_patch(race_json, {"Jane Doe": {"Economy": {"stance": "x"}}}, _log())
+    _apply_issue_patch(
+        race_json,
+        {"Jane Doe": {"Economy": {"stance": "x", "sources": [{"url": "https://example.com/econ"}]}}},
+        _log(),
+    )
     assert race_json["candidates"][0]["issues"]["Economy"]["stance"] == "x"
 
 
@@ -198,7 +211,7 @@ def test_apply_candidate_patch_appends_new_links_without_duplicating():
 
 def test_apply_candidate_patch_merges_issues_dict():
     candidate = {"name": "Jane Doe", "issues": {"Economy": {"stance": "old"}}}
-    patch = {"issues": {"Healthcare": {"stance": "new"}}}
+    patch = {"issues": {"Healthcare": {"stance": "new", "sources": [{"url": "https://example.com/health"}]}}}
 
     _apply_candidate_patch(candidate, patch, _log())
 

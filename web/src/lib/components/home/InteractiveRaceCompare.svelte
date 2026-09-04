@@ -1,6 +1,7 @@
 <script lang="ts">
   import CandidateComparison from "$lib/components/compare/CandidateComparison.svelte";
   import type { Race } from "$lib/types";
+  import { candidateSlug } from "$lib/utils/format";
 
   export let races: Race[] = [];
   let selectedId = races[0]?.id ?? "";
@@ -11,6 +12,11 @@
   $: selectedRace = races[selectedIndex] ?? races[0];
   $: candidates =
     selectedRace?.candidates.filter((candidate) => !candidate.withdrawn) ?? [];
+  $: previewCandidates = candidates.slice(0, 2);
+  $: hiddenCandidateCount = Math.max(
+    0,
+    candidates.length - previewCandidates.length,
+  );
   // Keep the active pill visible when the selection changes from either the
   // arrow buttons or a pill click.
   $: centerPill(selectedIndex);
@@ -35,7 +41,7 @@
 
 {#if selectedRace && candidates.length >= 2}
   <div
-    class="flex flex-col overflow-hidden rounded-[1.75rem] border border-blue-200 bg-surface shadow-2xl shadow-blue-950/10 lg:h-[min(690px,calc(100vh-10rem))] lg:min-h-[560px] dark:border-blue-900"
+    class="flex flex-col overflow-hidden rounded-[1.75rem] border border-blue-200 bg-surface shadow-2xl shadow-blue-950/10 dark:border-blue-900"
   >
     <div
       class="flex flex-col gap-4 border-b border-stroke bg-surface-alt/60 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7"
@@ -100,23 +106,30 @@
       </div>
     </div>
 
-    <div
-      class="min-h-0 flex-1 overflow-y-auto p-3 lg:p-5"
-      aria-label="Scrollable featured comparison"
-    >
+    <div class="p-3 lg:p-5" aria-label="Featured comparison preview">
       <CandidateComparison
         race={selectedRace}
-        {candidates}
+        candidates={previewCandidates}
         compact
         showQuality
       />
       <div
-        class="pointer-events-none sticky bottom-0 mt-[-2.75rem] hidden justify-center bg-gradient-to-t from-surface via-surface/95 to-transparent pb-2 pt-10 lg:flex"
+        class="mt-4 flex flex-col items-start justify-between gap-3 rounded-xl border border-stroke bg-surface-alt/50 p-4 sm:flex-row sm:items-center"
       >
-        <span
-          class="rounded-full border border-stroke bg-surface px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-content-subtle shadow-sm"
-          >Scroll for more issues ↓</span
+        <p class="text-sm text-content-muted">
+          Previewing {previewCandidates.length} of {candidates.length} candidates{hiddenCandidateCount >
+          0
+            ? `; ${hiddenCandidateCount} more available`
+            : ""}.
+        </p>
+        <a
+          href="/races/{selectedRace.id}/compare?candidates={candidates
+            .map((candidate) => candidateSlug(candidate.name))
+            .join(',')}"
+          class="inline-flex min-h-11 shrink-0 items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white no-underline transition hover:bg-blue-700"
         >
+          Compare all {candidates.length} candidates →
+        </a>
       </div>
     </div>
   </div>

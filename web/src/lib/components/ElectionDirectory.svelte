@@ -19,6 +19,7 @@
   let selectedOffice: string | null = null;
   let searchQuery = "";
   let debouncedSearchQuery = "";
+  let mapExpanded = false;
 
   // Sync searchQuery with URL query parameter q reactively.
   // Use lastPageQ to avoid a reactive loop: typing updates searchQuery which
@@ -176,27 +177,34 @@
   })();
 
   // filtering chain: state > office > text
-  $: filteredRaces = races.filter((race) => {
-    const raceState = canonicalRaceState(race);
-    if (selectedState && raceState !== selectedState) return false;
-    if (selectedOffice && officeShort(race.office) !== selectedOffice)
-      return false;
-    if (debouncedSearchQuery.trim()) {
-      const q = debouncedSearchQuery.toLowerCase();
-      return (
-        race.title?.toLowerCase().includes(q) ||
-        race.office?.toLowerCase().includes(q) ||
-        race.jurisdiction?.toLowerCase().includes(q) ||
-        canonicalRaceState(race)?.toLowerCase().includes(q) ||
-        race.candidates.some(
-          (c) =>
-            c.name.toLowerCase().includes(q) ||
-            c.party?.toLowerCase().includes(q),
-        )
+  $: filteredRaces = races
+    .filter((race) => {
+      const raceState = canonicalRaceState(race);
+      if (selectedState && raceState !== selectedState) return false;
+      if (selectedOffice && officeShort(race.office) !== selectedOffice)
+        return false;
+      if (debouncedSearchQuery.trim()) {
+        const q = debouncedSearchQuery.toLowerCase();
+        return (
+          race.title?.toLowerCase().includes(q) ||
+          race.office?.toLowerCase().includes(q) ||
+          race.jurisdiction?.toLowerCase().includes(q) ||
+          canonicalRaceState(race)?.toLowerCase().includes(q) ||
+          race.candidates.some(
+            (c) =>
+              c.name.toLowerCase().includes(q) ||
+              c.party?.toLowerCase().includes(q),
+          )
+        );
+      }
+      return true;
+    })
+    .sort((a, b) => {
+      const stateOrder = (canonicalRaceState(a) ?? "").localeCompare(
+        canonicalRaceState(b) ?? "",
       );
-    }
-    return true;
-  });
+      return stateOrder || (a.title ?? "").localeCompare(b.title ?? "");
+    });
 
   $: filterSignature = JSON.stringify([
     selectedState,
@@ -324,6 +332,55 @@
     </div>
   </header>
 
+  <!-- Primary filters stay ahead of the optional map so results are reachable quickly. -->
+  <div
+    class="mb-6 flex flex-wrap items-center gap-2"
+    aria-label="Filter elections by office"
+  >
+    {#if selectedState}
+      <button
+        type="button"
+        on:click={() => {
+          selectedState = null;
+          selectedOffice = null;
+        }}
+        class="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-blue-600 pl-3 pr-2 text-sm font-medium text-white shadow-sm"
+        aria-label="Clear state filter: {selectedState}"
+      >
+        {selectedState}
+        <svg
+          class="h-3.5 w-3.5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    {/if}
+
+    {#each officeTypes as office}
+      <button
+        type="button"
+        on:click={() => {
+          selectedOffice = selectedOffice === office ? null : office;
+        }}
+        aria-pressed={selectedOffice === office}
+        class="min-h-11 rounded-full border px-4 py-2 text-sm font-medium transition-colors
+          {selectedOffice === office
+          ? 'border-content bg-content text-surface'
+          : 'border-stroke bg-surface text-content-muted hover:border-content-muted hover:text-content'}"
+      >
+        {office}
+      </button>
+    {/each}
+  </div>
+
   <!-- Map section -->
   <section
     class="bg-surface border border-stroke rounded-2xl shadow-sm p-4 sm:p-6 mb-6"
@@ -380,32 +437,17 @@
       </select>
     </div>
 
-    {#if loading}
-      <div
-        class="h-64 bg-surface-alt rounded-xl flex items-center justify-center"
-      >
-        <svg
-          class="animate-spin h-8 w-8 text-blue-500"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            class="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            stroke-width="4"
-          />
-          <path
-            class="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-          />
-        </svg>
-      </div>
-    {:else}
+    <button
+      type="button"
+      class="mb-3 inline-flex min-h-11 w-full items-center justify-between rounded-lg border border-stroke bg-surface-alt px-3 py-2 text-sm font-semibold text-content sm:hidden"
+      aria-expanded={mapExpanded}
+      aria-controls="election-state-map"
+      on:click={() => (mapExpanded = !mapExpanded)}
+    >
+      {mapExpanded ? "Hide interactive map" : "Show interactive map"}
+      <span aria-hidden="true">{mapExpanded ? "−" : "+"}</span>
+    </button>
+    <div id="election-state-map" class:hidden={!mapExpanded} class="sm:block">
       <USMap
         {activeStates}
         {selectedState}
@@ -413,52 +455,8 @@
         {matchingCandidatesByState}
         on:stateClick={handleStateClick}
       />
-    {/if}
+    </div>
   </section>
-
-  <!-- Filter bar -->
-  <div class="flex flex-wrap items-center gap-2 mb-6">
-    <!-- State chip (active) -->
-    {#if selectedState}
-      <button
-        on:click={() => {
-          selectedState = null;
-          selectedOffice = null;
-        }}
-        class="inline-flex items-center gap-1.5 pl-3 pr-2 py-1.5 rounded-full text-sm font-medium bg-blue-600 text-white shadow-sm"
-      >
-        {selectedState}
-        <svg
-          class="w-3.5 h-3.5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2.5"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </button>
-    {/if}
-
-    <!-- Office type chips -->
-    {#each officeTypes as office}
-      <button
-        on:click={() => {
-          selectedOffice = selectedOffice === office ? null : office;
-        }}
-        class="px-3 py-1.5 rounded-full text-sm font-medium border transition-colors
-          {selectedOffice === office
-          ? 'bg-content text-surface border-content'
-          : 'bg-surface border-stroke text-content-muted hover:border-content-muted hover:text-content'}"
-      >
-        {office}
-      </button>
-    {/each}
-  </div>
 
   <!-- Results grid -->
   <section>

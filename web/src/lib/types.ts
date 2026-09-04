@@ -126,6 +126,7 @@ export interface ReviewFlag {
   concern: string;
   suggestion?: string;
   severity: "info" | "warning" | "error";
+  stale: boolean;
 }
 
 export interface AgentReview {
@@ -135,6 +136,9 @@ export interface AgentReview {
   score?: number;
   flags: ReviewFlag[];
   summary: string;
+  roster_fingerprint?: string;
+  stale: boolean;
+  stale_reason?: string;
 }
 
 export interface ValidationGrade {
@@ -252,6 +256,12 @@ export interface PipelineState {
   race_identity?: RaceIdentityBrief;
   roster_research?: RosterResearchAudit;
   metadata_research?: MetadataResearchAudit;
+  removed_source_urls: RemovedSourceUrl[];
+}
+
+export interface RemovedSourceUrl {
+  candidate_name: string;
+  url: string;
 }
 
 export interface RosterResearchAudit {

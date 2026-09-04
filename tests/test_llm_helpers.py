@@ -333,3 +333,43 @@ def test_ensure_dict_raises_for_non_dict_non_list():
     log = MagicMock()
     with pytest.raises(ValueError, match="expected dict, got str"):
         _ensure_dict("plain string", "phase", log)
+
+
+def test_normalize_source_rejects_invalid_last_accessed():
+    """Regression: setdefault left a present-but-invalid value alone.
+
+    The roster-source prompt puts ``retrieval_status`` directly above
+    ``last_accessed``, and models transcribe the wrong one. #350 fixed the tool
+    handler path but this one — the normaliser over raw model JSON — kept using
+    setdefault, so tx-house-05 still shipped the literal word "content", bare
+    values and nulls, and failed RaceJSON validation.
+    """
+    from pipeline_client.agent.llm import _normalize_source
+
+    now = "2026-09-02T04:00:00+00:00"
+
+    for bad in ("content", None, "", "not a date"):
+        source = {"url": "https://example.com/x", "last_accessed": bad}
+        _normalize_source(source, now)
+        assert source["last_accessed"] == now, f"{bad!r} should have been replaced"
+
+    missing = {"url": "https://example.com/x"}
+    _normalize_source(missing, now)
+    assert missing["last_accessed"] == now
+
+
+def test_normalize_source_preserves_a_valid_timestamp():
+    from pipeline_client.agent.llm import _normalize_source
+
+    source = {"url": "https://example.com/x", "last_accessed": "2026-08-29T16:12:06.048587Z"}
+    _normalize_source(source, "2026-09-02T04:00:00+00:00")
+    assert source["last_accessed"] == "2026-08-29T16:12:06.048587Z"
+
+
+def test_both_last_accessed_write_paths_share_one_validator():
+    """The two paths drifted once already; keep them on the same implementation."""
+    from pipeline_client.agent.handlers import _iso_timestamp_or_now
+    from pipeline_client.agent.utils import iso_timestamp_or_now
+
+    assert _iso_timestamp_or_now("2026-08-29T16:12:06Z") == iso_timestamp_or_now("2026-08-29T16:12:06Z")
+    assert _iso_timestamp_or_now("content") != "content"
