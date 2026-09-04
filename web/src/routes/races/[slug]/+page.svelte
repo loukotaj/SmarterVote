@@ -715,7 +715,7 @@
             type="button"
             class="expand-button"
             aria-expanded={forecastExpanded}
-            aria-controls="forecast-details"
+            aria-controls={forecastExpanded ? "forecast-details" : undefined}
             on:click={toggleForecastExpanded}
           >
             <span class="expand-text">
