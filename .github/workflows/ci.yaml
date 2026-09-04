@@ -69,10 +69,14 @@ jobs:
           pip-audit -r services/races-api/requirements.txt
       - name: Audit frontend dependencies
         working-directory: web
-        run: npm audit --omit=dev --audit-level=high
+        run: |
+          npm ci --ignore-scripts
+          npm audit --omit=dev --audit-level=high
       - name: Audit design-system dependencies
         working-directory: design-system
-        run: npm audit --audit-level=high
+        run: |
+          npm ci --ignore-scripts
+          npm audit --audit-level=high
 
   test-pipeline:
     name: Test Pipeline
