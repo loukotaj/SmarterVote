@@ -32,7 +32,7 @@ from .tools import (
     IMAGE_SEARCH_TOOL,
     SEARCH_TOOL,
 )
-from .utils import _extract_json, make_logger
+from .utils import _extract_json, iso_timestamp_or_now, make_logger
 from .web_tools import _fetch_page, _page_fetch_log_hint, _serper_image_search, _serper_search
 
 logger = logging.getLogger("pipeline")
@@ -413,7 +413,9 @@ async def _call_openrouter(
 def _normalize_source(source: Any, now_iso: str) -> None:
     """Apply required defaults to a single source object in-place."""
     if isinstance(source, dict):
-        source.setdefault("last_accessed", now_iso)
+        # setdefault is not enough: it leaves a present-but-invalid value alone,
+        # including an explicit null and the literal word "content".
+        source["last_accessed"] = iso_timestamp_or_now(source.get("last_accessed"), now_iso)
         source["type"] = normalize_source_type(source.get("type"), url=str(source.get("url") or ""))
 
 

@@ -948,7 +948,8 @@ REMOVE_CANDIDATE_SOURCE_URL_TOOL: Dict = {
         "description": (
             "Remove a broken, duplicate, stale, or low-value URL from one candidate's "
             "summary sources, issue sources, donor/voting sources, scalar source URLs, "
-            "and reference links. Use this before adding a replacement source."
+            "and reference links. If it is the last source for a substantive issue stance, "
+            "add a replacement source before removing it."
         ),
         "parameters": {
             "type": "object",

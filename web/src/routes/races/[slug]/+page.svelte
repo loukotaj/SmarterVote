@@ -72,6 +72,7 @@
 
   let selectedCandidates: Set<string> = new Set();
   let forecastExpanded = false;
+  let overviewExpanded = false;
 
   function toggleCandidateSelect(candidateName: string) {
     const s = candidateSlug(candidateName);
@@ -406,6 +407,17 @@
           >
         </div>
       </div>
+      {#if activeCandidates.length > 1}
+        <a
+          href="/races/{race.id}/compare?candidates={activeCandidates
+            .map((candidate) => candidateSlug(candidate.name))
+            .join(',')}{isDraftPreview ? '&draft=true' : ''}"
+          class="header-compare-link"
+        >
+          Compare all {activeCandidates.length} candidates
+          <span aria-hidden="true">→</span>
+        </a>
+      {/if}
     </Card>
 
     <!-- Election Countdown -->
@@ -424,7 +436,22 @@
         <!-- Left: description + candidate chips -->
         <div class="overview-main">
           {#if race.description}
-            <p class="overview-description">{race.description}</p>
+            <p
+              class="overview-description"
+              class:overview-description-collapsed={!overviewExpanded}
+            >
+              {race.description}
+            </p>
+            {#if race.description.length > 320}
+              <button
+                type="button"
+                class="overview-toggle"
+                aria-expanded={overviewExpanded}
+                on:click={() => (overviewExpanded = !overviewExpanded)}
+              >
+                {overviewExpanded ? "Show less overview" : "Read full overview"}
+              </button>
+            {/if}
           {/if}
           <div class="overview-candidates">
             {#each activeCandidates as candidate}
@@ -546,7 +573,7 @@
     {/if}
 
     <!-- Candidates Section -->
-    <section>
+    <section id="candidates" class="scroll-mt-24">
       <div class="candidates-heading">
         <h2 class="candidates-title">Candidates</h2>
         {#if activeCandidates.length > 1}
@@ -1084,6 +1111,10 @@
     @apply flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-3 sm:gap-6 text-content-muted;
   }
 
+  .header-compare-link {
+    @apply mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-bold text-white no-underline shadow-sm transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600;
+  }
+
   .info-row {
     @apply flex items-center gap-2;
   }
@@ -1119,12 +1150,25 @@
     @apply text-content-muted text-sm sm:text-base leading-relaxed mb-4;
   }
 
+  .overview-toggle {
+    @apply mb-4 inline-flex min-h-11 items-center text-sm font-bold text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-400 dark:hover:text-blue-300 sm:hidden;
+  }
+
+  @media (max-width: 639px) {
+    .overview-description-collapsed {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 6;
+    }
+  }
+
   .overview-candidates {
     @apply flex flex-wrap gap-2;
   }
 
   .overview-candidate-chip {
-    @apply flex items-center gap-1.5 px-3 py-1.5 bg-surface border border-stroke rounded-full
+    @apply flex min-h-11 items-center gap-1.5 px-3 py-1.5 bg-surface border border-stroke rounded-full
            hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-colors duration-200 text-sm no-underline text-content-muted;
   }
 
