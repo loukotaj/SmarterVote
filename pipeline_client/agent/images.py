@@ -385,6 +385,17 @@ _GENERIC_CARD_MARKERS = (
     "share-card",
     "fb_share",
     "fb-share",
+    # An official site's own meta-tag image is the institution's branding, not a
+    # portrait: tx-house-13-2026 stored jackson.house.gov/images/facebook-meta.jpg
+    # -- the House of Representatives seal -- as Rep. Ronny Jackson's headshot.
+    # `seal` was already a non-photo token, but the *filename* gives nothing away,
+    # so the social-card name itself has to be the signal.
+    "facebook-meta",
+    "og-image",
+    "og_image",
+    "twitter-image",
+    "twitter_image",
+    "social-web",
 )
 
 # Current candidates should never inherit portraits from obituary or memorial
@@ -1859,6 +1870,59 @@ async def _discard_if_not_a_headshot(
         log("info", f"  [{name}] Image kept, but it carries overlaid text")
 
 
+def _image_identity(url: str) -> str:
+    """Normalized filename used to tell two candidates apart by their photo.
+
+    Thumbnailers vary the directory but keep the filename, so mi-house-12-2026
+    stored ".../thumbs/100/100/Rashida-Tlaib.PNG" for her Republican challenger
+    James Hooper -- the incumbent's own portrait at a different size. Comparing
+    basenames catches that; comparing full URLs does not.
+    """
+    basename = unquote(urlparse(url).path).rsplit("/", 1)[-1].lower()
+    return re.sub(r"\.[a-z0-9]{2,5}$", "", basename).strip()
+
+
+def _drop_shared_candidate_images(candidates: List[Dict[str, Any]], log: Callable[[str, str], None]) -> int:
+    """Clear photos that two candidates in the same race are both using.
+
+    Two people in one race cannot share a portrait, so at most one of them is
+    right. Where the filename names one of them, that candidate keeps it and the
+    others are cleared; where it names none, every claim is equally unproven and
+    all are cleared. A vision check cannot catch this -- the file is a genuine
+    headshot of a genuine candidate in the race, just attached to the wrong one.
+    """
+    by_identity: Dict[str, List[Dict[str, Any]]] = {}
+    for candidate in candidates:
+        url = candidate.get("image_url")
+        if not isinstance(url, str) or not url.strip():
+            continue
+        identity = _image_identity(url)
+        if identity:
+            by_identity.setdefault(identity, []).append(candidate)
+
+    cleared = 0
+    for identity, sharers in by_identity.items():
+        if len(sharers) < 2:
+            continue
+        # The filename usually names whoever the photo really belongs to. Its
+        # surname is the discriminator: a shared "Rashida-Tlaib.PNG" names Tlaib
+        # and nobody else on the roster.
+        filename_tokens = set(_filename_person_tokens(str(sharers[0].get("image_url") or "")))
+        owners = [c for c in sharers if (_candidate_surname_token(str(c.get("name", ""))) or "") in filename_tokens]
+        keeper = owners[0] if len(owners) == 1 else None
+        for candidate in sharers:
+            if candidate is keeper:
+                continue
+            log(
+                "info",
+                f"  [{candidate.get('name', '')}] Image is also used by another candidate in this race "
+                f"({identity}) - clearing",
+            )
+            candidate["image_url"] = None
+            cleared += 1
+    return cleared
+
+
 async def resolve_candidate_images(
     race_json: Dict[str, Any],
     *,
@@ -1877,6 +1941,7 @@ async def resolve_candidate_images(
     invoked after each candidate's image is resolved, with cumulative completion
     percentage (0-100) and the candidate name.
     """
+    log = make_logger(on_log)
     candidates = [c for c in race_json.get("candidates", []) if isinstance(c, dict)]
     if not candidates:
         return
@@ -1919,3 +1984,6 @@ async def resolve_candidate_images(
                 logger.debug("Image progress callback failed: %s", e)
 
     await asyncio.gather(*[_resolve_with_progress(c) for c in candidates])
+
+    # Roster-level check: only visible once every candidate has been resolved.
+    _drop_shared_candidate_images(candidates, log)

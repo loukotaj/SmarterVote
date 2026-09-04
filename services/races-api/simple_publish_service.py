@@ -41,8 +41,17 @@ class SimplePublishService:
         self.cloud_configured = self._detect_cloud_environment()
         self.gcs_client = None
 
-        if self.cloud_configured:
-            self._initialize_cloud_client()
+        # The GCS client is created lazily on first use, never here.
+        #
+        # storage.Client() resolves Application Default Credentials, which is a
+        # blocking call to the metadata server. This constructor runs at module
+        # import, before uvicorn binds the port, so any latency there is charged
+        # against Cloud Run's ~60s startup probe budget. On 2026-09-01 that call
+        # took 23.5s on top of 36s of imports and the probe killed the instance
+        # one second after the client finally came back — every cold start failed
+        # and the API was down for 45 minutes. _get_gcs_client() already
+        # re-initializes on demand, so deferring costs nothing but the first
+        # request, and a slow metadata server can no longer keep the port closed.
 
         # In-memory TTL cache so repeated requests don't hammer GCS.
         # Disabled when CACHE_TTL_SECONDS=0. Cache is cleared via clear_cache().
@@ -56,16 +65,20 @@ class SimplePublishService:
         self._summaries_condition = threading.Condition(self._cache_lock)
 
         logger.info(
-            "Initialized SimplePublishService: local=%s, cloud_configured=%s, " "gcs_client_ok=%s, cache_ttl=%ds",
+            "Initialized SimplePublishService: local=%s, cloud_configured=%s, " "gcs_client=deferred, cache_ttl=%ds",
             self.data_directory,
             self.cloud_configured,
-            self.gcs_client is not None,
             self.cache_ttl,
         )
 
     @property
     def cloud_enabled(self) -> bool:
-        """True when cloud is configured AND a GCS client is available."""
+        """True when cloud is configured AND a GCS client has been created.
+
+        This reports the *current* state and does not trigger the deferred
+        client creation; callers that need a client should use
+        ``_get_gcs_client()``, which initializes on demand.
+        """
         return self.cloud_configured and self.gcs_client is not None
 
     def _detect_cloud_environment(self) -> bool:
