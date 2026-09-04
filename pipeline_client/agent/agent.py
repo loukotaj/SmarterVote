@@ -50,8 +50,16 @@ from .phases import (  # noqa: F401 - re-exported for backward compat
     _select_target_candidates,
 )
 from .polling_quality import polling_semantic_problem
-from .review import build_review_change_manifest, build_semantic_review_packet, compute_validation_grade, run_reviews
+from .review import (
+    build_review_change_manifest,
+    build_semantic_review_packet,
+    compute_validation_grade,
+    invalidate_stale_reviews,
+    run_reviews,
+    stamp_roster_fingerprint,
+)
 from .run_budget import RunBudget
+from .source_trace import trace_issue_sources
 from .tools import (  # noqa: F401 - re-exported for tests
     ADD_CANDIDATE_TOOL,
     ADD_LINK_TOOL,
@@ -527,6 +535,52 @@ def _sanitize_optional_source_dates(race_json: Dict[str, Any], log: Any | None =
         log("warning", f"Normalized {normalized_count} blank optional source published_at value(s)")
 
 
+def _sanitize_source_last_accessed(race_json: Dict[str, Any], log: Any | None = None) -> None:
+    """Repair any ``last_accessed`` that is not a parseable timestamp, anywhere.
+
+    #350 and #361 taught the two places that *write* a source object to validate
+    this field, and both fixes hold. Neither helps a value that was already
+    stored: sources inherited from the baseline record are carried over verbatim
+    -- ``add_candidate`` deliberately reuses persisted source dicts so evidence
+    survives a re-run -- so a document poisoned once stays poisoned and can never
+    self-heal.
+
+    tx-house-05 failed RaceJSON validation on four separate runs, across both
+    earlier fixes, on the same inherited value:
+
+        candidates.1.roster_sources.2.last_accessed
+          Input should be a valid datetime or date, input is too short
+
+    The literal string was "content" -- the value of the adjacent
+    ``retrieval_status`` key, which sits directly above ``last_accessed`` in the
+    roster-source prompt. Repairing it here, alongside the sibling sanitizers
+    that already run before validation, closes the class rather than the
+    instance.
+    """
+    from pipeline_client.agent.utils import iso_timestamp_or_now
+
+    repaired = 0
+
+    def visit(value: Any) -> None:
+        nonlocal repaired
+        if isinstance(value, dict):
+            if "url" in value and "last_accessed" in value:
+                current = value.get("last_accessed")
+                fixed = iso_timestamp_or_now(current, value.get("retrieved"))
+                if fixed != current:
+                    value["last_accessed"] = fixed
+                    repaired += 1
+            for nested in value.values():
+                visit(nested)
+        elif isinstance(value, list):
+            for nested in value:
+                visit(nested)
+
+    visit(race_json)
+    if repaired and log:
+        log("warning", f"Repaired {repaired} unparseable source last_accessed value(s)")
+
+
 def _normalize_schema_fields(race_json: Dict[str, Any], log: Any | None = None) -> None:
     """Apply schema defaults and Pydantic migrations while preserving extra metadata."""
     if not isinstance(race_json.get("schema_version"), str) or not race_json.get("schema_version"):
@@ -536,6 +590,7 @@ def _normalize_schema_fields(race_json: Dict[str, Any], log: Any | None = None) 
     _sanitize_candidate_links(race_json, log)
     _sanitize_roster_sources(race_json, log)
     _sanitize_optional_source_dates(race_json, log)
+    _sanitize_source_last_accessed(race_json, log)
 
     try:
         from shared.models import RaceJSON as _RaceJSONModel
@@ -923,11 +978,32 @@ async def run_agent(
     _sanitize_roster(race_json, log)
     race_json.setdefault("polling", [])
     _normalize_schema_fields(race_json, log)
+    trace_issue_sources(race_json, "after_normalize_schema_fields", log)
     restored_evidence = preserve_baseline_evidence(race_json, baseline_existing_data)
+    trace_issue_sources(race_json, "after_preserve_baseline_evidence", log)
     if restored_evidence:
         log("warning", f"Restored {restored_evidence} baseline source citation(s) omitted by the update")
         _normalize_schema_fields(race_json, log)
+        trace_issue_sources(race_json, "after_restoration_normalize_schema_fields", log)
     pipeline_state = race_json.setdefault("pipeline_state", pipeline_state)
+
+    # A run that does not enable `review` carries the previous run's reviews
+    # forward unchanged. When it also changed the roster, those reviews judged
+    # candidates who are no longer in the race, yet their error flags still fail
+    # the grade and block the publish -- so a refresh that fixes a flagged
+    # problem inherits the flag that blocks it. Drop them from the gates before
+    # anything reads the grade.
+    stale_review_count = invalidate_stale_reviews(race_json, baseline_race_json=baseline_existing_data)
+    if stale_review_count:
+        log(
+            "warning",
+            f"{stale_review_count} carried review(s) judged a roster this run replaced; "
+            "their positional flags are marked stale and no longer block publication",
+        )
+        # The stored grade counted those flags, so it is stale for the same reason.
+        race_json["validation_grade"] = (
+            compute_validation_grade(race_json.get("reviews", []), race_json) if race_json.get("reviews") else None
+        )
 
     review_required_steps_ran = bool(_enabled & {"issues", "refinement", "iteration"})
     maintenance_steps_ran = bool(_enabled & {"polling", "forecast", "voter_resources"})
@@ -991,6 +1067,7 @@ async def run_agent(
                 goal=goal,
             )
             race_json["reviews"] = reviews
+            stamp_roster_fingerprint(reviews, race_json)
             # Log review results to live logs
             for rev in reviews:
                 model_name = rev.get("model", "unknown")
@@ -1056,10 +1133,17 @@ async def run_agent(
                     race_json["generator"] = generators
                     _sanitize_roster(race_json, log)
                     _normalize_schema_fields(race_json, log)
+                    trace_issue_sources(race_json, f"iteration_{cycle}_after_normalize_schema_fields", log)
                     restored_evidence = preserve_baseline_evidence(race_json, baseline_existing_data)
+                    trace_issue_sources(race_json, f"iteration_{cycle}_after_preserve_baseline_evidence", log)
                     if restored_evidence:
                         log("warning", f"Restored {restored_evidence} baseline source citation(s) after iteration")
                         _normalize_schema_fields(race_json, log)
+                        trace_issue_sources(
+                            race_json,
+                            f"iteration_{cycle}_after_restoration_normalize_schema_fields",
+                            log,
+                        )
 
                     # Schema normalization replaces schema-owned nested dicts,
                     # so refresh this reference before recording post-review
@@ -1087,6 +1171,7 @@ async def run_agent(
                     )
                     reviewed_packet = updated_packet
                     race_json["reviews"] = reviews
+                    stamp_roster_fingerprint(reviews, race_json)
 
                     # A flag on the same field before and after remediation means
                     # the pass could not act on it. That is usually a pipeline
@@ -1271,6 +1356,7 @@ async def run_agent(
 
         _sanitize_roster(race_json, log)
         _normalize_schema_fields(race_json, log)
+        trace_issue_sources(race_json, "final_after_normalize_schema_fields", log)
         _RaceJSONModel.model_validate(race_json)
         log("info", "Schema validation passed; output conforms to RaceJSON v0.3")
     except Exception as schema_exc:

@@ -244,6 +244,13 @@ Deterministic cleanup runs immediately before review and again after any review
 iteration. It drops null or blank candidate social-link values before schema
 validation, preventing legacy optional fields from turning
 an otherwise valid review into a schema error.
+The candidate source-removal tool is atomic when an issue citation is involved:
+it refuses to remove the last source from a substantive stance. Add replacement
+evidence first, or rewrite the stance as the documented-absence marker, so a
+cleanup pass cannot leave a sourced research audit attached to `sources: []`.
+Accepted removals are retained in `pipeline_state.removed_source_urls` across
+schema normalization so a later baseline-preservation pass does not restore the
+deleted URL.
 For a pre-primary special contest, completeness matching uses the primary date
 stated in `primary_status`, not a later general-election date stored on the
 profile. After the primary, a special-general roster instead matches the active

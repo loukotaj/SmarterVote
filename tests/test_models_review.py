@@ -352,12 +352,14 @@ def test_pipeline_state_preserves_durable_retry_failure_and_cleanup_fields():
             "issue_attempts": {"issues:Alice:Economy": 2},
             "step_failures": [{"step": "forecast", "reason": "step_no_data", "detail": "missing source"}],
             "deterministic_cleanup": {"text_changes": 1},
+            "removed_source_urls": [{"candidate_name": "Alice", "url": "https://example.test/dead"}],
         }
     ).model_dump(mode="json")
 
     assert state["issue_attempts"] == {"issues:Alice:Economy": 2}
     assert state["step_failures"][0]["step"] == "forecast"
     assert state["deterministic_cleanup"] == {"text_changes": 1}
+    assert state["removed_source_urls"] == [{"candidate_name": "Alice", "url": "https://example.test/dead"}]
 
 
 def test_issue_research_effort_context_distinguishes_attempted_absence_from_omission():
@@ -904,6 +906,51 @@ def test_unaudited_absence_without_race_telemetry_is_informational():
     assert legacy_flags[0]["severity"] == "info"
 
 
+def test_untouched_candidate_absence_is_informational_when_another_was_researched():
+    """Regression: a targeted run failed the whole race on candidates it never touched.
+
+    The legacy exemption used to require the race's entire issue_research map to be
+    empty. A run scoped to one candidate populates it, so every other candidate's
+    older un-audited absence became error-severity — review named George McDermott
+    on md-house-04 with "0 search calls and 0 page fetches" when the run had only
+    been asked to add Sam Husseini.
+    """
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "md-house-04-2026",
+        "candidates": [
+            {
+                "name": "Sam Husseini",
+                "issues": {
+                    "Tech & AI": {
+                        "stance": "No public position found",
+                        "confidence": "low",
+                        "sources": [],
+                        "research_audit": {"status": "completed", "search_calls": 2, "page_fetches": 1},
+                    }
+                },
+            },
+            {
+                "name": "George McDermott",
+                "issues": {"Tech & AI": {"stance": "No public position found", "confidence": "low", "sources": []}},
+            },
+        ],
+        # Populated for the targeted candidate only.
+        "pipeline_state": {
+            "issue_research": {"issues:Sam Husseini:Tech & AI": {"status": "completed", "search_calls": 2, "page_fetches": 1}}
+        },
+    }
+
+    result = check_profile_quality(profile)
+
+    assert not [f for f in result.get("flags", []) if "completed audit" in str(f.get("concern", ""))]
+    legacy = [f for f in result.get("flags", []) if "legacy draft predates provenance logging" in str(f.get("concern", ""))]
+    assert len(legacy) == 1
+    assert legacy[0]["severity"] == "info"
+    assert "George McDermott" not in str(legacy[0]["field"])  # flagged by index, not name
+
+
 def test_profile_quality_accepts_source_backed_no_position_without_telemetry():
     from pipeline_client.agent.review import check_profile_quality
 
@@ -1164,3 +1211,137 @@ def test_flagged_fields_reports_only_fields_at_or_above_severity():
     assert flagged_fields(reviews) == {"a", "c"}
     assert flagged_fields(reviews, "error") == {"c"}
     assert flagged_fields(reviews, "info") == {"a", "b", "c"}
+
+
+def test_image_filename_naming_a_different_person_warns():
+    """co-house-04 stored `JohnPadoraJr2025.jpg` as Douglas Mangeris.
+
+    A real Ballotpedia portrait: reachable, correct content type, right shape.
+    Every automated check passed it. Only a reviewer reading the filename
+    noticed it was somebody else.
+    """
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "co-house-04-2026",
+        "candidates": [
+            {
+                "name": "Douglas Mangeris",
+                "image_url": "https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/JohnPadoraJr2025.jpg",
+                "issues": {},
+            }
+        ],
+    }
+
+    flags = check_profile_quality(profile).get("flags", [])
+    image_flags = [f for f in flags if "image_url" in str(f.get("field", ""))]
+
+    assert len(image_flags) == 1
+    assert image_flags[0]["severity"] == "warning", "must not block publication; my eyeball rate is worse than a coin flip"
+
+
+def test_image_filename_check_is_quiet_on_matching_and_opaque_names():
+    from pipeline_client.agent.review import image_filename_contradicts_candidate as contradicts
+
+    # Filename names the candidate, in the several shapes hosts use.
+    assert not contradicts("https://s3.amazonaws.com/x/Marcy_Kaptur.jpg", "Marcy Kaptur")
+    assert not contradicts("https://s3.amazonaws.com/x/DerekMerrin2024.jpeg", "Derek Merrin")
+    assert not contradicts("https://s3.amazonaws.com/x/Matthew_Althaus_20260410_061023.jpg", "Matthew Althaus")
+    # CamelCase splits the surname apart; the flattened basename still matches.
+    assert not contradicts("https://s3.amazonaws.com/x/NickLaLota24.jpg", "Nicholas J. LaLota")
+    # Diacritics folded.
+    assert not contradicts("https://s3.amazonaws.com/x/Angelica_Maria_DuenasCA.jpeg", "Angélica María Dueñas")
+
+    # Opaque filenames assert nothing about who is pictured.
+    assert not contradicts("https://vibe.filesafe.space/177/attachments/1ef1aa67-11e3-4e8a.png", "Kathy McKinstry")
+    assert not contradicts("https://s3.amazonaws.com/x/fu_scd4d3djdzh8w2c_20260526.jpg", "Kurt Alme")
+    assert not contradicts("https://example.com/photos/portrait.jpg", "Jane Doe")
+    # A single word could be a nickname, a photographer or an event.
+    assert not contradicts("https://example.com/x/Sammy-22.jpg", "Phil Weiser")
+
+    # Missing data never warns.
+    assert not contradicts(None, "Jane Doe")
+    assert not contradicts("https://example.com/x/JohnPadora.jpg", None)
+
+
+def test_unsourced_substantive_stance_is_an_error():
+    """ri-senate reached `ready: true` carrying an unsourced allegation.
+
+    The stance claimed a named candidate had attacked a sitting senator over
+    antisemitism, in a campaign video dated to the day it was written, with an
+    empty sources array. Two model reviewers flagged it; a third run reworded
+    the sentence and the flag disappeared while the empty array stayed. The
+    deterministic check saw it every time and only ever warned, so nothing
+    stopped it from publishing.
+    """
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "ri-senate-2026",
+        "candidates": [
+            {
+                "name": "Raymond McKay",
+                "issues": {
+                    "Foreign Policy": {
+                        "stance": "In a campaign video, McKay criticized the incumbent over remarks he declined to condemn.",
+                        "confidence": "medium",
+                        "sources": [],
+                    }
+                },
+            }
+        ],
+    }
+
+    flags = check_profile_quality(profile).get("flags", [])
+    unsourced = [f for f in flags if "no supporting sources" in str(f.get("concern", ""))]
+
+    assert len(unsourced) == 1
+    assert unsourced[0]["severity"] == "error"
+
+
+def test_a_documented_absence_still_needs_no_sources():
+    """ "No public position found" is a legitimate answer and must stay publishable."""
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "ri-senate-2026",
+        "candidates": [
+            {
+                "name": "Raymond McKay",
+                "issues": {
+                    "Foreign Policy": {
+                        "stance": "No public position found.",
+                        "confidence": "low",
+                        "sources": [],
+                        "research_audit": {"status": "completed", "search_calls": 6, "page_fetches": 7},
+                    }
+                },
+            }
+        ],
+    }
+
+    flags = check_profile_quality(profile).get("flags", [])
+    assert not [f for f in flags if "no supporting sources" in str(f.get("concern", ""))]
+
+
+def test_a_sourced_stance_is_clean():
+    from pipeline_client.agent.review import check_profile_quality
+
+    profile = {
+        "id": "ri-senate-2026",
+        "candidates": [
+            {
+                "name": "Jack Reed",
+                "issues": {
+                    "Foreign Policy": {
+                        "stance": "Reed supports continued security assistance to Ukraine and chairs the Armed Services Committee.",
+                        "confidence": "high",
+                        "sources": [{"url": "https://www.reed.senate.gov/news/releases/example"}],
+                    }
+                },
+            }
+        ],
+    }
+
+    flags = check_profile_quality(profile).get("flags", [])
+    assert not [f for f in flags if "no supporting sources" in str(f.get("concern", ""))]

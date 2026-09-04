@@ -92,7 +92,7 @@
   }
 
   .grade-badge {
-    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border
+    @apply inline-flex min-h-11 items-center gap-1.5 px-3 py-1.5 rounded-full border
            text-sm font-semibold cursor-pointer transition-all duration-150
            hover:shadow-md active:scale-95;
   }

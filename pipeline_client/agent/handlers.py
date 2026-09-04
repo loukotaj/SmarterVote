@@ -37,6 +37,7 @@ from pipeline_client.agent.roster_contract import (
     tier_rejection_reason,
 )
 from pipeline_client.agent.source_types import normalize_source_type
+from pipeline_client.agent.utils import iso_timestamp_or_now
 
 _CANONICAL_ISSUE_SET = set(CANONICAL_ISSUES)
 
@@ -351,29 +352,14 @@ def _source_omits_candidate_from_roster(
 
 
 def _iso_timestamp_or_now(*candidates: Any) -> str:
-    """First candidate that parses as an ISO-8601 timestamp, else the current time.
+    """Delegate to the shared validator so both write paths behave identically.
 
-    ``last_accessed`` used to accept any truthy string the model produced. In the
-    roster-source prompt ``retrieval_status`` sits immediately before
-    ``last_accessed``, and on 2026-08-30 a model wrote its *retrieval_status*
-    value -- the literal word "content" -- into the timestamp field. Nothing
-    caught it: the record is schema-invalid, and it surfaces downstream as an
-    unresolved review flag on a race that is otherwise publishable.
-
-    Falling back to "now" rather than dropping the field is the honest choice
-    here -- the agent did just retrieve the source, so the retrieval time really
-    is now; only the model's transcription of it was garbage.
+    This lived here alone while the normaliser in ``llm.py`` still used a bare
+    ``setdefault``, which leaves a present-but-invalid value untouched. The two
+    paths drifted and tx-house-05 shipped a schema-invalid ``last_accessed``
+    anyway. Keep one implementation.
     """
-    for value in candidates:
-        text = str(value or "").strip()
-        if not text:
-            continue
-        try:
-            datetime.fromisoformat(text.replace("Z", "+00:00"))
-        except ValueError:
-            continue
-        return text
-    return datetime.now(timezone.utc).isoformat()
+    return iso_timestamp_or_now(*candidates)
 
 
 def _normalize_source(source: Any, *, default_type: str = "finance") -> Dict[str, Any] | None:
@@ -1727,6 +1713,8 @@ def _make_editing_handlers(
         return f"Added {args.get('type', 'other')} link for '{name}'."
 
     def remove_candidate_source_url(args: Dict[str, Any]) -> str:
+        from pipeline_client.agent.agent import _is_missing_stance_text
+
         name = args["candidate_name"]
         url = str(args["url"]).strip()
         c = _find_candidate(name)
@@ -1734,6 +1722,35 @@ def _make_editing_handlers(
             return f"Candidate '{name}' not found."
         if not url:
             return "ERROR: url is required."
+
+        # Removal is otherwise atomic across the candidate profile. Refuse it
+        # before mutating any list when the URL is the last evidence for a
+        # substantive issue stance. The agent must first add replacement
+        # evidence or explicitly rewrite the stance as a documented absence.
+        # Without this preflight, iteration could create sources=[] while the
+        # durable research audit still reported source_count > 0.
+        issues = c.get("issues")
+        if isinstance(issues, dict):
+            for issue_name, issue_data in issues.items():
+                if not isinstance(issue_data, dict):
+                    continue
+                sources = issue_data.get("sources")
+                if not isinstance(sources, list):
+                    continue
+                removes_url = any(isinstance(source, dict) and source.get("url") == url for source in sources)
+                kept = [source for source in sources if not (isinstance(source, dict) and source.get("url") == url)]
+                stance = str(issue_data.get("stance") or "").strip()
+                if removes_url and not kept and stance and not _is_missing_stance_text(stance):
+                    log(
+                        "warning",
+                        f"    remove_candidate_source_url({name!r}) BLOCKED: {url[:80]} is the last source for "
+                        f"substantive issue {issue_name!r}",
+                    )
+                    return (
+                        f"ERROR: Cannot remove {url!r}; it is the last supporting source for "
+                        f"{name}'s substantive {issue_name} stance. Add a replacement source first, "
+                        "or rewrite the stance as 'No public position found'."
+                    )
 
         removed = 0
 
@@ -1754,7 +1771,6 @@ def _make_editing_handlers(
                 c[scalar_key] = None
                 removed += 1
 
-        issues = c.get("issues")
         if isinstance(issues, dict):
             for issue_data in issues.values():
                 if not isinstance(issue_data, dict):

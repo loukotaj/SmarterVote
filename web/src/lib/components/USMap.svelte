@@ -177,7 +177,12 @@
   {#if !loaded}
     <div class="skeleton"></div>
   {:else}
-    <svg bind:this={svgEl} viewBox="0 0 975 610" aria-label="US States map">
+    <svg
+      bind:this={svgEl}
+      viewBox="0 0 975 610"
+      role="group"
+      aria-label="US States map"
+    >
       <!-- Base pass: all states except selected -->
       {#each baseFeatures as state (state.id)}
         {@const canHover =

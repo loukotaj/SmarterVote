@@ -78,7 +78,7 @@
           const stance = candidate.issues?.[key];
           return stance && stance.sources && stance.sources.length > 0;
         }),
-      ).slice(0, 4)
+      ).slice(0, 1)
     : CANONICAL_ISSUES;
 
   function forecastProbability(candidate: Candidate): number | undefined {
@@ -163,7 +163,12 @@
   {/if}
 
   <div class="overflow-x-auto custom-scrollbar">
-    <div style="min-width: {(compact ? 170 : 220) + candidates.length * 250}px">
+    <div
+      style="min-width: {(compact ? 170 : 220) + candidates.length * 250}px"
+      role="table"
+      aria-label="Candidate comparison"
+      aria-colcount={candidates.length + 1}
+    >
       <div
         class:sticky={!compact}
         class:top-[var(--site-header-height)]={!compact}
@@ -171,17 +176,20 @@
       >
         <div
           class="grid items-center"
+          role="row"
           style="grid-template-columns: {compact
             ? '170px'
             : '220px'} repeat({candidates.length}, 1fr)"
         >
           <div
+            role="columnheader"
             class="sticky left-0 z-40 flex self-stretch items-center border-r border-stroke bg-surface px-5 text-xs font-bold uppercase tracking-wider text-content-subtle"
           >
             {compact ? "Compare" : "Candidate comparison"}
           </div>
           {#each candidates as candidate}
             <div
+              role="columnheader"
               class="flex items-center gap-3 border-r border-stroke px-5 last:border-none"
             >
               {#if candidate.image_url && !failedImages[candidate.name]}
@@ -225,17 +233,20 @@
       <div class="divide-y divide-stroke">
         <div
           class="grid"
+          role="row"
           style="grid-template-columns: {compact
             ? '170px'
             : '220px'} repeat({candidates.length}, 1fr)"
         >
           <div
+            role="rowheader"
             class="sticky left-0 z-10 flex items-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
           >
             Biography & Summary
           </div>
           {#each candidates as candidate}
             <div
+              role="cell"
               class="border-r border-stroke p-6 text-sm leading-relaxed text-content-muted last:border-none"
             >
               {candidate.summary}
@@ -256,11 +267,13 @@
 
         <div
           class="grid"
+          role="row"
           style="grid-template-columns: {compact
             ? '170px'
             : '220px'} repeat({candidates.length}, 1fr)"
         >
           <div
+            role="columnheader"
             class="col-span-full sticky left-0 z-10 w-full bg-surface-alt/40 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-content-subtle"
             style="grid-column: 1 / -1"
           >
@@ -270,11 +283,13 @@
         {#each issueKeys as issueKey}
           <div
             class="grid"
+            role="row"
             style="grid-template-columns: {compact
               ? '170px'
               : '220px'} repeat({candidates.length}, 1fr)"
           >
             <div
+              role="rowheader"
               class="sticky left-0 z-10 flex flex-col justify-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
             >
               {getIssueDisplayName(issueKey)}
@@ -287,6 +302,7 @@
               {@const isStanceExpanded =
                 expandedStances[stanceKey(issueKey, candidate)] ?? false}
               <div
+                role="cell"
                 class="flex flex-col gap-3 border-r border-stroke p-6 last:border-none"
               >
                 {#if stance}
@@ -350,9 +366,11 @@
         {#if !compact}
           <div
             class="grid"
+            role="row"
             style="grid-template-columns: 220px repeat({candidates.length}, 1fr)"
           >
             <div
+              role="columnheader"
               class="col-span-full sticky left-0 z-10 w-full bg-surface-alt/40 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-content-subtle"
               style="grid-column: 1 / -1"
             >
@@ -361,14 +379,17 @@
           </div>
           <div
             class="grid"
+            role="row"
             style="grid-template-columns: 220px repeat({candidates.length}, 1fr)"
           >
             <div
+              role="rowheader"
               class="sticky left-0 z-10 flex items-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
             >
               Career Timeline
             </div>
             {#each candidates as candidate}<div
+                role="cell"
                 class="border-r border-stroke p-6 text-sm text-content-muted last:border-none"
               >
                 {#if candidate.career_history?.length}<div class="space-y-4">
@@ -399,14 +420,17 @@
           </div>
           <div
             class="grid"
+            role="row"
             style="grid-template-columns: 220px repeat({candidates.length}, 1fr)"
           >
             <div
+              role="rowheader"
               class="sticky left-0 z-10 flex items-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
             >
               Education
             </div>
             {#each candidates as candidate}<div
+                role="cell"
                 class="border-r border-stroke p-6 text-sm text-content-muted last:border-none"
               >
                 {#if candidate.education?.length}<div class="space-y-3">
@@ -429,9 +453,11 @@
           {#each backgroundRows as row}
             <div
               class="grid"
+              role="row"
               style="grid-template-columns: 220px repeat({candidates.length}, 1fr)"
             >
               <div
+                role="rowheader"
                 class="sticky left-0 z-10 flex items-center border-r border-stroke bg-surface-alt p-5 text-sm font-bold text-content"
               >
                 {row.label}
@@ -439,6 +465,7 @@
               {#each candidates as candidate}{@const summary =
                   candidate[row.summary]}{@const sourceUrl = candidate[row.url]}
                 <div
+                  role="cell"
                   class="border-r border-stroke p-6 text-sm text-content-muted last:border-none"
                 >
                   {#if summary}<p class="mb-3 text-xs leading-relaxed">
@@ -462,11 +489,13 @@
         {#if race.forecast}
           <div
             class="grid"
+            role="row"
             style="grid-template-columns: {compact
               ? '170px'
               : '220px'} repeat({candidates.length}, 1fr)"
           >
             <div
+              role="rowheader"
               class="sticky left-0 z-10 border-r border-stroke bg-blue-50 p-5 text-sm font-bold text-content dark:bg-blue-950/20"
             >
               Forecast
@@ -478,6 +507,7 @@
             {#each candidates as candidate}
               {@const probability = forecastProbability(candidate)}
               <div
+                role="cell"
                 class="border-r border-stroke bg-blue-50/40 p-5 last:border-none dark:bg-blue-950/10"
               >
                 {#if probability !== undefined}
