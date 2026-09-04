@@ -61,7 +61,12 @@ def test_explicit_source_removal_is_not_undone_by_baseline_preservation():
             {
                 "name": "Alice",
                 "summary_sources": [_source(dead_url)],
-                "issues": {"Healthcare": {"stance": "Old", "sources": [_source(dead_url)]}},
+                "issues": {
+                    "Healthcare": {
+                        "stance": "Old",
+                        "sources": [_source(dead_url), _source("https://example.test/good")],
+                    }
+                },
             }
         ]
     }
@@ -70,7 +75,12 @@ def test_explicit_source_removal_is_not_undone_by_baseline_preservation():
             {
                 "name": "Alice",
                 "summary_sources": [_source(dead_url)],
-                "issues": {"Healthcare": {"stance": "Old", "sources": [_source(dead_url)]}},
+                "issues": {
+                    "Healthcare": {
+                        "stance": "Old",
+                        "sources": [_source(dead_url), _source("https://example.test/good")],
+                    }
+                },
             }
         ]
     }
@@ -81,7 +91,7 @@ def test_explicit_source_removal_is_not_undone_by_baseline_preservation():
 
     assert result.startswith("Removed 2 occurrence(s)")
     assert updated["candidates"][0]["summary_sources"] == []
-    assert updated["candidates"][0]["issues"]["Healthcare"]["sources"] == []
+    assert updated["candidates"][0]["issues"]["Healthcare"]["sources"] == [_source("https://example.test/good")]
     assert updated["pipeline_state"]["removed_source_urls"] == [{"candidate_name": "Alice", "url": dead_url}]
 
 

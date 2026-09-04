@@ -90,6 +90,24 @@ describe("IssueTable content", () => {
     expect(desktop(container).querySelectorAll("tbody tr")).toHaveLength(2);
   });
 
+  it("shows one selected issue at a time in the mobile view", async () => {
+    const { container } = renderTable({
+      Healthcare: stance({ stance: "Healthcare position." }),
+      Economy: stance({ stance: "Economy position." }),
+    } as Partial<Record<IssueKey, IssueStance>>);
+    const mobileView = mobile(container);
+    const select = mobileView.querySelector(
+      "#candidate-issue-select",
+    ) as HTMLSelectElement;
+
+    expect(mobileView.textContent).toContain("Healthcare position.");
+    expect(mobileView.textContent).not.toContain("Economy position.");
+
+    await fireEvent.change(select, { target: { value: "Economy" } });
+    expect(mobileView.textContent).toContain("Economy position.");
+    expect(mobileView.textContent).not.toContain("Healthcare position.");
+  });
+
   it("says so when an issue has no supporting sources", () => {
     const { container } = renderTable({
       Healthcare: stance({ sources: [] }),

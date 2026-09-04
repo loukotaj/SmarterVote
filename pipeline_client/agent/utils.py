@@ -3,11 +3,37 @@
 import json
 import logging
 import re
+from datetime import datetime, timezone
 from typing import Any, Callable, Dict, Optional
 
 from pipeline_client.logging_utils import sanitize_log_message
 
 _logger = logging.getLogger("pipeline")
+
+
+def iso_timestamp_or_now(*candidates: Any) -> str:
+    """First candidate that parses as an ISO-8601 timestamp, else the current time.
+
+    ``last_accessed`` is written from two places: the tool handlers, and the
+    normaliser that runs over raw model JSON. Only the handler path validated,
+    so a model that put garbage in the field on the JSON path still produced a
+    schema-invalid record -- tx-house-05 shipped the literal word "content"
+    (the value of the adjacent ``retrieval_status`` key), bare dates, and nulls.
+
+    Falling back to "now" rather than dropping the field is the honest choice:
+    the agent did just retrieve the source, so the retrieval time really is now;
+    only the model's transcription of it was garbage.
+    """
+    for value in candidates:
+        text = str(value or "").strip()
+        if not text:
+            continue
+        try:
+            datetime.fromisoformat(text.replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        return text
+    return datetime.now(timezone.utc).isoformat()
 
 
 def _extract_json(text: str) -> Dict[str, Any]:

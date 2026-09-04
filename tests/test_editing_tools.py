@@ -1892,6 +1892,39 @@ def test_remove_candidate_source_url_removes_all_candidate_occurrences():
     assert candidate["voting_source_url"] is None
 
 
+def test_remove_candidate_source_url_refuses_last_substantive_issue_source_atomically():
+    """A cleanup edit cannot recreate a sourced-audit/empty-sources mismatch."""
+    from pipeline_client.agent.agent import _make_editing_handlers
+
+    bad_url = "https://example.com/dead"
+    race_json = {
+        "candidates": [
+            {
+                "name": "Alice",
+                "summary_sources": [{"url": bad_url}],
+                "issues": {
+                    "Healthcare": {
+                        "stance": "Supports coverage.",
+                        "confidence": "high",
+                        "sources": [{"url": bad_url}],
+                        "research_audit": {"source_count": 1},
+                    }
+                },
+            }
+        ]
+    }
+    logs = []
+    handlers = _make_editing_handlers(race_json, lambda level, message: logs.append((level, message)))
+
+    result = handlers["remove_candidate_source_url"]({"candidate_name": "Alice", "url": bad_url})
+
+    assert result.startswith("ERROR: Cannot remove")
+    assert race_json["candidates"][0]["summary_sources"] == [{"url": bad_url}]
+    assert race_json["candidates"][0]["issues"]["Healthcare"]["sources"] == [{"url": bad_url}]
+    assert "pipeline_state" not in race_json
+    assert any("last source" in message for _, message in logs)
+
+
 def test_read_profile_handler():
     """read_profile handler returns JSON for different sections."""
     from pipeline_client.agent.agent import _make_editing_handlers
