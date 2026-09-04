@@ -8,7 +8,7 @@
   import VotingRecordTable from "$lib/components/VotingRecordTable.svelte";
   import type { Race, Candidate } from "$lib/types";
   import { getRace, getDraftRace } from "$lib/api";
-  import { candidateSlug, formatModelName } from "$lib/utils/format";
+  import { candidateSlug } from "$lib/utils/format";
   import { isExternalUrl } from "$lib/utils/url";
   import {
     candidateMetaDescription,
@@ -87,6 +87,14 @@
     if (!candidate) {
       error = "Candidate not found";
     }
+  }
+
+  function jumpToSection(event: Event) {
+    const select = event.currentTarget as HTMLSelectElement;
+    const id = select.value;
+    if (!id) return;
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    select.value = "";
   }
 
   $: hasCareer =
@@ -293,11 +301,6 @@
             Compare Candidates →
           </a>
         {/if}
-      </div>
-      <div class="model-label">
-        {#each race.generator ?? [] as model}
-          <span class="model-tag">{formatModelName(model)}</span>
-        {/each}
       </div>
     </nav>
 
@@ -508,8 +511,33 @@
       </div>
     </Card>
 
+    <nav class="detail-nav" aria-label="Candidate profile sections">
+      <label for="candidate-section-select" class="sr-only">
+        Jump to candidate profile section
+      </label>
+      <select
+        id="candidate-section-select"
+        class="detail-nav-select"
+        on:change={jumpToSection}
+      >
+        <option value="">Jump to a section…</option>
+        <option value="positions">Positions on key issues</option>
+        {#if hasCareer || hasEducation}<option value="background"
+            >Background</option
+          >{/if}
+        {#if hasDonors}<option value="donors">Top donors</option>{/if}
+        {#if hasVoting}<option value="voting-record">Voting record</option>{/if}
+      </select>
+      <div class="detail-nav-links">
+        <a href="#positions">Positions</a>
+        {#if hasCareer || hasEducation}<a href="#background">Background</a>{/if}
+        {#if hasDonors}<a href="#donors">Top donors</a>{/if}
+        {#if hasVoting}<a href="#voting-record">Voting record</a>{/if}
+      </div>
+    </nav>
+
     <!-- Issues Section -->
-    <section class="detail-section">
+    <section id="positions" class="detail-section scroll-mt-36">
       <h2 class="section-heading">Positions on Key Issues</h2>
       <Card class="section-card">
         <IssueTable
@@ -522,7 +550,7 @@
 
     <!-- Background Section -->
     {#if hasCareer || hasEducation}
-      <section class="detail-section">
+      <section id="background" class="detail-section scroll-mt-36">
         <h2 class="section-heading">Background</h2>
         <Card class="section-card">
           {#if hasCareer}
@@ -622,7 +650,7 @@
 
     <!-- Top Donors Section -->
     {#if hasDonors}
-      <section class="detail-section">
+      <section id="donors" class="detail-section scroll-mt-36">
         <h2 class="section-heading">Top Donors</h2>
         <Card class="section-card">
           <DonorTable
@@ -638,7 +666,7 @@
 
     <!-- Voting Record Section -->
     {#if hasVoting}
-      <section class="detail-section">
+      <section id="voting-record" class="detail-section scroll-mt-36">
         <h2 class="section-heading">Voting Record</h2>
         <Card class="section-card">
           <VotingRecordTable
@@ -672,14 +700,6 @@
   .back-link {
     @apply inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-800
            font-medium text-sm no-underline transition-colors duration-200;
-  }
-
-  .model-label {
-    @apply flex items-center gap-1.5 text-xs text-content-subtle;
-  }
-
-  .model-tag {
-    @apply bg-surface-alt text-content-subtle px-2 py-0.5 rounded font-mono text-xs;
   }
 
   /* Other candidates collapsible */
@@ -761,7 +781,7 @@
   }
 
   .quick-link {
-    @apply inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-alt border
+    @apply inline-flex min-h-11 items-center gap-1.5 px-3 py-1.5 bg-surface-alt border
            border-stroke rounded-md text-sm text-content hover:bg-blue-50 dark:hover:bg-blue-950
            hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors
            duration-200 no-underline;
@@ -770,6 +790,22 @@
   /* Sections */
   .detail-section {
     @apply mb-6;
+  }
+
+  .detail-nav {
+    @apply sticky top-[var(--site-header-height)] z-30 mb-6 rounded-xl border border-stroke bg-surface/95 p-3 shadow-sm backdrop-blur;
+  }
+
+  .detail-nav-select {
+    @apply min-h-11 w-full rounded-lg border border-stroke bg-surface px-3 py-2 text-sm font-semibold text-content focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 lg:hidden;
+  }
+
+  .detail-nav-links {
+    @apply hidden flex-wrap gap-2 lg:flex;
+  }
+
+  .detail-nav-links a {
+    @apply inline-flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-semibold text-blue-600 no-underline hover:bg-blue-50 hover:text-blue-800 dark:text-blue-400 dark:hover:bg-blue-950/30 dark:hover:text-blue-300;
   }
 
   .section-heading {
@@ -845,7 +881,7 @@
   }
 
   .summary-source-link {
-    @apply inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400
+    @apply inline-flex min-h-8 items-center gap-1 py-1 text-xs text-blue-600 dark:text-blue-400
            hover:underline truncate max-w-xs sm:max-w-sm no-underline;
   }
 

@@ -110,6 +110,30 @@ describe("ElectionDirectory rendering", () => {
     await waitFor(() => expect(cards(container)).toHaveLength(0));
   });
 
+  it("sorts races by state and title", async () => {
+    const { container } = renderDirectory([
+      race({ id: "ak", title: "Alaska Senate", state: "Alaska" }),
+      race({ id: "al", title: "Alabama Senate", state: "Alabama" }),
+    ]);
+
+    await waitFor(() => expect(cards(container)).toHaveLength(2));
+    expect(cards(container)[0].getAttribute("href")).toBe("/races/al");
+    expect(cards(container)[1].getAttribute("href")).toBe("/races/ak");
+  });
+
+  it("keeps the mobile map collapsed until requested", async () => {
+    const { getByRole } = renderDirectory();
+    const toggle = getByRole("button", { name: "Show interactive map" });
+
+    expect(toggle.getAttribute("aria-expanded")).toBe("false");
+    await fireEvent.click(toggle);
+    expect(
+      getByRole("button", { name: "Hide interactive map" }).getAttribute(
+        "aria-expanded",
+      ),
+    ).toBe("true");
+  });
+
   // PAGE_SIZE is 24; anything beyond that waits for the load-more control.
   it("shows at most one page of races initially", async () => {
     const many = Array.from({ length: 30 }, (_, i) =>
@@ -148,9 +172,12 @@ describe("ElectionDirectory office filtering", () => {
     const { container } = renderDirectory(mixed);
 
     await waitFor(() => expect(officeChip(container, "Senate")).toBeTruthy());
-    await fireEvent.click(officeChip(container, "Senate")!);
+    const senate = officeChip(container, "Senate")!;
+    expect(senate.getAttribute("aria-pressed")).toBe("false");
+    await fireEvent.click(senate);
 
     await waitFor(() => expect(cards(container)).toHaveLength(1));
+    expect(senate.getAttribute("aria-pressed")).toBe("true");
     // RaceCard renders a derived title, not race.title, so assert on the id.
     expect(cards(container)[0].getAttribute("href")).toBe("/races/s");
   });
