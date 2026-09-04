@@ -93,8 +93,10 @@
     const select = event.currentTarget as HTMLSelectElement;
     const id = select.value;
     if (!id) return;
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const target = document.getElementById(id);
     select.value = "";
+    select.blur();
+    requestAnimationFrame(() => target?.scrollIntoView({ behavior: "smooth" }));
   }
 
   $: hasCareer =
