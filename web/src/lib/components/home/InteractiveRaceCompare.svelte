@@ -1,5 +1,5 @@
 <script lang="ts">
-  import FeaturedCandidatePreview from "$lib/components/home/FeaturedCandidatePreview.svelte";
+  import CandidateComparison from "$lib/components/compare/CandidateComparison.svelte";
   import type { Race } from "$lib/types";
   import { candidateSlug } from "$lib/utils/format";
 
@@ -45,7 +45,7 @@
         <div
           class="flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400"
         >
-          Featured race
+          Featured comparison
         </div>
         <h2
           class="mt-2 text-xl font-extrabold tracking-tight text-content sm:text-2xl"
@@ -102,13 +102,13 @@
     </div>
 
     <div class="p-3 lg:p-5" aria-label="Featured comparison preview">
-      <FeaturedCandidatePreview race={selectedRace} {candidates} />
-      <div
-        class="mt-4 flex flex-col items-start justify-between gap-3 rounded-xl border border-stroke bg-surface-alt/50 p-4 sm:flex-row sm:items-center"
-      >
-        <p class="text-sm text-content-muted">
-          All {candidates.length} active candidates are included.
-        </p>
+      <CandidateComparison
+        race={selectedRace}
+        {candidates}
+        compact
+        showQuality
+      />
+      <div class="mt-4 flex justify-end">
         <a
           href="/races/{selectedRace.id}/compare/?candidates={candidates
             .map((candidate) => candidateSlug(candidate.name))
