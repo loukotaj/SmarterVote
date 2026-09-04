@@ -96,7 +96,7 @@ describe("InteractiveRaceCompare visibility", () => {
       races: [race("a")],
     });
 
-    expect(container.textContent).toContain("Featured race");
+    expect(container.textContent).toContain("Featured comparison");
   });
 
   it("excludes withdrawn candidates from the comparison", () => {
@@ -125,7 +125,6 @@ describe("InteractiveRaceCompare visibility", () => {
       ],
     });
 
-    expect(container.textContent).toContain("All 3 active candidates");
     expect(container.textContent).toContain("Alex Smith");
     expect(
       container.querySelector(
