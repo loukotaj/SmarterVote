@@ -210,7 +210,7 @@
                 <a
                   href="/races/{race.id}/{candidateSlug(
                     candidate.name,
-                  )}{isDraftPreview ? '?draft=true' : ''}"
+                  )}/{isDraftPreview ? '?draft=true' : ''}"
                   class="block truncate text-sm font-extrabold text-content hover:text-blue-600"
                   >{candidate.name}</a
                 >

@@ -152,7 +152,7 @@ describe("SiteHeader navigation", () => {
     await fireEvent.keyDown(input, { key: "ArrowDown" });
     await fireEvent.keyDown(input, { key: "Enter" });
 
-    expect(goto).toHaveBeenCalledWith("/races/mo-senate-2024");
+    expect(goto).toHaveBeenCalledWith("/races/mo-senate-2024/");
   });
 
   it("slugifies a candidate name into the profile url", async () => {
@@ -175,7 +175,7 @@ describe("SiteHeader navigation", () => {
     await fireEvent.keyDown(input, { key: "ArrowDown" });
     await fireEvent.keyDown(input, { key: "Enter" });
 
-    expect(goto).toHaveBeenCalledWith("/races/mo-senate-2024/jane-q-doe");
+    expect(goto).toHaveBeenCalledWith("/races/mo-senate-2024/jane-q-doe/");
   });
 
   it("falls back to the elections page when nothing is highlighted", async () => {
@@ -219,7 +219,7 @@ describe("SiteHeader keyboard navigation", () => {
     await fireEvent.keyDown(input, { key: "ArrowDown" });
     await fireEvent.keyDown(input, { key: "Enter" });
 
-    expect(goto).toHaveBeenCalledWith("/races/mo-senate-2024");
+    expect(goto).toHaveBeenCalledWith("/races/mo-senate-2024/");
   });
 
   // NOTE: with nothing highlighted (activeIndex === -1), ArrowUp computes
@@ -235,7 +235,7 @@ describe("SiteHeader keyboard navigation", () => {
     await fireEvent.keyDown(input, { key: "ArrowUp" });
     await fireEvent.keyDown(input, { key: "Enter" });
 
-    expect(goto).toHaveBeenCalledWith("/races/mo-senate-2024");
+    expect(goto).toHaveBeenCalledWith("/races/mo-senate-2024/");
   });
 
   it("steps backwards through results once one is highlighted", async () => {
@@ -249,7 +249,7 @@ describe("SiteHeader keyboard navigation", () => {
     await fireEvent.keyDown(input, { key: "ArrowUp" });
     await fireEvent.keyDown(input, { key: "Enter" });
 
-    expect(goto).toHaveBeenCalledWith("/races/mo-senate-2024");
+    expect(goto).toHaveBeenCalledWith("/races/mo-senate-2024/");
   });
 
   it("closes the panel on Escape", async () => {

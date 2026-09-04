@@ -7,10 +7,10 @@
 <span class="ml-1 inline-flex align-middle">
   <button
     type="button"
-    class="inline-flex h-5 w-5 items-center justify-center rounded-full border border-amber-400 bg-amber-50 text-[11px] font-extrabold leading-none text-amber-800 transition hover:bg-amber-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-200"
+    class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-amber-400 bg-amber-50 text-xs font-extrabold leading-none text-amber-800 transition hover:bg-amber-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-200"
     aria-label="About this automated research score"
     aria-expanded={open}
-    aria-controls={panelId}
+    aria-controls={open ? panelId : undefined}
     title="About this automated research score"
     on:click={() => (open = !open)}
     on:keydown={(event) => event.key === "Escape" && (open = false)}>i</button

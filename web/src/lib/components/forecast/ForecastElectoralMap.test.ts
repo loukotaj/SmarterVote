@@ -47,6 +47,21 @@ describe("ForecastElectoralMap", () => {
     expect(screen.queryByText(/Clear Map Filter/)).toBeNull();
   });
 
+  it("offers a collapsed mobile map control", async () => {
+    render(ForecastElectoralMap, { activeTab: "house", ...baseProps() });
+
+    const toggle = screen.getByRole("button", {
+      name: "Show interactive map",
+    });
+    expect(toggle.getAttribute("aria-expanded")).toBe("false");
+
+    await fireEvent.click(toggle);
+
+    expect(
+      screen.getByRole("button", { name: "Hide interactive map" }),
+    ).toBeTruthy();
+  });
+
   it("omits holdover legend entries for the house tab", () => {
     render(ForecastElectoralMap, { activeTab: "house", ...baseProps() });
 

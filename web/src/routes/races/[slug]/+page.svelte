@@ -44,7 +44,7 @@
         } catch {
           race = await getRace(slug, fetch, false);
           isDraftPreview = false;
-          window.history.replaceState({}, "", `/races/${slug}`);
+          window.history.replaceState({}, "", `/races/${slug}/`);
         }
       } else {
         race = await getRace(slug);
@@ -409,7 +409,7 @@
       </div>
       {#if activeCandidates.length > 1}
         <a
-          href="/races/{race.id}/compare?candidates={activeCandidates
+          href="/races/{race.id}/compare/?candidates={activeCandidates
             .map((candidate) => candidateSlug(candidate.name))
             .join(',')}{isDraftPreview ? '&draft=true' : ''}"
           class="header-compare-link"
@@ -458,7 +458,7 @@
               <a
                 href="/races/{race.id}/{candidateSlug(
                   candidate.name,
-                )}{isDraftPreview ? '?draft=true' : ''}"
+                )}/{isDraftPreview ? '?draft=true' : ''}"
                 class="overview-candidate-chip"
               >
                 {#if candidate.image_url}
@@ -578,7 +578,7 @@
         <h2 class="candidates-title">Candidates</h2>
         {#if activeCandidates.length > 1}
           <a
-            href="/races/{race.id}/compare?candidates={activeCandidates
+            href="/races/{race.id}/compare/?candidates={activeCandidates
               .map((candidate) => candidateSlug(candidate.name))
               .join(',')}{isDraftPreview ? '&draft=true' : ''}"
             class="compare-all-link"
@@ -1054,7 +1054,7 @@
           >
           {#if selectedCandidates.size >= 2}
             <a
-              href="/races/{race.id}/compare?candidates={[
+              href="/races/{race.id}/compare/?candidates={[
                 ...selectedCandidates,
               ].join(',')}{isDraftPreview ? '&draft=true' : ''}"
               class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-colors no-underline shadow-sm"
@@ -1286,7 +1286,7 @@
   }
 
   .expand-button {
-    @apply flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium;
+    @apply flex min-h-11 items-center gap-2 text-blue-600 dark:text-blue-400 font-medium;
     @apply transition-colors duration-200;
   }
 

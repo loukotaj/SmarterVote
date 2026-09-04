@@ -139,14 +139,14 @@
     open = false;
     mobileSearchOpen = false;
     query = "";
-    goto(`/races/${id}`);
+    goto(`/races/${id}/`);
   }
 
   function selectCandidate(raceId: string, name: string) {
     open = false;
     mobileSearchOpen = false;
     query = "";
-    goto(`/races/${raceId}/${candidateSlug(name)}`);
+    goto(`/races/${raceId}/${candidateSlug(name)}/`);
   }
 
   function clearSearch() {
@@ -333,7 +333,7 @@
           role="combobox"
           aria-autocomplete="list"
           aria-expanded={open && totalMatches > 0}
-          aria-controls={resultsId}
+          aria-controls={open && totalMatches > 0 ? resultsId : undefined}
           aria-activedescendant={activeIndex >= 0
             ? `site-search-option-${activeIndex}`
             : undefined}

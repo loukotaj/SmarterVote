@@ -117,8 +117,8 @@ describe("ElectionDirectory rendering", () => {
     ]);
 
     await waitFor(() => expect(cards(container)).toHaveLength(2));
-    expect(cards(container)[0].getAttribute("href")).toBe("/races/al");
-    expect(cards(container)[1].getAttribute("href")).toBe("/races/ak");
+    expect(cards(container)[0].getAttribute("href")).toBe("/races/al/");
+    expect(cards(container)[1].getAttribute("href")).toBe("/races/ak/");
   });
 
   it("keeps the mobile map collapsed until requested", async () => {
@@ -179,7 +179,7 @@ describe("ElectionDirectory office filtering", () => {
     await waitFor(() => expect(cards(container)).toHaveLength(1));
     expect(senate.getAttribute("aria-pressed")).toBe("true");
     // RaceCard renders a derived title, not race.title, so assert on the id.
-    expect(cards(container)[0].getAttribute("href")).toBe("/races/s");
+    expect(cards(container)[0].getAttribute("href")).toBe("/races/s/");
   });
 
   it("buckets an unrecognised office under Other", async () => {
@@ -189,7 +189,7 @@ describe("ElectionDirectory office filtering", () => {
     await fireEvent.click(officeChip(container, "Other")!);
 
     await waitFor(() => expect(cards(container)).toHaveLength(1));
-    expect(cards(container)[0].getAttribute("href")).toBe("/races/o");
+    expect(cards(container)[0].getAttribute("href")).toBe("/races/o/");
   });
 });
 
@@ -227,7 +227,7 @@ describe("ElectionDirectory search", () => {
     await waitFor(() => expect(cards(container)).toHaveLength(1), {
       timeout: 2000,
     });
-    expect(cards(container)[0].getAttribute("href")).toBe("/races/mo");
+    expect(cards(container)[0].getAttribute("href")).toBe("/races/mo/");
   });
 
   it("filters by party", async () => {
@@ -241,7 +241,7 @@ describe("ElectionDirectory search", () => {
     await waitFor(() => expect(cards(container)).toHaveLength(1), {
       timeout: 2000,
     });
-    expect(cards(container)[0].getAttribute("href")).toBe("/races/ks");
+    expect(cards(container)[0].getAttribute("href")).toBe("/races/ks/");
   });
 
   it("filters by title", async () => {
@@ -384,7 +384,7 @@ describe("ElectionDirectory map selection", () => {
     await fireEvent.click(kansas);
 
     await waitFor(() => expect(cards(container)).toHaveLength(1));
-    expect(cards(container)[0].getAttribute("href")).toBe("/races/ks");
+    expect(cards(container)[0].getAttribute("href")).toBe("/races/ks/");
   });
 
   it("clears the state filter when the same state is clicked again", async () => {
@@ -421,7 +421,7 @@ describe("ElectionDirectory state filtering", () => {
     await fireEvent.change(select, { target: { value: "Kansas" } });
 
     await waitFor(() => expect(cards(container)).toHaveLength(1));
-    expect(cards(container)[0].getAttribute("href")).toBe("/races/ks");
+    expect(cards(container)[0].getAttribute("href")).toBe("/races/ks/");
   });
 
   it("falls back to jurisdiction when a race has no explicit state", async () => {

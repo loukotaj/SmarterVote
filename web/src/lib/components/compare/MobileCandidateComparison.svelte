@@ -83,7 +83,7 @@
   >
     {#each candidates as candidate}
       <a
-        href="/races/{race.id}/{candidateSlug(candidate.name)}{isDraftPreview
+        href="/races/{race.id}/{candidateSlug(candidate.name)}/{isDraftPreview
           ? '?draft=true'
           : ''}"
         aria-label={candidate.name}

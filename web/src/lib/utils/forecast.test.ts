@@ -196,7 +196,7 @@ describe("forecast utilities", () => {
   });
 
   it("builds a race href", () => {
-    expect(raceHref("ga-senate-2026")).toBe("/races/ga-senate-2026");
+    expect(raceHref("ga-senate-2026")).toBe("/races/ga-senate-2026/");
   });
 
   it("finds the most likely seat outcome, defaulting when empty", () => {
