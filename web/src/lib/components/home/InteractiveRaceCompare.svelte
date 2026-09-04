@@ -106,6 +106,7 @@
         race={selectedRace}
         {candidates}
         compact
+        collapseText
         showQuality
       />
       <div class="mt-4 flex justify-end">

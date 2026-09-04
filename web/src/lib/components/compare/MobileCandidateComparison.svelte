@@ -11,6 +11,7 @@
   export let race: Race;
   export let candidates: Candidate[];
   export let compact = false;
+  export let collapseText = false;
   export let isDraftPreview = false;
   export let showQuality = false;
 
@@ -54,6 +55,20 @@
       .map((part) => part[0])
       .slice(0, 2)
       .join("");
+  }
+
+  function positionPreview(stance: string): string {
+    if (!collapseText) return stancePreview(stance);
+
+    const normalized = stance.trim();
+    const limit = 120;
+    if (normalized.length <= limit) return normalized;
+
+    const shortened = normalized.slice(0, limit);
+    const lastSpace = shortened.lastIndexOf(" ");
+    return `${shortened
+      .slice(0, lastSpace > limit * 0.66 ? lastSpace : limit)
+      .trim()}…`;
   }
 </script>
 
@@ -146,8 +161,9 @@
     <div class="mt-4 space-y-3">
       {#each candidates as candidate}
         {@const stance = candidate.issues?.[selectedIssue]}
-        {@const preview = stance ? stancePreview(stance.stance) : ""}
+        {@const preview = stance ? positionPreview(stance.stance) : ""}
         {@const isExpanded = expandedStances[stanceKey(candidate)] ?? false}
+        {@const isTruncated = stance ? preview !== stance.stance.trim() : false}
         <article
           aria-label="{candidate.name} position on {getIssueDisplayName(
             selectedIssue,
@@ -167,7 +183,7 @@
                 : preview
               : "No sourced position available yet."}
           </p>
-          {#if stance && preview !== stance.stance.trim()}
+          {#if stance && isTruncated}
             <button
               type="button"
               aria-expanded={isExpanded}
@@ -178,7 +194,7 @@
               <span class="sr-only"> for {candidate.name}</span>
             </button>
           {/if}
-          {#if stance?.sources?.length}
+          {#if stance?.sources?.length && (!collapseText || isExpanded || !isTruncated)}
             {@const areSourcesExpanded =
               expandedSources[sourcesKey(candidate)] ?? false}
             <div class="mt-3 border-t border-stroke pt-3">

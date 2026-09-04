@@ -13,6 +13,7 @@
   export let race: Race;
   export let candidates: Candidate[];
   export let compact = false;
+  export let collapseText = false;
   export let isDraftPreview = false;
   export let showQuality = false;
   export let onToggle: ((candidateName: string) => void) | undefined =
@@ -135,6 +136,7 @@
   {race}
   {candidates}
   {compact}
+  {collapseText}
   {isDraftPreview}
   {showQuality}
 />
