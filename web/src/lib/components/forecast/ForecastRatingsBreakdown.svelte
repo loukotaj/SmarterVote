@@ -9,6 +9,7 @@
 
 <!-- Ratings Counts Grid Card -->
 <section
+  aria-label="Forecast ratings breakdown"
   class="bg-surface/60 border border-stroke rounded-2xl p-6 shadow-sm backdrop-blur-md"
 >
   <p

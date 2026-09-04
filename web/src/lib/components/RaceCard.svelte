@@ -65,7 +65,7 @@
 </script>
 
 <a
-  href="/races/{race.id}"
+  href="/races/{race.id}/"
   class="group block bg-surface rounded-xl border border-stroke hover:border-blue-400 hover:shadow-md transition-all duration-200 overflow-hidden"
 >
   <!-- Card header: badges + date -->

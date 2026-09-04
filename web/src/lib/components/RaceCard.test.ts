@@ -98,7 +98,7 @@ describe("RaceCard content", () => {
     const { container } = render(RaceCard, { race: makeRace() });
 
     expect(container.querySelector("a")?.getAttribute("href")).toBe(
-      "/races/mo-senate-2024",
+      "/races/mo-senate-2024/",
     );
   });
 

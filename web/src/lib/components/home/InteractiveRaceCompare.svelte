@@ -1,5 +1,5 @@
 <script lang="ts">
-  import CandidateComparison from "$lib/components/compare/CandidateComparison.svelte";
+  import FeaturedCandidatePreview from "$lib/components/home/FeaturedCandidatePreview.svelte";
   import type { Race } from "$lib/types";
   import { candidateSlug } from "$lib/utils/format";
 
@@ -12,11 +12,6 @@
   $: selectedRace = races[selectedIndex] ?? races[0];
   $: candidates =
     selectedRace?.candidates.filter((candidate) => !candidate.withdrawn) ?? [];
-  $: previewCandidates = candidates.slice(0, 2);
-  $: hiddenCandidateCount = Math.max(
-    0,
-    candidates.length - previewCandidates.length,
-  );
   // Keep the active pill visible when the selection changes from either the
   // arrow buttons or a pill click.
   $: centerPill(selectedIndex);
@@ -50,7 +45,7 @@
         <div
           class="flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400"
         >
-          Featured comparison
+          Featured race
         </div>
         <h2
           class="mt-2 text-xl font-extrabold tracking-tight text-content sm:text-2xl"
@@ -107,23 +102,15 @@
     </div>
 
     <div class="p-3 lg:p-5" aria-label="Featured comparison preview">
-      <CandidateComparison
-        race={selectedRace}
-        candidates={previewCandidates}
-        compact
-        showQuality
-      />
+      <FeaturedCandidatePreview race={selectedRace} {candidates} />
       <div
         class="mt-4 flex flex-col items-start justify-between gap-3 rounded-xl border border-stroke bg-surface-alt/50 p-4 sm:flex-row sm:items-center"
       >
         <p class="text-sm text-content-muted">
-          Previewing {previewCandidates.length} of {candidates.length} candidates{hiddenCandidateCount >
-          0
-            ? `; ${hiddenCandidateCount} more available`
-            : ""}.
+          All {candidates.length} active candidates are included.
         </p>
         <a
-          href="/races/{selectedRace.id}/compare?candidates={candidates
+          href="/races/{selectedRace.id}/compare/?candidates={candidates
             .map((candidate) => candidateSlug(candidate.name))
             .join(',')}"
           class="inline-flex min-h-11 shrink-0 items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white no-underline transition hover:bg-blue-700"

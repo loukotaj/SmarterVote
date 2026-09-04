@@ -1,11 +1,11 @@
-import { cleanup, render, screen } from "@testing-library/svelte";
+import { cleanup, fireEvent, render, screen } from "@testing-library/svelte";
 import { afterEach, describe, expect, it } from "vitest";
 import ForecastOutlookAnalysis from "./ForecastOutlookAnalysis.svelte";
 
 describe("ForecastOutlookAnalysis", () => {
   afterEach(cleanup);
 
-  it("renders the structured bottom-line/why-favored/opposing-path/uncertainty cards", () => {
+  it("summarizes structured analysis and reveals the details on request", async () => {
     render(ForecastOutlookAnalysis, {
       activeTab: "senate",
       chamberSummary: {
@@ -29,7 +29,17 @@ describe("ForecastOutlookAnalysis", () => {
     });
 
     expect(screen.getByText("Republicans hold a narrow edge.")).toBeTruthy();
+    const details = screen
+      .getByText("Why Republicans Are Favored")
+      .closest("[id]");
+    expect(details?.classList).toContain("hidden");
+
+    await fireEvent.click(
+      screen.getByRole("button", { name: "Show full analysis" }),
+    );
+
     expect(screen.getByText("Why Republicans Are Favored")).toBeTruthy();
+    expect(details?.classList).not.toContain("hidden");
     expect(screen.getByText("Democratic Path to Control")).toBeTruthy();
     expect(screen.getByText("Key Risk & Uncertainty")).toBeTruthy();
   });

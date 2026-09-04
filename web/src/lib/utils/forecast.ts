@@ -698,7 +698,7 @@ export function groupSeatDistribution(
 }
 
 export function raceHref(id: string): string {
-  return `/races/${id}`;
+  return `/races/${id}/`;
 }
 
 /** Most likely single outcome (e.g. "51D - 49R") from a seat distribution. */

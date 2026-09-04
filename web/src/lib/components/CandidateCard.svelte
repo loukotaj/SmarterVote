@@ -96,7 +96,9 @@
         <div>
           <h3 class="candidate-name">
             <a
-              href="/races/{raceId}/{candidateSlug(candidate.name)}{draftQuery}"
+              href="/races/{raceId}/{candidateSlug(
+                candidate.name,
+              )}/{draftQuery}"
               class="candidate-name-link"
             >
               {candidate.name}
@@ -413,7 +415,7 @@
   }
 
   .expand-button {
-    @apply flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium;
+    @apply flex min-h-11 items-center gap-2 text-blue-600 dark:text-blue-400 font-medium;
     @apply transition-colors duration-200;
   }
 

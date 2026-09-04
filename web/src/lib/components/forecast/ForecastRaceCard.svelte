@@ -47,7 +47,7 @@
         </a>
         <a
           href={browser ? raceHref(race.id) : undefined}
-          class="text-[10px] text-content-subtle hover:text-blue-600 dark:hover:text-blue-400 font-extrabold bg-surface border border-stroke/60 px-2 py-0.5 rounded-md transition-all whitespace-nowrap self-start"
+          class="inline-flex min-h-11 items-center text-[10px] text-content-subtle hover:text-blue-600 dark:hover:text-blue-400 font-extrabold bg-surface border border-stroke/60 px-3 py-1 rounded-md transition-all whitespace-nowrap self-start"
         >
           Details ->
         </a>
@@ -153,7 +153,8 @@
       <button
         type="button"
         on:click={onToggleExpand}
-        class="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-bold flex items-center gap-1 focus:outline-none"
+        class="flex min-h-11 items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-500 focus:outline-none dark:text-blue-400 dark:hover:text-blue-300"
+        aria-expanded={isExpanded}
       >
         <span
           class="inline-block transition-transform duration-200"

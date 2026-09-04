@@ -49,7 +49,11 @@ test.describe("forecast page", () => {
     await page.getByRole("button", { name: "Governors", exact: true }).click();
     await expect(page).toHaveURL(/tab=governors/);
     await expect(page.getByText("2026 Nevada Governor Election")).toBeVisible();
-    await expect(page.getByText("Likely D").first()).toBeVisible();
+    await expect(
+      page
+        .getByRole("region", { name: "Forecast ratings breakdown" })
+        .getByText("Likely D"),
+    ).toBeVisible();
   });
 
   test("filtering to a rating with no matches shows a graceful empty state", async ({

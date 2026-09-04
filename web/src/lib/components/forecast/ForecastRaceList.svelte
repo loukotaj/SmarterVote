@@ -18,7 +18,7 @@
   let filterRating = "all";
   let filterParty = "all";
   let sortBy = "control_relevance";
-  let visibleRaceCount = 9;
+  let visibleRaceCount = 3;
   let expandedRaceIds = new Set<string>();
   let expandedRaceTab: ForecastTab = activeTab;
 
@@ -32,7 +32,7 @@
   $: {
     // Reset visible race count on tab or filter change
     (activeTab, selectedState, filterRating, filterParty);
-    visibleRaceCount = 9;
+    visibleRaceCount = 3;
   }
 
   $: if (activeTab !== expandedRaceTab) {
@@ -105,7 +105,7 @@
     {#if sortedRaces.length > visibleRaceCount}
       <div class="p-5 text-center border-t border-stroke/40 bg-surface-alt/5">
         <button
-          on:click={() => (visibleRaceCount += 12)}
+          on:click={() => (visibleRaceCount += 6)}
           class="px-5 py-2.5 bg-surface hover:bg-surface-alt border border-stroke/80 rounded-xl text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 transition-all shadow-sm"
         >
           Show More Races ({sortedRaces.length - visibleRaceCount} remaining)

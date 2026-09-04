@@ -52,7 +52,7 @@
           window.history.replaceState(
             {},
             "",
-            `/races/${slug}/${candidateParam}`,
+            `/races/${slug}/${candidateParam}/`,
           );
         }
       } else {
@@ -179,7 +179,7 @@
         {error}
       </h2>
       <a
-        href="/races/{slug}{isDraftPreview ? '?draft=true' : ''}"
+        href="/races/{slug}/{isDraftPreview ? '?draft=true' : ''}"
         class="mt-4 inline-block text-blue-600 hover:text-blue-400 font-medium"
       >
         &larr; Back to race overview
@@ -275,7 +275,7 @@
     <nav class="nav-bar">
       <div class="flex items-center gap-3">
         <a
-          href="/races/{slug}{isDraftPreview ? '?draft=true' : ''}"
+          href="/races/{slug}/{isDraftPreview ? '?draft=true' : ''}"
           class="back-link"
         >
           <svg
@@ -295,7 +295,7 @@
         </a>
         {#if otherCandidates.length > 0}
           <a
-            href="/races/{slug}/compare?candidates={candidateParam},{candidateSlug(
+            href="/races/{slug}/compare/?candidates={candidateParam},{candidateSlug(
               otherCandidates[0].name,
             )}{isDraftPreview ? '&draft=true' : ''}"
             class="text-xs font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline inline-flex items-center gap-1"
@@ -336,7 +336,7 @@
               <a
                 href="/races/{race.id}/{candidateSlug(
                   other.name,
-                )}{isDraftPreview ? '?draft=true' : ''}"
+                )}/{isDraftPreview ? '?draft=true' : ''}"
                 class="other-chip"
               >
                 {#if other.image_url}
@@ -883,8 +883,8 @@
   }
 
   .summary-source-link {
-    @apply inline-flex min-h-8 items-center gap-1 py-1 text-xs text-blue-600 dark:text-blue-400
-           hover:underline truncate max-w-xs sm:max-w-sm no-underline;
+    @apply inline-flex min-h-8 min-w-0 max-w-full items-center gap-1 truncate py-1 text-xs text-blue-600
+           no-underline hover:underline dark:text-blue-400 sm:max-w-sm;
   }
 
   /* Entry source link (career + education) */

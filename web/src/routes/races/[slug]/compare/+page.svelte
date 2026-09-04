@@ -82,7 +82,7 @@
         current = current.filter((value) => value !== selectedSlug);
     } else current.push(selectedSlug);
     params.set("candidates", current.join(","));
-    goto(`/races/${slug}/compare?${params.toString()}`, {
+    goto(`/races/${slug}/compare/?${params.toString()}`, {
       replaceState: true,
       keepFocus: true,
       noScroll: true,
@@ -149,7 +149,7 @@
       <nav class="mb-1 text-xs uppercase tracking-wide text-content-subtle">
         <a href="/" class="hover:text-content">Home</a> &middot;
         <a
-          href="/races/{slug}{isDraftPreview ? '?draft=true' : ''}"
+          href="/races/{slug}/{isDraftPreview ? '?draft=true' : ''}"
           class="hover:text-content">Race Detail</a
         >
         &middot; <span class="text-content-muted">Compare</span>
@@ -164,7 +164,7 @@
         </p>{/if}
     </div>
     <a
-      href="/races/{slug}{isDraftPreview ? '?draft=true' : ''}"
+      href="/races/{slug}/{isDraftPreview ? '?draft=true' : ''}"
       class="inline-flex items-center gap-1.5 rounded-lg border border-stroke px-4 py-2 text-sm font-semibold text-content no-underline transition-colors hover:bg-surface-alt"
       >← Back to Race Overview</a
     >
@@ -188,7 +188,7 @@
       </h2>
       <p class="text-red-600 dark:text-red-400">{error}</p>
       <a
-        href="/races/{slug}"
+        href="/races/{slug}/"
         class="mt-4 inline-block font-semibold text-blue-600 underline dark:text-blue-400"
         >Return to Race Overview</a
       >
@@ -202,7 +202,7 @@
         Please select candidates from the race detail page to compare them.
       </p>
       <a
-        href="/races/{slug}"
+        href="/races/{slug}/"
         class="btn-primary mt-4 inline-flex text-sm font-semibold no-underline"
         >Go Select Candidates</a
       >

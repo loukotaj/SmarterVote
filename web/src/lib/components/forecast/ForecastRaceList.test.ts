@@ -81,7 +81,7 @@ describe("ForecastRaceList", () => {
     expect(onClear).toHaveBeenCalledTimes(1);
   });
 
-  it("paginates beyond the initial 9 races via the Show More button", async () => {
+  it("paginates beyond the initial 3 races via the Show More button", async () => {
     const races = Array.from({ length: 12 }, (_, i) =>
       makeRace(`race-${i}`, "tossup", "Democratic", `State${i}`),
     );
@@ -95,12 +95,13 @@ describe("ForecastRaceList", () => {
     });
 
     expect(screen.getByText("State0 race race-0")).toBeTruthy();
-    expect(screen.queryByText("State9 race race-9")).toBeNull();
-    expect(screen.getByText(/Show More Races \(3 remaining\)/)).toBeTruthy();
+    expect(screen.queryByText("State3 race race-3")).toBeNull();
+    expect(screen.getByText(/Show More Races \(9 remaining\)/)).toBeTruthy();
 
     await fireEvent.click(screen.getByText(/Show More Races/));
 
-    expect(screen.getByText("State9 race race-9")).toBeTruthy();
-    expect(screen.queryByText(/Show More Races/)).toBeNull();
+    expect(screen.getByText("State3 race race-3")).toBeTruthy();
+    expect(screen.queryByText("State9 race race-9")).toBeNull();
+    expect(screen.getByText(/Show More Races \(3 remaining\)/)).toBeTruthy();
   });
 });

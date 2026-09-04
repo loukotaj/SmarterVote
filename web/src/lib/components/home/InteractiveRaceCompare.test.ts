@@ -96,7 +96,7 @@ describe("InteractiveRaceCompare visibility", () => {
       races: [race("a")],
     });
 
-    expect(container.textContent).toContain("Featured comparison");
+    expect(container.textContent).toContain("Featured race");
   });
 
   it("excludes withdrawn candidates from the comparison", () => {
@@ -114,7 +114,7 @@ describe("InteractiveRaceCompare visibility", () => {
     expect(container.textContent).not.toContain("Gone Away");
   });
 
-  it("keeps the homepage preview to two candidates and links to the full comparison", () => {
+  it("includes every active candidate and links to the full comparison", () => {
     const { container } = render(InteractiveRaceCompare, {
       races: [
         race("a", [
@@ -125,11 +125,11 @@ describe("InteractiveRaceCompare visibility", () => {
       ],
     });
 
-    expect(container.textContent).toContain("Previewing 2 of 3 candidates");
-    expect(container.textContent).not.toContain("Alex Smith");
+    expect(container.textContent).toContain("All 3 active candidates");
+    expect(container.textContent).toContain("Alex Smith");
     expect(
       container.querySelector(
-        'a[href="/races/a/compare?candidates=jane-doe,john-roe,alex-smith"]',
+        'a[href="/races/a/compare/?candidates=jane-doe,john-roe,alex-smith"]',
       ),
     ).not.toBeNull();
   });
