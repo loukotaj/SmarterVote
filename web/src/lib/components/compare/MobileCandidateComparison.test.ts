@@ -88,4 +88,35 @@ describe("MobileCandidateComparison", () => {
     await fireEvent.error(document.querySelector("img") as HTMLImageElement);
     expect(screen.getByText("AE")).toBeTruthy();
   });
+
+  it("uses a short expandable position preview in compact mode", async () => {
+    const longStance =
+      "Alex Example supports expanding affordable healthcare coverage while protecting rural hospitals, lowering prescription costs, and preserving access to local doctors. The complete position includes additional implementation details.";
+    const compactCandidate = {
+      ...candidate,
+      issues: {
+        Healthcare: {
+          ...candidate.issues.Healthcare,
+          stance: longStance,
+        },
+      },
+    } as Candidate;
+
+    render(MobileCandidateComparison, {
+      race,
+      candidates: [compactCandidate],
+      compact: true,
+      collapseText: true,
+    });
+
+    expect(screen.queryByText(longStance)).toBeNull();
+    expect(screen.queryByRole("link", { name: /First source/ })).toBeNull();
+
+    await fireEvent.click(
+      screen.getByRole("button", { name: "Show more for Alex Example" }),
+    );
+
+    expect(screen.getByText(longStance)).toBeTruthy();
+    expect(screen.getByRole("link", { name: /First source/ })).toBeTruthy();
+  });
 });
