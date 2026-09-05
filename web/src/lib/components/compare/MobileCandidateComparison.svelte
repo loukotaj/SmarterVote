@@ -6,7 +6,7 @@
   import { CANONICAL_ISSUES, getIssueDisplayName } from "$lib/types";
   import { candidateSlug } from "$lib/utils/format";
   import { partyAbbr } from "$lib/utils/party";
-  import { stancePreview } from "$lib/utils/stance";
+  import { collapsedPreview, stancePreview } from "$lib/utils/stance";
 
   export let race: Race;
   export let candidates: Candidate[];
@@ -59,16 +59,7 @@
 
   function positionPreview(stance: string): string {
     if (!collapseText) return stancePreview(stance);
-
-    const normalized = stance.trim();
-    const limit = 120;
-    if (normalized.length <= limit) return normalized;
-
-    const shortened = normalized.slice(0, limit);
-    const lastSpace = shortened.lastIndexOf(" ");
-    return `${shortened
-      .slice(0, lastSpace > limit * 0.66 ? lastSpace : limit)
-      .trim()}…`;
+    return collapsedPreview(stance);
   }
 </script>
 

@@ -48,3 +48,18 @@ export function stancePreview(
   const lastSpace = shortened.lastIndexOf(" ");
   return `${shortened.slice(0, lastSpace > fallbackLength * 0.66 ? lastSpace : fallbackLength).trim()}…`;
 }
+
+/**
+ * Hard-capped preview for dense modules (the homepage comparison) where a
+ * sentence-bounded preview can still run several hundred characters.
+ */
+export function collapsedPreview(text: string, limit = 120): string {
+  const normalized = text.trim();
+  if (normalized.length <= limit) return normalized;
+
+  const shortened = normalized.slice(0, limit);
+  const lastSpace = shortened.lastIndexOf(" ");
+  return `${shortened
+    .slice(0, lastSpace > limit * 0.66 ? lastSpace : limit)
+    .trim()}…`;
+}

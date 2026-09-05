@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { stancePreview } from "./stance";
+import { collapsedPreview, stancePreview } from "./stance";
 
 describe("stancePreview", () => {
   it("keeps abbreviations inside the first sentence", () => {
@@ -32,5 +32,31 @@ describe("stancePreview", () => {
     const preview = stancePreview("word ".repeat(50), 40);
     expect(preview.endsWith("…")).toBe(true);
     expect(preview.length).toBeLessThanOrEqual(41);
+  });
+});
+
+describe("collapsedPreview", () => {
+  it("returns short text unchanged", () => {
+    expect(collapsedPreview("A brief position.")).toBe("A brief position.");
+  });
+
+  it("hard-caps long text that a sentence-bounded preview would keep whole", () => {
+    const sentence = `${"word ".repeat(60).trim()}.`;
+    const result = collapsedPreview(sentence);
+
+    expect(result.length).toBeLessThanOrEqual(121);
+    expect(result.endsWith("…")).toBe(true);
+  });
+
+  it("breaks on a word boundary rather than mid-word", () => {
+    const result = collapsedPreview(`${"alpha ".repeat(40).trim()}.`);
+
+    expect(result.replace("…", "").trim().endsWith("alpha")).toBe(true);
+  });
+
+  it("honors a custom limit", () => {
+    const result = collapsedPreview(`${"beta ".repeat(40).trim()}.`, 20);
+
+    expect(result.length).toBeLessThanOrEqual(21);
   });
 });
