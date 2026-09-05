@@ -215,4 +215,19 @@ describe("CandidateComparison", () => {
 
     expect(desktop.getByText(longSummary)).toBeTruthy();
   });
+
+  it("does not offset the sticky header inside its scroll container", () => {
+    const { container } = render(CandidateComparison, {
+      race,
+      candidates: [candidate],
+    });
+    const table = container.querySelector('[role="table"]')!;
+    const header = table.firstElementChild as HTMLElement;
+
+    // A viewport-sized offset here would push the header over the first row,
+    // because the overflow-x wrapper is its scroll container.
+    expect(header.className).toContain("sticky");
+    expect(header.className).toContain("top-0");
+    expect(header.className).not.toContain("site-header-height");
+  });
 });

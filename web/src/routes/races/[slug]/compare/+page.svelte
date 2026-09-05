@@ -13,7 +13,7 @@
 
   let race: Race | null = data.prerenderedRace ?? null;
   let candidates: Candidate[] = race
-    ? race.candidates.filter((candidate) => !candidate.withdrawn).slice(0, 2)
+    ? race.candidates.filter((candidate) => !candidate.withdrawn)
     : [];
   let loading = !race;
   let error: string | null = null;
@@ -62,9 +62,7 @@
       );
     }
     if (candidates.length === 0)
-      candidates = race.candidates
-        .filter((candidate) => !candidate.withdrawn)
-        .slice(0, 2);
+      candidates = race.candidates.filter((candidate) => !candidate.withdrawn);
   }
 
   function toggleSelection(candidateName: string) {
@@ -75,7 +73,6 @@
     if (current.length === 0)
       current = race.candidates
         .filter((candidate) => !candidate.withdrawn)
-        .slice(0, 2)
         .map((candidate) => candidateSlug(candidate.name));
     if (current.includes(selectedSlug)) {
       if (current.length > 1)

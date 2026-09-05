@@ -261,7 +261,7 @@
             autocomplete="street-address"
             role="combobox"
             aria-autocomplete="list"
-            aria-controls="address-suggestions"
+            aria-controls={suggestionsOpen ? "address-suggestions" : undefined}
             aria-expanded={suggestionsOpen}
             aria-activedescendant={suggestionsOpen && activeSuggestionIndex >= 0
               ? `address-suggestion-${suggestions[activeSuggestionIndex].id}`
