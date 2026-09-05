@@ -66,7 +66,7 @@
               type="checkbox"
               checked={selected}
               on:change={() => dispatch("toggleSelect")}
-              class="w-5 h-5 cursor-pointer text-blue-600 border-stroke rounded focus:ring-blue-500 bg-surface"
+              class="w-6 h-6 cursor-pointer text-blue-600 border-stroke rounded focus:ring-blue-500 bg-surface"
               aria-label="Select {candidate.name} to compare"
             />
           </div>
@@ -498,7 +498,7 @@
   }
 
   .entry-source-link {
-    @apply inline-flex items-center gap-1 mt-2 text-xs text-blue-600 dark:text-blue-400 hover:underline;
+    @apply inline-flex min-h-6 items-center gap-1 mt-2 py-1 text-xs text-blue-600 dark:text-blue-400 hover:underline;
   }
 
   .education-list {
