@@ -305,8 +305,11 @@
 
 <style>
   :root {
-    --map-active: #3b82f6;
-    --map-selected: #1d4ed8;
+    /* Teal, not blue: this map marks where research exists, so it must not
+       read as a party result map. The --color-*-d / --color-*-r ramps below
+       are the forecast's party ratings and stay blue/red on purpose. */
+    --map-active: #0d9488;
+    --map-selected: #0f766e;
     --map-selected-stroke: #ffffff;
     --map-inactive: #e5e7eb;
     --map-stroke: #d1d5db;
@@ -326,8 +329,8 @@
   }
 
   :global(.dark) {
-    --map-active: #3b82f6;
-    --map-selected: #60a5fa;
+    --map-active: #14b8a6;
+    --map-selected: #2dd4bf;
     --map-selected-stroke: #0f172a;
     --map-inactive: #1f2937;
     --map-stroke: #374151;
