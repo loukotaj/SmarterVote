@@ -1513,7 +1513,7 @@
   }
 
   .poll-card-source {
-    @apply inline-flex items-center gap-1 text-xs text-blue-500 hover:text-blue-700 mt-auto;
+    @apply inline-flex min-h-6 items-center gap-1 py-1 text-xs text-blue-500 hover:text-blue-700 mt-auto;
   }
 
   /* Misc */
