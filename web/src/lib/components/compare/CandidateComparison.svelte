@@ -134,7 +134,7 @@
             type="checkbox"
             {checked}
             on:change={() => onToggle?.(candidate.name)}
-            class="h-4 w-4 cursor-pointer rounded border-stroke bg-surface text-blue-600 focus:ring-blue-500"
+            class="h-6 w-6 cursor-pointer rounded border-stroke bg-surface text-blue-600 focus:ring-blue-500"
           />
           {candidate.name}
           {#if candidate.party}<span
@@ -186,9 +186,12 @@
       aria-label="Candidate comparison"
       aria-colcount={candidates.length + 1}
     >
+      <!-- The overflow-x wrapper is this header's scroll container, so a
+           viewport-sized top offset would push it down over the first row
+           instead of clearing the site header. -->
       <div
         class:sticky={!compact}
-        class:top-[var(--site-header-height)]={!compact}
+        class:top-0={!compact}
         class="z-30 w-full border-b border-stroke bg-surface py-4 shadow-sm"
       >
         <div
@@ -291,7 +294,7 @@
                     href={candidate.website.trim()}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
+                    class="inline-flex min-h-6 items-center py-1 text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
                     >Visit campaign website ↗</a
                   >
                 </div>{/if}
@@ -513,7 +516,7 @@
                         href={sourceUrl.trim()}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
+                        class="inline-flex min-h-6 items-center py-1 text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
                         >{row.link} ↗</a
                       >{/if}{:else}<span
                       class="text-xs italic text-content-faint"

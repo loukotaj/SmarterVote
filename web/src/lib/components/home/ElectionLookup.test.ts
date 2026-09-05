@@ -178,4 +178,13 @@ describe("ElectionLookup", () => {
     expect(resolveFirst).toHaveBeenCalled();
     expect(input.value).toBe("First resolved address");
   });
+
+  it("only references the suggestion listbox while it exists", async () => {
+    render(ElectionLookup);
+    const input = screen.getByRole("combobox") as HTMLInputElement;
+
+    expect(input.getAttribute("aria-expanded")).toBe("false");
+    expect(input.getAttribute("aria-controls")).toBeNull();
+    expect(document.getElementById("address-suggestions")).toBeNull();
+  });
 });
