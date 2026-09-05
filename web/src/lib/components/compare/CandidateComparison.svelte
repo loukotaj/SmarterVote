@@ -7,7 +7,7 @@
   import { CANONICAL_ISSUES, getIssueDisplayName } from "$lib/types";
   import { candidateSlug } from "$lib/utils/format";
   import { partyAbbr } from "$lib/utils/party";
-  import { stancePreview } from "$lib/utils/stance";
+  import { collapsedPreview, stancePreview } from "$lib/utils/stance";
   import { isExternalUrl } from "$lib/utils/url";
 
   export let race: Race;
@@ -21,7 +21,22 @@
 
   let expandedSources: Record<string, boolean> = {};
   let expandedStances: Record<string, boolean> = {};
+  let expandedSummaries: Record<string, boolean> = {};
   let failedImages: Record<string, boolean> = {};
+
+  /** Collapsed previews keep the homepage module short; full pages stay verbatim. */
+  function summaryPreview(summary: string): string {
+    if (!collapseText) return summary;
+    return collapsedPreview(summary);
+  }
+
+  function toggleSummary(candidate: Candidate) {
+    const key = candidate.name;
+    expandedSummaries = {
+      ...expandedSummaries,
+      [key]: !expandedSummaries[key],
+    };
+  }
 
   function stanceKey(issue: string, candidate: Candidate): string {
     return `${issue}:${candidate.name}:stance`;
@@ -247,11 +262,28 @@
             Biography & Summary
           </div>
           {#each candidates as candidate}
+            {@const isSummaryExpanded =
+              expandedSummaries[candidate.name] ?? false}
+            {@const summaryText = candidate.summary ?? ""}
+            {@const collapsedSummary = summaryPreview(summaryText)}
             <div
               role="cell"
-              class="border-r border-stroke p-6 text-sm leading-relaxed text-content-muted last:border-none"
+              class="border-r border-stroke {compact
+                ? 'p-4'
+                : 'p-6'} text-sm leading-relaxed text-content-muted last:border-none"
             >
-              {candidate.summary}
+              {isSummaryExpanded ? summaryText : collapsedSummary}
+              {#if collapsedSummary !== summaryText.trim()}
+                <button
+                  type="button"
+                  aria-expanded={isSummaryExpanded}
+                  on:click={() => toggleSummary(candidate)}
+                  class="ml-1 inline-flex min-h-6 items-start text-sm font-bold leading-5 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                >
+                  {isSummaryExpanded ? "Show less" : "Show more"}
+                  <span class="sr-only"> of {candidate.name}'s biography</span>
+                </button>
+              {/if}
               {#if !compact && isExternalUrl(candidate.website)}<div
                   class="mt-3"
                 >
@@ -299,13 +331,17 @@
             {#each candidates as candidate}
               {@const stance = candidate.issues?.[issueKey]}
               {@const preview = stance
-                ? stancePreview(stance.stance, 320, 220)
+                ? collapseText
+                  ? collapsedPreview(stance.stance)
+                  : stancePreview(stance.stance, 320, 220)
                 : ""}
               {@const isStanceExpanded =
                 expandedStances[stanceKey(issueKey, candidate)] ?? false}
               <div
                 role="cell"
-                class="flex flex-col gap-3 border-r border-stroke p-6 last:border-none"
+                class="flex flex-col gap-3 border-r border-stroke {compact
+                  ? 'p-4'
+                  : 'p-6'} last:border-none"
               >
                 {#if stance}
                   <div>

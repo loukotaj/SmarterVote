@@ -178,4 +178,41 @@ describe("CandidateComparison", () => {
     expect(note).toContain("Separate AI models review sourcing");
     expect(note).toContain("not a guarantee that every claim is correct");
   });
+
+  it("collapses the desktop biography when collapseText is set", async () => {
+    const longSummary =
+      "Casey Candidate is an independent contender for the seat and has spent two decades working on local transit policy, housing supply, and municipal budgeting before entering this race.";
+    const verbose = { ...candidate, summary: longSummary };
+    const { container } = render(CandidateComparison, {
+      race: { ...race, candidates: [verbose] },
+      candidates: [verbose],
+      compact: true,
+      collapseText: true,
+    });
+    const desktop = within(
+      container.querySelector("[data-desktop-candidate-comparison]")!,
+    );
+
+    expect(desktop.queryByText(longSummary)).toBeNull();
+
+    const toggle = desktop.getAllByRole("button", { name: /Show more/ })[0];
+    await fireEvent.click(toggle);
+
+    expect(desktop.getByText(longSummary)).toBeTruthy();
+  });
+
+  it("leaves the biography verbatim without collapseText", () => {
+    const longSummary =
+      "Casey Candidate is an independent contender for the seat and has spent two decades working on local transit policy, housing supply, and municipal budgeting before entering this race.";
+    const verbose = { ...candidate, summary: longSummary };
+    const { container } = render(CandidateComparison, {
+      race: { ...race, candidates: [verbose] },
+      candidates: [verbose],
+    });
+    const desktop = within(
+      container.querySelector("[data-desktop-candidate-comparison]")!,
+    );
+
+    expect(desktop.getByText(longSummary)).toBeTruthy();
+  });
 });
